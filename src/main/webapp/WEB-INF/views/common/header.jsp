@@ -268,10 +268,10 @@
                             <i class="fas fa-user"></i> <span class="nav-text">마이 페이지</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./email-inbox.html">-&nbsp;개인정보 설정</a></li>
-                            <li><a href="./email-read.html">-&nbsp;출퇴근 현황</a></li>
-                            <li><a href="./email-compose.html">-&nbsp;근태점수</a></li>
-                            <li><a href="./email-compose.html">-&nbsp;연차</a></li>
+                            <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
+                            <li><a href="attendance.wo">-&nbsp;출퇴근 현황</a></li>
+                            <li><a href="diligenceAndLaziness.wo">-&nbsp;근태점수</a></li>
+                            <li><a href="annualLeave.wo">-&nbsp;연차</a></li>
                         </ul>
                     </li>
                     
