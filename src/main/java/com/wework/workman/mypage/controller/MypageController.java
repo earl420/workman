@@ -4,9 +4,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.wework.workman.mypage.model.service.MypageService;
 
+@SessionAttributes("")
 @Controller
 public class MypageController {
 	
@@ -15,23 +17,23 @@ public class MypageController {
 	
 
 	@RequestMapping("empInfo.wo")
-	public String empInfo() {
-		return "mypage/empInfo.jsp";
+	public String empInfoView() {
+		return "myPage/empInfo";
 	}
 	
 	@RequestMapping("attendance.wo")
 	public String attendance() {
-		return "mypage/attendance.jsp";
+		return "myPage/attendance";
 	}
 	
 	@RequestMapping("diligenceAndLaziness.wo")
 	public String diligenceAndLaziness() {
-		return "diligenceAndLaziness.jsp";
+		return "myPage/diligenceAndLaziness";
 	}
 	
 	@RequestMapping("annualLeave.wo")
 	public String annualLeave() {
-		return "annualLeave.jsp";
+		return "myPage/annualLeave";
 	}
 	
 	
