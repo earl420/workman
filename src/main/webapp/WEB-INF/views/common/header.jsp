@@ -16,6 +16,8 @@
 
 <body>
 
+	<c:set var="contextPath"></c:set>
+
     
   <!--**********************************
             Nav header start
@@ -268,10 +270,11 @@
                             <i class="fas fa-user"></i> <span class="nav-text">마이 페이지</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
+                            <li><a href="myPageView.wo">-&nbsp;마이페이지</a></li>
                             <li><a href="attendance.wo">-&nbsp;출퇴근 현황</a></li>
                             <li><a href="diligenceAndLaziness.wo">-&nbsp;근태점수</a></li>
                             <li><a href="annualLeave.wo">-&nbsp;연차</a></li>
+                            <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
                         </ul>
                     </li>
                     

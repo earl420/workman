@@ -29,7 +29,7 @@
         Main wrapper start
     ***********************************-->
 	<div id="main-wrapper" style="background: white;">
-		<c:import url="common/header.jsp"></c:import>
+		<c:import url="../common/header.jsp"></c:import>
 		<!--**********************************
             Content body start
         ***********************************-->
@@ -46,7 +46,7 @@
 		<!--**********************************
             Content body end
         ***********************************-->
-		<c:import url="common/footer.jsp"></c:import>	
+		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 	<!--**********************************
         Main wrapper end

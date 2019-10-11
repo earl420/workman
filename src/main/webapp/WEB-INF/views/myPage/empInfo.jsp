@@ -29,49 +29,55 @@
         Main wrapper start
     ***********************************-->
 	<div id="main-wrapper" style="background: white;">
-		<c:import url="common/header.jsp"></c:import>
+		<c:import url="../common/header.jsp"></c:import>
 		<!--**********************************
             Content body start
         ***********************************-->
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
+				<h1>내 정보관리</h1>
+				
 				<form action="empUpdate.wo">
-					<table>
+					<table width="600" celspacing="5">
 						<tr>
-							<td>사번</td>
-							<td><input type="number" name="eNum" value="${ loginEmp.eNum }" readonly></td>
+							<td width="150">사번</td>
+							<td><c:out value=""/></td>
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" name="eName" value="${ loginEmp.name }" readonly></td>
+							<td><c:out value=""></c:out></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="email" name="email" value="${ loginEmp.email }"></td>
+							<td><c:out value=""></c:out></td>
 						</tr>
 						<tr>
 							<td>생년월일</td>
-							<td><input type="text" name="birth" value="${ loginEmp.birth }"></td>
+							<td><c:out value=""></c:out></td>
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" name="phone" value="${ liginEmp.phone }"></td>
+							<td><input type="text" name="phone" value=""></td>
 						</tr>
 						<tr>
 							<td>직급</td>
-							<td></td>
+							<td><c:out value=""></c:out></td>
 						</tr>
 						<tr>
 							<td>부서</td>
-							<td></td>
+							<td><c:out value=""></c:out></td>
 						</tr>
 						<tr>
 							<td>입사일</td>
-							<td></td>
+							<td><c:out value=""></c:out></td>
 						</tr>
 					</table>
+					<button type="button">수정</button>
 				</form>
+				<br><br><br><br>
 			</div>
+				
+			
 			<!-- row -->
 	
 			<!-- #/ container -->
@@ -79,10 +85,10 @@
 		<!--**********************************
             Content body end
         ***********************************-->
-		<c:import url="common/footer.jsp"></c:import>	
+		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 	<!--**********************************
         Main wrapper end
-    ***********************************--> url="../common/footer.jsp"/>
+    ***********************************-->
 </body>
 </html>
