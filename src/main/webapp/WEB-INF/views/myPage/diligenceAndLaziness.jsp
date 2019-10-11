@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>근태점수</title>
+<title>근태 현황</title>
 </head>
 <body>
 
@@ -36,6 +36,29 @@
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
 				
+				<h1>근태 현황</h1>
+				
+				<table align="center" cellspacing="0" border="1" width="700">
+					<tr>
+						<th>번호</th>
+						<th width="300">프로젝트명</th>
+						<th>프로젝트 상태</th>
+						<th>기한</th>
+						<th>점수</th>
+					</tr>
+					
+					<%-- <c:forEach> --%>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+				<%-- 	</c:forEach> --%>
+				
+				
+				</table>
 
 
 			</div>

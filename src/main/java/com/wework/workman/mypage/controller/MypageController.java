@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.service.MypageService;
@@ -42,9 +43,9 @@ public class MypageController {
 		return "myPage/diligenceAndLaziness";
 	}
 	
-	@RequestMapping("annualLeave.wo")
+	@RequestMapping("holidayInfo.wo")
 	public String annualLeave() {
-		return "myPage/annualLeave";
+		return "myPage/holidayInfo";
 	}
 	
 	
@@ -62,8 +63,23 @@ public class MypageController {
 		if(loginMan != null && bcryptPasswordEncoder.matches(m.getePwd(), loginMan.getePwd())) {
 			model.addAttribute("loginMan", loginMan);
 			return "redirect:home.wo";
+		
+		}else {
+			
+			
 		}
 		
+	}
+	
+	/**
+	 * 로그아웃
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping("logout.wo")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		return "redirect:login.wo";
 	}
 	
 	

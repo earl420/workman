@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>연차</title>
+<title>휴가 현황</title>
 </head>
 <body>
 

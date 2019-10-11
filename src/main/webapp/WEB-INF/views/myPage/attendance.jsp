@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>출퇴근 현황</title>
+<title>출/퇴근 현황</title>
 </head>
 <body>
 	
