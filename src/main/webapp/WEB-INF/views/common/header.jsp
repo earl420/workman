@@ -39,7 +39,7 @@
             Header start
         ***********************************-->
         <div class="header">    
-            <div class="header-content clearfix">
+            <div class="header-content clearfix" style="border-bottom: 1px solid gray;">
                 
                 <div class="nav-control">
                     <div class="hamburger">
@@ -233,7 +233,7 @@
                             <i class="fas fa-calculator"></i><span class="nav-text">총무/회계</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./app-profile.html">-&nbsp;공지사항</a></li>
+                            <li><a href="acnoticeList.wo">-&nbsp;공지사항</a></li>
                             <li><a href="./app-profile.html">-&nbsp;매출관리</a></li>
                             <li><a href="./app-calender.html">-&nbsp;O/S관리</a></li>
                             <li><a href="./app-calender.html">-&nbsp;사내물품 관리</a></li>
@@ -295,6 +295,7 @@
     <!--**********************************
         Scripts
     ***********************************-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="resources/plugins/common/common.min.js"></script>
     <script src="resources/js/custom.min.js"></script>
     <script src="resources/js/settings.js"></script>
