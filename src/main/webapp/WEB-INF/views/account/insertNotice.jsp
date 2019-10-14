@@ -79,7 +79,8 @@
 									</select>
 								</div>
 							</div>
-							<p align="left" style="padding-left: 114px;"><label for="ir1">본문</label></p>
+							<p align="left" style="padding-left: 114px;"><label>본문</label></p>
+							<!-- 일반 회계공지 
 							<div class="form-group row" style="padding-left: 30px;">
 								
 								<div class="col-lg-12" style="padding-left: 80px;">
@@ -94,6 +95,13 @@
 									<input multiple="multiple" type="file" id="file"
 										name="file" value="파일">
 								</div>
+							</div> -->
+							<div class="form-group row" style="padding-left: 30px;">
+								
+								<div class="col-lg-12" style="padding-left: 80px;">
+									<div id="grid"></div>
+								</div>
+								
 							</div>
 							<button type="submit" class="btn mb-1 btn-outline-warning" id="saveBtn">저장</button>
 						</form>
@@ -111,8 +119,8 @@
 	<!--**********************************
         Main wrapper end
     ***********************************-->
-	<script src="resources/account/js/insertNotice.js"></script>
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+	<script src="resources/account/js/insertNotice.js"></script>
 	<script type="text/javascript">
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
