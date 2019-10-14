@@ -36,6 +36,43 @@
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
 				
+				<h1>출/퇴근 현황</h1>
+				<br><br>
+				
+				<h5 align="left">올해 근퇴 통계</h3>
+				
+				<table align="center" cellspacing="0" border="1" width="1200">
+					<tr>
+						<th width="150" height="50">근무시간</th>
+						<td colspan="3"></td>
+					</tr>
+					<tr>
+						<th height="50">지각</th>
+						<td width="300"></td>
+						<th width="150">월 평균 지각</th>
+						<td width="300"></td>
+					</tr>
+					<tr>
+						<th height="50">미체크</th>
+						<td></td>
+						<th>비정상 퇴근</th>
+						<td></td>
+					</tr>
+				</table>
+				
+				<br><br>
+				
+				<h5 align="left">올해 근퇴 통계</h3>
+				
+				<table align="center" cellspacing="0" border="1" width="1200">
+					<tr>
+						<th height="50">이름</th>
+						<th>소속</th>
+						<th>지각/미체크</th>
+						<th>상세</th>
+					</tr>
+				
+				</table>
 
 
 			</div>

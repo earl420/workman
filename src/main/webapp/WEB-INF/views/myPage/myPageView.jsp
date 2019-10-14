@@ -5,6 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+	div{
+		border : 1px solid;
+	}
+	
+</style>
 <title>마이 페이지</title>
 </head>
 <body>
@@ -34,10 +40,39 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-			<div class="content-fluid" style="height: 100px;" align="center">
-				
-
-
+			<div div class="content-fluid" style="height: 100px;" align="center">
+					<div>
+						<img src="" alt=""> <!--프로필 사진-->프로필 사진
+						<br><br>
+						
+						<c:out value="">이름</c:out>
+						<c:out value="">직급</c:out>
+						<br><br>
+						
+						<c:out value="">부서</c:out>
+						<c:out value="">직책</c:out>
+						<br><br>
+						
+						사내전화 : <c:out value=""></c:out> <br>
+						휴대전화 : <c:out value=""></c:out> <br>
+						이메일 :  <c:out value=""></c:out> <br>
+						<br><br>
+						
+						<h3>남은휴가 <c:out value=""></c:out></h3>
+					</div>
+					<div>
+					<div>
+						결제 처리
+						<br><br><br><br><br>
+						<br>
+					</div>
+	
+					<div>
+						내 프로젝트
+						<br><br><br><br><br>
+						<br>
+					</div>
+				</div>
 			</div>
 			<!-- row -->
 

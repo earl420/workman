@@ -38,9 +38,9 @@
 				
 				<h1>근태 현황</h1>
 				
-				<table align="center" cellspacing="0" border="1" width="700">
+				<table align="center" cellspacing="0" border="1" width="1200">
 					<tr>
-						<th>번호</th>
+						<th height="50">번호</th>
 						<th width="300">프로젝트명</th>
 						<th>프로젝트 상태</th>
 						<th>기한</th>
