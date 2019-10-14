@@ -16,6 +16,8 @@
 
 <body>
 
+	<c:set var="contextPath"></c:set>
+
     
   <!--**********************************
             Nav header start
@@ -39,7 +41,7 @@
             Header start
         ***********************************-->
         <div class="header">    
-            <div class="header-content clearfix">
+            <div class="header-content clearfix" style="border-bottom: 1px solid gray;">
                 
                 <div class="nav-control">
                     <div class="hamburger">
@@ -233,7 +235,7 @@
                             <i class="fas fa-calculator"></i><span class="nav-text">총무/회계</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./app-profile.html">-&nbsp;공지사항</a></li>
+                            <li><a href="acnoticeList.wo">-&nbsp;공지사항</a></li>
                             <li><a href="./app-profile.html">-&nbsp;매출관리</a></li>
                             <li><a href="./app-calender.html">-&nbsp;O/S관리</a></li>
                             <li><a href="./app-calender.html">-&nbsp;사내물품 관리</a></li>
@@ -268,10 +270,11 @@
                             <i class="fas fa-user"></i> <span class="nav-text">마이 페이지</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./email-inbox.html">-&nbsp;개인정보 설정</a></li>
-                            <li><a href="./email-read.html">-&nbsp;출퇴근 현황</a></li>
-                            <li><a href="./email-compose.html">-&nbsp;근태점수</a></li>
-                            <li><a href="./email-compose.html">-&nbsp;연차</a></li>
+                            <li><a href="myPageView.wo">-&nbsp;마이 페이지</a></li>
+                            <li><a href="holidayInfo.wo">-&nbsp;휴가 현황</a></li>
+                            <li><a href="attendance.wo">-&nbsp;출/퇴근 현황</a></li>
+                            <li><a href="diligenceAndLaziness.wo">-&nbsp;근태 현황</a></li>
+                            <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
                         </ul>
                     </li>
                     
@@ -295,6 +298,7 @@
     <!--**********************************
         Scripts
     ***********************************-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="resources/plugins/common/common.min.js"></script>
     <script src="resources/js/custom.min.js"></script>
     <script src="resources/js/settings.js"></script>
