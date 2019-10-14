@@ -260,7 +260,7 @@
                             <i class="fas fa-calendar-alt"></i><span class="nav-text">일정</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./index.html">-&nbsp;일정상세보기</a></li>
+                            <li><a href="calDetail.wo">-&nbsp;일정상세보기</a></li>
                             <li><a href="./index.html">-&nbsp;일정 등록</a></li>
                             
                         </ul>

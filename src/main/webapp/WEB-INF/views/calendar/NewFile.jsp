@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 
 
   <title>
-   	Calendar
+    Calendar
   </title>
 
 
@@ -40,10 +41,6 @@
 
   <link href='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.css' rel='stylesheet' />
 
-  <link href='https://unpkg.com/@fullcalendar/list@4.3.0/main.min.css' rel='stylesheet' />
-
-  <link href='https://unpkg.com/@fullcalendar/bootstrap@4.3.0/main.min.css' rel='stylesheet' />
-
 
 <script src='/assets/demo-to-codepen.js'></script>
 
@@ -56,30 +53,20 @@
 
   <script src='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.js'></script>
 
-  <script src='https://unpkg.com/@fullcalendar/list@4.3.0/main.min.js'></script>
-
-  <script src='https://unpkg.com/@fullcalendar/bootstrap@4.3.0/main.min.js'></script>
 
 
-
-  <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
-<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
-<script>
+  <script>
 
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'dayGrid', 'timeGrid', 'list', 'bootstrap' ],
-      timeZone: 'UTC',
-      themeSystem: 'bootstrap',
+      plugins: [ 'dayGrid', 'timeGrid' ],
       header: {
-        left: 'prev,next',
+        left: 'today',
         center: 'title',
-        right: 'today'
-      },
-      eventLimit: true, // allow "more" link when too many events
-      events: 'https://fullcalendar.io/demo-events.json'
+        right: 'prevYear,prev,next,nextYear'
+      }
     });
 
     calendar.render();
@@ -89,7 +76,7 @@
 
 </head>
 <body>
-  
+ 
   <div id='calendar'></div>
 </body>
 
