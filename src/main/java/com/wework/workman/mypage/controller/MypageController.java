@@ -23,25 +23,63 @@ public class MypageController {
 	@Resource(name="mypageService")
 	private MypageService mService;
 	
+	/**
+	 * 로그인 페이지
+	 * @return
+	 */
+	@RequestMapping("loginPage.wo")
+	public String loginPage() {
+		return "myPage/loginPage";
+	}
 	
 	@RequestMapping("myPageView.wo")
 	public String myPageView() {
 		return "myPage/myPageView";
 	}
 
+	/**
+	 * 정보 수정 페이지
+	 * @return
+	 */
 	@RequestMapping("empInfo.wo")
 	public String empInfoView() {
 		return "myPage/empInfo";
 	}
 	
-	@RequestMapping("attendance.wo")
-	public String attendance() {
-		return "myPage/attendance";
+	/**
+	 * 비밀번호 확인 페이지
+	 * @return
+	 */
+	@RequestMapping("confirmPwdPage.wo")
+	public String security() {
+		return "myPage/confirmPwdPage";
 	}
 	
-	@RequestMapping("changePwd.wo")
-	public String annualLeave() {
-		return "myPage/ChangePwd";
+	/**
+	 * 비밀번호 변경 페이지
+	 * @return
+	 */
+	@RequestMapping("changePwdPage.wo")
+	public String changePwdPage() {
+		return "myPage/changePwdPage";
+	}
+	
+	/**
+	 * 사원번호 찾기 페이지
+	 * @return
+	 */
+	@RequestMapping("findNoPage.wo")
+	public String findNoPage() {
+		return "myPage/findNoPage";
+	}
+	
+	/**
+	 * 비밀번호 찾기 페이지
+	 * @return
+	 */
+	@RequestMapping("findPwdPage.wo")
+	public String findPwdPage() {
+		return "myPage/findPwdPage";
 	}
 	
 	
@@ -59,7 +97,7 @@ public class MypageController {
 		/*
 		 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
 		 * loginMan.getPwd()) { model.addAttribute("loginMan", loginMan); return
-		 * "redirect:home.wo";
+		 * return "redirect:home.wo";
 		 * 
 		 * }else {
 		 * 
@@ -79,7 +117,7 @@ public class MypageController {
 	@RequestMapping("logout.wo")
 	public String logout(SessionStatus status) {
 		status.setComplete();
-		return "redirect:login.wo";
+		return "redirect:loginPage.wo";
 	}
 	
 	

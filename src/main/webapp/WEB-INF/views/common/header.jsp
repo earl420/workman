@@ -193,7 +193,7 @@
                                         <li>
                                             <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
                                         </li>
-                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                        <li><a href="logout.wo"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -273,7 +273,9 @@
                             <li><a href="myPageView.wo">-&nbsp;마이 페이지</a></li>
                             <li><a href="attendance.wo">-&nbsp;출/퇴근 현황</a></li>
                             <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
-                            <li><a href="changePwd.wo">-&nbsp;휴가 현황</a></li>
+                            <li><a href="confirmPwdPage.wo">-&nbsp;비밀번호 변경</a></li>
+                            <!-- 나중에 정리 -->
+                            <li><a href="changePwdPage.wo">-&nbsp;비밀번호 변경</a></li>
                         </ul>
                     </li>
                     

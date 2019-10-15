@@ -101,13 +101,9 @@
 							<td>상세주소</td>
 							<td><input type="text" name="address2" size="80" class="postcodify_extra_info"></td>
 						</tr>
-						
-						
-						
-						
 					</table>
 					<br><br>
-					<button type="button" class="btn btn-secondary btn-lg">수정</button>
+					<button type="submit" class="btn btn-secondary btn-lg">수정</button>
 				</form>
 				<br><br><br><br>
 			</div>
@@ -130,10 +126,8 @@
     <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	<script>
 		$(function(){
-			// 검색 버튼 누르면 팝업 레이어가 열리도록 설정
 			$(".postcodify_postcode5").postcodifyPopUp();
 			$(".postcodify_address").postcodifyPopUp();
-			
 		});
 	</script>
     

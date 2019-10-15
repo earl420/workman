@@ -14,16 +14,8 @@
 		color: black;
 		font-size: 20px;
 	}
-	
-	.postcodify_postcode5:hover, .postcodify_address:hover{
-		cursor: pointer;
-	}
-	
-	
-	
-
 </style>
-<title>개인정보</title>
+<title>비밀번호 변경</title>
 </head>
 <body>
 	
@@ -53,64 +45,39 @@
         ***********************************-->
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
-				<h1>내 정보 관리</h1>
+				<h1>비밀번호 변경</h1>
 				<br><br>
-				<form action="empUpdate.wo">
-					<table width="1000" celspacing="5">
+				<form action="changePwd.wo">
+					<table width="500" celspacing="5">
 						<tr>
-							<td width="200">사번</td>
-							<td><c:out value=""/></td>
+							<td></td>
+							<td><label id="pwdResult1"></label></td>
 						</tr>
 						<tr>
-							<td>이름</td>
-							<td><c:out value=""></c:out></td>
+							<th>새로운 비밀번호</th>
+							<td><input type="password" name="pwd" id="pwd" required></td>
 						</tr>
 						<tr>
-							<td>이메일</td>
-							<td><c:out value=""></c:out></td>
+							<td></td>
+							<td><label id="pwdResult2"></label></td>
 						</tr>
 						<tr>
-							<td>생년월일</td>
-							<td><c:out value=""></c:out></td>
+							<th>비밀번호 확인</th>
+							<td><input type="password" id="pwd" required></td>
 						</tr>
 						<tr>
-							<td>전화번호</td>
-							<td><input type="text" name="phone" value=""></td>
-						</tr>
-						<tr>
-							<td>직급</td>
-							<td><c:out value=""></c:out></td>
-						</tr>
-						<tr>
-							<td>부서</td>
-							<td><c:out value=""></c:out></td>
-						</tr>
-						<tr>
-							<td>입사일</td>
-							<td><c:out value=""></c:out></td>
-						</tr>
-						<tr>
-							<td>우편번호</td>
-							<td><input type="text" name="post" size="20" class="postcodify_postcode5" readonly="readonly"></td>
-						</tr>
-						<tr>
-							<td>주소</td>
-							<td><input type="text" name="address1" size="80" class="postcodify_address" readonly="readonly"></td>
-						</tr>
-						<tr>
-							<td>상세주소</td>
-							<td><input type="text" name="address2" size="80" class="postcodify_extra_info"></td>
+							<td></td>
+							<td><label id="pwdResult3"></label></td>
 						</tr>
 					</table>
 					<br><br>
-					<button type="submit" class="btn btn-secondary btn-lg">수정</button>
+					<button type="submit" class="btn btn-secondary btn-lg">변경하기</button>
 				</form>
-				<br><br><br><br>
+
+
 			</div>
-				
-			
 			<!-- row -->
-	
+
 			<!-- #/ container -->
 		</div>
 		<!--**********************************
@@ -121,19 +88,12 @@
 	<!--**********************************
         Main wrapper end
     ***********************************-->
-    
-    
-    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-	<script>
-		$(function(){
-			$(".postcodify_postcode5").postcodifyPopUp();
-			$(".postcodify_address").postcodifyPopUp();
-		});
+	
+	<script type="text/javascript">
+		
+	
 	</script>
-    
-    
-    
-    
-    
+
+
 </body>
 </html>
