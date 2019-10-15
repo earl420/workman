@@ -16,6 +16,8 @@
 
 <body>
 
+	<c:set var="contextPath"></c:set>
+
     
   <!--**********************************
             Nav header start
@@ -39,7 +41,7 @@
             Header start
         ***********************************-->
         <div class="header">    
-            <div class="header-content clearfix">
+            <div class="header-content clearfix" style="border-bottom: 1px solid gray;">
                 
                 <div class="nav-control">
                     <div class="hamburger">
@@ -222,10 +224,50 @@
                             <i class="fas fa-file-signature"></i><span class="nav-text">전자결재</span>
                         </a>
                         <ul aria-expanded="false">
-
-                            <li><a href="./layout-blank.html">-&nbsp;전체 목록</a></li>
-                            <li><a href="./layout-one-column.html">-&nbsp;결재요청문서</a></li>
-                            <li><a href="./layout-two-column.html">-&nbsp;결재문서 등록</a></li>
+                        	 <li class="mega-menu mega-menu-sm">
+                        		<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<span class="nav-text">문서목록</span>
+                        		</a>
+                            	<ul aria-expanded="false">
+                            		 <li><a href="allList.wo">-&nbsp;전체</a></li>
+                            		 <li><a href="waitingList.wo">-&nbsp;대기</a></li>
+                            		 <li><a href="proceedingList.wo">-&nbsp;진행</a></li>
+                            		 <li><a href="approvalList.wo">-&nbsp;승인</a></li>
+                            		 <li><a href="completeList.wo">-&nbsp;완료</a></li>
+                            	</ul>
+                            </li>
+                          	<li class="mega-menu mega-menu-sm">
+                        		<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<span class="nav-text">결제요청문서</span>
+                        		</a>
+                            	<ul aria-expanded="false">
+                            		 <li><a href="allRequestList.wo">-&nbsp;전체</a></li>
+                            		 <li><a href="draftRequestList.wo">-&nbsp;기안서</a></li>
+                            		 <li><a href="requestRequestList.wo">-&nbsp;품의서</a></li>
+                            		 <li><a href="expenseRequestList.wo">-&nbsp;지출결의서</a></li>
+                            		 <li><a href="holiDayRequestList.wo">-&nbsp;휴가</a></li>
+                            	</ul>
+                            </li>
+                            <li class="mega-menu mega-menu-sm">
+                        		<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<span class="nav-text">결제문서등록</span>
+                        		</a>
+                            	<ul aria-expanded="false">
+                            		 <li><a href="draftWrite.wo">-&nbsp;기안서작성</a></li>
+                            		 <li><a href="requestWrite.wo">-&nbsp;품의서작성</a></li>
+                            		 <li><a href="expenseWrite.wo">-&nbsp;지출결의서작성</a></li>
+                            		 <li><a href="holiDayWrite.wo">-&nbsp;휴가작성</a></li>
+                            	</ul>
+                            </li>
+                            <li class="mega-menu mega-menu-sm">
+                        		<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<span class="nav-text">문서보관</span>
+                        		</a>
+                            	<ul aria-expanded="false">
+                            		 <li><a href="companionList.wo">-&nbsp;반려</a></li>
+                            		 <li><a href="temporaryList.wo">-&nbsp;임시저장</a></li>
+                            	</ul>
+                            </li>
                         </ul>
                     </li>   
                     <li>
@@ -233,7 +275,7 @@
                             <i class="fas fa-calculator"></i><span class="nav-text">총무/회계</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./app-profile.html">-&nbsp;공지사항</a></li>
+                            <li><a href="acnoticeList.wo">-&nbsp;공지사항</a></li>
                             <li><a href="./app-profile.html">-&nbsp;매출관리</a></li>
                             <li><a href="./app-calender.html">-&nbsp;O/S관리</a></li>
                             <li><a href="./app-calender.html">-&nbsp;사내물품 관리</a></li>
@@ -301,7 +343,7 @@
                             <i class="fas fa-calendar-alt"></i><span class="nav-text">일정</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./index.html">-&nbsp;일정상세보기</a></li>
+                            <li><a href="calDetail.wo">-&nbsp;일정상세보기</a></li>
                             <li><a href="./index.html">-&nbsp;일정 등록</a></li>
                             
                         </ul>
@@ -311,10 +353,10 @@
                             <i class="fas fa-user"></i> <span class="nav-text">마이 페이지</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./email-inbox.html">-&nbsp;개인정보 설정</a></li>
-                            <li><a href="./email-read.html">-&nbsp;출퇴근 현황</a></li>
-                            <li><a href="./email-compose.html">-&nbsp;근태점수</a></li>
-                            <li><a href="./email-compose.html">-&nbsp;연차</a></li>
+                            <li><a href="myPageView.wo">-&nbsp;마이 페이지</a></li>
+                            <li><a href="attendance.wo">-&nbsp;출/퇴근 현황</a></li>
+                            <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
+                            <li><a href="changePwd.wo">-&nbsp;휴가 현황</a></li>
                         </ul>
                     </li>
                     
@@ -338,6 +380,7 @@
     <!--**********************************
         Scripts
     ***********************************-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="resources/plugins/common/common.min.js"></script>
     <script src="resources/js/custom.min.js"></script>
     <script src="resources/js/settings.js"></script>

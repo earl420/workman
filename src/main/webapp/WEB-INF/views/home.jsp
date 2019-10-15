@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html lang="ko">
@@ -27,20 +27,20 @@
 		<!-- content-body -->
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
-				
+
 
 
 			</div>
 			<!-- row -->
-			<div class="content-fluid">
-
-			</div>
+			<div class="content-fluid"></div>
 			<!-- /.container -->
 
 			<!-- #/ container -->
 		</div>
-		<!-- /content-body -->
-		<c:import url="common/footer.jsp"></c:import>	
+		<!--**********************************
+            Content body end
+        ***********************************-->
+		<c:import url="common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
 
