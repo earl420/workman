@@ -244,13 +244,56 @@
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="fas fa-users"></i><span class="nav-text">인사</span>
                         </a>
+                        
                         <ul aria-expanded="false">
-                            <li><a href="./chart-flot.html">-&nbsp;공지사항</a></li>
-                            <li><a href="./chart-morris.html">-&nbsp;사원 등록 및 삭제</a></li>
-                            <li><a href="./chart-chartjs.html">-&nbsp;직급 관리</a></li>
-                            <li><a href="./chart-chartist.html">-&nbsp;휴가 및 출장 관리</a></li>
-                            <li><a href="./chart-sparkline.html">-&nbsp;출퇴근 정보</a></li>
-                            <li><a href="./chart-peity.html">-&nbsp;근태 점수</a></li>
+                        <li>
+                            	<a class="" href="hrNotice.wo" aria-expanded="false">
+                            		<i class=""></i><span class="">공지사항</span>
+                        		</a>
+                            </li>
+                            <li>
+                            	<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<i class=""></i><span class="">인사 정보</span>
+                        		</a>
+                        		
+                        		<ul>
+                        			<li><a href="empChart.wo">-&nbsp;조직도</a>
+                        			<li><a href="empList.wo">-&nbsp;직원목록</a>
+                        		</ul>
+                            </li>
+                            <li>
+                            	<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<i class=""></i><span class="">휴가/근태</span>
+                        		</a>
+                        		
+                        		<ul>
+                        			<li><a href="addHoliday.wo">-&nbsp;휴가신청</a>
+                        			<li><a href="showHoliday.wo">-&nbsp;휴가현황</a>
+                        			<li><a href="showAtt.wo">-&nbsp;근태현황</a>
+                        		</ul>
+                            </li>
+                            <li>
+                            	<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<i class=""></i><span class="">인사 관리</span>
+                        		</a>
+                        		
+                        		<ul>
+                        			<li><a href="mngEmpChart.wo">-&nbsp;조직관리</a>
+                        			<li><a href="mngUser.wo">-&nbsp;사용자관리</a>
+                        			<li><a href="manager.wo">-&nbsp;인사관리자</a>
+                        		</ul>
+                            </li>
+                            <li>
+                            	<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<i class=""></i><span class="">휴가/근태 관리</span>
+                        		</a>
+                        		
+                        		<ul>
+                        			<li><a href="mngHoliday.wo">-&nbsp;직원 휴가 관리</a>
+                        			<li><a href="mngAtt.wo">-&nbsp;직원 근태 관리</a>
+                        		</ul>
+                            	
+                            </li>
                         </ul>
                     </li>
                     <li>
