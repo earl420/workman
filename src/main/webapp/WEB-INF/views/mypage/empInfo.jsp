@@ -5,6 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style type="text/css">
+	table tr{
+		height: 50px;
+	}
+	
+	.postcodify_postcode5:hover, .postcodify_address:hover{
+		cursor: pointer;
+	}
+	
+	
+	
+
+</style>
 <title>개인정보</title>
 </head>
 <body>
@@ -36,11 +52,11 @@
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
 				<h1>내 정보관리</h1>
-				
+				<br><br>
 				<form action="empUpdate.wo">
-					<table width="600" celspacing="5">
+					<table width="1000" celspacing="5" border="1">
 						<tr>
-							<td width="150">사번</td>
+							<td width="200">사번</td>
 							<td><c:out value=""/></td>
 						</tr>
 						<tr>
@@ -71,8 +87,25 @@
 							<td>입사일</td>
 							<td><c:out value=""></c:out></td>
 						</tr>
+						<tr>
+							<td>우편번호</td>
+							<td><input type="text" name="post" size="20" class="postcodify_postcode5" readonly="readonly"></td>
+						</tr>
+						<tr>
+							<td>도로명 주소</td>
+							<td><input type="text" name="address1" size="80" class="postcodify_address" readonly="readonly"></td>
+						</tr>
+						<tr>
+							<td>상세 주소</td>
+							<td><input type="text" name="address2" size="80" class="postcodify_extra_info"></td>
+						</tr>
+						
+						
+						
+						
 					</table>
-					<button type="button">수정</button>
+					<br><br>
+					<button type="button" class="btn">수정</button>
 				</form>
 				<br><br><br><br>
 			</div>
@@ -90,5 +123,21 @@
 	<!--**********************************
         Main wrapper end
     ***********************************-->
+    
+    
+    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	<script>
+		$(function(){
+			// 검색 버튼 누르면 팝업 레이어가 열리도록 설정
+			$(".postcodify_postcode5").postcodifyPopUp();
+			$(".postcodify_address").postcodifyPopUp();
+			
+		});
+	</script>
+    
+    
+    
+    
+    
 </body>
 </html>
