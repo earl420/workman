@@ -224,10 +224,50 @@
                             <i class="fas fa-file-signature"></i><span class="nav-text">전자결재</span>
                         </a>
                         <ul aria-expanded="false">
-
-                            <li><a href="./layout-blank.html">-&nbsp;전체 목록</a></li>
-                            <li><a href="./layout-one-column.html">-&nbsp;결재요청문서</a></li>
-                            <li><a href="./layout-two-column.html">-&nbsp;결재문서 등록</a></li>
+                        	 <li class="mega-menu mega-menu-sm">
+                        		<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<span class="nav-text">문서목록</span>
+                        		</a>
+                            	<ul aria-expanded="false">
+                            		 <li><a href="allList.wo">-&nbsp;전체</a></li>
+                            		 <li><a href="waitingList.wo">-&nbsp;대기</a></li>
+                            		 <li><a href="proceedingList.wo">-&nbsp;진행</a></li>
+                            		 <li><a href="approvalList.wo">-&nbsp;승인</a></li>
+                            		 <li><a href="completeList.wo">-&nbsp;완료</a></li>
+                            	</ul>
+                            </li>
+                          	<li class="mega-menu mega-menu-sm">
+                        		<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<span class="nav-text">결제요청문서</span>
+                        		</a>
+                            	<ul aria-expanded="false">
+                            		 <li><a href="allRequestList.wo">-&nbsp;전체</a></li>
+                            		 <li><a href="draftRequestList.wo">-&nbsp;기안서</a></li>
+                            		 <li><a href="requestRequestList.wo">-&nbsp;품의서</a></li>
+                            		 <li><a href="expenseRequestList.wo">-&nbsp;지출결의서</a></li>
+                            		 <li><a href="holiDayRequestList.wo">-&nbsp;휴가</a></li>
+                            	</ul>
+                            </li>
+                            <li class="mega-menu mega-menu-sm">
+                        		<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<span class="nav-text">결제문서등록</span>
+                        		</a>
+                            	<ul aria-expanded="false">
+                            		 <li><a href="draftWrite.wo">-&nbsp;기안서작성</a></li>
+                            		 <li><a href="requestWrite.wo">-&nbsp;품의서작성</a></li>
+                            		 <li><a href="expenseWrite.wo">-&nbsp;지출결의서작성</a></li>
+                            		 <li><a href="holiDayWrite.wo">-&nbsp;휴가작성</a></li>
+                            	</ul>
+                            </li>
+                            <li class="mega-menu mega-menu-sm">
+                        		<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<span class="nav-text">문서보관</span>
+                        		</a>
+                            	<ul aria-expanded="false">
+                            		 <li><a href="companionList.wo">-&nbsp;반려</a></li>
+                            		 <li><a href="temporaryList.wo">-&nbsp;임시저장</a></li>
+                            	</ul>
+                            </li>
                         </ul>
                     </li>   
                     <li>
