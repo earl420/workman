@@ -29,7 +29,7 @@ public class MypageController {
 	 */
 	@RequestMapping("loginPage.wo")
 	public String loginPage() {
-		return "myPage/loginPage";
+		return "myPage/login";
 	}
 	
 	@RequestMapping("myPageView.wo")
@@ -52,7 +52,7 @@ public class MypageController {
 	 */
 	@RequestMapping("confirmPwdPage.wo")
 	public String security() {
-		return "myPage/confirmPwdPage";
+		return "myPage/confirmPwd";
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class MypageController {
 	 */
 	@RequestMapping("changePwdPage.wo")
 	public String changePwdPage() {
-		return "myPage/changePwdPage";
+		return "myPage/changePwd";
 	}
 	
 	/**
@@ -70,7 +70,7 @@ public class MypageController {
 	 */
 	@RequestMapping("findNoPage.wo")
 	public String findNoPage() {
-		return "myPage/findNoPage";
+		return "myPage/findNo";
 	}
 	
 	/**
@@ -79,7 +79,7 @@ public class MypageController {
 	 */
 	@RequestMapping("findPwdPage.wo")
 	public String findPwdPage() {
-		return "myPage/findPwdPage";
+		return "myPage/findPwd";
 	}
 	
 	
@@ -92,7 +92,7 @@ public class MypageController {
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String loginEmp(Employee m, Model model) {
 		
-		HumanResource loginMan = mService.loginMan(m);
+		Employee loginMan = mService.loginMan(m);
 		
 		/*
 		 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),

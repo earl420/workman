@@ -83,13 +83,13 @@ table tr{
 	            <td align="right"></td>
 	         </tr>
 	         <tr>
-	            <td colspan="2">
-			    	<button type="submit" class="btn btn-secondary btn-lg btn-block">로그인</button>
+	            <td colspan="2" align="center">
+			    	<button type="submit" align="center" class="btn btn-secondary btn-lg btn-block">로그인</button>
 	            </td>
 	         </tr>
 	         <tr>
-	            <td><a href="findNoPage.wo">사원번호 찾기</a></td>
-	            <td><a href="findPwdPage.wo">비밀번호 찾기</a></td>
+	            <td align="left"><a href="findNoPage.wo">사원번호 찾기</a></td>
+	            <td align="right"><a href="findPwdPage.wo">비밀번호 찾기</a></td>
 	         </tr>
 	      </table>
 	      <br><br>

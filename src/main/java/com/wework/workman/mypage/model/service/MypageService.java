@@ -6,6 +6,6 @@ import com.wework.workman.mypage.model.vo.Employee;
 public interface MypageService {
 
 	// 로그인 메소드
-	HumanResource loginMan(Employee m);
+	Employee loginMan(Employee m);
 
 }

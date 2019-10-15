@@ -14,6 +14,11 @@
 		color: black;
 		font-size: 20px;
 	}
+	
+	b{
+		font-size:20px;
+		color: black;
+	}
 </style>
 <title>비밀번호 변경</title>
 </head>
@@ -47,12 +52,10 @@
 			<div class="content-fluid" style="height: 100px;" align="center">
 				<h1>비밀번호 변경</h1>
 				<br><br>
+				<b>비밀번호 변경 시 계정보안을 위해 로그아웃 됩니다.</b>
+				<br><br><br>
 				<form action="changePwd.wo">
 					<table width="500" celspacing="5">
-						<tr>
-							<td></td>
-							<td><label id="pwdResult1"></label></td>
-						</tr>
 						<tr>
 							<th>새로운 비밀번호</th>
 							<td><input type="password" name="pwd" id="pwd" required></td>
