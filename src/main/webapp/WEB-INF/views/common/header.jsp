@@ -271,10 +271,9 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="myPageView.wo">-&nbsp;마이 페이지</a></li>
-                            <li><a href="holidayInfo.wo">-&nbsp;휴가 현황</a></li>
                             <li><a href="attendance.wo">-&nbsp;출/퇴근 현황</a></li>
-                            <li><a href="diligenceAndLaziness.wo">-&nbsp;근태 현황</a></li>
                             <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
+                            <li><a href="changePwd.wo">-&nbsp;휴가 현황</a></li>
                         </ul>
                     </li>
                     

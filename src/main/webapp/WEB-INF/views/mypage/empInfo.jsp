@@ -11,6 +11,8 @@
 <style type="text/css">
 	table tr{
 		height: 50px;
+		color: black;
+		font-size: 20px;
 	}
 	
 	.postcodify_postcode5:hover, .postcodify_address:hover{
@@ -51,10 +53,10 @@
         ***********************************-->
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
-				<h1>내 정보관리</h1>
+				<h1>내 정보 관리</h1>
 				<br><br>
 				<form action="empUpdate.wo">
-					<table width="1000" celspacing="5" border="1">
+					<table width="1000" celspacing="5">
 						<tr>
 							<td width="200">사번</td>
 							<td><c:out value=""/></td>
@@ -92,11 +94,11 @@
 							<td><input type="text" name="post" size="20" class="postcodify_postcode5" readonly="readonly"></td>
 						</tr>
 						<tr>
-							<td>도로명 주소</td>
+							<td>주소</td>
 							<td><input type="text" name="address1" size="80" class="postcodify_address" readonly="readonly"></td>
 						</tr>
 						<tr>
-							<td>상세 주소</td>
+							<td>상세주소</td>
 							<td><input type="text" name="address2" size="80" class="postcodify_extra_info"></td>
 						</tr>
 						
@@ -105,7 +107,7 @@
 						
 					</table>
 					<br><br>
-					<button type="button" class="btn">수정</button>
+					<button type="button" class="btn btn-secondary btn-lg">수정</button>
 				</form>
 				<br><br><br><br>
 			</div>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.service.MypageService;
+import com.wework.workman.mypage.model.vo.Employee;
 
 @SessionAttributes("")
 @Controller
@@ -38,14 +39,9 @@ public class MypageController {
 		return "myPage/attendance";
 	}
 	
-	@RequestMapping("diligenceAndLaziness.wo")
-	public String diligenceAndLaziness() {
-		return "myPage/diligenceAndLaziness";
-	}
-	
-	@RequestMapping("holidayInfo.wo")
+	@RequestMapping("changePwd.wo")
 	public String annualLeave() {
-		return "myPage/holidayInfo";
+		return "myPage/ChangePwd";
 	}
 	
 	
@@ -56,18 +52,22 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String loginEmp(HumanResource m, Model model) {
+	public String loginEmp(Employee m, Model model) {
 		
 		HumanResource loginMan = mService.loginMan(m);
 		
-		if(loginMan != null && bcryptPasswordEncoder.matches(m.getePwd(), loginMan.getePwd())) {
-			model.addAttribute("loginMan", loginMan);
-			return "redirect:home.wo";
+		/*
+		 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
+		 * loginMan.getPwd()) { model.addAttribute("loginMan", loginMan); return
+		 * "redirect:home.wo";
+		 * 
+		 * }else {
+		 * 
+		 * 
+		 * }
+		 */
 		
-		}else {
-			
-			
-		}
+		return "redirect:home.wo";
 		
 	}
 	

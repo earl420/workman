@@ -5,10 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>근태 현황</title>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<title>비밀번호 변경</title>
 </head>
 <body>
-
+	
 	
 	<!--*******************
         Preloader start
@@ -35,30 +38,15 @@
         ***********************************-->
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
-				
-				<h1>근태 현황</h1>
-				
-				<table align="center" cellspacing="0" border="1" width="700">
-					<tr>
-						<th>번호</th>
-						<th width="300">프로젝트명</th>
-						<th>프로젝트 상태</th>
-						<th>기한</th>
-						<th>점수</th>
-					</tr>
-					
-					<%-- <c:forEach> --%>
+				<h1>비밀번호 변경</h1>
+				<form action="">
+					<table>
 						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<th>현재 비밀번호</th>
 						</tr>
-				<%-- 	</c:forEach> --%>
+					</table>
 				
-				
-				</table>
+				</form>
 
 
 			</div>
@@ -74,5 +62,8 @@
 	<!--**********************************
         Main wrapper end
     ***********************************-->
+
+
+
 </body>
 </html>
