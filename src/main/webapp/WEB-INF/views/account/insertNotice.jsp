@@ -99,7 +99,7 @@
 							<div class="form-group row" style="padding-left: 30px;">
 								
 								<div class="col-lg-12" style="padding-left: 80px;">
-									<div id="grid"></div>
+									<div id="grid" style="background: white;"></div>
 								</div>
 								
 							</div>
@@ -138,7 +138,8 @@ $(function(){
 		 try {
 		     elClickedObj.form.submit();
 		 } catch(e) {}
-	})
+	});
+	$('.tui-grid-cell').css('background','white').attr('align','center');
 })
 
 </script>

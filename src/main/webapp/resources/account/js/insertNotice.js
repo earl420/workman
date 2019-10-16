@@ -1,69 +1,51 @@
+var Grid = tui.Grid;
+Grid.setLanguage('ko');
+Grid.applyTheme('clean');
 const grid = new tui.Grid({
     el: document.getElementById('grid'),
     scrollX: false,
     scrollY: false,
+    columns:{align:'center'},   
     header: {
-      height: 160,
+      height: 100,
       complexColumns: [
         {
-          header: 'Basic',
-          name: 'mergeColumn1',
-          childNames: ['name', 'artist']
+          header: '재무상태표',
+          name: 'accountStatus',
+          childNames: ['deptside','account1','credit','account2']
         },
         {
-          header: 'Extra',
-          name: 'mergeColumn2',
-          childNames: ['type', 'release', 'genre']
+        	header:"자산",
+        	name:'asset',
+        	childName:['deptside','account1']
         },
         {
-          header: 'Detail',
-          name: 'mergeColumn3',
-          childNames: ['mergeColumn1', 'mergeColumn2']
-        },
-        {
-          header: 'Count',
-          name: 'mergeColumn4',
-          childNames: ['downloadCount', 'listenCount']
-        },
-        {
-          header: 'Album Info',
-          name: 'mergeColumn5',
-          childNames: ['price', 'mergeColumn3', 'mergeColumn4']
+        	header:"자본/부채",
+        	name:'debt',
+        	childName:['credit','account2']
         }
       ]
     },
     columns: [
       {
-        header: 'Name',
-        name: 'name'
+        header: '계정과목',
+        name: 'deptside'
       },
       {
-        header: 'Artist',
-        name: 'artist'
+        header: '금액',
+        name: 'account1'
       },
       {
-        header: 'Type',
-        name: 'type'
+        header: '계정과목',
+        name: 'credit'
       },
       {
-        header: 'Release',
-        name: 'release'
-      },
-      {
-        header: 'Genre',
-        name: 'genre'
-      },
-      {
-        header: 'Price',
-        name: 'price'
-      },
-      {
-        header: 'Download',
-        name: 'downloadCount'
-      },
-      {
-        header: 'Listen',
-        name: 'listenCount'
+        header: '금액',
+        name: 'account2'
       }
-    ]
+    ], 
+    data:[{deptside:'자산', account1:'', credit:'부채',account2:""},
+    	{deptside:'현금', account1:1000000, credit:'단기부채',account2:500000}]
+    	
+    
   });
