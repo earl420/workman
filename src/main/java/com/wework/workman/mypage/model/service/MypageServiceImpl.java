@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.dao.MypageDao;
+import com.wework.workman.mypage.model.vo.Employee;
 
 @Service("mypageService")
 public class MypageServiceImpl implements MypageService{
@@ -18,7 +19,9 @@ public class MypageServiceImpl implements MypageService{
 	 * 로그인
 	 */
 	@Override
-	public HumanResource loginMan(HumanResource m) {
+	public Employee loginMan(Employee m) {
 		return mDao.loginMan(m);
 	}
+
+	
 }

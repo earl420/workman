@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html lang="ko">
@@ -10,11 +10,7 @@
 <!-- Custom Stylesheet -->
 </head>
 <body>
-
-	
-	<!--*******************
-        Preloader start
-    ********************-->
+	<!-- preloader -->
 	<div id="preloader">
 		<div class="loader">
 			<svg class="circular" viewBox="25 25 50 50"> <circle
@@ -22,29 +18,21 @@
 					stroke-miterlimit="10" /> </svg>
 		</div>
 	</div>
-	<!--*******************
-        Preloader end
-    ********************-->
+	<!-- /preloader -->
 
 
-	<!--**********************************
-        Main wrapper start
-    ***********************************-->
+	<!-- main wrapper -->
 	<div id="main-wrapper" style="background: white;">
 		<c:import url="common/header.jsp"></c:import>
-		<!--**********************************
-            Content body start
-        ***********************************-->
+		<!-- content-body -->
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
-				
+
 
 
 			</div>
 			<!-- row -->
-			<div class="content-fluid">
-
-			</div>
+			<div class="content-fluid"></div>
 			<!-- /.container -->
 
 			<!-- #/ container -->
@@ -52,11 +40,9 @@
 		<!--**********************************
             Content body end
         ***********************************-->
-		<c:import url="common/footer.jsp"></c:import>	
+		<c:import url="common/footer.jsp"></c:import>
 	</div>
-	<!--**********************************
-        Main wrapper end
-    ***********************************-->
+	<!-- /main-wrapper -->
 
 </body>
 </html>
