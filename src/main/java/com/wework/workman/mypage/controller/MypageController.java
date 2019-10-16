@@ -60,14 +60,16 @@ public class MypageController {
 		
 		HumanResource loginMan = mService.loginMan(m);
 		
-		if(loginMan != null && bcryptPasswordEncoder.matches(m.getePwd(), loginMan.getePwd())) {
-			model.addAttribute("loginMan", loginMan);
+		/*if(loginMan != null && bcryptPasswordEncoder.matches(m.getePwd(), loginMan.getePwd())) {
+			model.addAttribute("loginMan", loginMan);*/
 			return "redirect:home.wo";
 		
-		}else {
-			
-			
-		}
+		/*
+		 * }else {
+		 * 
+		 * 
+		 * }
+		 */
 		
 	}
 	
