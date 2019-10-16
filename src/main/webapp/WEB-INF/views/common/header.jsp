@@ -11,6 +11,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--&nbsp;Custom Stylesheet -->
     <link href="resources/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 </head>
 
@@ -362,7 +363,7 @@
                     </li>
                     
                     <li>
-                        <a href="widgets.html" aria-expanded="false">
+                        <a href="chatting.wo" aria-expanded="false">
                             <i class="far fa-comments"></i><span class="nav-text">사내메신저</span>
                         </a>
                     </li>

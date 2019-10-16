@@ -38,7 +38,7 @@
 				
 				<div class="table-responsive" style="text-align: center;">
 					<h3 style="padding-top: 40px; padding-bottom: 10px;">회계 공지사항</h3>
-					<table class="table table-bordered table-striped verticle-middle" style="border: 1px solid black;">
+					<table class="table table-bordered verticle-middle" id="acList" style="border: 1px solid black;">
 						<thead>
 							<tr>
 								<th width="10%">공지 번호</th>
