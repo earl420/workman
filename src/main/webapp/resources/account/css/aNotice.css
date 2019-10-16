@@ -21,3 +21,8 @@ th, td{
 	background: lightgray;
 	cursor: pointer;
 }
+.table tr:hover{
+	color:white;
+	background: orange;
+	cursor:pointer;
+}
