@@ -135,7 +135,7 @@ $(function(){
 	var member=$('#msgContent').data('member');
 	
 	
-	var sock = new SockJS("/stompChatting");
+	var sock = new SockJS("/stomp-chatting");
 	var client = Stomp.over(sock);
 	//1. sockJS내부에 들고있는 client
 	

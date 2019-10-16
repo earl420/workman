@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
-@Profile("stomp")
 @RestController
 public class StompController {
 
