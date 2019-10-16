@@ -12,6 +12,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.service.MypageService;
+import com.wework.workman.mypage.model.vo.Employee;
 
 @SessionAttributes("")
 @Controller
@@ -22,30 +23,63 @@ public class MypageController {
 	@Resource(name="mypageService")
 	private MypageService mService;
 	
+	/**
+	 * 로그인 페이지
+	 * @return
+	 */
+	@RequestMapping("loginPage.wo")
+	public String loginPage() {
+		return "myPage/login";
+	}
 	
 	@RequestMapping("myPageView.wo")
 	public String myPageView() {
 		return "myPage/myPageView";
 	}
 
+	/**
+	 * 정보 수정 페이지
+	 * @return
+	 */
 	@RequestMapping("empInfo.wo")
 	public String empInfoView() {
 		return "myPage/empInfo";
 	}
 	
-	@RequestMapping("attendance.wo")
-	public String attendance() {
-		return "myPage/attendance";
+	/**
+	 * 비밀번호 확인 페이지
+	 * @return
+	 */
+	@RequestMapping("confirmPwdPage.wo")
+	public String security() {
+		return "myPage/confirmPwd";
 	}
 	
-	@RequestMapping("diligenceAndLaziness.wo")
-	public String diligenceAndLaziness() {
-		return "myPage/diligenceAndLaziness";
+	/**
+	 * 비밀번호 변경 페이지
+	 * @return
+	 */
+	@RequestMapping("changePwdPage.wo")
+	public String changePwdPage() {
+		return "myPage/changePwd";
 	}
 	
-	@RequestMapping("holidayInfo.wo")
-	public String annualLeave() {
-		return "myPage/holidayInfo";
+	/**
+	 * 사원번호 찾기 페이지
+	 * @return
+	 */
+	@RequestMapping("findNoPage.wo")
+	public String findNoPage() {
+		return "myPage/findNo";
+	}
+	
+	/**
+	 * 비밀번호 찾기 페이지
+	 * @return
+	 */
+	@RequestMapping("findPwdPage.wo")
+	public String findPwdPage() {
+		return "myPage/findPwd";
 	}
 	
 	
@@ -56,20 +90,22 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String loginEmp(HumanResource m, Model model) {
+	public String loginEmp(Employee m, Model model) {
 		
-		HumanResource loginMan = mService.loginMan(m);
-		
-		/*if(loginMan != null && bcryptPasswordEncoder.matches(m.getePwd(), loginMan.getePwd())) {
-			model.addAttribute("loginMan", loginMan);*/
-			return "redirect:home.wo";
+		Employee loginMan = mService.loginMan(m);
 		
 		/*
+		 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
+		 * loginMan.getPwd()) { model.addAttribute("loginMan", loginMan); return
+		 * return "redirect:home.wo";
+		 * 
 		 * }else {
 		 * 
 		 * 
 		 * }
 		 */
+		
+		return "redirect:home.wo";
 		
 	}
 	
@@ -81,7 +117,7 @@ public class MypageController {
 	@RequestMapping("logout.wo")
 	public String logout(SessionStatus status) {
 		status.setComplete();
-		return "redirect:login.wo";
+		return "redirect:loginPage.wo";
 	}
 	
 	
