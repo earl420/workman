@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.service.MypageService;
-import com.wework.workman.mypage.model.vo.Employee;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 @SessionAttributes("")
