@@ -16,21 +16,22 @@ import com.wework.workman.mypage.model.vo.Mypage;
 @SessionAttributes("")
 @Controller
 public class MypageController {
-	
+
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-	
-	@Resource(name="mypageService")
+
+	@Resource(name = "mypageService")
 	private MypageService mService;
-	
+
 	/**
 	 * 로그인 페이지
+	 * 
 	 * @return
 	 */
 	@RequestMapping("loginPage.wo")
 	public String loginPage() {
 		return "myPage/login";
 	}
-	
+
 	@RequestMapping("myPageView.wo")
 	public String myPageView() {
 		return "myPage/myPageView";
@@ -38,42 +39,47 @@ public class MypageController {
 
 	/**
 	 * 정보 수정 페이지
+	 * 
 	 * @return
 	 */
 	@RequestMapping("empInfo.wo")
 	public String empInfoView() {
 		return "myPage/empInfo";
 	}
-	
+
 	/**
 	 * 비밀번호 확인 페이지
+	 * 
 	 * @return
 	 */
 	@RequestMapping("confirmPwdPage.wo")
 	public String security() {
 		return "myPage/confirmPwd";
 	}
-	
+
 	/**
 	 * 비밀번호 변경 페이지
+	 * 
 	 * @return
 	 */
 	@RequestMapping("changePwdPage.wo")
 	public String changePwdPage() {
 		return "myPage/changePwd";
 	}
-	
+
 	/**
 	 * 사원번호 찾기 페이지
+	 * 
 	 * @return
 	 */
 	@RequestMapping("findNoPage.wo")
 	public String findNoPage() {
 		return "myPage/findNo";
 	}
-	
+
 	/**
 	 * 비밀번호 찾기 페이지
+	 * 
 	 * @return
 	 */
 	@RequestMapping("findPwdPage.wo")
@@ -81,35 +87,38 @@ public class MypageController {
 		return "myPage/findPwd";
 	}
 	
-	
+	@RequestMapping("returnPwdPage.wo")
+	public String returnPwdPage() {
+		return "myPage/returnPwdPage";
+	}
+
 	/**
 	 * 로그인
+	 * 
 	 * @param h
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String loginEmp(Mypage m, Model model) {
-		
+
 		Mypage loginMan = mService.loginMan(m);
 		
-		/*
-		 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
-		 * loginMan.getPwd()) { model.addAttribute("loginMan", loginMan); return
-		 * return "redirect:home.wo";
-		 * 
-		 * }else {
-		 * 
-		 * 
-		 * }
-		 */
-		
-		return "redirect:home.wo";
+		if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPhone(), loginMan.getEmpPwd())) {
+			model.addAttribute("loginMan", loginMan);
+			return "redirect:home.wo";
+			
+		}else {
+			
+			return "redirect:loginPage.wo";
+		}
 		
 	}
-	
+		
+
 	/**
 	 * 로그아웃
+	 * 
 	 * @param status
 	 * @return
 	 */
@@ -118,9 +127,5 @@ public class MypageController {
 		status.setComplete();
 		return "redirect:loginPage.wo";
 	}
-	
-	
-	
+
 }
-
-
