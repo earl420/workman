@@ -48,41 +48,51 @@ position: absolute;
 .main small{
 font-size:10px;
 }
+table tr{
+	height: 50px;
+	color: black;
+	font-size: 20px;
+}
 </style>
 </head>
 <body>
 
    <div class="main">
       <form id="form1">
-      <table>
-         <tr>
-            <th colspan="2"><img src="../../../resources/icons/logo2.png" alt="no"></th>
-         </tr>
-         <tr>
-            <td colspan="2">
-               <br>
-               <div class="form-group">
-                  <input type="text" class="form-control" id="id" onkeyup="test1();" placeholder="사원번호"> 
-               </div>
-            </td>
-         </tr>
-         <tr>
-            <td colspan="2">
-               <div class="form-group">
-                  <input type="password" class="form-control" id="pwd" placeholder="Password">
-               </div>
-            </td>
-         </tr>
-         <tr>
-            <td><input type="checkbox" id="remember" name="rememberMe" value="true"/>아이디저장 </td>
-            <td align="right"></td>
-         </tr>
-         <tr>
-            <td colspan="2">
-            <button type="submit" class="btn btn-dark"">로그인</button>
-            </td>
-         </tr>
-      </table>
+	      <table width="500" selspacing="5">
+	         <tr>
+	            <th colspan="2"><img src="resources/icons/logo2.png" alt="no"></th>
+	         </tr>
+	         <tr>
+	            <td colspan="2">
+	               <br>
+	               <div class="form-group">
+	                  <input type="text" class="form-control" id="id" onkeyup="test1();" placeholder="사원번호"> 
+	               </div>
+	            </td>
+	         </tr>
+	         <tr>
+	            <td colspan="2">
+	               <div class="form-group">
+	                  <input type="password" class="form-control" id="pwd" placeholder="비밀번호">
+	               </div>
+	            </td>
+	         </tr>
+	         <tr>
+	            <td><input type="checkbox" id="remember" name="rememberMe" value="true"/>아이디저장 </td>
+	            <td align="right"></td>
+	         </tr>
+	         <tr>
+	            <td colspan="2" align="center">
+			    	<button type="submit" align="center" class="btn btn-secondary btn-lg btn-block">로그인</button>
+	            </td>
+	         </tr>
+	         <tr>
+	            <td align="left"><a href="findNoPage.wo">사원번호 찾기</a></td>
+	            <td align="right"><a href="findPwdPage.wo">비밀번호 찾기</a></td>
+	         </tr>
+	      </table>
+	      <br><br>
       </form>
    </div>
 <script>
