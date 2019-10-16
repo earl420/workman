@@ -1,11 +1,10 @@
 package com.wework.workman.mypage.model.service;
 
-import com.wework.workman.hunamResource.model.vo.HumanResource;
-import com.wework.workman.mypage.model.vo.Employee;
+import com.wework.workman.mypage.model.vo.Mypage;
 
 public interface MypageService {
 
 	// 로그인 메소드
-	HumanResource loginMan(Employee m);
+	Mypage loginMan(Mypage m);
 
 }

@@ -10,6 +10,5 @@
 <body>
 	<jsp:forward page="home.wo"></jsp:forward>
 	
-
 </body>
 </html>

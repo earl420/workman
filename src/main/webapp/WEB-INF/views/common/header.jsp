@@ -11,6 +11,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--&nbsp;Custom Stylesheet -->
     <link href="resources/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 </head>
 
@@ -193,7 +194,7 @@
                                         <li>
                                             <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
                                         </li>
-                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                        <li><a href="logout.wo"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -286,13 +287,56 @@
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="fas fa-users"></i><span class="nav-text">인사</span>
                         </a>
+                        
                         <ul aria-expanded="false">
-                            <li><a href="./chart-flot.html">-&nbsp;공지사항</a></li>
-                            <li><a href="./chart-morris.html">-&nbsp;사원 등록 및 삭제</a></li>
-                            <li><a href="./chart-chartjs.html">-&nbsp;직급 관리</a></li>
-                            <li><a href="./chart-chartist.html">-&nbsp;휴가 및 출장 관리</a></li>
-                            <li><a href="./chart-sparkline.html">-&nbsp;출퇴근 정보</a></li>
-                            <li><a href="./chart-peity.html">-&nbsp;근태 점수</a></li>
+                        <li>
+                            	<a class="" href="hrNotice.wo" aria-expanded="false">
+                            		<i class=""></i><span class="">공지사항</span>
+                        		</a>
+                            </li>
+                            <li>
+                            	<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<i class=""></i><span class="">인사 정보</span>
+                        		</a>
+                        		
+                        		<ul>
+                        			<li><a href="empChart.wo">-&nbsp;조직도</a>
+                        			<li><a href="empList.wo">-&nbsp;직원목록</a>
+                        		</ul>
+                            </li>
+                            <li>
+                            	<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<i class=""></i><span class="">휴가/근태</span>
+                        		</a>
+                        		
+                        		<ul>
+                        			<li><a href="addHoliday.wo">-&nbsp;휴가신청</a>
+                        			<li><a href="showHoliday.wo">-&nbsp;휴가현황</a>
+                        			<li><a href="showAtt.wo">-&nbsp;근태현황</a>
+                        		</ul>
+                            </li>
+                            <li>
+                            	<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<i class=""></i><span class="">인사 관리</span>
+                        		</a>
+                        		
+                        		<ul>
+                        			<li><a href="mngEmpChart.wo">-&nbsp;조직관리</a>
+                        			<li><a href="mngUser.wo">-&nbsp;사용자관리</a>
+                        			<li><a href="manager.wo">-&nbsp;인사관리자</a>
+                        		</ul>
+                            </li>
+                            <li>
+                            	<a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            		<i class=""></i><span class="">휴가/근태 관리</span>
+                        		</a>
+                        		
+                        		<ul>
+                        			<li><a href="mngHoliday.wo">-&nbsp;직원 휴가 관리</a>
+                        			<li><a href="mngAtt.wo">-&nbsp;직원 근태 관리</a>
+                        		</ul>
+                            	
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -311,14 +355,15 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="myPageView.wo">-&nbsp;마이 페이지</a></li>
-                            <li><a href="attendance.wo">-&nbsp;출/퇴근 현황</a></li>
                             <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
-                            <li><a href="changePwd.wo">-&nbsp;휴가 현황</a></li>
+                            <li><a href="confirmPwdPage.wo">-&nbsp;비밀번호 변경</a></li>
+                            <!-- 비밀번호 확인 후 비밀번호 변경 페이지 이동하도록 처리 -->
+                            <li><a href="changePwdPage.wo">-&nbsp;비밀번호 변경</a></li>
                         </ul>
                     </li>
                     
                     <li>
-                        <a href="widgets.html" aria-expanded="false">
+                        <a href="chatting.wo" aria-expanded="false">
                             <i class="far fa-comments"></i><span class="nav-text">사내메신저</span>
                         </a>
                     </li>

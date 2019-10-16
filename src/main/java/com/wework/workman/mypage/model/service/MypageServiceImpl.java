@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.dao.MypageDao;
 import com.wework.workman.mypage.model.vo.Employee;
+import com.wework.workman.mypage.model.vo.Mypage;
 
 @Service("mypageService")
 public class MypageServiceImpl implements MypageService{
@@ -16,13 +17,15 @@ public class MypageServiceImpl implements MypageService{
 	@Autowired
 	private MypageDao mDao;
 
+
 	/**
 	 * 로그인
 	 */
 
 	@Override
-	public HumanResource loginMan(Employee m) {
-		// TODO Auto-generated method stub
-		return null;
+	public Mypage loginMan(Mypage m) {
+		return mDao.loginMan(m);
 	}
+
+	
 }

@@ -16,22 +16,21 @@
 
 <link href='/assets/demo-to-codepen.css' rel='stylesheet' />
 
+ <style>
 
-  <style>
+   html, body {
+     margin: 0;
+     padding: 0;
+     font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+     font-size: 14px;
+   }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-      font-size: 14px;
-    }
+   #calendar {
+     max-width: 1000px;
+     margin: auto;
+   }
 
-    #calendar {
-      max-width: 900px;
-      margin: 40px auto;
-    }
-
-  </style>
+ </style>
 
 
 <link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />
@@ -76,8 +75,19 @@
 
 </head>
 <body>
- 
-  <div id='calendar'></div>
+ 		<div id="main-wrapper" style="background: white;">
+		<c:import url="../common/header.jsp"></c:import>
+		
+	 	<div class="content-body">
+			<div class="content-fluid" style="height: 100px;" align="center">
+				<div class="insertouter">
+				<div id='calendar'></div>
+				</div>
+			</div> 
+		</div>
+  
+		<c:import url="../common/footer.jsp"></c:import>	
+	</div>
 </body>
 
 </html>

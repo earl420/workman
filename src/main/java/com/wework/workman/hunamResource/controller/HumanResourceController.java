@@ -3,6 +3,7 @@ package com.wework.workman.hunamResource.controller;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wework.workman.hunamResource.model.service.HumanResourceService;
 
@@ -10,4 +11,71 @@ import com.wework.workman.hunamResource.model.service.HumanResourceService;
 public class HumanResourceController {
 	@Resource(name="humanResourceService")
 	private HumanResourceService hService;
+	
+	// 인사/공지사항
+	@RequestMapping("hrNotice")
+	public String hrNotice() {
+		
+		return "humanResource/notice";
+	}
+	// 인사/인사정보/조직도
+	@RequestMapping("empChart.wo")
+	public String empChartMain() {
+		
+		return "humanResource/empChart";
+	}
+	// 인사/인사정보/직원목록
+	@RequestMapping("empList.wo")
+	public String empListMain() {
+		
+		return "humanResource/empList";
+	}
+	// 인사/휴가근태/휴가신청
+	@RequestMapping("addHoliday.wo")
+	public String addHoliday() {
+		
+		return "humanResource/addHolidayForm";
+	}
+	// 인사/휴가근태/휴가현황
+	@RequestMapping("showHoliday.wo")
+	public String showHoliday() {
+		
+		return "humanResource/showHoliday";
+	}
+	// 인사/휴가근태/근태현황
+	@RequestMapping("showAtt.wo")
+	public String showAtt() {
+		
+		return "humanResource/showAtt";
+	}
+	// 인사/인사 관리/조직도 관리
+	@RequestMapping("mngEmpChart.wo")
+	public String mngEmpChart() {
+		
+		return "humanResource/mngEmpChart";
+	}
+	// 인사/인사 관리/사용자 관리
+	@RequestMapping("mngUser.wo")
+	public String mngEmp() {
+		
+		return "humanResource/mngUser";
+	}
+	// 인사/인사 관리/인사자 관리
+	@RequestMapping("manager.wo")
+	public String manager() {
+		
+		return "humanResource/manager";
+	}
+	// 인사/휴가근태 관리/휴가관리
+	@RequestMapping("mngHoliday.wo")
+	public String mngHoliday() {
+		
+		return "humanResource/mngHoliday";
+	}
+	// 인사/휴가근태 관리/근태관리
+	@RequestMapping("mngAtt.wo")
+	public String mngAtt() {
+		
+		return "humanResource/mngAtt";
+	}
 }
