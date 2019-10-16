@@ -139,7 +139,7 @@ $(function(){
 		     elClickedObj.form.submit();
 		 } catch(e) {}
 	});
-	$('.tui-grid-cell').css('background','white').attr('align','center');
+
 })
 
 </script>

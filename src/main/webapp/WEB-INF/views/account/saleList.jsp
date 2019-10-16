@@ -35,7 +35,81 @@
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px;" align="center">
 				<div class="insertouter">
-									
+					<div class="table-responsive" style="text-align: center;">
+					<h3 style="padding-top: 40px; padding-bottom: 10px;">회계 공지사항</h3>
+					<table class="table table-bordered verticle-middle" id="acList" style="border: 1px solid black;">
+						<thead>
+							<tr>
+								<th width="10%">공지 번호</th>
+								<th width="50%">제목</th>
+								<th width="25%">게시자</th>
+								<th width="25%">등록일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>11</td>
+								<td>11</td>
+								<td>11</td>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>11</td>
+								<td>11</td>
+								<td>11</td>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>11</td>
+								<td>11</td>
+								<td>11</td>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>11</td>
+								<td>11</td>
+								<td>11</td>
+								<td>11</td>
+							</tr>
+							<tr>
+								<td>22</td>
+								<td>22</td>
+								<td>22</td>
+								<td>22</td>
+							</tr>
+							<tr>
+								<td>22</td>
+								<td>22</td>
+								<td>22</td>
+								<td>22</td>
+							</tr>
+							<tr>
+								<td>22</td>
+								<td>22</td>
+								<td>22</td>
+								<td>22</td>
+							</tr>
+							<tr>
+								<td>22</td>
+								<td>22</td>
+								<td>22</td>
+								<td>22</td>
+							</tr>
+							<tr>
+								<td>33</td>
+								<td>33</td>
+								<td>33</td>
+								<td>33</td>
+							</tr>
+							<tr>
+								<td>44</td>
+								<td>55</td>
+								<td>66</td>
+								<td>77</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>				
 				</div>
 			</div>
 			<!-- row -->
