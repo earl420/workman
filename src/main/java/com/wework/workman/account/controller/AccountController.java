@@ -23,4 +23,9 @@ public class AccountController {
 	public String aNoticeInsert() {
 		return "account/insertNotice";
 	}
+	@RequestMapping("acDetail.wo")
+	public String aNoticeDetail(@RequestParam(name = "aNo", defaultValue = "1") String aNo ) {
+		System.out.println(aNo);
+		return "account/detailNotice";
+	}
 }
