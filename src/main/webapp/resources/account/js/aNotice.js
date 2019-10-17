@@ -9,8 +9,6 @@ $(function(){
 	})
 	
 })
-function paging(){
-	var page = $(this).text();
-	console.log("1"+page);
+function paging(page){
 	location.href="acnoticeList.wo?page="+page;
 }

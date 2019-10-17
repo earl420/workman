@@ -177,7 +177,7 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="views/common/images/user/1.png" height="40" width="40" alt="">
+                               <!--  <img src="views/common/images/user/1.png" height="40" width="40" alt=""> -->
                             </div>
                             <div class="drop-down dropdown-profile   dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -276,10 +276,10 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="acnoticeList.wo">-&nbsp;공지사항</a></li>
-                            <li><a href="./app-profile.html">-&nbsp;매출관리</a></li>
-                            <li><a href="./app-calender.html">-&nbsp;O/S관리</a></li>
-                            <li><a href="./app-calender.html">-&nbsp;사내물품 관리</a></li>
-                            <li><a href="./app-calender.html">-&nbsp;월급 관리</a></li>
+                            <li><a href="salelist.wo">-&nbsp;매출관리</a></li>
+                            <li><a href="oslist.wo">-&nbsp;O/S관리</a></li>
+                            <li><a href="fixturelist.wo">-&nbsp;사내물품 관리</a></li>
+                            <li><a href="salarylist.wo">-&nbsp;월급 관리</a></li>
                         </ul>
                     </li>
                     <li>
@@ -343,8 +343,8 @@
                             <i class="fas fa-calendar-alt"></i><span class="nav-text">일정</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="calDetail.wo">-&nbsp;일정상세보기</a></li>
-                            <li><a href="./index.html">-&nbsp;일정 등록</a></li>
+                            <li><a href="calDetailView.wo">-&nbsp;일정상세보기</a></li>
+                            <li><a href="calInsertView.wo">-&nbsp;일정 등록</a></li>
                             
                         </ul>
                     </li>

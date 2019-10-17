@@ -56,22 +56,22 @@
 				<h1>내 정보 관리</h1>
 				<br><br>
 				<form action="empUpdate.wo">
-					<table width="1000" celspacing="5">
+					<table width="800" celspacing="5">
 						<tr>
 							<td width="200">사번</td>
-							<td><c:out value=""/></td>
+							<td><input readonly></td>
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><c:out value=""></c:out></td>
+							<td><input readonly></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><c:out value=""></c:out></td>
+							<td><input readonly></td>
 						</tr>
 						<tr>
 							<td>생년월일</td>
-							<td><c:out value=""></c:out></td>
+							<td><input readonly></td>
 						</tr>
 						<tr>
 							<td>전화번호</td>
@@ -79,15 +79,15 @@
 						</tr>
 						<tr>
 							<td>직급</td>
-							<td><c:out value=""></c:out></td>
+							<td><input readonly></td>
 						</tr>
 						<tr>
 							<td>부서</td>
-							<td><c:out value=""></c:out></td>
+							<td><input readonly></td>
 						</tr>
 						<tr>
 							<td>입사일</td>
-							<td><c:out value=""></c:out></td>
+							<td><input readonly></td>
 						</tr>
 						<tr>
 							<td>우편번호</td>
@@ -95,11 +95,11 @@
 						</tr>
 						<tr>
 							<td>주소</td>
-							<td><input type="text" name="address1" size="80" class="postcodify_address" readonly="readonly"></td>
+							<td><input type="text" name="address1" size="50" class="postcodify_address" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<td>상세주소</td>
-							<td><input type="text" name="address2" size="80" class="postcodify_extra_info"></td>
+							<td><input type="text" name="address2" size="50" class="postcodify_extra_info"></td>
 						</tr>
 					</table>
 					<br><br>

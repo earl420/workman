@@ -108,15 +108,7 @@
     ***********************************-->
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	<script src="resources/account/js/insertNotice.js"></script>
-	<script type="text/javascript">
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
- oAppRef: oEditors,
- elPlaceHolder: "ir1",
- sSkinURI: "resources/se2/SmartEditor2Skin.html",
- fCreator: "createSEditor2"
-});
-</script>
+
 
 </body>
 </html>

@@ -28,4 +28,24 @@ public class AccountController {
 		System.out.println(aNo);
 		return "account/detailNotice";
 	}
+	@RequestMapping("salelist.wo")
+	public String saleList(@RequestParam(name="currentPage", required = false) String currentPage) {
+		return "account/saleList";
+	}
+	@RequestMapping("oslist.wo")
+	public String osList(@RequestParam(name="currentPage", required = false) String currentPage) {
+		return "account/osList";
+	}
+	@RequestMapping("fixturelist.wo")
+	public String fixtureList(@RequestParam(name="currentPage", required = false) String currentPage) {
+		return "account/fixtureList";
+	}
+	@RequestMapping("salarylist.wo")
+	public String salaryList(@RequestParam(name="currentPage", required = false) String currentPage) {
+		return "account/salaryList";
+	}
+	@RequestMapping("salarydetail.wo")
+	public String salaryDetail(@RequestParam(name="sNo", required = false) int sNo) {
+		return "account/salaryDetail";
+	}
 }

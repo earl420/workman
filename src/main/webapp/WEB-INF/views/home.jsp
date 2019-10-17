@@ -84,14 +84,18 @@
 		<div class="topdiv">
             <div class="indiv" id="div1" style="background: rgb(133, 133, 173)">
                 <div class="paddiv">
+                <a href="">
                     <h2 id="h2">공지사항</h2>
                     <p>새로운 공지사항을 확인하세요.</p>
+                </a>
                 </div>
             </div>
             <div class="indiv" id="div2" style="background: rgb(153, 0, 204)">
                 <div class="paddiv">
+                <a href="allList.wo">
                     <h2 id="h2">전자결제</h2>
                     <p>전자결제 바로가기</p>
+                </a>
                 </div>
             </div>
         </div>
@@ -99,22 +103,28 @@
         <div class="middiv">
             <div class="indiv" id="div2" style="background: rgb(204, 0, 0)">
                 <div class="paddiv">
+                <a href="acnoticeList.wo">
                     <h2 id="h2">총무/회계</h2>
                     <p>총부/회계부 바로가기</p>
+                </a>
                 </div>
             </div>
             
             <div class="indiv" id="div2" style="background: rgb(255, 153, 0)">
                 <div class="paddiv">
+                <a href="hrNotice.wo">
                     <h2 id="h2">인사</h2>
                     <p>인사부 바로가기</p>
+                </a>
                 </div>
             </div>
             
             <div class="indiv" id="div2" style="background: rgb(255, 214, 51)">
                 <div class="paddiv">
+                <a href="myPageView.wo">
                     <h2 id="h2">마이페이지</h2>
                     <p>마이페이지 바로가기</p>
+                </a>
                 </div>
             </div>
         </div>
@@ -122,15 +132,19 @@
         <div class="botdiv">
             <div class="indiv" id="div2" style="background: rgb(0, 179, 0)">
                 <div class="paddiv">
+                <a href="">
                     <h2 id="h2">사내메신저</h2>
                     <p>메신저 바로가기</p>
+                </a>
                 </div>
         </div>
             
             <div class="indiv" id="div1" style="background: rgb(51, 153, 255)">
                 <div class="paddiv">
+                <a href="calDetailView.wo">
                     <h2 id="h2">일정</h2>
                     <p>새로운 일정을 확인하세요.</p>
+                </a>
                 </div>
             </div>
         </div>

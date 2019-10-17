@@ -118,13 +118,13 @@
 					</button>
 				</div>
 				<div align="center" style="padding-top: 20px;" >
-					<div class="pages" onclick="paging();">&lt;&lt;</div>
-					<div class="pages" onclick="paging();">&lt;</div>
+					<div class="pages" onclick="paging(1);">&lt;&lt;</div>
+					<div class="pages" onclick="paging(1);">&lt;</div>
 					<c:forEach var="i" begin="1" end="10">
-						<div class="pages" onclick="paging();">${ i }</div>
+						<div class="pages" onclick="paging(this.innerText);">${ i }</div>
 					</c:forEach>
-					<div class="pages" onclick="paging();">&gt;</div>
-					<div class="pages" onclick="paging();">&gt;&gt;</div>
+					<div class="pages" onclick="paging(10);">&gt;</div>
+					<div class="pages" onclick="paging(10);">&gt;&gt;</div>
 				</div>
 			</div>
 			<!-- /.container -->
