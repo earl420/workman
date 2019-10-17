@@ -61,16 +61,8 @@
 							<td><input type="password" name="pwd" id="pwd"  placeholder="8~16자 영문, 숫자, 특수문자 입력" required></td>
 						</tr>
 						<tr>
-							<td></td>
-							<td><label id="pwdResult"></label></td>
-						</tr>
-						<tr>
 							<th>비밀번호 확인</th>
 							<td><input type="password" id="pwd2" placeholder="비밀번호 확인" required></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><label id="pwdResult2"></label></td>
 						</tr>
 					</table>
 					<br><br>
@@ -96,21 +88,27 @@
 		
 		var pwd = document.getElementById("pwd");
 		var pwd2 = document.getElementById("pwd2");
-		var pwdResult = document.getElementById("pwdResult");
-		var pwdResult2 = document.getElementById("pwdResult2");
-		
-	
 	
 		$(function(){
 			$(pwd).on('blur', function(){
 				
-				if(!(/^[a-zA-Z0-9!@#$%^&*]{8,}$/.test(pwd.value))){
-					$(pwdResult).text("비밀번호를 확인 해주세요.");
+				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}$/.test(pwd.value)){            
+			        alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+			        pwd.value="";
+			    }
+				
+			});
+			
+			$(pwd2).on('blur', function(){
+				
+				if(pwd.value != pwd2.value){
+					alert("비밀번호가 일치하지 않습니다.");
 					pwd.value="";
-					
+					pwd2.value="";
 				}
 				
-			})
+			});
+			
 			
 			
 		});
