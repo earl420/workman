@@ -11,7 +11,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--&nbsp;Custom Stylesheet -->
     <link href="resources/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 
 </head>
 
@@ -277,10 +277,10 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="acnoticeList.wo">-&nbsp;공지사항</a></li>
-                            <li><a href="./app-profile.html">-&nbsp;매출관리</a></li>
-                            <li><a href="./app-calender.html">-&nbsp;O/S관리</a></li>
-                            <li><a href="./app-calender.html">-&nbsp;사내물품 관리</a></li>
-                            <li><a href="./app-calender.html">-&nbsp;월급 관리</a></li>
+                            <li><a href="salelist.wo">-&nbsp;매출관리</a></li>
+                            <li><a href="oslist.wo">-&nbsp;O/S관리</a></li>
+                            <li><a href="fixturelist.wo">-&nbsp;사내물품 관리</a></li>
+                            <li><a href="salarylist.wo">-&nbsp;월급 관리</a></li>
                         </ul>
                     </li>
                     <li>
