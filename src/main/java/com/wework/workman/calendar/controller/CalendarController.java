@@ -15,6 +15,11 @@ public class CalendarController {
 	
 	@RequestMapping("calDetail.wo")
 	public String calendarDetail() {
-		return "calendar/NewFile";
+		return "calendar/calendarDetail";
+	}
+	
+	@RequestMapping("calInsert.wo")
+	public String calendarInsert() {
+		return "calendar/calendarInsert";
 	}
 }
