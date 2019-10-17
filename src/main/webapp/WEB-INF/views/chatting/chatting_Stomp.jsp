@@ -6,6 +6,7 @@
 <head>
 <title>workman</title>
 <link rel="icon" type="image/png" sizes="16x16" href="resources/icons/logo1.png">
+<!-- Custom Stylesheet -->
 <style>
 .card{
 height:30%;
@@ -27,7 +28,8 @@ bottom:0px;
 </head>
 
 <body style="overflow:hidden">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+ <script src="resources/js/stomp.js"></script>
+ <script src="resources/js/sockjs.js"></script>
 
 	<!--*******************
         Preloader start
@@ -61,34 +63,40 @@ bottom:0px;
 							<div class="card-body">
 								<div class="card-title">UserList</div>
 								<div class="slimScrollDiv">
+								<p>
+								start
+								<br><br><br><br><br><br><br><br>1
+								<br><br><br><br><br><br><br><br>2
+								<br><br><br><br><br><br><br><br>3
+								<br><br><br><br><br><br><br><br>4
+								<br><br><br><br><br><br><br><br>5
+								<br><br><br><br><br><br><br><br>6
+								<br><br><br><br><br><br><br><br>7
+								end
+								<br><br><br><br><br><br><br><br>8
+								</p>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col col-lg-6">
 						<div class="card">
-						<input type="hidden" value="userName_1st">
 							<div class="card-body">
-
 								<div class="card-title">Chatting</div>
-
-								<div class="slimScrollDiv" id="msgContent">
+								<div class="slimScrollDiv" id="msgContent"
+									data-room-id="{{room.id}}" data-member="{{member}}">
 									<ul class="chatBox"></ul>
-									<textarea id="chatMessageArea"></textarea>
 								</div>
-
 								<div class="col-lg-14">
-
-									<div class="input-group msgInputDiv">
-										<input type="text" id="msgInput" class="form-control"
-											placeholder="Type for..."> 
-										<span class="input-group-btn">
-											<button class="btn btn-default" id="sendBtn" type="button">@Send</button>
-										</span>
-									</div>
-									<!-- /input-group -->
+								<div class="input-group msgInputDiv">
+									<input type="text" id="msgInput" class="form-control"
+										placeholder="Type for..."> <span
+										class="input-group-btn">
+										<button class="btn btn-default" id="sendBtn" type="button">@Send</button>
+									</span>
 								</div>
-								<!-- col-lg-6 -->
+								<!-- /input-group -->
+								</div><!-- col-lg-6 -->
 
 							</div>
 						</div>
@@ -120,52 +128,36 @@ bottom:0px;
     ***********************************-->
 <script>
 $(function(){
-	connect();
+	var chatBox=$('.chatBox');
+	var messageInput =$('#msgInput');
+	var sendBtn =$('#sendBtn');
+	var roomId=$('#msgContent').data('room-id');
+	var member=$('#msgContent').data('member');
 	
-	if(keycode=='13'){
-		send();
-		event.stopPropagation;
-	}
-	$('#sendBtn').click(function(){
-		send();
+	
+	var sock = new SockJS("/stomp-chatting");
+	var client = Stomp.over(sock);
+	//1. sockJS내부에 들고있는 client
+	
+	//2. connection맺어지면 실행
+	client.connect({},function(){
+		//3. send(path,header,message)로 메세지 보낼수 있음
+		client.send('/publish/chat/join',{},JSON.stringify({chatRoomID:roomId,writer:member}));	
+		
+		//4. subscribe(path,callback)로 메세지를 받을 수 있다. callback첫번째파라미터의 body로 내용이들어온다
+		client.subscribe('/subscribe/chat/room'+roomId,function(chat){
+			var content =JSON.parse(chat.body);
+			chatBox.append('<li>'+content.message+'('+content.writer+')<li>')
+		});
 	});
 	
+	sendBtn.click(function(){
+		var message = messageInput.val();
+		client.send('/publish/chat/message',{},JSON.stringify({chatRoomId: roomId, message:message,writer:member}));
+		messgeInput.val('');
+	
+	});
 });
-	var wbSocket;
-	
-	function connect(){
-		wbSocket = new WebSocket("ws://localhost:8888/workman/chatting");
-		wbSocket.onopen = onOpen;
-		wbSocket.onclose = onClose;
-		wbSocket.onmessage = onMessage;
-	
-	}
-	function disconnect(){
-		wbSocket.close();
-	}
-	function onOpen(evt){
-		appendMessage("연결");
-	}
-	function onMessage(evt){
-		var data = evt.data;
-		if(data.substring(0,4) =="msg:"){
-			appendMessage(data.substring(4));
-		}
-	}
-	function onClose(evt){
-		appendMessage("연결종료");
-	}
-	function send(){
-		var userName = $("#userName").val()
-		var msg=$("#msgInput").val();
-		wbSocket.send("msg:"+userName+" : "+msg);
-		$("#msgInput").val("");
-	}
-	
-	function appendMessage(msg){
-		$("#chatMessageArea").append(msg + "<br>");
-	}
-	
 </script>
 </body>
 </html>
