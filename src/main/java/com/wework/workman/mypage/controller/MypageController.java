@@ -86,7 +86,7 @@ public class MypageController {
 	public String findPwdPage() {
 		return "myPage/findPwd";
 	}
-	
+
 	@RequestMapping("returnPwdPage.wo")
 	public String returnPwdPage() {
 		return "myPage/returnPwdPage";
@@ -99,33 +99,33 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String loginEmp(Employee m, Model model) {
-		
-//		Employee loginMan = mService.loginMan(m);
-		
-		/*
-		 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
-		 * loginMan.getPwd()) { model.addAttribute("loginMan", loginMan); return
-		 * return "redirect:home.wo";
-		 * 
-		 * }else {
-		 * 
-		 * 
-		 * }
-		 */
-		
-		if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPhone(), loginMan.getEmpPwd())) {
-			model.addAttribute("loginMan", loginMan);
-			return "redirect:home.wo";
-			
-		}else {
-			
-			return "redirect:loginPage.wo";
-		}
-		
-	}
-		
+	/*
+	 * @RequestMapping(value = "login.do", method = RequestMethod.POST) public
+	 * String loginEmp(Employee m, Model model) {
+	 * 
+	 * // Employee loginMan = mService.loginMan(m);
+	 * 
+	 * 
+	 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
+	 * loginMan.getPwd()) { model.addAttribute("loginMan", loginMan); return return
+	 * "redirect:home.wo";
+	 * 
+	 * }else {
+	 * 
+	 * 
+	 * }
+	 * 
+	 * 
+	 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPhone(),
+	 * loginMan.getEmpPwd())) { model.addAttribute("loginMan", loginMan); return
+	 * "redirect:home.wo";
+	 * 
+	 * }else {
+	 * 
+	 * return "redirect:loginPage.wo"; }
+	 * 
+	 * }
+	 */
 
 	/**
 	 * 로그아웃
