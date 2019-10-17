@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.service.MypageService;
 import com.wework.workman.mypage.model.vo.Employee;
 
@@ -92,7 +91,7 @@ public class MypageController {
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String loginEmp(Employee m, Model model) {
 		
-		Employee loginMan = mService.loginMan(m);
+		//Employee loginMan = mService.loginMan(m);
 		
 		/*
 		 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
