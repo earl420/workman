@@ -11,7 +11,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--&nbsp;Custom Stylesheet -->
     <link href="resources/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 </head>
 
@@ -344,8 +343,8 @@
                             <i class="fas fa-calendar-alt"></i><span class="nav-text">일정</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="calDetail.wo">-&nbsp;일정상세보기</a></li>
-                            <li><a href="calInsert.wo">-&nbsp;일정 등록</a></li>
+                            <li><a href="calDetailView.wo">-&nbsp;일정상세보기</a></li>
+                            <li><a href="calInsertView.wo">-&nbsp;일정 등록</a></li>
                             
                         </ul>
                     </li>

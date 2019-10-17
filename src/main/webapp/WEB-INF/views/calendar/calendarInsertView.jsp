@@ -21,7 +21,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <style>
-        .outdiv{
+       .outdiv{
             width:70%;
             margin: auto;
             padding-left: 20px;
@@ -53,8 +53,7 @@
 			<div class="content-fluid" style="height: 100px;" align="center">
 				<div class="insertouter">
 				
-				
-    <div class="outdiv">
+	<form action="calInsert.wo" method="post" class="outdiv">
         <h2>일 정&nbsp; 등 록</h2>
         <br>
         
@@ -77,7 +76,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">작성자</span>
                 </div>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text" class="form-control" value="${ loginUser.id }" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
          </div>
         </div>  
 
@@ -132,7 +131,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">상세내용</span>
             </div>
-            <input type="text" id="detailId" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <textarea id="detailId" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
         </div>
 
         <div class="butdiv">
@@ -140,14 +139,12 @@
             <button type="submit" class="btn btn-secondary">등록</button>
         </div>
         <br>
-
-    </div>
-    
+    </form>	
     
 				</div>
 			</div> 
 		</div>
-  
+ 
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 

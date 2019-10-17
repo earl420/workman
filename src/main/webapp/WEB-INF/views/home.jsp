@@ -141,7 +141,7 @@
             
             <div class="indiv" id="div1" style="background: rgb(51, 153, 255)">
                 <div class="paddiv">
-                <a href="calDetail.wo">
+                <a href="calDetailView.wo">
                     <h2 id="h2">일정</h2>
                     <p>새로운 일정을 확인하세요.</p>
                 </a>
