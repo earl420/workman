@@ -12,7 +12,6 @@ import com.wework.workman.HomeController;
 public class ChattingController {
 //	@Resource(name="chattingService")
 //	private ChattingService cService;
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	
 	@RequestMapping(value="/chatting.wo", method = RequestMethod.GET)

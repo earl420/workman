@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="resources/account/css/insertNotice.css" rel="stylesheet">
+ <link href="resources/account/css/salaryList.css" rel="stylesheet">
 </head>
 <body>
-<!--*******************
+		<!--*******************
         Preloader start
     ********************-->
 	<div id="preloader">
@@ -33,22 +33,68 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-			<div class="content-fluid" style="height: 100px;" align="center">
-				<div class="insertouter">
-									
+			<div class="content-fluid" style="height: 100px; padding-left: 100px; padding-right: 100px;" align="center">
+				<div class="row" style="padding-top: 50px;">
+					<div class="col-sm-6"><h2>총 월급 : 1000000</h2></div>
+					<div class="col-sm-6"><h2>총 연봉 : 12000000</h2></div>
+				</div>
+				
+				<div class="table-responsive" style="text-align: center;">
+					<h3 style="padding-top: 40px; padding-bottom: 10px;">월급관리</h3>
+					<table class="table table-bordered verticle-middle" id="acList" style="border: 1px solid black; padding-left: 10px; padding-right:10px;">
+						<thead>
+							<tr>
+								<th width="10%">직원번호</th>
+								<th width="15%">부서</th>
+								<th width="15%">이름</th>
+								<th width="10%">직책</th>
+								<th width="10%">월급</th>
+								<th width="15%">연봉</th>
+								<th width="15%">작년대비인상률</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="i" begin="1" end="10">
+								<tr>
+									<td>${i }</td>
+									<td>회계/총무</td>
+									<td>양정환</td>
+									<td>대리</td>
+									<td>2000000</td>
+									<td>24000000</td>
+									<td>${i-1 }%</td>
+								</tr>
+							</c:forEach>							
+						</tbody>
+					</table>
+					
+						
+				</div>
+				
+				<div align="center" style="padding-top: 20px;" >
+					<div class="pages" onclick="paging(1);">&lt;&lt;</div>
+					<div class="pages" onclick="paging(1);">&lt;</div>
+					<c:forEach var="i" begin="1" end="10">
+						<div class="pages" onclick="paging(this.innerText);">${ i }</div>
+					</c:forEach>
+					<div class="pages" onclick="paging(10);">&gt;</div>
+					<div class="pages" onclick="paging(10);">&gt;&gt;</div>
 				</div>
 			</div>
-			<!-- row -->
+			<!-- /.container -->
 			
+			<!-- #/ container -->
 		</div>
 		<!--**********************************
             Content body end
         ***********************************-->
+        <div style="float: left; padding-left: 30%;">
 		<c:import url="../common/footer.jsp"></c:import>	
+        </div>
 	</div>
 	<!--**********************************
         Main wrapper end
     ***********************************-->
-    <script src="resources/account/js/insertNotice.js"></script>
+	 <script src="resources/account/js/salaryList.js"></script>
 </body>
 </html>

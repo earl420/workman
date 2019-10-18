@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.dao.MypageDao;
-import com.wework.workman.mypage.model.vo.Employee;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 @Service("mypageService")

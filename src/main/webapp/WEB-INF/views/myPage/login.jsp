@@ -58,7 +58,7 @@ table tr{
 <body>
 
    <div class="main">
-      <form id="form1">
+      <form id="form1" action="login.do">
 	      <table width="500" selspacing="5">
 	         <tr>
 	            <th colspan="2"><img src="resources/icons/logo2.png" alt="no"></th>
@@ -67,14 +67,14 @@ table tr{
 	            <td colspan="2">
 	               <br>
 	               <div class="form-group">
-	                  <input type="text" class="form-control" id="id" onkeyup="test1();" placeholder="사원번호"> 
+	                  <input type="text" class="form-control" id="num" name="num" placeholder="사원번호"> 
 	               </div>
 	            </td>
 	         </tr>
 	         <tr>
 	            <td colspan="2">
 	               <div class="form-group">
-	                  <input type="password" class="form-control" id="pwd" placeholder="비밀번호">
+	                  <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호">
 	               </div>
 	            </td>
 	         </tr>
@@ -105,7 +105,7 @@ table tr{
       if(key==null){
          console.log('널값!');         
       }else{
-         $('#id').val(key);
+         $('#num').val(key);
          $('#remember').attr("checked",true);
       };
    });

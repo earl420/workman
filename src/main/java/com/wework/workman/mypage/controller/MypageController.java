@@ -2,6 +2,8 @@ package com.wework.workman.mypage.controller;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import com.wework.workman.mypage.model.vo.Mypage;
 public class MypageController {
 
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	private Logger logger = LoggerFactory.getLogger(MypageController.class);
 
 	@Resource(name = "mypageService")
 	private MypageService mService;
@@ -104,7 +108,9 @@ public class MypageController {
 
 		Mypage loginMan = mService.loginMan(m);
 		
-		if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPhone(), loginMan.getEmpPwd())) {
+		logger.debug(loginMan.toString());
+		
+		if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) {
 			model.addAttribute("loginMan", loginMan);
 			return "redirect:home.wo";
 			
@@ -114,7 +120,6 @@ public class MypageController {
 		}
 		
 	}
-		
 
 	/**
 	 * 로그아웃

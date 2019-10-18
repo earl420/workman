@@ -35,7 +35,6 @@
 	<!-- 채팅뭐시기 -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
-		
 		<servlet-class>
 			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
@@ -44,9 +43,12 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/ws-config.xml</param-value>
 		</init-param>
-		
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/chatting.ch</url-pattern>
+    </servlet-mapping>
 	<!-- 채팅뭐시기끝 -->
 	
 	<servlet-mapping>
