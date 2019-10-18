@@ -25,7 +25,7 @@ public class CalendarController {
 	}
 	  
 	  
-	// 일정 상세보기
+	// 일정 상세보기-----
 	@RequestMapping("cDetail.wo")
 	public ModelAndView CalendarDetail(int _id, ModelAndView mv) {
 		
@@ -65,7 +65,7 @@ public class CalendarController {
 	}
 	
 	
-	// 일정수정
+	// 일정수정------
 	@RequestMapping("calUpdate.wo")
 	public String updateCalendar(int _id, HttpServletRequest request) {
 		
@@ -78,7 +78,7 @@ public class CalendarController {
 		}
 	}
 	
-	// 일정삭제
+	// 일정삭제-------
 	@RequestMapping("calDelete.wo")
 	public String CalendarDelete(int _id, HttpServletRequest request) {
 		

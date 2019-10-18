@@ -13,10 +13,11 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 <script src='main.js'></script>
+
 <style>
     .outdiv{
     	margin-left:130px;
-        margin-top: 50px;
+        margin-top: 40px;
         height: 600px;
         width: 80%;
     }
@@ -59,6 +60,16 @@
         font-weight: bold;
         color: white;
     }
+    .hidiv{
+        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
+        width: 25%;
+        text-align: center;
+        position: relative;
+        left:70% ;
+        bottom: 3.5%;
+        background:rgb(224, 224, 235);
+        border-radius: 10px;
+    }
 </style>
 </head>
 <body>
@@ -81,6 +92,15 @@
 			<div class="content-fluid" style="height: 100px">
 
  <div class="outdiv">
+ 
+ <div class="hidiv">
+ 	<br>
+    <h3 id="hih2">출/퇴근</h3> <!-- 토스트 안먹어 확인해....! -->
+    &nbsp;<button class="btn btn-success m-b-10 m-l-5" id="toastr-success-top-right" type="button">&nbsp;출근 &nbsp;</button>&nbsp;&nbsp;&nbsp;
+    <button class="btn btn-warning m-b-10 m-l-5" id="toastr-danger-top-right" type="button">&nbsp;퇴근&nbsp;</button>&nbsp;
+    <br><br>
+</div>
+ 
 		<div class="topdiv">
             <div class="indiv" id="div1" style="background: rgb(133, 133, 173)">
                 <div class="paddiv">
