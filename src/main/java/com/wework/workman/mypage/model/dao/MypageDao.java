@@ -18,6 +18,6 @@ public class MypageDao {
 	 * @return
 	 */
 	public Mypage loginMan(Mypage m) {
-		return sqlSession.selectOne("mypage-mapper.loginMan", m);
+		return sqlSession.selectOne("mypageMapper.loginMan", m);
 	}
 }
