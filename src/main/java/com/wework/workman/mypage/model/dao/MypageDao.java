@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 @Repository("mypageDao")
+
 public class MypageDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;

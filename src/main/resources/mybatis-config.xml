@@ -7,8 +7,10 @@
 </settings>
 
 <typeAliases>
-
+	<typeAlias type="com.wework.workman.mypage.model.vo.Mypage" alias="Mypage"/>
+	
 </typeAliases>
+
 <mappers>
 	<mapper resource="mapper/account-mapper.xml"></mapper>
 	<mapper resource="mapper/approval-mapper.xml"></mapper>
