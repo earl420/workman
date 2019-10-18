@@ -58,7 +58,7 @@ table tr{
 <body>
 
    <div class="main">
-      <form id="form1">
+      <form id="form1" action="login.do">
 	      <table width="500" selspacing="5">
 	         <tr>
 	            <th colspan="2"><img src="resources/icons/logo2.png" alt="no"></th>
@@ -74,7 +74,7 @@ table tr{
 	         <tr>
 	            <td colspan="2">
 	               <div class="form-group">
-	                  <input type="password" class="form-control" id="pwd" name="num" placeholder="비밀번호">
+	                  <input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호">
 	               </div>
 	            </td>
 	         </tr>

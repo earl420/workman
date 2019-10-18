@@ -11,6 +11,7 @@ public class Mypage {
 	private String gender;
 	private Date birth;
 	private String phone;
+	private String address;
 	private int gradeNum;
 	private int deftNum;
 	private int salary;
@@ -24,8 +25,9 @@ public class Mypage {
 		super();
 	}
 
-	public Mypage(int num, String pwd, String name, String email, String gender, Date birth, String phone, int gradeNum,
-			int deftNum, int salary, Date enrollDate, Date resignDate, String status, String account, String bank) {
+	public Mypage(int num, String pwd, String name, String email, String gender, Date birth, String phone,
+			String address, int gradeNum, int deftNum, int salary, Date enrollDate, Date resignDate, String status,
+			String account, String bank) {
 		super();
 		this.num = num;
 		this.pwd = pwd;
@@ -34,6 +36,7 @@ public class Mypage {
 		this.gender = gender;
 		this.birth = birth;
 		this.phone = phone;
+		this.address = address;
 		this.gradeNum = gradeNum;
 		this.deftNum = deftNum;
 		this.salary = salary;
@@ -42,6 +45,17 @@ public class Mypage {
 		this.status = status;
 		this.account = account;
 		this.bank = bank;
+	}
+
+	/**
+	 * 로그인
+	 * @param num
+	 * @param pwd
+	 */
+	public Mypage(int num, String pwd) {
+		super();
+		this.num = num;
+		this.pwd = pwd;
 	}
 
 	public int getNum() {
@@ -98,6 +112,14 @@ public class Mypage {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public int getGradeNum() {
@@ -167,11 +189,11 @@ public class Mypage {
 	@Override
 	public String toString() {
 		return "Mypage [num=" + num + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", gender=" + gender
-				+ ", birth=" + birth + ", phone=" + phone + ", gradeNum=" + gradeNum + ", deftNum=" + deftNum
-				+ ", salary=" + salary + ", enrollDate=" + enrollDate + ", resignDate=" + resignDate + ", status="
-				+ status + ", account=" + account + ", bank=" + bank + "]";
+				+ ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", gradeNum=" + gradeNum
+				+ ", deftNum=" + deftNum + ", salary=" + salary + ", enrollDate=" + enrollDate + ", resignDate="
+				+ resignDate + ", status=" + status + ", account=" + account + ", bank=" + bank + "]";
 	}
-
+	
 	
 
 }
