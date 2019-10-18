@@ -58,7 +58,7 @@ table tr{
 <body>
 
    <div class="main">
-      <form id="form1" action="login.do">
+      <form id="form1" action="login.wo" method="post">
 	      <table width="500" selspacing="5">
 	         <tr>
 	            <th colspan="2"><img src="resources/icons/logo2.png" alt="no"></th>
@@ -84,7 +84,7 @@ table tr{
 	         </tr>
 	         <tr>
 	            <td colspan="2" align="center">
-			    	<button type="submit" align="center" class="btn btn-secondary btn-lg btn-block">로그인</button>
+			    	<button type="submit" class="btn btn-secondary btn-lg btn-block">로그인</button>
 	            </td>
 	         </tr>
 	         <tr>

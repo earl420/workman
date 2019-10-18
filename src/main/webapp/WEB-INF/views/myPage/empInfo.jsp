@@ -93,25 +93,49 @@
 						<c:if test="${ empty loginMan.address }">
 							<tr>
 								<td>우편번호</td>
-								<td><input type="text" name="post" size="20" class="postcodify_postcode5" readonly="readonly"></td>
+								<td>
+									<input type="text" name="post" size="20" class="postcodify_postcode5" readonly="readonly">
+								</td>
 							</tr>
 							<tr>
 								<td>주소</td>
-								<td><input type="text" name="address1" size="50" class="postcodify_address" readonly="readonly"></td>
+								<td>
+									<input type="text" name="address1" size="40" class="postcodify_address" readonly="readonly">
+								</td>
 							</tr>
 							<tr>
 								<td>상세주소</td>
-								<td><input type="text" name="address2" size="50" class="postcodify_extra_info"></td>
+								<td>
+									<input type="text" name="address2" size="40" class="postcodify_extra_info">
+								</td>
 							</tr>
 						</c:if>
 						<c:if test="${ !empty loginMan.address }">
 							<c:forTokens items="${ loginMan.address }" delims="," var="addr" varStatus="status">
-							
+								<c:if test="${ status.inde eq 0 }">
+									<tr>
+										<td>우편번호</td>
+										<td>
+											<input type="text" name="post" size="20" value="${ addr }" class="postcodify_postcode5">
+										</td>
+									</tr>
+									<tr>
+										<td>도로명 주소</td>
+										<td>
+											<input type="text" name="address1" size="40" value="${ addr }"  class="postcodify_address">
+										</td>
+									</tr>
+									<tr>
+										<td>상세 주소</td>
+										<td>
+											<input type="text" name="address2" size="40" value="${ addr }"  class="postcodify_extra_info">
+										</td>
+									</tr>
+								</c:if>
 							</c:forTokens>
 							
 						
 						</c:if>
-						
 						
 						
 					</table>
