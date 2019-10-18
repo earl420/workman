@@ -10,9 +10,13 @@
 <link href="resources/css/style.css" rel="stylesheet">
 <meta charset="UTF-8">
 <style>
+	.box_from ul li div{
+		text-align:center;
+		margin-bottom:0.5px;
+		width: 100px;
+	}
 	.box_from ul li{
 		display: inline-table;
-		margin-bottom : 0px;
 	}
 	.box_from ul {
 		margin-bottom : 0px;
@@ -30,65 +34,47 @@
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="javascript:void(0)">결제문서등록</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">지출결의서작성</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">기안서작성</a></li>
 					</ol>
 				</div>
 			</div>
 			<!-- row -->
 			<div class="container-fluid">
-			<form action="insertExpense.wo" method="post" encType="multipart/form-data">
 				<div class="row">
 					<div class="col-lg-12">
 					<div class="card">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h4>지출결의서</h4>
+                                    <h4>기안서</h4>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table">
                                     	<tr>
                                         	<td rowspan="2" align="center" width="10%">결재라인</td>
-                                            <td width="10%"  align="center">
-                                            	<button type="button" class="btn mb-1 btn-rounded btn-success">
-                                            		<span class="btn-icon-left">
-                                            			<i class="fa fa-share-alt color-secondary"></i> 
-                                            		</span>결제자선택
-                                            	</button>
+                                            <td width="10%"  align="center">결제자
                                             </td>
                                             <th colspan="4" width="80%">
                                             	<div class="member box_from" >
                                             		<ul>
-                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-success"  data-dismiss="alert" aria-label="Close">강연재 
-                                            					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                   							 </button>
+                                            			<li>
+                                            				<div class="alert alert-primary" style="height:100px; padding: 45px 0px; ">결제</div>
+                                            				<div class="alert alert-success" style="height: 40px;">민병현</div>
                                    						</li>
-                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-success"  data-dismiss="alert" aria-label="Close">민병현 
-                                            					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                   							 </button>
+                                            			<li>
+                                            				<div class="alert alert-primary" style="height:100px; padding: 45px 0px; ">결제</div>
+                                            				<div class="alert alert-success" style="height: 40px;">민병현</div>
                                    						</li>
                                             		</ul>
                                             	</div>
                                             </th>
                                         </tr>
                                         <tr>
-                                        	<td align="center">
-                                            	<button type="button" class="btn mb-1 btn-rounded btn-secondary">
-                                            		<span class="btn-icon-left">
-                                            			<i class="fa fa-share-alt color-secondary"></i> 
-                                            		</span>참조자선택
-                                            	</button>
-                                            </td>
+                                        	<td width="10%"  align="center">참조자 </td>
                                             <th colspan="4">
                                             	<div class="member box_from">
                                             		<ul>
-                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-secondary"  data-dismiss="alert" aria-label="Close">강연재
-                                            					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                   							 </button>
-                                   						</li>
-                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-secondary"  data-dismiss="alert" aria-label="Close">민병현 
-                                            					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                   							 </button>
-                                   						</li>
+                                            			<li><div class="alert alert-info"  style="height: 40px;">민병현</div> </li>
+                                            			<li><div class="alert alert-info"  style="height: 40px;">강연재</div> </li>
                                             		</ul>
                                             	</div>
                                             </th>
@@ -96,26 +82,27 @@
                                         <tr>
                                         	<td align="center">제목</td>
                                         	<td colspan="5">
-                                        		<input type="text" class="form-control" id="val-title" name="title" placeholder="제목등록">
+                                        	<input type="text" class="form-control" id="val-title" name="title" value="제품구입지출결의서" readonly="readonly">
                                         	</td>
 										</tr>
 										<tr>
                                         	<td align="center" >파일첨부</td>
-                                        	<td>
-                                        		<label class="btn mb-1 btn-rounded btn-primary" for="file-input">
-                                        			<span class="btn-icon-left"><i class="fa fa-upload color-success"></i> 
-                                        		</span>Upload</label>
-                                        		<input id='file-input' type='file' multiple style= "display:none;">
-                                        	</td>
                                         	<th colspan="5">
                                         		<div class="files box_from">
                                             		<ul id="fileName">
-                                   						
+                                   						<li>
+                                   						<button type="button" class="btn mb-1 btn-rounded btn-primary">corejava.dll</button>
+                                   						</li>
+                                   						<li>
+                                   						<button type="button" class="btn mb-1 btn-rounded btn-primary">dsaw.dll</button>
+                                   						</li>
+                                   						<li>
+                                   						<button type="button" class="btn mb-1 btn-rounded btn-primary">파일.dll</button>
+                                   						</li>
                                             		</ul>
                                             	</div>
                                         	</th>
 										</tr>
-										
 										<tr>
 											<td align="center">거래처</td>
 											<td  colspan="2" align="center" width="40%">업체명</td>
@@ -135,7 +122,9 @@
 										<tr>
                                         	<td align="center">내용</td>
                                         	<th colspan="5">
-                                        		<textarea id="ir1" rows="15" cols="135"  style="resize: none;"></textarea>
+                                        		<textarea rows="15" cols="135" readonly="readonly" style="resize: none;">
+                                        		제품 : 구입비용 100만원
+                                        		</textarea>
                                         	</th>
 										</tr>
 										<tr>
@@ -151,42 +140,13 @@
                         </div>
 					</div>
 				</div>
-				</form>
 			</div>
+
 		</div>
+		
+		
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
-<script type="text/javascript">
-	var oEditors = [];
-	nhn.husky.EZCreator.createInIFrame({
- 	oAppRef: oEditors,
- 	elPlaceHolder: "ir1",
- 	sSkinURI: "resources/se2/SmartEditor2Skin.html",
- 	fCreator: "createSEditor2"
-	});	
-</script>
-<script>
-  var fileInput = document.getElementById('file-input');
-  var files = new Array();
-  		fileInput.addEventListener('change', function(event) {
-  			
-    		var input = event.target;
-			for (var i = 0; i < input.files.length; i++) {
-      		console.log(input.files[i].name);
-      		files.push( input.files[i]);
-      		var $ul = $(".files ul");
-			var $li = $("<li class='alert'>");
-			var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary' data-dismiss='alert' aria-label='Close'>").text(files[i].name + "");
-			var $span = $("<span class='btn-icon-right'><i class='fa fa-close'></i>");
-			 	$button.append($span);
-				$li.append($button);
-				$ul.append($li);
-    		}
-			console.log(files);
-  }); /* 파일 추가  */
-
-		
-</script>
 
 </body>
 </html>

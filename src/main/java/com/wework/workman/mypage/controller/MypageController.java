@@ -99,11 +99,12 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
+	
 	/*
 	 * @RequestMapping(value = "login.do", method = RequestMethod.POST) public
 	 * String loginEmp(Employee m, Model model) {
 	 * 
-	 * // Employee loginMan = mService.loginMan(m);
+	 * Employee loginMan = mService.loginMan(m);
 	 * 
 	 * 
 	 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
@@ -126,6 +127,7 @@ public class MypageController {
 	 * 
 	 * }
 	 */
+	 
 
 	/**
 	 * 로그아웃
