@@ -26,15 +26,7 @@
 	<select id="loginMan" parameterType="Mypage" resultMap="empResultSet">
 		select *
 		from employee
-		where EMP_NUM=#{num} and EMP_STATUS='Y'
-		
-		<!-- 암호화
-		select *
-		from employee
-		where emp_num = #{num} and emp_status = 'Y'
-		 -->
-		
-		
+		where emp_num=#{num} and emp_status='Y'
 	</select>
 	
 	

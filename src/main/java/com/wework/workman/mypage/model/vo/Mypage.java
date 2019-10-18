@@ -47,11 +47,7 @@ public class Mypage {
 		this.bank = bank;
 	}
 
-	public Mypage(String num, String pwd) {
-		super();
-		this.num = num;
-		this.pwd = pwd;
-	}
+
 
 	public String getNum() {
 		return num;

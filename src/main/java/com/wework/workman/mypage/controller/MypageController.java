@@ -94,6 +94,10 @@ public class MypageController {
 		return "myPage/findPwd";
 	}
 	
+	/**
+	 * 비밀번호 찾기 변경
+	 * @return
+	 */
 	@RequestMapping("returnPwdPage.wo")
 	public String returnPwdPage() {
 		return "myPage/returnPwdPage";
@@ -106,22 +110,19 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	
-	  @RequestMapping(value = "login.do", method = RequestMethod.POST) 
+	  @RequestMapping(value = "login.wo", method = RequestMethod.POST) 
 	  public String loginEmp(Mypage m, Model model) {
+		  
 	  
-	  Mypage loginMan = mService.loginMan(m);
-	  
-	  logger.debug(loginMan.toString());
-	  
-	  if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) { model.addAttribute("loginMan", loginMan); 
-	  
-	  	return "redirect:home.wo";
-	  
-	  }else {
-	  
-	  return "redirect:loginPage.wo"; 
-	  }
+		  Mypage loginMan = mService.loginMan(m);
+		  
+		  if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) { 
+			  model.addAttribute("loginMan", loginMan); 
+			  return "home";
+		  
+		  }else {
+			  return "redirect:loginPage.wo"; 
+		  }
 	  
 	  }
 	 

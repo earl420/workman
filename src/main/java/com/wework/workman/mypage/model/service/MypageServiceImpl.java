@@ -20,9 +20,9 @@ public class MypageServiceImpl implements MypageService{
 	/**
 	 * 로그인
 	 */
-
 	@Override
 	public Mypage loginMan(Mypage m) {
+		System.out.println(m.getNum());
 		return mDao.loginMan(m);
 	}
 
