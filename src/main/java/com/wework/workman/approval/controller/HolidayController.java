@@ -21,4 +21,13 @@ public class HolidayController {
 		
 		return "approval/holiDayWrite";
 	}
+	
+	/** 휴가 디테일 화면
+	 * @return
+	 */
+	@RequestMapping("holiDayDetail.wo")
+	public String holiDayDetail() {
+		
+		return "approval/holiDayDetail";
+	}
 }

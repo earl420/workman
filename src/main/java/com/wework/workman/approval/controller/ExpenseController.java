@@ -21,4 +21,13 @@ public class ExpenseController {
 		
 		return "approval/expenseWrite";
 	}
+	
+	/** 지출결의서 디테일 화면
+	 * @return
+	 */
+	@RequestMapping("expenseDetail.wo")
+	public String expenseDetail() {
+		
+		return "approval/expenseDetail";
+	}
 }

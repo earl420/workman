@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.Date, java.text.SimpleDateFormat"%>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +13,7 @@
  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
  <meta name='viewport' content='width=device-width, initial-scale=1'>
  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+ <link href="css/style.css" rel="stylesheet">
  <script src='main.js'></script>
  
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -35,6 +36,7 @@
         }
         #detailId{
             height: 300px;
+            resize: none;
         }
         .butdiv{
             text-align:center;
@@ -54,27 +56,25 @@
 				<div class="insertouter">
 				
 	<form action="calInsert.wo" method="post" class="outdiv">
-        <h2>¿œ ¡§&nbsp; µÓ ∑œ</h2>
+        <h2 style="color:navy;">Ïùº Ï†ï&nbsp; Îì± Î°ù</h2>
         <br>
         
-        <div class="inlinediv" style="width: 70%;">
+       <div class="inlinediv" style="width: 70%;">
           <div class="input-group mb-3">
-             <div class="input-group-prepend">
-               <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type</button>
-               <div class="dropdown-menu">
-                 <a class="dropdown-item" href="#">¿¸√º¿œ¡§</a>
-                 <a class="dropdown-item" href="#">√—π´/»∏∞Ë</a>
-                 <a class="dropdown-item" href="#">¿ŒªÁ</a>
-               </div>
-             </div>
-             <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="¡¶∏Ò¿ª ¿‘∑¬«œººø‰.">
+	           <select class="ui dropdown input-group-text">
+				  <option value="">Type</option>
+				  <option value="Ï†ÑÏ≤¥">Ï†ÑÏ≤¥ÏùºÏ†ï</option>
+				  <option value="Ï¥ùÎ¨¥/ÌöåÍ≥Ñ">Ï¥ùÎ¨¥/ÌöåÍ≥Ñ</option>
+				  <option value="Ïù∏ÏÇ¨">Ïù∏ÏÇ¨</option>
+				</select>
+             <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Ï†úÎ™©ÏùÑ ÏûÖÎ†•ÌïòÏÑ∏Ïöî.">
            </div>
         </div>
-
+        
         <div class="inlinediv" style="width: 25%;">
            <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">¿€º∫¿⁄</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">ÏûëÏÑ±Ïûê</span>
                 </div>
             <input type="text" class="form-control" value="${ loginUser.id }" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
          </div>
@@ -83,18 +83,26 @@
         <div class="inlinediv" style="width: 40.5%;">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Ω√¿€</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">ÏãúÏûë</span>
             </div>
-            <input type="datetime-local" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <%
+            	Date today = new Date();
+            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            	String strToday = sdf.format(today);
+            	/* Ïò§ÎäòÎÇ†Ïßú valueÍ∞íÏúºÎ°ú Î∞ïÏúºÎ†§Í≥† */
+            %>
+            <input type="date" id="startDate" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="time" id="startTime" value="00:00" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
            
         <div class="inlinediv" style="width: 40.5%;">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">∏∂∞®</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">ÎßàÍ∞ê</span>
             </div>
-            <input type="datetime-local" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="endDate" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="time" id="endTime" value="23:59" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
 
@@ -102,41 +110,45 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                    <input type="checkbox" aria-label="Checkbox for following text input">
+                    <input id="checkBoxId" type="checkbox" aria-label="Checkbox for following text input">
                     </div>
                 </div>
-                <p class="form-control" aria-label="Text input with checkbox">&nbsp;ALL DAY&nbsp;</p>
+                <p class="form-control input-group-text" aria-label="Text input with checkbox">&nbsp;ALL DAY&nbsp;</p>
             </div>
          </div>
-
-        <!--  <div class="inlinediv" style="width: 48%;">
-         <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">πË∞Êªˆ</span>
-            </div>
-            <input type="color" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        </div>
-        </div>
-
-        <div class="inlinediv" style="width: 48%;">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">±€¿⁄ªˆ</span>
-            </div>
-            <input type="color" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        </div>
-       </div> -->
+         
+         
+      	<script>
+        	/* all day Ï≤¥ÌÅ¨Î∞ïÏä§ Ïù¥Î≤§Ìä∏  */
+	        $(function(){
+	        	$("#checkBoxId").change(function(){
+        	        if($("#checkBoxId").is(":checked")){
+        	        	$("#startDate").attr("disabled",true);
+        	        	$("#endDate").attr("disabled",true);
+        	        	$("#startTime").attr("disabled",true);
+        	        	$("#endTime").attr("disabled",true);
+        	        	
+        	        }else{
+        	        	$("#startDate").attr("disabled",false);
+        	        	$("#endDate").attr("disabled",false);
+        	        	$("#startTime").attr("disabled",false);
+        	        	$("#endTime").attr("disabled",false);
+        	        }
+        	    });
+	         });
+         </script>
+         
 
          <div class="input-group mb-3" style="width: 96%;">
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">ªÛºº≥ªøÎ</span>
+                <span class="input-group-text" id="inputGroup-sizing-default">ÏÉÅÏÑ∏ÎÇ¥Ïö©</span>
             </div>
             <textarea id="detailId" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
         </div>
 
         <div class="butdiv">
-            <button type="reset" class="btn btn-outline-danger">√Îº“</button>
-            <button type="submit" class="btn btn-secondary">µÓ∑œ</button>
+            <button class="btn mb-1 btn-outline-warning" type="reset">Ï∑®ÏÜå</button>
+            <button class="btn mb-1 btn-secondary" type="submit">Îì±Î°ù</button>
         </div>
         <br>
     </form>	
@@ -147,6 +159,5 @@
  
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
-
 </body>
 </html>

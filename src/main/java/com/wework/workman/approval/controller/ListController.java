@@ -107,10 +107,19 @@ public class ListController {
 		return "approval/companionList";
 	}
 	
+	/** 임시저장 리스트
+	 * @return
+	 */
 	@RequestMapping("temporaryList.wo")
 	public String temporaryList() {
 		
 		return "approval/temporaryList";
+	}
+	
+	@RequestMapping("test.wo")
+	public String test() {
+		
+		return "approval/test";
 	}
 	
 	
