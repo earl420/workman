@@ -132,7 +132,7 @@
         <div class="botdiv">
             <div class="indiv" id="div2" style="background: rgb(0, 179, 0)">
                 <div class="paddiv">
-                <a href="">
+                <a href="chatting.wo">
                     <h2 id="h2">사내메신저</h2>
                     <p>메신저 바로가기</p>
                 </a>

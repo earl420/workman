@@ -13,9 +13,9 @@
 
 
   <websocket:handlers>
-      <websocket:mapping handler="chatHandler" path="/chatting" />
+      <websocket:mapping handler="chatHandler" path="/chatting.ch" />
   </websocket:handlers>
-
   <bean id="chatHandler" class="com.wework.workman.chatting.controller.WebSocketHandler" />
+
 
 </beans>
