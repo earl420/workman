@@ -103,23 +103,24 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String loginEmp(Mypage m, Model model) {
-
-		Mypage loginMan = mService.loginMan(m);
-		
-		logger.debug(loginMan.toString());
-		
-		if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) {
-			model.addAttribute("loginMan", loginMan);
-			return "redirect:home.wo";
-			
-		}else {
-			
-			return "redirect:loginPage.wo";
-		}
-		
-	}
+	/*
+	 * @RequestMapping(value = "login.do", method = RequestMethod.POST) public
+	 * String loginEmp(Mypage m, Model model) {
+	 * 
+	 * Mypage loginMan = mService.loginMan(m);
+	 * 
+	 * logger.debug(loginMan.toString());
+	 * 
+	 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(),
+	 * loginMan.getPwd())) { model.addAttribute("loginMan", loginMan); return
+	 * "redirect:home.wo";
+	 * 
+	 * }else {
+	 * 
+	 * return "redirect:loginPage.wo"; }
+	 * 
+	 * }
+	 */
 
 	/**
 	 * 로그아웃

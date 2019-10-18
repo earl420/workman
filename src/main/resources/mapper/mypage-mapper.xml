@@ -23,7 +23,7 @@
 		<result property="bank" column="EMP_BANK"/>
 	</resultMap>
 	
-	<select id="loginMan" parameterType="myPage" resultMap="empResultSet">
+	<select id="loginMan" parameterType="MyPage" resultMap="empResultSet">
 		select *
 		from employee
 		where emp_num = #{num} and emp_status = 'Y'
