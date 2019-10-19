@@ -18,34 +18,36 @@ public class ChattingController {
 //	@Resource(name="chattingService")
 //	private ChattingService cService;
 
+	public static int initialChattingDB = 0;
+
 	@RequestMapping(value = "/chatting.wo", method = RequestMethod.GET)
 	public String chattingMain() throws IOException, InterruptedException, ExecutionException {
-
-		firebase();
+		if(initialChattingDB ==0) {
+			firebase();
+		};
 		return "chatting/chatting";
 	}
 
 	public static void firebase() throws IOException, InterruptedException, ExecutionException {
-		//powershell 환경변수추가
-		
+		// powershell 환경변수추가
+
 //		window
 //		$env:GOOGLE_APPLICATION_CREDENTIALS="C:\final\workman\kh-final-chatting-firebase-adminsdk-lwfbc-635f8267c1.json"
-		
+
 //		linux or macOS
 //		export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"
-		
-		
-		//		FileInputStream serviceAccount =new FileInputStream("C:\final\workman\kh-final-chatting-firebase-adminsdk-lwfbc-635f8267c1.json");
-		
-		InputStream serviceAccount = new FileInputStream("C:\\final\\workman\\kh-final-chatting-firebase-adminsdk-lwfbc-635f8267c1.json");
-		GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-		FirebaseOptions options = new FirebaseOptions.Builder()
-			    .setCredentials(credentials)
-			    .setProjectId("kh-final-chatting")
-			    .build();
 
-		
-			FirebaseApp.initializeApp(options);
+		// FileInputStream serviceAccount =new
+		// FileInputStream("C:\final\workman\kh-final-chatting-firebase-adminsdk-lwfbc-635f8267c1.json");
+
+		InputStream serviceAccount = new FileInputStream(
+				"C:\\final\\workman\\kh-final-chatting-firebase-adminsdk-lwfbc-635f8267c1.json");
+		GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+		FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(credentials)
+				.setProjectId("kh-final-chatting").build();
+
+		FirebaseApp.initializeApp(options);
+		initialChattingDB=1;
 	}
 
 }
