@@ -19,6 +19,8 @@
 		font-size:20px;
 		color: black;
 	}
+	
+	
 </style>
 <title>비밀번호 변경</title>
 </head>
@@ -55,14 +57,14 @@
 				<b>비밀번호 변경 시 계정보안을 위해 로그아웃 됩니다.</b>
 				<br><br><br>
 				<form action="changePwd.wo">
-					<table width="500" celspacing="5">
+					<table width="700" celspacing="5">
 						<tr>
 							<th>새로운 비밀번호</th>
-							<td><input type="password" name="pwd" id="pwd"  placeholder="8~16자 영문, 숫자, 특수문자 입력" required></td>
+							<td><input type="password" name="pwd" id="pwd" size="30"  placeholder="8~16자 영문, 숫자, 특수문자 입력" required></td>
 						</tr>
 						<tr>
 							<th>비밀번호 확인</th>
-							<td><input type="password" id="pwd2" placeholder="비밀번호 확인" required></td>
+							<td><input type="password" id="pwd2" size="30" placeholder="비밀번호 확인" required></td>
 						</tr>
 					</table>
 					<br><br>

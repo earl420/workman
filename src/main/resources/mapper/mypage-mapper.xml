@@ -3,5 +3,39 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mypageMapper">
-
+	
+	<resultMap id="empResultSet" type="Mypage">
+		<id property="num" column="EMP_NUM"/>
+		<result property="pwd" column="EMP_PWD"/>
+		<result property="name" column="EMP_NAME"/>
+		<result property="email" column="EMP_EMAIL"/>
+		<result property="gender" column="EMP_GENDER"/>
+		<result property="birth" column="EMP_BIRTH"/>
+		<result property="phone" column="EMP_PHONE"/>
+		<result property="address" column="EMP_ADDRESS"/>
+		<result property="gradeNum" column="GRADE_NUM"/>
+		<result property="deftNum" column="DEFT_NUM"/>
+		<result property="salary" column="EMP_SALARY"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="resignDate" column="RESIGN_DATE"/>
+		<result property="status" column="EMP_STATUS"/>
+		<result property="account" column="EMP_ACCOUNT"/>
+		<result property="bank" column="EMP_BANK"/>
+	</resultMap>
+	
+	<select id="loginMan" parameterType="Mypage" resultMap="empResultSet">
+		select *
+		from employee
+		where EMP_NUM=#{num} and EMP_STATUS='Y'
+		
+		<!-- 암호화
+		select *
+		from employee
+		where emp_num = #{num} and emp_status = 'Y'
+		 -->
+		
+		
+	</select>
+	
+	
 </mapper>

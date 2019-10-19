@@ -1,23 +1,30 @@
 package com.wework.workman.mypage.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.wework.workman.mypage.model.service.MypageService;
 import com.wework.workman.mypage.model.vo.Mypage;
 
-@SessionAttributes("")
+@SessionAttributes("loginMan")
 @Controller
 public class MypageController {
 
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	private Logger logger = LoggerFactory.getLogger(MypageController.class);
 
 	@Resource(name = "mypageService")
 	private MypageService mService;
@@ -86,7 +93,7 @@ public class MypageController {
 	public String findPwdPage() {
 		return "myPage/findPwd";
 	}
-
+	
 	@RequestMapping("returnPwdPage.wo")
 	public String returnPwdPage() {
 		return "myPage/returnPwdPage";
@@ -99,33 +106,25 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	/*
-	 * @RequestMapping(value = "login.do", method = RequestMethod.POST) public
-	 * String loginEmp(Employee m, Model model) {
-	 * 
-	 * // Employee loginMan = mService.loginMan(m);
-	 * 
-	 * 
-	 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPwd(),
-	 * loginMan.getPwd()) { model.addAttribute("loginMan", loginMan); return return
-	 * "redirect:home.wo";
-	 * 
-	 * }else {
-	 * 
-	 * 
-	 * }
-	 * 
-	 * 
-	 * if(loginMan != null && bcryptPasswordEncoder.matches(m.getEmpPhone(),
-	 * loginMan.getEmpPwd())) { model.addAttribute("loginMan", loginMan); return
-	 * "redirect:home.wo";
-	 * 
-	 * }else {
-	 * 
-	 * return "redirect:loginPage.wo"; }
-	 * 
-	 * }
-	 */
+	
+	  @RequestMapping(value = "login.do", method = RequestMethod.POST) 
+	  public String loginEmp(Mypage m, Model model) {
+	  
+	  Mypage loginMan = mService.loginMan(m);
+	  
+	  logger.debug(loginMan.toString());
+	  
+	  if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) { model.addAttribute("loginMan", loginMan); 
+	  
+	  	return "redirect:home.wo";
+	  
+	  }else {
+	  
+	  return "redirect:loginPage.wo"; 
+	  }
+	  
+	  }
+	 
 
 	/**
 	 * 로그아웃

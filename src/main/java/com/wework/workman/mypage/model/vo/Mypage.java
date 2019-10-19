@@ -4,101 +4,117 @@ import java.sql.Date;
 
 public class Mypage {
 	
-	private int empNum;
-	private String empPwd;
-	private String empName;
-	private String empEmail;
-	private String empGender;
-	private Date empBirth;
-	private String empPhone;
+	private String num;
+	private String pwd;
+	private String name;
+	private String email;
+	private String gender;
+	private Date birth;
+	private String phone;
+	private String address;
 	private int gradeNum;
 	private int deftNum;
-	private int empSalary;
+	private int salary;
 	private Date enrollDate;
 	private Date resignDate;
-	private String empStatus;
-	private String empAccount;
-	private String empBack;
+	private String status;
+	private String account;
+	private String bank;
 	
 	public Mypage() {
 		super();
 	}
 
-	public Mypage(int empNum, String empPwd, String empName, String empEmail, String empGender, Date empBirth,
-			String empPhone, int gradeNum, int deftNum, int empSalary, Date enrollDate, Date resignDate,
-			String empStatus, String empAccount, String empBack) {
+	public Mypage(String num, String pwd, String name, String email, String gender, Date birth, String phone,
+			String address, int gradeNum, int deftNum, int salary, Date enrollDate, Date resignDate, String status,
+			String account, String bank) {
 		super();
-		this.empNum = empNum;
-		this.empPwd = empPwd;
-		this.empName = empName;
-		this.empEmail = empEmail;
-		this.empGender = empGender;
-		this.empBirth = empBirth;
-		this.empPhone = empPhone;
+		this.num = num;
+		this.pwd = pwd;
+		this.name = name;
+		this.email = email;
+		this.gender = gender;
+		this.birth = birth;
+		this.phone = phone;
+		this.address = address;
 		this.gradeNum = gradeNum;
 		this.deftNum = deftNum;
-		this.empSalary = empSalary;
+		this.salary = salary;
 		this.enrollDate = enrollDate;
 		this.resignDate = resignDate;
-		this.empStatus = empStatus;
-		this.empAccount = empAccount;
-		this.empBack = empBack;
+		this.status = status;
+		this.account = account;
+		this.bank = bank;
 	}
 
-	public int getEmpNum() {
-		return empNum;
+	public Mypage(String num, String pwd) {
+		super();
+		this.num = num;
+		this.pwd = pwd;
 	}
 
-	public void setEmpNum(int empNum) {
-		this.empNum = empNum;
+	public String getNum() {
+		return num;
 	}
 
-	public String getEmpPwd() {
-		return empPwd;
+	public void setNum(String num) {
+		this.num = num;
 	}
 
-	public void setEmpPwd(String empPwd) {
-		this.empPwd = empPwd;
+	public String getPwd() {
+		return pwd;
 	}
 
-	public String getEmpName() {
-		return empName;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
-	public void setEmpName(String empName) {
-		this.empName = empName;
+	public String getName() {
+		return name;
 	}
 
-	public String getEmpEmail() {
-		return empEmail;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setEmpEmail(String empEmail) {
-		this.empEmail = empEmail;
+	public String getEmail() {
+		return email;
 	}
 
-	public String getEmpGender() {
-		return empGender;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public void setEmpGender(String empGender) {
-		this.empGender = empGender;
+	public String getGender() {
+		return gender;
 	}
 
-	public Date getEmpBirth() {
-		return empBirth;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public void setEmpBirth(Date empBirth) {
-		this.empBirth = empBirth;
+	public Date getBirth() {
+		return birth;
 	}
 
-	public String getEmpPhone() {
-		return empPhone;
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
 
-	public void setEmpPhone(String empPhone) {
-		this.empPhone = empPhone;
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public int getGradeNum() {
@@ -117,12 +133,12 @@ public class Mypage {
 		this.deftNum = deftNum;
 	}
 
-	public int getEmpSalary() {
-		return empSalary;
+	public int getSalary() {
+		return salary;
 	}
 
-	public void setEmpSalary(int empSalary) {
-		this.empSalary = empSalary;
+	public void setSalary(int salary) {
+		this.salary = salary;
 	}
 
 	public Date getEnrollDate() {
@@ -141,39 +157,37 @@ public class Mypage {
 		this.resignDate = resignDate;
 	}
 
-	public String getEmpStatus() {
-		return empStatus;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setEmpStatus(String empStatus) {
-		this.empStatus = empStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getEmpAccount() {
-		return empAccount;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setEmpAccount(String empAccount) {
-		this.empAccount = empAccount;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
-	public String getEmpBack() {
-		return empBack;
+	public String getBank() {
+		return bank;
 	}
 
-	public void setEmpBack(String empBack) {
-		this.empBack = empBack;
+	public void setBank(String bank) {
+		this.bank = bank;
 	}
 
 	@Override
 	public String toString() {
-		return "Mypage [empNum=" + empNum + ", empPwd=" + empPwd + ", empName=" + empName + ", empEmail=" + empEmail
-				+ ", empGender=" + empGender + ", empBirth=" + empBirth + ", empPhone=" + empPhone + ", gradeNum="
-				+ gradeNum + ", deftNum=" + deftNum + ", empSalary=" + empSalary + ", enrollDate=" + enrollDate
-				+ ", resignDate=" + resignDate + ", empStatus=" + empStatus + ", empAccount=" + empAccount
-				+ ", empBack=" + empBack + "]";
+		return "Mypage [num=" + num + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", gender=" + gender
+				+ ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", gradeNum=" + gradeNum
+				+ ", deftNum=" + deftNum + ", salary=" + salary + ", enrollDate=" + enrollDate + ", resignDate="
+				+ resignDate + ", status=" + status + ", account=" + account + ", bank=" + bank + "]";
 	}
-	
 	
 	
 

@@ -22,5 +22,14 @@ public class DraftController {
 		return "approval/draftWrite";
 	}
 	
+	/** 기안서 디테일 화면
+	 * @return
+	 */
+	@RequestMapping("draftDetail.wo")
+	public String draftDetail() {
+		
+		return "approval/draftDetail";
+	}
+	
 	
 }
