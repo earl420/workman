@@ -23,7 +23,6 @@ public class MypageServiceImpl implements MypageService{
 	 */
 	@Override
 	public Mypage loginMan(Mypage m) {
-		System.out.println("service" + m.getNum());
 		return mDao.loginMan(m);
 	}
 

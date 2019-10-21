@@ -19,7 +19,6 @@ public class MypageDao {
 	 * @return
 	 */
 	public Mypage loginMan(Mypage m) {
-		System.out.println("dao" + m.getNum());
 		return sqlSession.selectOne("mypageMapper.loginMan", m);
 	}
 }
