@@ -113,7 +113,7 @@
 				</div>
 				<div align="right" style="padding-right: 50px; padding-top: 10px;">
 					<button type="button" class="btn mb-1 btn-outline-warning" 
-					onclick="location.href='aninsert.wo'" style="border-radius: 5px; width:10em;">
+					onclick="location.href='aninsertpage.wo'" style="border-radius: 5px; width:10em;">
 						<strong>등록</strong>
 					</button>
 				</div>
