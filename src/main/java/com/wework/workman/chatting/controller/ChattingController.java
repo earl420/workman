@@ -24,6 +24,8 @@ public class ChattingController {
 	public String chattingMain() throws IOException, InterruptedException, ExecutionException {
 		if(initialChattingDB ==0) {
 			firebase();
+		}else{
+			System.out.println("already connected");
 		};
 		return "chatting/chatting";
 	}
@@ -37,6 +39,7 @@ public class ChattingController {
 //		linux or macOS
 //		export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"
 
+		
 		// FileInputStream serviceAccount =new
 		// FileInputStream("C:\final\workman\kh-final-chatting-firebase-adminsdk-lwfbc-635f8267c1.json");
 
@@ -48,6 +51,7 @@ public class ChattingController {
 
 		FirebaseApp.initializeApp(options);
 		initialChattingDB=1;
+		System.out.println("FireStoreDBConnect");
 	}
 
 }

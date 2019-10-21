@@ -1,36 +1,29 @@
 package com.wework.workman.chatting.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
-import com.google.cloud.firestore.WriteResult;
-import com.google.firebase.cloud.FirestoreClient;
+import com.google.api.core.*;
+import com.google.cloud.firestore.*;
+import com.google.firebase.cloud.*;
 
 public class WebSocketHandler extends TextWebSocketHandler {
 	private Map<String, WebSocketSession> allUsers = new ConcurrentHashMap<String, WebSocketSession>();
 //	private Map<String, Integer[]> rooms = new ConcurrentHashMap<String, Integer[]>();
 	private String roomIdOpen;
 	public Firestore db = FirestoreClient.getFirestore();
+	
 	// onOpen
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session)
 			throws IOException, InterruptedException, ExecutionException {
 		allUsers.put(session.getId(), session);
-		dbQueryTest();
+		dbTest2();
 
 	}
 
@@ -45,6 +38,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
 		System.out.println("message : " + message);
 		System.out.println("messageToString : " + message.getPayload());
+		msgSend(session,message);
 	}
 
 	@Override
@@ -52,7 +46,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		System.out.println("exception! : " + exception);
 	}
 
-	public void msgSend(TextMessage message) throws IOException {
+	public void msgSend(WebSocketSession session, TextMessage message) throws IOException {
 		for (WebSocketSession s : allUsers.values()) {
 
 			s.sendMessage(message);
@@ -77,7 +71,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
 	public void dbConnectTest() throws InterruptedException, ExecutionException {
 
-		
 		DocumentReference docRef = db.collection("users").document("alovelace");
 
 		// Add document data with id "alovelace" using a hashmap
@@ -91,6 +84,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		System.out.println("Update time : " + result.get().getUpdateTime());
 		System.out.println(result.get().toString());
 	}
+	
+	
+	
 	
 	public void dbQueryTest() throws InterruptedException, ExecutionException {
 		// asynchronously retrieve all users
@@ -111,13 +107,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		  System.out.println("Last: " + document.getString("last"));
 		  System.out.println("Born: " + document.getLong("born"));
 		}
-		System.out.println("QueryTest");
-		System.out.println(query.get());
-		System.out.println(querySnapshot.toString());
-		System.out.println(db.collection("").get());
-		System.out.println(documents);
-		System.out.println(documents.isEmpty());
+		System.out.println(query.get().toString());
+		System.out.println(query);
+	}
 	
+	public void dbTest2() throws InterruptedException, ExecutionException {
+		
+		CollectionReference users = db.collection("users");
+		Query query1 = users.whereEqualTo("users","alovelace");
+		
+		ApiFuture<QuerySnapshot> querySnapshot = query1.get();
+		System.out.println("toString : "+querySnapshot.toString());
+		
+		for(DocumentSnapshot document :  querySnapshot.get().getDocuments()) {
+			System.out.println("for_getString(null) : "+document.getString(null));
+			System.out.println("for_getId() : "+document.getId());
+			System.out.println("for_toString() : "+document.toString());
+		}
 	}
 
 }
