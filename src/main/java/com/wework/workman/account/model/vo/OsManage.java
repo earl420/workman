@@ -2,7 +2,7 @@ package com.wework.workman.account.model.vo;
 
 import java.sql.Date;
 
-public class osManage {
+public class OsManage {
 	private String licenseManage;
 	private String productName;
 	private String licenseNum;
@@ -10,9 +10,9 @@ public class osManage {
 	private Date licenseStart;
 	private Date licenseEnd;
 	private Date licenseUpdate;
-	public osManage() {
+	public OsManage() {
 	}
-	public osManage(String licenseManage, String productName, String licenseNum, String payNum, Date licenseStart,
+	public OsManage(String licenseManage, String productName, String licenseNum, String payNum, Date licenseStart,
 			Date licenseEnd, Date licenseUpdate) {
 		this.licenseManage = licenseManage;
 		this.productName = productName;

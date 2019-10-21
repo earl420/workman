@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class SaleManage {
 	private String salesNum;
-	private String productNum;
+	private String productCode;
 	private String productName;
 	private int productPrice;
 	private Date salesDate;
@@ -15,10 +15,11 @@ public class SaleManage {
 	private String partnerName;
 	public SaleManage() {
 	}
-	public SaleManage(String salesNum, String productNum, String productName, int productPrice, Date salesDate,
+	public SaleManage(String salesNum, String productCode, String productName, int productPrice, Date salesDate,
 			String empNum, String empName, int salesAmount, String partnerNum, String partnerName) {
+		super();
 		this.salesNum = salesNum;
-		this.productNum = productNum;
+		this.productCode = productCode;
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.salesDate = salesDate;
@@ -34,11 +35,11 @@ public class SaleManage {
 	public void setSalesNum(String salesNum) {
 		this.salesNum = salesNum;
 	}
-	public String getProductNum() {
-		return productNum;
+	public String getProductCode() {
+		return productCode;
 	}
-	public void setProductNum(String productNum) {
-		this.productNum = productNum;
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
 	}
 	public String getProductName() {
 		return productName;
@@ -90,7 +91,7 @@ public class SaleManage {
 	}
 	@Override
 	public String toString() {
-		return "SaleManage [salesNum=" + salesNum + ", productNum=" + productNum + ", productName=" + productName
+		return "SaleManage [salesNum=" + salesNum + ", productCode=" + productCode + ", productName=" + productName
 				+ ", productPrice=" + productPrice + ", salesDate=" + salesDate + ", empNum=" + empNum + ", empName="
 				+ empName + ", salesAmount=" + salesAmount + ", partnerNum=" + partnerNum + ", partnerName="
 				+ partnerName + "]";

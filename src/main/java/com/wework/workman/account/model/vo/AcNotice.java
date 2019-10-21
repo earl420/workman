@@ -16,6 +16,15 @@ public class AcNotice {
 	public AcNotice() {
 		super();
 	}
+	
+	public AcNotice(String noticeDept, String noticeTitle, String noticeContent, String empNum, int noticeAccType) {
+		this.noticeDept = noticeDept;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.empNum = empNum;
+		NoticeAccType = noticeAccType;
+	}
+
 	public AcNotice(String noticeNum, String noticeDept, String noticeTitle, String noticeContent, String empNum,
 			String empName, Date noticeDate, Date noticeModify, String noticeStatus, int noticeAccType) {
 		super();
