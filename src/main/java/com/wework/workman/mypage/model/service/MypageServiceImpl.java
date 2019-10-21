@@ -9,7 +9,8 @@ import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.dao.MypageDao;
 import com.wework.workman.mypage.model.vo.Mypage;
 
-@Service("mypageService")
+//@Service("mypageService")
+@Service("mService")
 public class MypageServiceImpl implements MypageService{
 	
 	
@@ -22,7 +23,7 @@ public class MypageServiceImpl implements MypageService{
 	 */
 	@Override
 	public Mypage loginMan(Mypage m) {
-		System.out.println(m.getNum());
+		System.out.println("service" + m.getNum());
 		return mDao.loginMan(m);
 	}
 

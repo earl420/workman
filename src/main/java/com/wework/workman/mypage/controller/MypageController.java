@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +22,16 @@ import com.wework.workman.mypage.model.vo.Mypage;
 @SessionAttributes("loginMan")
 @Controller
 public class MypageController {
-
+	
+	@Autowired
+	private MypageService mService;
+	
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	private Logger logger = LoggerFactory.getLogger(MypageController.class);
 
-	@Resource(name = "mypageService")
-	private MypageService mService;
+//	@Resource(name = "mypageService")
+//	private MypageService mService;
 
 	/**
 	 * 로그인 페이지
@@ -103,6 +107,32 @@ public class MypageController {
 		return "myPage/returnPwdPage";
 	}
 
+	
+	
+	/**
+	 * 암호화 전 로그인
+	 * @param m
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
+	  public String loginEmp(Mypage m, Model model) {
+		  
+		  System.out.println("controller" + m.getNum());
+		  Mypage loginMan = mService.loginMan(m);
+		  
+		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
+			  model.addAttribute("loginMan", loginMan); 
+			  System.out.println("OOO");
+			  return "redirect:home.wo";
+		  
+		  }else {
+			  System.out.println("XXX");
+			  return "redirect:loginPage.wo"; 
+		  }
+	  
+	  }
+	
 	/**
 	 * 로그인
 	 * 
@@ -110,6 +140,7 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
+	/*
 	  @RequestMapping(value = "login.wo", method = RequestMethod.POST) 
 	  public String loginEmp(Mypage m, Model model) {
 		  
@@ -118,14 +149,14 @@ public class MypageController {
 		  
 		  if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) { 
 			  model.addAttribute("loginMan", loginMan); 
-			  return "home";
+			  return "redirect:home.wo";
 		  
 		  }else {
 			  return "redirect:loginPage.wo"; 
 		  }
 	  
 	  }
-	 
+	 */
 
 	/**
 	 * 로그아웃

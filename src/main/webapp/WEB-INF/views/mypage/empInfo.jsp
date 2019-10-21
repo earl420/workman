@@ -71,15 +71,15 @@
 						</tr>
 						<tr>
 							<td>생년월일</td>
-							<td><input readonly></td>
+							<td><input name="birth" value="${ loginMan.birth }" readonly></td>
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" name="phone" value=""></td>
+							<td><input type="text" name="phone" value="${ loginMan.phone }"></td>
 						</tr>
 						<tr>
 							<td>직급</td>
-							<td><input readonly></td>
+							<td><input value="" readonly></td>
 						</tr>
 						<tr>
 							<td>부서</td>
@@ -119,12 +119,16 @@
 											<input type="text" name="post" size="20" value="${ addr }" class="postcodify_postcode5">
 										</td>
 									</tr>
+								</c:if>
+								<c:if test="${ status.index eq 1 }">
 									<tr>
 										<td>도로명 주소</td>
 										<td>
 											<input type="text" name="address1" size="40" value="${ addr }"  class="postcodify_address">
 										</td>
 									</tr>
+								</c:if>
+								<c:if test="${ status.index eq 2 }">
 									<tr>
 										<td>상세 주소</td>
 										<td>
@@ -141,6 +145,7 @@
 					</table>
 					<br><br>
 					<button type="submit" class="btn btn-secondary btn-lg">수정</button>
+					
 				</form>
 				<br><br><br><br>
 			</div>
