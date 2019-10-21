@@ -118,16 +118,20 @@ public class MypageController {
 	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
 	  public String loginEmp(Mypage m, Model model) {
 		  
-		  System.out.println("controller" + m.getNum());
 		  Mypage loginMan = mService.loginMan(m);
+		  ModelAndView mv = new ModelAndView();
 		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
+			  
 			  model.addAttribute("loginMan", loginMan); 
+			  mv.addObject("msg", "로그인에 성공 하였습니다.");
 			  return "redirect:home.wo";
 		  
 		  }else {
+			  mv.addObject("msg", "사번 또는 비밀번호를 확인해주세요.");
+			  return "redirect:loginPage.wo";
 			  
-			  return "redirect:loginPage.wo"; 
+
 		  }
 	  
 	  }

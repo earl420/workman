@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%String contextPath = request.getContextPath(); %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,6 +59,16 @@ table tr{
 </head>
 <body>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript"> 
+$(function(){
+    var msg = "<c:out value="${msg}" />";
+    if(msg != ""){
+        alert(msg);
+    }
+});
+</script>
+
    <div class="main">
       <form id="form1" action="login.wo" method="post">
 	      <table width="500" selspacing="5">
@@ -67,7 +79,7 @@ table tr{
 	            <td colspan="2">
 	               <br>
 	               <div class="form-group">
-	                  <input type="text" class="form-control" id="num" name="num" placeholder="사원번호"> 
+	                  <input type="number" class="form-control" id="num" name="num" placeholder="사원번호"> 
 	               </div>
 	            </td>
 	         </tr>
@@ -97,18 +109,18 @@ table tr{
    </div>
 <script>
 //아이디저장. 테스트 해봄.
-   $(function(){
+//   $(function(){
 //       $.cookie('key',$('#id').val(),{expires:7});
 //       $.removeCookie('key');
-      var key =$.cookie("key");
+ //     var key =$.cookie("key");
 //       key = 'test';
-      if(key==null){
-         console.log('널값!');         
-      }else{
-         $('#num').val(key);
-         $('#remember').attr("checked",true);
-      };
-   });
+    //  if(key==null){
+       //  console.log('널값!');         
+    //  }else{
+       //  $('#num').val(key);
+      //   $('#remember').attr("checked",true);
+   //   };
+ //  });
 
 </script>
 </body>
