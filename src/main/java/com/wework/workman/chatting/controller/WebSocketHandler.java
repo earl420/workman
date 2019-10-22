@@ -21,7 +21,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session)
 			throws IOException, InterruptedException, ExecutionException {
 		allUsers.put(session.getId(), session);
-		getRoomList("nullTest");
+		
 		
 	}
 
@@ -49,7 +49,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		}
 	}
 	
-	
+	/*-------------------------------------------------------------------------------*/
 	
 	public void getRoomList(String userId) throws InterruptedException, ExecutionException {
 	}
@@ -68,6 +68,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
 	public void roomExit() {
 
+	}
+	public void addUser() {
+		
 	}
 
 
