@@ -22,7 +22,13 @@ public class MypageDao {
 		return sqlSession.selectOne("mypageMapper.loginMan", m);
 	}
 
+	
+	/**
+	 * 정보 수정
+	 * @param m
+	 * @return
+	 */
 	public int empUpdate(Mypage m) {
-		return sqlSession.update("myPageMapper.empUpdate", m);
+		return sqlSession.update("mypageMapper.empUpdate", m);
 	}
 }

@@ -30,7 +30,7 @@
 		from employee
 		join grade using(grade_num)
 		join dept using(dept_num)
-		where EMP_NUM=#{num} and EMP_STATUS='Y'
+		where emp_num=#{num} and emp_status='Y'
 	</select>
 	
 	<update id="empUpdate" parameterType="Mypage">
