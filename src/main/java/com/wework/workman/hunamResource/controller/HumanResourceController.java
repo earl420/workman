@@ -4,7 +4,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.wework.workman.common.PageInfo;
+import com.wework.workman.common.Pagination;
 import com.wework.workman.hunamResource.model.service.HumanResourceService;
 
 @Controller
@@ -13,11 +17,16 @@ public class HumanResourceController {
 	private HumanResourceService hService;
 	
 	// 인사/공지사항
-	@RequestMapping("hrNotice")
-	public String hrNotice() {
-		
-		return "humanResource/notice";
-	}
+//	@RequestMapping("hrNotice")
+//	public ModelAndView selectList(ModelAndView mv, @RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) {
+//		
+//		int listCount = hService.gethListCount();
+//		
+//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+//		
+////		ArrayList<Notice>
+//		
+//	}
 	// 인사/인사정보/조직도
 	@RequestMapping("empChart.wo")
 	public String empChartMain() {
@@ -54,6 +63,24 @@ public class HumanResourceController {
 		
 		return "humanResource/mngEmpChart";
 	}
+	// 인사/인사 관리/ 조직도 관리 -> 조직도 관리 버튼
+	@RequestMapping("updateEmpChart.wo")
+	public String updateEmpChart() {
+		
+		return "humanResource/updateEmpChart";
+	}
+	// 직원등록화면
+	@RequestMapping("addEmpForm.wo")
+	public String addEmpForm() {
+		
+		return "humanResource/addEmpForm";
+	}
+	// 직원정보 수정 화면
+	@RequestMapping("updateEmpForm.wo")
+	public String updateEmpForm() {
+		
+		return "humanResource/updateEmpForm";
+	}
 	// 인사/인사 관리/사용자 관리
 	@RequestMapping("mngUser.wo")
 	public String mngEmp() {
@@ -78,4 +105,7 @@ public class HumanResourceController {
 		
 		return "humanResource/mngAtt";
 	}
+	
+	//----------------------------------------
+	
 }

@@ -3,5 +3,10 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="humanMapper">
-
+	
+	<select id="gethListCount" resultType="_int">
+		select count(*)
+		from notice
+		where notice_status = 'Y' and notice_dept = 301
+	</select>
 </mapper>

@@ -16,10 +16,7 @@
 	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 
-<link href="resources/plugins/nestable/css/nestable.css"
-	rel="stylesheet">
 <link href="resources/css/style.css" rel="stylesheet">
-<script src="resources/plugin/jquery/jquery.min.js"></script>
 <style>
 .sideDept2 {
 	padding-left: 20px;
@@ -57,7 +54,7 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="hrNotice.wo">인사관리</a></li>
+						<li class="breadcrumb-item"><a href="hrNotice.wo">인사</a></li>
 						<li class="breadcrumb-item active"><a href="empChart.wo">인사정보</a></li>
 						<li class="breadcrumb-item active"><a href="empList.wo">직원목록</a></li>
 					</ol>
@@ -98,14 +95,13 @@
 									<div class="modal-body">
 										<table width="450px" height="300px">
 											<tr>
-												<td rowspan="3" width="150px"></td>
-												<td>강연재</td>
+												<td style="font-weight:bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;강연재</td>
 											</tr>
 											<tr>
-												<td>사장>마케팅사업부</td>
+												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사장>마케팅사업부</td>
 											</tr>
 											<tr>
-												<td>이사</td>
+												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이사</td>
 											</tr>
 											<tr>
 												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이메일</td>
@@ -128,7 +124,7 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary" onclick="location.href='empList.wo';">send email</button>
+										<button type="button" class="btn btn-primary" onclick="location.href='empList.wo';">Send Email</button>
 									</div>
 								</div>
 							</div>
