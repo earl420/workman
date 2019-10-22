@@ -21,4 +21,8 @@ public class MypageDao {
 	public Mypage loginMan(Mypage m) {
 		return sqlSession.selectOne("mypageMapper.loginMan", m);
 	}
+
+	public int empUpdate(Mypage m) {
+		return sqlSession.update("myPageMapper.empUpdate", m);
+	}
 }
