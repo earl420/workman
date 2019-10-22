@@ -4,4 +4,40 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="calendarMapper">
 
+    <resultMap id="calendarResultSet" type="Calendar">
+		<id property="_id" column=""/>
+		<result property="title" column=""/>
+		<result property="description" column=""/>
+		<result property="start" column=""/>
+		<result property="end" column=""/>
+		<result property="type" column=""/>
+		<result property="userName" column=""/>
+		<result property="backgroundColor" column=""/>
+		<result property="textColor" column=""/>
+		<result property="allDay" column=""/>
+	</resultMap>
+
+	<insert id="insertCalendar" parameterType="Calendar">
+		insert into calendar
+		values()
+	</insert>
+	
+	<update id="updateCalendar" parameterType="_int">
+		update calendar
+		set 
+		where 
+	</update>
+	
+	<select id="CalendarDetail" parameterType="_int" resultMap="CalendarResultSet">
+		select *
+		from calendar
+		where 
+	</select>
+	
+	<update id="deleteCalendar" parameterType="_int">
+		update calendar
+		set 
+		where 
+	</update>
+	
 </mapper>

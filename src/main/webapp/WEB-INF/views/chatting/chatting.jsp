@@ -6,10 +6,16 @@
 <head>
 <title>workman</title>
 <link rel="icon" type="image/png" sizes="16x16" href="resources/icons/logo1.png">
-<!-- Custom Stylesheet -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <style>
+.main-wrapper{
+height:100%;
+background-color:red;
+}
 .card{
-height:30%;
+/* height:100%; */
+height:680px;
+/* position:absolute; */
 }
 .card-body{
 position:relative;
@@ -22,23 +28,56 @@ overflow-x:hidden;
 }
 .msgInputDiv{
 position:absolute;
-bottom:0px;
+bottom:-50px;
 }
+
+/* chattingBox */
+
+.chatBox {
+    display: block;
+    color: #34495e;
+    margin:0;
+    padding:0;
+}
+ 
+.chatBox li {
+    display: block;
+    margin:5px;
+    padding: 0px;
+    font-size: 20px;
+/*     background-color:red; */
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.msgOther{
+ 	background-color: #ecf0f1;
+    max-width: 60%;
+    clear: both;
+    float: left;
+}
+.msgMe{
+	background-color: #C1E4EC;
+    max-width: 60%;
+    height: auto;
+    clear: both;
+    float: right;
+
+}
+
 </style>
 </head>
 
 <body style="overflow:hidden">
- <script src="resources/js/stomp.js"></script>
- <script src="resources/js/sockjs.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<!--*******************
         Preloader start
     ********************-->
 	<div id="preloader">
 		<div class="loader">
-			<svg class="circular" viewBox="25 25 50 50"> <circle
-					class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-					stroke-miterlimit="10" /> </svg>
+			<svg class="circular" viewBox="25 25 50 50"> <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" /> </svg>
 		</div>
 	</div>
 	<!--*******************
@@ -51,11 +90,15 @@ bottom:0px;
     ***********************************-->
 	<div id="main-wrapper">
 		<c:import url="../common/header.jsp"></c:import>
+		
+		<input type="hidden" value="me!" id="userName">
+		<input type="hidden" value="room!" id="roomId">
+		
 		<!--**********************************
             Content body start
         ***********************************-->
 		<div class="content-body">
-			<div class="container-fluid" style="height:100px;" align="center">
+			<div class="container-fluid" align="center">
 				<div class="row">
 				
 					<div class="col col-lg-3" >
@@ -63,40 +106,37 @@ bottom:0px;
 							<div class="card-body">
 								<div class="card-title">UserList</div>
 								<div class="slimScrollDiv">
-								<p>
-								start
-								<br><br><br><br><br><br><br><br>1
-								<br><br><br><br><br><br><br><br>2
-								<br><br><br><br><br><br><br><br>3
-								<br><br><br><br><br><br><br><br>4
-								<br><br><br><br><br><br><br><br>5
-								<br><br><br><br><br><br><br><br>6
-								<br><br><br><br><br><br><br><br>7
-								end
-								<br><br><br><br><br><br><br><br>8
-								</p>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col col-lg-6">
 						<div class="card">
+						
 							<div class="card-body">
+
 								<div class="card-title">Chatting</div>
-								<div class="slimScrollDiv" id="msgContent"
-									data-room-id="{{room.id}}" data-member="{{member}}">
-									<ul class="chatBox"></ul>
+
+								<div class="slimScrollDiv" id="msgContent">
+									<ul class="chatBox" id="chatBox"></ul>
 								</div>
+
 								<div class="col-lg-14">
-								<div class="input-group msgInputDiv">
-									<input type="text" id="msgInput" class="form-control"
-										placeholder="Type for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" id="sendBtn" type="button">@Send</button>
-									</span>
+									<div class="input-group mb-3 msgInputDiv">
+										<input type="text" id="msgInput" onkeyDown="onKeyDown();" class="form-control" placeholder="Type for..." aria-label="msgInput" aria-describedby="sendBtn"> 
+										<div class="input-group-append">
+												<button class="btn btn-outline-dark" id="sendBtn" type="button">@Send</button>
+										</div>
+									</div><!-- /input-group -->
 								</div>
-								<!-- /input-group -->
-								</div><!-- col-lg-6 -->
+								<!-- col-lg-6 -->
+<!-- <div class="input-group mb-3"> -->
+<!--   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+<!--   <div class="input-group-append"> -->
+<!--     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> -->
+<!--   </div> -->
+<!-- </div> -->
+
 
 							</div>
 						</div>
@@ -127,40 +167,77 @@ bottom:0px;
         Main wrapper end
     ***********************************-->
 <script>
+	var userName = $("#userName").val();//!!!!!!!!!!!!!!!1확인
+	var roomId= $("#roomId").val();//!!!!!!!!!!!!!확인
+	var writer;
+	var wbSocket;
+	
 $(function(){
-	var chatBox=$('.chatBox');
-	var messageInput =$('#msgInput');
-	var sendBtn =$('#sendBtn');
-	var roomId=$('#msgContent').data('room-id');
-	var member=$('#msgContent').data('member');
+	connect();
 	
-	
-	var sock = new SockJS("/stompChatting");
-	var client = Stomp.over(sock);
-	//1. sockJS내부에 들고있는 client
-	
-	//2. connection맺어지면 실행
-	client.connect({},function(){
-		//3. send(path,header,message)로 메세지 보낼수 있음
-		client.send('/publish/chat/join',{},JSON.stringify({chatRoomID:roomId,writer:member}));	
-		
-		//4. subscribe(path,callback)로 메세지를 받을 수 있다. callback첫번째파라미터의 body로 내용이들어온다
-		client.subscribe('/subscribe/chat/room'+roomId,function(chat){
-			var content =JSON.parse(chat.body);
-			chatBox.append('<li>'+content.message+'('+content.writer+')<li>')
-		});
+	$('#sendBtn').click(function(){
+		send();
 	});
 	
-	sendBtn.click(function(){
-		var message = messageInput.val();
-		client.send('/publish/chat/message',{},JSON.stringify({chatRoomId: roomId, message:message,writer:member}));
-		messgeInput.val('');
-	
-	});
 });
+	
+	function onKeyDown(){
+		console.log("bam"+event.keyCode);
+		if(event.keyCode=='13'){
+			send();
+			event.stopPropagation;
+		}
+	}
+	function connect(){
+		wbSocket = new WebSocket("ws://localhost:8888/workman/chatting.ch");
+		wbSocket.onopen = onOpen;
+		wbSocket.onclose = onClose;
+		wbSocket.onmessage = onMessage;
+	
+	}
+	function disconnect(){
+		wbSocket.close();
+	}
+	function onOpen(evt){
+		appendMessage("연결성공");
+	}
+	
+	function onMessage(evt){
+		var data = evt.data;
+		var spData=data.split(":");
+		console.log(spData);
+		writer = spData[1];//!!!!!!!!!!!!!!!!!!!!!!!!!!!확인
+		var spMsg="";
+		for(i=2;i<spData.length;i++){
+			spMsg+=spData[i];
+		}
+		appendMessage(spMsg);
+	}
+	
+	function onClose(evt){
+		appendMessage("연결종료");
+	}
+	function send(){
+		var msg=$("#msgInput").val();
+		writer = userName;
+		wbSocket.send(roomId+":"+userName+":"+msg);
+		
+		$("#msgInput").val("");
+	}
+	
+	function appendMessage(msg){
+		if(userName==writer){
+		$("#chatBox").append("<li class='msgMe'>liMe"+msg+"</li>");
+		}else{
+		$("#chatBox").append("<li class='msgOhter'>liOther"+msg+"</li>");
+		};
+		
+		
 
 
-
+// 		$("#testTa").append(msg);
+	}
+	
 </script>
 </body>
 </html>
