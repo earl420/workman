@@ -1,7 +1,9 @@
 package com.wework.workman.mypage.controller;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,43 +100,32 @@ public class MypageController {
 		return "myPage/findPwd";
 	}
 	
-	/**
-	 * 비밀번호 찾기 변경
-	 * @return
-	 */
-	@RequestMapping("returnPwdPage.wo")
-	public String returnPwdPage() {
-		return "myPage/returnPwdPage";
-	}
-
-	
 	
 	/**
 	 * 암호화 전 로그인
 	 * @param m
 	 * @param model
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
-	  public String loginEmp(Mypage m, Model model) {
+	public String loginEmp(Mypage m, Model model/* , HttpServletResponse response */){
 		  
 		  Mypage loginMan = mService.loginMan(m);
-		  ModelAndView mv = new ModelAndView();
 		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
 			  
 			  model.addAttribute("loginMan", loginMan); 
-			  mv.addObject("msg", "로그인에 성공 하였습니다.");
 			  return "redirect:home.wo";
 		  
 		  }else {
-			  mv.addObject("msg", "사번 또는 비밀번호를 확인해주세요.");
 			  return "redirect:loginPage.wo";
 			  
 
 		  }
 	  
 	  }
+	
 	
 	/**
 	 * 로그인
@@ -172,5 +163,51 @@ public class MypageController {
 		status.setComplete();
 		return "redirect:loginPage.wo";
 	}
+	
+	
+	/**
+	 * 비밀번호 찾기
+	 * @return
+	 */
+	@RequestMapping(value = "returnPwd.wo", method = RequestMethod.POST)
+	public String returnPwdPage(Mypage m) {
+		
+		
+		
+		
+		return "myPage/returnPwdPage";
+	}
+	
+	
+	/**
+	 * 비밀번호 변경 전 확인
+	 * @param pwd
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "confirmPwd.wo", method = RequestMethod.POST)
+	public String confirmPwd(String pwd, Model model) {
+		
+		if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
+			  
+			  model.addAttribute("loginMan", loginMan); 
+			  return "redirect:home.wo";
+		  
+		  }else {
+			  
+			  return "myPage/changePwd";
+			  
+		  }
+		
+		
+	}
+		
+		
+		
+		
+	
+	
+	
+	
 
 }

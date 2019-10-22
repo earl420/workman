@@ -2,13 +2,15 @@
    pageEncoding="UTF-8"%>
 <%String contextPath = request.getContextPath(); %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
+
 <meta charset="UTF-8">
 <title>WEworks</title>
 <style>
@@ -58,16 +60,7 @@ table tr{
 </style>
 </head>
 <body>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript"> 
-$(function(){
-    var msg = "<c:out value="${msg}" />";
-    if(msg != ""){
-        alert(msg);
-    }
-});
-</script>
+	
 
    <div class="main">
       <form id="form1" action="login.wo" method="post">
