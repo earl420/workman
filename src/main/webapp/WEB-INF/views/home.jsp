@@ -69,6 +69,13 @@
         bottom: 3.5%;
         background:rgb(224, 224, 235);
         border-radius: 10px;
+        padding-bottom:1%;
+    }
+    #hi{
+    	width:50%;
+    }
+    #bye{
+    	width:50%;
     }
 </style>
 </head>
@@ -93,13 +100,33 @@
 
  <div class="outdiv">
  
- <div class="hidiv">
- 	<br>
-    <h3 id="hih2">출/퇴근</h3> <!-- 토스트 안먹어 확인해....! -->
-    &nbsp;<button class="btn btn-success m-b-10 m-l-5" id="toastr-success-top-right" type="button">&nbsp;출근 &nbsp;</button>&nbsp;&nbsp;&nbsp;
-    <button class="btn btn-warning m-b-10 m-l-5" id="toastr-danger-top-right" type="button">&nbsp;퇴근&nbsp;</button>&nbsp;
-    <br><br>
-</div>
+<%--  <c:if test="${ !empty loginUser}"> --%> <!-- 로그인해야보이게 -->
+	 <div class="hidiv">
+	 	<br>
+	    <h3 id="hih2">출/퇴근</h3> <!-- 토스트 안먹어 확인해....! -->
+	    <button class="btn mb-1 btn-rounded btn-success" type="button" id="hi">출근</button>
+	</div>
+<%-- </c:if> --%>
+
+<!-- 출근버튼 눌러야 보이게-->
+<!-- 	 <div class="hidiv">
+	 	<br>
+	    <h3 id="hih2">출/퇴근</h3> 토스트 안먹어 확인해....!
+	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="bye">퇴근</button>
+	</div> -->
+	
+ <script>
+ 	/* 출퇴근 버튼 스크립트 */
+ 		// 출근 버튼 누르면 알림창 뜨기
+ 		$("#hi").on("click", function(){
+ 			alert('출근 확인되었습니다.');
+ 		});
+ 	
+ 		// 퇴근 버튼 누르면 알림창 뜨기
+ 		$("#bye").on("click", function(){
+ 			alert('퇴근 확인되었습니다.');
+ 		});
+ </script>
  
 		<div class="topdiv">
             <div class="indiv" id="div1" style="background: rgb(133, 133, 173)">
