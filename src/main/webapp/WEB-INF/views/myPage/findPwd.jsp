@@ -23,7 +23,7 @@
 		<br><br>
 		<h1>비밀번호 찾기</h1>
 		<br><br>
-		<form action="findNo.wo">
+		<form action="findPwd.wo">
 			<table width="400" celspacing="5">
 				<tr>
 					<td>사번</td>
@@ -32,10 +32,6 @@
 				<tr>
 					<td>이름</td>
 					<td><input type="text" name="empName" required></td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td><input type="text" required></td>
 				</tr>
 			</table>
 			<br><br>

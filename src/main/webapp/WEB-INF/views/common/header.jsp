@@ -341,8 +341,8 @@
                         		</a>
                         		
                         		<ul>
-                        			<li><a href="mngHoliday.wo">-&nbsp;직원 휴가 관리</a>
-                        			<li><a href="mngAtt.wo">-&nbsp;직원 근태 관리</a>
+                        			<li><a href="mngHoliday.wo">-&nbsp;직원 휴가 조회</a>
+                        			<li><a href="mngAtt.wo">-&nbsp;직원 근태 조회</a>
                         		</ul>
                             	
                             </li>
