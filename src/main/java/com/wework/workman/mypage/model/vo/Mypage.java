@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Mypage {
 	
-	private int num;
+	private String num;
 	private String pwd;
 	private String name;
 	private String email;
@@ -25,7 +25,7 @@ public class Mypage {
 		super();
 	}
 
-	public Mypage(int num, String pwd, String name, String email, String gender, Date birth, String phone,
+	public Mypage(String num, String pwd, String name, String email, String gender, Date birth, String phone,
 			String address, int gradeNum, int deftNum, int salary, Date enrollDate, Date resignDate, String status,
 			String account, String bank) {
 		super();
@@ -47,22 +47,13 @@ public class Mypage {
 		this.bank = bank;
 	}
 
-	/**
-	 * 로그인
-	 * @param num
-	 * @param pwd
-	 */
-	public Mypage(int num, String pwd) {
-		super();
-		this.num = num;
-		this.pwd = pwd;
-	}
 
-	public int getNum() {
+
+	public String getNum() {
 		return num;
 	}
 
-	public void setNum(int num) {
+	public void setNum(String num) {
 		this.num = num;
 	}
 

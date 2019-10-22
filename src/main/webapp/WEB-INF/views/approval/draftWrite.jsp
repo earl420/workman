@@ -10,11 +10,9 @@
 <link href="resources/css/style.css" rel="stylesheet">
 <meta charset="UTF-8">
 <style>
-	.box_from{
-		/* padding-top: 12px; */
-	}
 	.box_from ul li{
 		display: inline-table;
+		margin-bottom : 0px;
 	}
 	.box_from ul {
 		margin-bottom : 0px;
@@ -38,6 +36,7 @@
 			</div>
 			<!-- row -->
 			<div class="container-fluid">
+			<form action="insertDraft.wo" method="post" encType="multipart/form-data">
 				<div class="row">
 					<div class="col-lg-12">
 					<div class="card">
@@ -59,11 +58,11 @@
                                             <th  width="80%">
                                             	<div class="member box_from" >
                                             		<ul>
-                                            			<li><button type="button" class="btn mb-1 btn-rounded btn-success">강연재 
+                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-success"  data-dismiss="alert" aria-label="Close">강연재 
                                             					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
                                    							 </button>
                                    						</li>
-                                            			<li><button type="button" class="btn mb-1 btn-rounded btn-success">민병현 
+                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-success"  data-dismiss="alert" aria-label="Close">민병현 
                                             					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
                                    							 </button>
                                    						</li>
@@ -82,11 +81,11 @@
                                             <th>
                                             	<div class="member box_from">
                                             		<ul>
-                                            			<li><button type="button" class="btn mb-1 btn-rounded btn-secondary">강연재
+                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-secondary"  data-dismiss="alert" aria-label="Close">강연재
                                             					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
                                    							 </button>
                                    						</li>
-                                            			<li><button type="button" class="btn mb-1 btn-rounded btn-secondary">민병현 
+                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-secondary"  data-dismiss="alert" aria-label="Close">민병현 
                                             					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
                                    							 </button>
                                    						</li>
@@ -119,7 +118,7 @@
 										<tr>
                                         	<td align="center">내용</td>
                                         	<th colspan="2">
-                                        		<textarea id="ir1" rows="10" cols="137"></textarea>
+                                        		<textarea id="ir1" rows="15" cols="137"  style="resize: none;"></textarea>
                                         	</th>
 										</tr>
 										<tr>
@@ -136,11 +135,9 @@
                         </div>
 					</div>
 				</div>
+			</form>
 			</div>
-
 		</div>
-		
-		
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
 <script type="text/javascript">
@@ -162,8 +159,8 @@
       		console.log(input.files[i].name);
       		files.push( input.files[i]);
       		var $ul = $(".files ul");
-			var $li = $("<li>");
-			var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(files[i].name + "");
+			var $li = $("<li class='alert'>");
+			var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary' data-dismiss='alert' aria-label='Close'>").text(files[i].name + "");
 			var $span = $("<span class='btn-icon-right'><i class='fa fa-close'></i>");
 			 	$button.append($span);
 				$li.append($button);

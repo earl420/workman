@@ -1,30 +1,37 @@
 package com.wework.workman.mypage.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.wework.workman.mypage.model.service.MypageService;
 import com.wework.workman.mypage.model.vo.Mypage;
 
-@SessionAttributes("")
+@SessionAttributes("loginMan")
 @Controller
 public class MypageController {
-
+	
+	@Autowired
+	private MypageService mService;
+	
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	private Logger logger = LoggerFactory.getLogger(MypageController.class);
 
-	@Resource(name = "mypageService")
-	private MypageService mService;
+//	@Resource(name = "mypageService")
+//	private MypageService mService;
 
 	/**
 	 * 로그인 페이지
@@ -91,11 +98,44 @@ public class MypageController {
 		return "myPage/findPwd";
 	}
 	
+	/**
+	 * 비밀번호 찾기 변경
+	 * @return
+	 */
 	@RequestMapping("returnPwdPage.wo")
 	public String returnPwdPage() {
 		return "myPage/returnPwdPage";
 	}
 
+	
+	
+	/**
+	 * 암호화 전 로그인
+	 * @param m
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
+	  public String loginEmp(Mypage m, Model model) {
+		  
+		  Mypage loginMan = mService.loginMan(m);
+		  ModelAndView mv = new ModelAndView();
+		  
+		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
+			  
+			  model.addAttribute("loginMan", loginMan); 
+			  mv.addObject("msg", "로그인에 성공 하였습니다.");
+			  return "redirect:home.wo";
+		  
+		  }else {
+			  mv.addObject("msg", "사번 또는 비밀번호를 확인해주세요.");
+			  return "redirect:loginPage.wo";
+			  
+
+		  }
+	  
+	  }
+	
 	/**
 	 * 로그인
 	 * 
@@ -103,23 +143,23 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String loginEmp(Mypage m, Model model) {
-
-		Mypage loginMan = mService.loginMan(m);
-		
-		logger.debug(loginMan.toString());
-		
-		if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) {
-			model.addAttribute("loginMan", loginMan);
-			return "redirect:home.wo";
-			
-		}else {
-			
-			return "redirect:loginPage.wo";
-		}
-		
-	}
+	/*
+	  @RequestMapping(value = "login.wo", method = RequestMethod.POST) 
+	  public String loginEmp(Mypage m, Model model) {
+		  
+	  
+		  Mypage loginMan = mService.loginMan(m);
+		  
+		  if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) { 
+			  model.addAttribute("loginMan", loginMan); 
+			  return "redirect:home.wo";
+		  
+		  }else {
+			  return "redirect:loginPage.wo"; 
+		  }
+	  
+	  }
+	 */
 
 	/**
 	 * 로그아웃

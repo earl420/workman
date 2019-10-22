@@ -45,11 +45,25 @@ bottom:-50px;
     margin:5px;
     padding: 0px;
     font-size: 20px;
-    background-color:red;
+/*     background-color:red; */
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
+}
+.msgOther{
+ 	background-color: #ecf0f1;
+    max-width: 60%;
+    clear: both;
+    float: left;
+}
+.msgMe{
+	background-color: #C1E4EC;
+    max-width: 60%;
+    height: auto;
+    clear: both;
+    float: right;
+
 }
 
 </style>
@@ -78,6 +92,7 @@ bottom:-50px;
 		<c:import url="../common/header.jsp"></c:import>
 		
 		<input type="hidden" value="me!" id="userName">
+		<input type="hidden" value="room!" id="roomId">
 		
 		<!--**********************************
             Content body start
@@ -108,7 +123,7 @@ bottom:-50px;
 
 								<div class="col-lg-14">
 									<div class="input-group mb-3 msgInputDiv">
-										<input type="text" id="msgInput" class="form-control" placeholder="Type for..." aria-label="msgInput" aria-describedby="sendBtn"> 
+										<input type="text" id="msgInput" onkeyDown="onKeyDown();" class="form-control" placeholder="Type for..." aria-label="msgInput" aria-describedby="sendBtn"> 
 										<div class="input-group-append">
 												<button class="btn btn-outline-dark" id="sendBtn" type="button">@Send</button>
 										</div>
@@ -152,22 +167,27 @@ bottom:-50px;
         Main wrapper end
     ***********************************-->
 <script>
-	var userName = $("#userName").val();
+	var userName = $("#userName").val();//!!!!!!!!!!!!!!!1확인
+	var roomId= $("#roomId").val();//!!!!!!!!!!!!!확인
 	var writer;
+	var wbSocket;
 	
 $(function(){
 	connect();
-// 	if(keycode=='13'){
-// 		send();
-// 		event.stopPropagation;
-// 	}
+	
 	$('#sendBtn').click(function(){
 		send();
 	});
 	
 });
-	var wbSocket;
 	
+	function onKeyDown(){
+		console.log("bam"+event.keyCode);
+		if(event.keyCode=='13'){
+			send();
+			event.stopPropagation;
+		}
+	}
 	function connect(){
 		wbSocket = new WebSocket("ws://localhost:8888/workman/chatting.ch");
 		wbSocket.onopen = onOpen;
@@ -181,35 +201,36 @@ $(function(){
 	function onOpen(evt){
 		appendMessage("연결성공");
 	}
+	
 	function onMessage(evt){
 		var data = evt.data;
-		if(data.substring(0,4) =="msg:"){
-			appendMessage(data.substring(4));
-		}
 		var spData=data.split(":");
-		writer = spData[1];
-		console.log("writerOnMessage : "+writer);
+		console.log(spData);
+		writer = spData[1];//!!!!!!!!!!!!!!!!!!!!!!!!!!!확인
+		var spMsg="";
+		for(i=2;i<spData.length;i++){
+			spMsg+=spData[i];
+		}
+		appendMessage(spMsg);
 	}
+	
 	function onClose(evt){
 		appendMessage("연결종료");
 	}
 	function send(){
 		var msg=$("#msgInput").val();
-		
-		wbSocket.send("msg:"+userName+" : "+msg);
+		writer = userName;
+		wbSocket.send(roomId+":"+userName+":"+msg);
 		
 		$("#msgInput").val("");
 	}
 	
 	function appendMessage(msg){
-		console.log("writer1 : "+writer);
 		if(userName==writer){
-			console.log("me!");
-		$("#chatBox").append("<li class='me'>liMe"+msg+"</li>");
+		$("#chatBox").append("<li class='msgMe'>liMe"+msg+"</li>");
 		}else{
-		$("#chatBox").append("<li class='ohter'>liOther"+msg+"</li>");
-			
-		}
+		$("#chatBox").append("<li class='msgOhter'>liOther"+msg+"</li>");
+		};
 		
 		
 

@@ -21,4 +21,13 @@ public class RequestController {
 		
 		return "approval/requestWrite";
 	}
+	
+	/** 품의서 디테일화면
+	 * @return
+	 */
+	@RequestMapping("requestDetail.wo")
+	public String requestDetail() {
+		
+		return "approval/requestDetail";
+	}
 }
