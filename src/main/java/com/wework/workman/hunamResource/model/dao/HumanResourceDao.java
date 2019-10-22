@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository;
 public class HumanResourceDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	public int gethListCount() {
+		
+		return sqlSession.selectOne("humanMapper.gethListCount");
+	}
 }

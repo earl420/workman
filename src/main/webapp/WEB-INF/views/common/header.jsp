@@ -11,7 +11,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--&nbsp;Custom Stylesheet -->
     <link href="resources/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 </head>
 
@@ -332,8 +331,8 @@
                         		</a>
                         		
                         		<ul>
-                        			<li><a href="mngHoliday.wo">-&nbsp;직원 휴가 관리</a>
-                        			<li><a href="mngAtt.wo">-&nbsp;직원 근태 관리</a>
+                        			<li><a href="mngHoliday.wo">-&nbsp;직원 휴가 조회</a>
+                        			<li><a href="mngAtt.wo">-&nbsp;직원 근태 조회</a>
                         		</ul>
                             	
                             </li>
