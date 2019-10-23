@@ -79,15 +79,15 @@
 						</tr>
 						<tr>
 							<td>직급</td>
-							<td><input value="${ loginMan.gradeName }" readonly></td>
+							<td><input value="${ loginMan.gradeName }" ></td>
 						</tr>
 						<tr>
 							<td>부서</td>
-							<td><input value="${ loginMan.deptName }" readonly></td>
+							<td><input value="${ loginMan.deptName }" ></td>
 						</tr>
 						<tr>
 							<td>입사일</td>
-							<td><input value="${ loginMan.enrollDate }" readonly></td>
+							<td><input value="${ loginMan.enrollDate }"></td>
 						</tr>
 						
 						<c:if test="${ empty loginMan.address }">
@@ -155,6 +155,7 @@
 	<script>
 		$(function(){
 			$(".postcodify_address").postcodifyPopUp();
+			console.log(11+'${ loginMan.gradeName }');
 		});
 	</script>
     

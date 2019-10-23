@@ -1,7 +1,9 @@
 package com.wework.workman.mypage.controller;
 
 
-import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,13 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.wework.workman.mypage.model.service.MypageService;
 import com.wework.workman.mypage.model.vo.Mypage;
@@ -55,7 +55,9 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empInfo.wo")
-	public String empInfoView() {
+	public String empInfoView(HttpSession session) {
+		Mypage m = (Mypage)session.getAttribute("loginMan");
+
 		return "myPage/empInfo";
 	}
 
@@ -181,12 +183,11 @@ public class MypageController {
 		
 		m.setAddress(address1 + "," + address2);
 		
-		System.out.println(m.getPhone());
-		System.out.println(m.getAddress());
-		
 		int result = mService.empUpdate(m);
+		Mypage mp = (Mypage)model.getAttribute("loginMan");
 		if(result > 0) {
-			model.addAttribute("loginMan", m);
+			Mypage m1 = mService.loginMan(mp);
+			model.addAttribute("loginMan",m1);
 			return "redirect:home.wo";
 		}else {
 			
