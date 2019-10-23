@@ -21,21 +21,26 @@
 		<result property="status" column="EMP_STATUS"/>
 		<result property="account" column="EMP_ACCOUNT"/>
 		<result property="bank" column="EMP_BANK"/>
+		<result property="gradeName" column="GRADE_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
 	
 	<select id="loginMan" parameterType="Mypage" resultMap="empResultSet">
 		select *
 		from employee
-		where EMP_NUM=#{num} and EMP_STATUS='Y'
-		
-		<!-- 암호화
-		select *
-		from employee
-		where emp_num = #{num} and emp_status = 'Y'
-		 -->
-		
-		
+		join grade using(grade_num)
+		join dept using(dept_num)
+		where emp_num=#{num} and emp_status='Y'
 	</select>
+	
+	<update id="empUpdate" parameterType="Mypage">
+		update employee
+		set emp_phone=#{phone}, emp_address=#{address}
+		where emp_num=#{num}
+	
+	
+	</update>
+	
 	
 	
 </mapper>

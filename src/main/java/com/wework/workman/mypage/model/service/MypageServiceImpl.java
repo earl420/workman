@@ -9,7 +9,8 @@ import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.dao.MypageDao;
 import com.wework.workman.mypage.model.vo.Mypage;
 
-@Service("mypageService")
+//@Service("mypageService")
+@Service("mService")
 public class MypageServiceImpl implements MypageService{
 	
 	
@@ -20,10 +21,18 @@ public class MypageServiceImpl implements MypageService{
 	/**
 	 * 로그인
 	 */
-
 	@Override
 	public Mypage loginMan(Mypage m) {
 		return mDao.loginMan(m);
+	}
+
+
+	/**
+	 * 정보수정
+	 */
+	@Override
+	public int empUpdate(Mypage m) {
+		return mDao.empUpdate(m);
 	}
 
 	

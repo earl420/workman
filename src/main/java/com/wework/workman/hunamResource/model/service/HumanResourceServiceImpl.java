@@ -10,4 +10,12 @@ import com.wework.workman.hunamResource.model.dao.HumanResourceDao;
 public class HumanResourceServiceImpl implements HumanResourceService{
 	@Resource(name="humanResourceDao")
 	private HumanResourceDao hDao;
+
+	@Override
+	public int gethListCount() {
+		
+		return hDao.gethListCount();
+	}
+	
 }
+	

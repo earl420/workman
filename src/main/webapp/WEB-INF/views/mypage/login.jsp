@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%String contextPath = request.getContextPath(); %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
+
 <meta charset="UTF-8">
 <title>WEworks</title>
 <style>
@@ -56,6 +60,7 @@ table tr{
 </style>
 </head>
 <body>
+	
 
    <div class="main">
       <form id="form1" action="login.wo" method="post">
@@ -67,7 +72,7 @@ table tr{
 	            <td colspan="2">
 	               <br>
 	               <div class="form-group">
-	                  <input type="text" class="form-control" id="num" name="num" placeholder="사원번호"> 
+	                  <input type="number" class="form-control" id="num" name="num" placeholder="사원번호"> 
 	               </div>
 	            </td>
 	         </tr>
@@ -97,18 +102,18 @@ table tr{
    </div>
 <script>
 //아이디저장. 테스트 해봄.
-   $(function(){
+//   $(function(){
 //       $.cookie('key',$('#id').val(),{expires:7});
 //       $.removeCookie('key');
-      var key =$.cookie("key");
+ //     var key =$.cookie("key");
 //       key = 'test';
-      if(key==null){
-         console.log('널값!');         
-      }else{
-         $('#num').val(key);
-         $('#remember').attr("checked",true);
-      };
-   });
+    //  if(key==null){
+       //  console.log('널값!');         
+    //  }else{
+       //  $('#num').val(key);
+      //   $('#remember').attr("checked",true);
+   //   };
+ //  });
 
 </script>
 </body>

@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.wework.workman.mypage.model.vo.Mypage;
 
-@Repository("mypageDao")
+//@Repository("mypageDao")
+@Repository("mDao")
 
 public class MypageDao {
 	@Autowired
@@ -19,5 +20,15 @@ public class MypageDao {
 	 */
 	public Mypage loginMan(Mypage m) {
 		return sqlSession.selectOne("mypageMapper.loginMan", m);
+	}
+
+	
+	/**
+	 * 정보 수정
+	 * @param m
+	 * @return
+	 */
+	public int empUpdate(Mypage m) {
+		return sqlSession.update("mypageMapper.empUpdate", m);
 	}
 }

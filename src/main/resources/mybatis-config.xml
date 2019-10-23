@@ -18,6 +18,8 @@
 	<typeAlias type="com.wework.workman.account.model.vo.Product" alias="Product"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.SalaryManage" alias="SalaryManage"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.SaleManage" alias="SaleManage"></typeAlias>
+	<typeAlias type="com.wework.workman.chatting.model.vo.Room" alias= "Room"/>
+	
 </typeAliases>
 
 <mappers>
