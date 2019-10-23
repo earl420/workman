@@ -1,7 +1,9 @@
 package com.wework.workman.mypage.controller;
 
 
-import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +55,9 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empInfo.wo")
-	public String empInfoView() {
+	public String empInfoView(HttpSession session) {
+		Mypage m = (Mypage)session.getAttribute("loginMan");
+
 		return "myPage/empInfo";
 	}
 
@@ -179,12 +183,11 @@ public class MypageController {
 		
 		m.setAddress(address1 + "," + address2);
 		
-		System.out.println(m.getPhone());
-		System.out.println(m.getAddress());
-		
 		int result = mService.empUpdate(m);
+		Mypage mp = (Mypage)model.getAttribute("loginMan");
 		if(result > 0) {
-			model.addAttribute("loginMan", m);
+			Mypage m1 = mService.loginMan(mp);
+			model.addAttribute("loginMan",m1);
 			return "redirect:home.wo";
 		}else {
 			

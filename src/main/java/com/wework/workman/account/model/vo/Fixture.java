@@ -12,12 +12,13 @@ public class Fixture {
 	private String empNum;
 	private String empName;
 	private int endurance;
-	private int residualValue;
+	private int fixturePrice;
+	private int residualValue;//잔존가치
 	public Fixture() {
-		super();
 	}
 	public Fixture(String fixtureNum, String fixtureType, String fixtureName, Date fixtureBuy, String deptNum,
-			String deptName, String empNum, String empName, int endurance, int residualValue) {
+			String deptName, String empNum, String empName, int endurance, int fixturePrice, int residualValue) {
+		super();
 		this.fixtureNum = fixtureNum;
 		this.fixtureType = fixtureType;
 		this.fixtureName = fixtureName;
@@ -27,6 +28,7 @@ public class Fixture {
 		this.empNum = empNum;
 		this.empName = empName;
 		this.endurance = endurance;
+		this.fixturePrice = fixturePrice;
 		this.residualValue = residualValue;
 	}
 	public String getFixtureNum() {
@@ -83,6 +85,12 @@ public class Fixture {
 	public void setEndurance(int endurance) {
 		this.endurance = endurance;
 	}
+	public int getFixturePrice() {
+		return fixturePrice;
+	}
+	public void setFixturePrice(int fixturePrice) {
+		this.fixturePrice = fixturePrice;
+	}
 	public int getResidualValue() {
 		return residualValue;
 	}
@@ -93,10 +101,9 @@ public class Fixture {
 	public String toString() {
 		return "Fixture [fixtureNum=" + fixtureNum + ", fixtureType=" + fixtureType + ", fixtureName=" + fixtureName
 				+ ", fixtureBuy=" + fixtureBuy + ", deptNum=" + deptNum + ", deptName=" + deptName + ", empNum="
-				+ empNum + ", empName=" + empName + ", endurance=" + endurance + ", residualValue=" + residualValue
-				+ "]";
+				+ empNum + ", empName=" + empName + ", endurance=" + endurance + ", fixturePrice=" + fixturePrice
+				+ ", residualValue=" + residualValue + "]";
 	}
-	
 	
 	
 	

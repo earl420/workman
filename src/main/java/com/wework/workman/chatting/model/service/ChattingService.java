@@ -12,4 +12,5 @@ public interface ChattingService {
 	public void roomCreate(String[] userIdList);
 	public void roomExit(String userId,String roomId);
 	public void addUser(String[] userIdList);
+	public ArrayList<Message>msgHistory(String roomId);
 }

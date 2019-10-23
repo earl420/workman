@@ -50,6 +50,12 @@ public class ChattingServiceImpl implements ChattingService{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public ArrayList<Message> msgHistory(String roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

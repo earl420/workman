@@ -35,14 +35,18 @@ public class AccountController {
 	@RequestMapping("acnoticeList.wo")
 	public String accountList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
 			@RequestParam(value="search", required = false, defaultValue = "") String search1) {
-//		
+		
 //		String[] search= search1.split(" ");
+//		ArrayList<String> selist = new ArrayList<String>();
+//		for (int i = 0; i < search.length; i++) {
+//			selist.add(search[i]);
+//		}
 //		
-//		int listCount = aService.getNoticeListCount(search);
+//		int listCount = aService.getNoticeListCount(selist);
 //		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		ArrayList<AcNotice> list = aService.noticeList(search,pi);
-		
-		
+//		ArrayList<AcNotice> list = aService.noticeList(selist,pi);
+//		
+//		System.out.println(list);
 		return "account/aNotice";
 	}
 	@RequestMapping("aninsertpage.wo")
