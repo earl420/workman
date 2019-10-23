@@ -1,9 +1,6 @@
 package com.wework.workman.mypage.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.wework.workman.mypage.model.service.MypageService;
 import com.wework.workman.mypage.model.vo.Mypage;
@@ -185,29 +180,21 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "confirmPwd.wo", method = RequestMethod.POST)
-	public String confirmPwd(String pwd, Model model) {
-		
-		if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
-			  
-			  model.addAttribute("loginMan", loginMan); 
-			  return "redirect:home.wo";
-		  
-		  }else {
-			  
-			  return "myPage/changePwd";
-			  
-		  }
-		
-		
-	}
-		
-		
-		
-		
-	
-	
-	
-	
-
+	/*
+	 * @RequestMapping(value = "confirmPwd.wo", method = RequestMethod.POST) public
+	 * String confirmPwd(String pwd, Model model) {
+	 * 
+	 * if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) {
+	 * 
+	 * model.addAttribute("loginMan", loginMan); return "redirect:home.wo";
+	 * 
+	 * }else {
+	 * 
+	 * return "myPage/changePwd";
+	 * 
+	 * }
+	 * 
+	 * 
+	 * }
+	 */
 }
