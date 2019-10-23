@@ -44,8 +44,6 @@
 			<div class="content-fluid" style="height: 100px;" align="center">
 				<div class="insertouter">
 				<div id='calendar'></div>
-				<button onclick="location.href='calUpdate.wo?empNum=${emp}';">수정test버튼</button>
-				<button onclick="location.href='calDelete.wo';">삭제test버튼</button>
 				</div>
 			</div> 
 		</div>
