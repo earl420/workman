@@ -1,39 +1,57 @@
 package com.wework.workman.chatting.model.vo;
 
+import java.sql.Date;
+
 import com.google.cloud.Timestamp;
 
 public class Message {
-	private String from;
-	private String msg;
-	private Timestamp cDate;
+	private String msgNum;
+	private String roomId;
+	private String sender;
+	private String msgCont;
+	private Date msgTime;
 	private String status;
 	public Message() {
 		
 	}
-	public Message(String from, String msg, Timestamp cDate, String status) {
+	public Message(String msgNum, String roomId, String sender, String msgCont, Date msgTime, String status) {
 		super();
-		this.from = from;
-		this.msg = msg;
-		this.cDate = cDate;
+		this.msgNum = msgNum;
+		this.roomId = roomId;
+		this.sender = sender;
+		this.msgCont = msgCont;
+		this.msgTime = msgTime;
 		this.status = status;
 	}
-	public String getFrom() {
-		return from;
+	public String getMsgNum() {
+		return msgNum;
 	}
-	public void setFrom(String from) {
-		this.from = from;
+	public void setMsgNum(String msgNum) {
+		this.msgNum = msgNum;
 	}
-	public String getMsg() {
-		return msg;
+	public String getRoomId() {
+		return roomId;
 	}
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setRoomId(String roomId) {
+		this.roomId = roomId;
 	}
-	public Timestamp getcDate() {
-		return cDate;
+	public String getSender() {
+		return sender;
 	}
-	public void setcDate(Timestamp cDate) {
-		this.cDate = cDate;
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+	public String getMsgCont() {
+		return msgCont;
+	}
+	public void setMsgCont(String msgCont) {
+		this.msgCont = msgCont;
+	}
+	public Date getMsgTime() {
+		return msgTime;
+	}
+	public void setMsgTime(Date msgTime) {
+		this.msgTime = msgTime;
 	}
 	public String getStatus() {
 		return status;
@@ -43,7 +61,8 @@ public class Message {
 	}
 	@Override
 	public String toString() {
-		return "Message [from=" + from + ", msg=" + msg + ", cDate=" + cDate + ", status=" + status + "]";
+		return "Message [msgNum=" + msgNum + ", roomId=" + roomId + ", sender=" + sender + ", msgCont=" + msgCont
+				+ ", msgTime=" + msgTime + ", status=" + status + "]";
 	}
 	
 }
