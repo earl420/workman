@@ -303,6 +303,8 @@ img{ max-width:100%;}
 			wbSocket.onmessage = onMessage;
 
 		}
+		
+		
 		function onOpen(evt) {
 			appendMessage("연결성공");
 			var openString = "onOpen:" + userId;
