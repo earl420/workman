@@ -25,7 +25,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	private Map<String, WebSocketSession> allUsers = new ConcurrentHashMap<>();
 	//userId,sessionId
 	private Map<String,String> userSessionId = new ConcurrentHashMap<>();
-	
+	//룸 다시생각.
+	//세션에있는사람들을 맨마지막 룸으로 넣고.. 체인지발생시 룸변경 userId:roomId
+	//
 //	private Map<String, Integer[]> rooms = new ConcurrentHashMap<String, Integer[]>();
 	String userId;
 	String roomId;
@@ -83,15 +85,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		}else if(preMsg=="newRoom"){//룸생성
 			//newRoom:[userId....]
 			String newRoomId= roomCreate(userId);
-			//add 유저를 jsp단에서 요청할지 java단에서 요청할지 생각해볼것.
+			//add 유저를 jsp단에서 요청할지 java단에서 요청할지 생각해볼것.//자바단 조지자
+			addUsers(newRoomId);
 			
 		}else if(preMsg=="exitRoom") {//룸나가기
 			//exitRoom:roomId
-			
-			
 		}else if(preMsg=="addUser") {//유저 추가
-			addUser(roomId);
-		}else {
+			addUsers(roomId);
+		}else if(preMsg=="msg"){
 			msgSend(session,message);
 		}
 		
@@ -111,16 +112,17 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			String lastWord=i.getLastWord();
 			String lastMan=i.getLastman();
 			String lastComm=i.getLastComm().toString();
-			String roomSetList=roomId +":"+ lastWord+":"+lastMan+":"+lastComm;
+			String roomSetList="roomListSet:"+roomId +":"+ lastWord+":"+lastMan+":"+lastComm;
 			System.out.println(roomSetList);
 			TextMessage tx = new TextMessage(roomSetList);
 			msgSendOne(session,tx);
+			roomId = i.getRoomId();
 		}
 	}
 	//초기세팅 : 마지막 룸 지난메세지 전송
 	//룸변경시 : 룸아이디로 지난 메세지 전송
-	public void msgHistory(WebSocketSession session) {
-		ArrayList<Message> msg = chattingService.getMessage(roomId);
+	public void msgHistory(WebSocketSession session) throws IOException {
+		ArrayList<Message> msg = chattingService.msgHistory(roomId);
 		for(Message i:msg) {
 			String sender = i.getSender();
 			String content= i.getMsgCont();
@@ -131,9 +133,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			}else {
 				status="삭제된메세지입니다.";
 			}
-			String msgHistory = sender+":"+content+":"+time+":"+status;
+			String msgHistory = "msgHistory:"+sender+":"+content+":"+time+":"+status;
 			TextMessage tx = new TextMessage(msgHistory);
 			msgSendOne(session,tx);
+		
 		}
 	}
 
@@ -145,7 +148,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
 	}
 	
-	public void addUser(String roomId) {
+	public void addUsers(String roomId) {
 		
 	}
 
