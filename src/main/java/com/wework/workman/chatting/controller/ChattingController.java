@@ -29,10 +29,10 @@ public class ChattingController {
 
 	@RequestMapping(value = "/chatting.wo", method = RequestMethod.GET)
 	public String chattingMain(Model m) throws IOException, InterruptedException, ExecutionException {
-		if(initialChattingDB ==0) {
-		}else{
-			System.out.println("already connected");
-		};
+//		if(initialChattingDB ==0) {
+//		}else{
+//			System.out.println("already connected");
+//		};
 		
 		LoginTemp loginUser = new LoginTemp();
 		loginUser.setLoginId("empId");
