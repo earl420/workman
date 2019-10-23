@@ -8,7 +8,7 @@ public interface CalendarService {
 		
 		int updateCalendar(int empNum); // 일정수정
 		
-		Calendar CalendarDetail(int empNum); // 일정상세보기
+		Calendar calendarDetail(int empNum); // 일정상세보기
 		
 		int deleteCalendar(int empNum); // 일정삭제
 }

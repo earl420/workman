@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<!-- 캘린더 보기 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +21,9 @@
      max-width: 1000px;
      margin: auto;
    }
+  /*  .fc-day:hover{
+   	 cursor:pointer;
+   } */
  </style>
 
 <link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />
@@ -32,49 +35,6 @@
 <script src='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.js'></script>
 <script src='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.js'></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-	  var Calendar = FullCalendar.Calendar;
-	  var Draggable = FullCalendarInteraction.Draggable;
-
-	  var containerEl = document.getElementById('external-events');
-	  var calendarEl = document.getElementById('calendar');
-	  var checkbox = document.getElementById('drop-remove');
-
-	  // initialize the external events
-	  // -----------------------------------------------------------------
-
-	  new Draggable(containerEl, {
-	    itemSelector: '.fc-event',
-	    eventData: function(eventEl) {
-	      return {
-	        title: eventEl.innerText
-	      };
-	    }
-	  });
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'dayGrid', 'timeGrid' ],
-      header: {
-        left: 'today',
-        center: 'title',
-        right: 'prevYear,prev,next,nextYear'
-      },
-      editable: true,
-      droppable: true, // this allows things to be dropped onto the calendar
-      drop: function(info) {
-        // is the "remove after drop" checkbox checked?
-        if (checkbox.checked) {
-          // if so, remove the element from the "Draggable Events" list
-          info.draggedEl.parentNode.removeChild(info.draggedEl);
-        }
-      }
-    });
-
-    calendar.render();
-  });
-</script>
-
 </head>
 <body>
  		<div id="main-wrapper" style="background: white;">
@@ -84,10 +44,33 @@ document.addEventListener('DOMContentLoaded', function() {
 			<div class="content-fluid" style="height: 100px;" align="center">
 				<div class="insertouter">
 				<div id='calendar'></div>
+				<button onclick="location.href='calUpdate.wo?empNum=${emp}';">수정test버튼</button>
+				<button onclick="location.href='calDelete.wo';">삭제test버튼</button>
 				</div>
 			</div> 
 		</div>
-  
+ 
+ <script>
+	  document.addEventListener('DOMContentLoaded', function() {
+	    var calendarEl = document.getElementById('calendar');
+	
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	      plugins: [ 'dayGrid', 'timeGrid' ],
+	      header: {
+	        left: 'today',
+	        center: 'title',
+	        right: 'prevYear,prev,next,nextYear'
+	      }
+	    });
+	
+	    calendar.render();
+	  });
+	  
+	  /* $("td").on("click", function(){
+			alert('ssss');
+		}); */
+</script>
+
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 </body>

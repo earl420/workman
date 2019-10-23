@@ -25,9 +25,9 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override // 일정상세보기
-	public Calendar CalendarDetail(int empNum) {
+	public Calendar calendarDetail(int empNum) {
 		
-		return cDao.CalendarDetail(empNum);
+		return cDao.calendarDetail(empNum);
 	}
 
 	@Override // 일정삭제
@@ -35,4 +35,5 @@ public class CalendarServiceImpl implements CalendarService {
 		
 		return cDao.deleteCalendar(empNum);
 	}
+
 }
