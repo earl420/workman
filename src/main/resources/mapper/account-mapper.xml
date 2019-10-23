@@ -3,7 +3,42 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="accountMapper">
-	
-	
-	
+	<resultMap id="acnotice" type="AcNotice">
+		<id column="NOTICE_NUM" property="noticeNum" />
+		<result column="NOTICE_DEPT" property="noticeDept" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="EMP_NUM" property="empNum" />
+		<result column="EMP_NAME" property="empName" />
+		<result column="NOTICE_DATE" property="noticeDate" />
+		<result column="NOTICE_MODIFY" property="noticeModify" />
+		<result column="NOTICE_STATUS" property="noticeStatus" />
+		<result column="NOTICE_ACC_TYPE" property="noticeAccType" />
+	</resultMap>
+
+	<select id="getNoticeListCount" parameterType="arraylist"
+		resultType="_int">
+		select count(*) from notice where
+		<foreach item="item" index="index" collection="arraylist"
+			open="(" separator="AND" close=")">
+			concat(notice_title, notice_content)
+			like '%'||item||'%'
+		</foreach>
+
+	</select>
+	<select id="noticeList" parameterType="java.util.ArrayList"
+		resultType="AcNotice">
+		select NOTICE_NUM, NOTICE_DEPT, NOTICE_TITLE,
+		NOTICE_CONTENT, EMP_NUM, EMP_NAME, NOTICE_DATE, NOTICE_MODIFY,
+		NOTICE_STATUS, NOTICE_ACC_TYPE
+		from notice
+		JOIN EMPLOYEE USING(EMP_NUM)
+		WHERE
+		<foreach item="item" index="index" collection="arraylist"
+			open="(" separator="AND" close=")">
+			concat(notice_title, notice_content)
+			like '%'||item||'%'
+		</foreach>
+	</select>
+
 </mapper>
