@@ -79,15 +79,15 @@
 						</tr>
 						<tr>
 							<td>직급</td>
-							<td><input value="${ loginMan.gradeName }" ></td>
+							<td><input value="${ loginMan.gradeName }" readonly></td>
 						</tr>
 						<tr>
 							<td>부서</td>
-							<td><input value="${ loginMan.deptName }" ></td>
+							<td><input value="${ loginMan.deptName }" readonly></td>
 						</tr>
 						<tr>
 							<td>입사일</td>
-							<td><input value="${ loginMan.enrollDate }"></td>
+							<td><input value="${ loginMan.enrollDate }" readonly></td>
 						</tr>
 						
 						<c:if test="${ empty loginMan.address }">
