@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: ￪ﾰﾕ￬ﾠﾕ
-Build-Jdk: 1.8.0_202
+Built-By: Sarang
+Build-Jdk: 1.8.0_221
 Created-By: Maven Integration for Eclipse
 
