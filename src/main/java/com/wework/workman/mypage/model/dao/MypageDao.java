@@ -39,6 +39,7 @@ public class MypageDao {
 	 * @return
 	 */
 	public int pwdUpdate(Mypage m) {
+		System.out.println("dao" + m);
 		return sqlSession.update("mypageMapper.pwdUpdate", m);
 	}
 }

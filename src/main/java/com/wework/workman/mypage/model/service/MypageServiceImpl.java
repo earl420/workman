@@ -41,6 +41,7 @@ public class MypageServiceImpl implements MypageService{
 	 */
 	@Override
 	public int pwdUpdate(Mypage m) {
+		System.out.println("service" + m);
 		return mDao.pwdUpdate(m);
 	}
 

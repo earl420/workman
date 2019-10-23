@@ -3,6 +3,7 @@ package com.wework.workman.mypage.controller;
 
 import java.io.IOException;
 
+import javax.print.attribute.PrintRequestAttribute;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -212,16 +213,13 @@ public class MypageController {
 		
 		Mypage mp = (Mypage)model.getAttribute("loginMan");
 		
-		System.out.println(mp.getPwd());
-		System.out.println(pwd);
-		
 		if(pwd != null && pwd.equals(mp.getPwd())) { 
 			Mypage loginMan = mService.loginMan(mp);
 			model.addAttribute("loginMan", loginMan);
 			return "myPage/changePwd";
 		}else {
 			
-			return "redirect:loginPage.wo";
+			return "redirect:confirmPwdPage.wo";
 			  	
 		}
 		
@@ -238,6 +236,7 @@ public class MypageController {
 		
 		Mypage m = (Mypage)model.getAttribute("loginMan");
 		m.setPwd(pwd);
+		System.out.println(m);
 		int result = mService.pwdUpdate(m);		
 		if(result > 0) {
 			return "redirect:logout.wo";
