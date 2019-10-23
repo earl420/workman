@@ -19,20 +19,20 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override // 일정수정
-	public int updateCalendar(int _id) {
+	public int updateCalendar(int empNum) {
 	
-		return cDao.updateCalendar(_id);
+		return cDao.updateCalendar(empNum);
 	}
 
 	@Override // 일정상세보기
-	public Calendar CalendarDetail(int _id) {
+	public Calendar CalendarDetail(int empNum) {
 		
-		return cDao.CalendarDetail(_id);
+		return cDao.CalendarDetail(empNum);
 	}
 
 	@Override // 일정삭제
-	public int deleteCalendar(int _id) {
+	public int deleteCalendar(int empNum) {
 		
-		return cDao.deleteCalendar(_id);
+		return cDao.deleteCalendar(empNum);
 	}
 }

@@ -27,9 +27,9 @@ public class CalendarController {
 	  
 	// 일정 상세보기-----
 	@RequestMapping("cDetail.wo")
-	public ModelAndView CalendarDetail(int _id, ModelAndView mv) {
+	public ModelAndView CalendarDetail(int empNum, ModelAndView mv) {
 		
-		Calendar c = cService.CalendarDetail(_id);
+		Calendar c = cService.CalendarDetail(empNum);
 		
 		if(c != null) {
 			mv.addObject("c",c).setViewName("calendar/CalendarDetailView");
@@ -67,9 +67,9 @@ public class CalendarController {
 	
 	// 일정수정------
 	@RequestMapping("calUpdate.wo")
-	public String updateCalendar(int _id, HttpServletRequest request) {
+	public String updateCalendar(int empNum, HttpServletRequest request) {
 		
-		int result = cService.deleteCalendar(_id);
+		int result = cService.deleteCalendar(empNum);
 		
 		if(result > 0) {
 			return "redirect:calDetail.wo";
@@ -80,9 +80,9 @@ public class CalendarController {
 	
 	// 일정삭제-------
 	@RequestMapping("calDelete.wo")
-	public String CalendarDelete(int _id, HttpServletRequest request) {
+	public String CalendarDelete(int empNum, HttpServletRequest request) {
 		
-		int result = cService.deleteCalendar(_id);
+		int result = cService.deleteCalendar(empNum);
 		
 		if(result > 0) {
 			return "redirect:calDetail.wo";

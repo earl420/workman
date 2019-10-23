@@ -17,18 +17,18 @@ public class CalendarDao {
 	}
 	
 	// 일정수정
-	public int updateCalendar(int _id) {
-		return sqlSession.update("calendar-mapper.updateCalendar", _id);
+	public int updateCalendar(int empNum) {
+		return sqlSession.update("calendar-mapper.updateCalendar", empNum);
 	}
 	
 	// 일정상세보기
-	public Calendar CalendarDetail(int _id) {
-		return sqlSession.selectOne("calendar-mapper.CalendarDetail", _id);
+	public Calendar CalendarDetail(int empNum) {
+		return sqlSession.selectOne("calendar-mapper.CalendarDetail", empNum);
 	}
 	
 	// 일정삭제
-	public int deleteCalendar(int _id) {
-		return sqlSession.update("calendar-mapper.deleteCalendar", _id);
+	public int deleteCalendar(int empNum) {
+		return sqlSession.update("calendar-mapper.deleteCalendar", empNum);
 	}
 }
 
