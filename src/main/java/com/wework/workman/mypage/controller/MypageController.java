@@ -1,6 +1,7 @@
 package com.wework.workman.mypage.controller;
 
-import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -161,11 +163,44 @@ public class MypageController {
 	
 	
 	/**
+	 * 정보수정
+	 * 
+	 * @param m
+	 * @param model
+	 * @param address1
+	 * @param address2
+	 * @return
+	 */
+	@RequestMapping("empUpdate.wo")
+	public String empUpdate(Mypage m, Model model,
+							@RequestParam("address1") String address1,
+							@RequestParam("address2") String address2) {
+		
+		
+		m.setAddress(address1 + "," + address2);
+		
+		System.out.println(m.getPhone());
+		System.out.println(m.getAddress());
+		
+		int result = mService.empUpdate(m);
+		if(result > 0) {
+			model.addAttribute("loginMan", m);
+			return "redirect:home.wo";
+		}else {
+			
+			return "myPage/empInfo";
+		}
+	}
+	
+	
+	
+	/**
 	 * 비밀번호 찾기
 	 * @return
 	 */
-	@RequestMapping(value = "returnPwd.wo", method = RequestMethod.POST)
+	@RequestMapping("returnPwd.wo")
 	public String returnPwdPage(Mypage m) {
+		
 		
 		
 		
@@ -180,21 +215,29 @@ public class MypageController {
 	 * @param model
 	 * @return
 	 */
-	/*
-	 * @RequestMapping(value = "confirmPwd.wo", method = RequestMethod.POST) public
-	 * String confirmPwd(String pwd, Model model) {
-	 * 
-	 * if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) {
-	 * 
-	 * model.addAttribute("loginMan", loginMan); return "redirect:home.wo";
-	 * 
-	 * }else {
-	 * 
-	 * return "myPage/changePwd";
-	 * 
-	 * }
-	 * 
-	 * 
-	 * }
-	 */
+	@RequestMapping("confirmPwd.wo")
+	public String confirmPwd(String pwd, Model model) {
+		
+			  
+			  return "myPage/changePwd";
+			  
+		  
+		
+		
+	}
+	
+	@RequestMapping(value = "findPwd.wo", method = RequestMethod.POST)
+	public String findPwd() {
+		
+		return "00";
+	}
+		
+		
+		
+		
+	
+	
+	
+	
+
 }

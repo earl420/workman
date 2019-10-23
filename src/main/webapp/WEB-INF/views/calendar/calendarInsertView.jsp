@@ -44,6 +44,12 @@
         .btn{
             width:100px;
         }
+        .alignradio{
+        	padding-top:5px;
+        }
+        #ptype{
+        	margin: auto;
+        }
     </style>
 </head>
 <body>
@@ -59,16 +65,22 @@
         <h2 style="color:navy;">일 정&nbsp; 등 록</h2>
         <br>
         
-       <div class="inlinediv" style="width: 70%;">
-          <div class="input-group mb-3">
-	           <select class="ui dropdown input-group-text">
-				  <option value="">Type</option>
-				  <option value="전체">전체일정</option>
-				  <option value="총무/회계">총무/회계</option>
-				  <option value="인사">인사</option>
-				</select>
-             <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="제목을 입력하세요.">
-           </div>
+     <div class="inlinediv" style="width: 70%;">
+     <div class="input-group mb-3">
+        <div class="input-group-text" style="width: 20%;"><p id="ptype">Type</p></div>
+          <div class="form-control">
+            <div class="alignradio">
+                <input type="radio" name="ctype" value="전체" id="all"> 
+                <label for="all">전체일정</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="ctype" value="부서" id="dep"> 
+                <label for="dep">부서일정</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="ctype" value="개인" id="pri"> 
+                <label for="pri">개인일정</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="ctype" value="보고서" id="report"> 
+                <label for="report">보고서</label>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div class="inlinediv" style="width: 25%;">
@@ -118,26 +130,6 @@
          </div>
          
          
-      	<script>
-        	/* all day 체크박스 이벤트  */
-	        $(function(){
-	        	$("#checkBoxId").change(function(){
-        	        if($("#checkBoxId").is(":checked")){
-        	        	$("#startDate").attr("disabled",true);
-        	        	$("#endDate").attr("disabled",true);
-        	        	$("#startTime").attr("disabled",true);
-        	        	$("#endTime").attr("disabled",true);
-        	        	
-        	        }else{
-        	        	$("#startDate").attr("disabled",false);
-        	        	$("#endDate").attr("disabled",false);
-        	        	$("#startTime").attr("disabled",false);
-        	        	$("#endTime").attr("disabled",false);
-        	        }
-        	    });
-	         });
-         </script>
-         
 
          <div class="input-group mb-3" style="width: 96%;">
             <div class="input-group-prepend">
@@ -147,15 +139,33 @@
         </div>
 
         <div class="butdiv">
-            <button class="btn mb-1 btn-outline-warning" type="reset">취소</button>
+            <button class="btn mb-1 btn-outline-warning" type="button" onclick="location.href='calDetailView.wo';">취소</button>
             <button class="btn mb-1 btn-secondary" type="submit">등록</button>
         </div>
         <br>
     </form>	
-    
 				</div>
 			</div> 
 		</div>
+		
+		<script>
+        	/* all day 체크박스 이벤트  */
+	        $(function(){
+	        	$("#checkBoxId").change(function(){
+        	        if($("#checkBoxId").is(":checked")){ /* 체크 했을 떄 */
+        	        	$("#startDate").attr("disabled",true);
+        	        	$("#endDate").attr("disabled",true);
+        	        	$("#startTime").attr("disabled",true);
+        	        	$("#endTime").attr("disabled",true);
+        	        	
+        	        }else{ /* 체크 해제했을 떄 */
+        	        	$("#startDate").attr("disabled",false);
+        	        	$("#endDate").attr("disabled",false);
+        	        	$("#startTime").attr("disabled",false);
+        	        	$("#endTime").attr("disabled",false);
+        	    });
+	         });
+         </script>
  
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
