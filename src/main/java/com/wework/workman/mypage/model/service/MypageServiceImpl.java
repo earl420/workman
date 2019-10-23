@@ -32,6 +32,7 @@ public class MypageServiceImpl implements MypageService{
 	 */
 	@Override
 	public int empUpdate(Mypage m) {
+		System.out.println("service" + m);
 		return mDao.empUpdate(m);
 	}
 

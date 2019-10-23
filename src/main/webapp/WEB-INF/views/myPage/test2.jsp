@@ -110,7 +110,7 @@
 									<tr>
 										<td>주소</td>
 										<td>
-											<input type="text" name="address1" size="40" value="${ addr }"  class="postcodify_address">
+											<input type="text" name="address1" size="40" value="${ addr }" class="postcodify_address">
 										</td>
 									</tr>
 								</c:if>
@@ -155,7 +155,6 @@
 	<script>
 		$(function(){
 			$(".postcodify_address").postcodifyPopUp();
-			console.log(11+'${ loginMan.gradeName }');
 		});
 	</script>
     

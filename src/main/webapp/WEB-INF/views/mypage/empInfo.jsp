@@ -1,36 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<style type="text/css">
-	table tr{
-		height: 50px;
-		color: black;
-		font-size: 20px;
-	}
-	
-	.postcodify_postcode5:hover, .postcodify_address:hover{
-		cursor: pointer;
-	}
-	
-	
-	
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>wework</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="images/favicon.png">
+<!-- Custom Stylesheet -->
+<link
+	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
 
-</style>
-<title>개인정보</title>
 </head>
+
 <body>
-	
-	
-	<!--*******************
-        Preloader start
-    ********************-->
+	<!-- preloader -->
 	<div id="preloader">
 		<div class="loader">
 			<svg class="circular" viewBox="25 25 50 50"> <circle
@@ -38,130 +27,209 @@
 					stroke-miterlimit="10" /> </svg>
 		</div>
 	</div>
-	<!--*******************
-        Preloader end
-    ********************-->
+	<!-- /preloader -->
 
 
-	<!--**********************************
-        Main wrapper start
-    ***********************************-->
-	<div id="main-wrapper" style="background: white;">
+	<!-- main wrapper -->
+	<div id="main-wrapper" style="">
 		<c:import url="../common/header.jsp"></c:import>
-		<!--**********************************
-            Content body start
-        ***********************************-->
-		<div class="content-body">
-			<div class="content-fluid" style="height: 100px;" align="center">
-				<h1>내 정보 관리</h1>
-				<br><br>
-				<form action="empUpdate.wo">
-					<table width="800" celspacing="5">
-						<tr>
-							<td width="200">사번</td>
-							<td><input type="text" name="num" value="${ loginMan.num }" readonly></td>
-						</tr>
-						<tr>
-							<td>이름</td>
-							<td><input name="name" value="${ loginMan.name }" readonly></td>
-						</tr>
-						<tr>
-							<td>이메일</td>
-							<td><input type="email" name="email" value="${ loginMan.email }" readonly></td>
-						</tr>
-						<tr>
-							<td>생년월일</td>
-							<td><input name="birth" value="${ loginMan.birth }" readonly></td>
-						</tr>
-						<tr>
-							<td>전화번호</td>
-							<td><input type="text" name="phone" value="${ loginMan.phone }"></td>
-						</tr>
-						<tr>
-							<td>직급</td>
-							<td><input value="${ loginMan.gradeName }" readonly></td>
-						</tr>
-						<tr>
-							<td>부서</td>
-							<td><input value="${ loginMan.deptName }" readonly></td>
-						</tr>
-						<tr>
-							<td>입사일</td>
-							<td><input value="${ loginMan.enrollDate }" readonly></td>
-						</tr>
-						
-						<c:if test="${ empty loginMan.address }">
-							<tr>
-								<td>주소</td>
-								<td>
-									<input type="text" name="address1" size="40" class="postcodify_address" readonly="readonly">
-								</td>
-							</tr>
-							<tr>
-								<td>상세주소</td>
-								<td>
-									<input type="text" name="address2" size="40" class="postcodify_extra_info">
-								</td>
-							</tr>
-						</c:if>
-						<c:if test="${ !empty loginMan.address }">
-							<c:forTokens items="${ loginMan.address }" delims="," var="addr" varStatus="status">
-								<c:if test="${ status.index eq 0 }">
-									<tr>
-										<td>주소</td>
-										<td>
-											<input type="text" name="address1" size="40" value="${ addr }"  class="postcodify_address">
-										</td>
-									</tr>
-								</c:if>
-								<c:if test="${ status.index eq 1 }">
-									<tr>
-										<td>상세 주소</td>
-										<td>
-											<input type="text" name="address2" size="40" value="${ addr }"  class="postcodify_extra_info">
-										</td>
-									</tr>
-								</c:if>
-							</c:forTokens>
-							
-						
-						</c:if>
-						
-						
-					</table>
-					<br><br>
-					<button type="submit" class="btn btn-secondary btn-lg">수정</button>
-					
-				</form>
-				<br><br><br><br>
+		<!-- content-body -->
+		<div class="content-body" style="min-height: 889px;">
+
+			<div class="row page-titles mx-0">
+				<div class="col p-md-0"></div>
 			</div>
-				
-			
 			<!-- row -->
-	
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<h5>내 정보</h5>
+								<br>
+								<div class="form-validation">
+									<form class="form-valide" action="empUpdate.wo" method="post"
+										novalidate="novalidate">
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="num">사번
+												<span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id="num"
+													name="num" value="${ loginMan.num }" readonly>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="name">이름
+												<span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id="name"
+													name="name" value="${ loginMan.name }" readonly>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="enrollDate">입사일
+												<span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id="enrollDate"
+													name="enrollDate" value="${ loginMan.enrollDate }" readonly>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="dept">소속
+												<span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id="dept"
+													name="deptName" value="${ loginMan.deptName }" readonly>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="grade">직위
+												<span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id="grade"
+													name="gradeName" value="${ loginMan.gradeName }" readonly>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="email">이메일
+												<span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-6">
+												<input type="email" class="form-control" id="email"
+													name="email"  value="${ loginMan.email }">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="phone">휴대전화
+												<span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id="phone"
+													name="phone" value="${ loginMan.phone }">
+											</div>
+										</div>
+										<!-- <div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="val-number">성별
+											</label>
+											<div class="col-lg-6">
+												<input type="radio" id=""
+													name="gender" value="남">&nbsp;&nbsp;남 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="radio" id=""
+													name="gender" value="여">&nbsp;&nbsp;여
+											</div>
+										</div> -->
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="birth">생년월일
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id="birth"
+													name="birth" value="${ loginMan.birth }">
+											</div>
+										</div>
+										<%-- <div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="salary">연봉
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id=""
+													name="salary" value="${ loginMan.salary }" readonly>
+											</div>
+										</div> --%>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="bank">급여수령은행
+											</label>
+											<div class="col-lg-3">
+												<input type="text" class="form-control" id="bank"
+													name="bank" value="${ loginMan.bank }">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="account">급여수령계좌
+											</label>
+											<div class="col-lg-3">
+												<input type="text" class="form-control" id="account"
+													name="account" value="${ loginMan.account }">
+											</div>
+										</div>
+										<c:if test="${ empty loginMan.address }">
+											<div class="form-group row">
+												<label class="col-lg-4 col-form-label" for="adress1">주소
+												</label>
+												<div class="col-lg-6">
+													<input type="text" class="form-control postcodify_address" id="adress1"
+														name="address1">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-lg-4 col-form-label" for="adress2">상세주소
+												</label>
+												<div class="col-lg-6">
+													<input type="text" class="form-control postcodify_extra_info" id="adress2"
+														name="address2">
+												</div>
+											</div>
+										</c:if>
+										<c:if test="${ !empty loginMan.address }">
+											<c:forTokens items="${ loginMan.address }" delims="," var="addr" varStatus="status">
+												<c:if test="${ status.index eq 0 }">
+													<div class="form-group row">
+														<label class="col-lg-4 col-form-label" for="adress1">주소
+														</label>
+														<div class="col-lg-6">
+															<input type="text" class="form-control postcodify_address" id="adress1"
+																name="address1" value="${ addr }">
+														</div>
+													</div>
+												</c:if>
+												<c:if test="${ status.index eq 1 }">
+													<div class="form-group row">
+														<label class="col-lg-4 col-form-label" for="adress2">상세주소
+														</label>
+														<div class="col-lg-6">
+															<input type="text" class="form-control postcodify_extra_info" id="adress2"
+																name="address2" value="${ addr }">
+														</div>
+													</div>
+												</c:if>
+											</c:forTokens>
+										</c:if>
+										
+										
+										
+										<div class="form-group row">
+											<div class="col-lg-8 ml-auto">
+												<button type="submit" class="btn btn-primary">저장</button>
+											</div>
+										</div>
+										
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- #/ container -->
 		</div>
-		<!--**********************************
-            Content body end
-        ***********************************-->
-		<c:import url="../common/footer.jsp"></c:import>	
+		<!-- /content-body -->
+		<c:import url="../common/footer.jsp"></c:import>
 	</div>
-	<!--**********************************
-        Main wrapper end
-    ***********************************-->
-    
-    
-    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	<!-- /main-wrapper -->
+	
+	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	<script>
 		$(function(){
 			$(".postcodify_address").postcodifyPopUp();
-			console.log(11+'${ loginMan.gradeName }');
 		});
 	</script>
-    
-    
-    
-    
-    
+
 </body>
+<iframe id="google_esf" name="google_esf"
+	src="https://googleads.g.doubleclick.net/pagead/html/r20191003/r20190131/zrt_lookup.html#"
+	data-ad-client="ca-pub-2783044520727903" style="display: none;"></iframe>
 </html>

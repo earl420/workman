@@ -182,7 +182,7 @@ public class MypageController {
 		
 		
 		m.setAddress(address1 + "," + address2);
-		
+		System.out.println("controller" + m);
 		int result = mService.empUpdate(m);
 		Mypage mp = (Mypage)model.getAttribute("loginMan");
 		if(result > 0) {

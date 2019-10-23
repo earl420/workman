@@ -29,6 +29,7 @@ public class MypageDao {
 	 * @return
 	 */
 	public int empUpdate(Mypage m) {
+		System.out.println("dao" + m);
 		return sqlSession.update("mypageMapper.empUpdate", m);
 	}
 }
