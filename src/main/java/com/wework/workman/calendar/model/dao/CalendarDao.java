@@ -22,8 +22,8 @@ public class CalendarDao {
 	}
 	
 	// 일정상세보기
-	public Calendar CalendarDetail(int empNum) {
-		return sqlSession.selectOne("calendar-mapper.CalendarDetail", empNum);
+	public Calendar calendarDetail(int empNum) {
+		return sqlSession.selectOne("calendar-mapper.calendarDetail", empNum);
 	}
 	
 	// 일정삭제
