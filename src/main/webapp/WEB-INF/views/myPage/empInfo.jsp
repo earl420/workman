@@ -155,6 +155,7 @@
 	<script>
 		$(function(){
 			$(".postcodify_address").postcodifyPopUp();
+			console.log(11+'${ loginMan.gradeName }');
 		});
 	</script>
     
