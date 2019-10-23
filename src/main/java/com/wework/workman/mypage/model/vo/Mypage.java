@@ -20,6 +20,8 @@ public class Mypage {
 	private String status;
 	private String account;
 	private String bank;
+	private String gradeName;
+	private String deptName;
 	
 	public Mypage() {
 		super();
@@ -27,7 +29,7 @@ public class Mypage {
 
 	public Mypage(String num, String pwd, String name, String email, String gender, Date birth, String phone,
 			String address, int gradeNum, int deftNum, int salary, Date enrollDate, Date resignDate, String status,
-			String account, String bank) {
+			String account, String bank, String gradeName, String deptName) {
 		super();
 		this.num = num;
 		this.pwd = pwd;
@@ -45,9 +47,9 @@ public class Mypage {
 		this.status = status;
 		this.account = account;
 		this.bank = bank;
+		this.gradeName = gradeName;
+		this.deptName = deptName;
 	}
-
-
 
 	public String getNum() {
 		return num;
@@ -177,13 +179,32 @@ public class Mypage {
 		this.bank = bank;
 	}
 
+	public String getGradeName() {
+		return gradeName;
+	}
+
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
 	@Override
 	public String toString() {
 		return "Mypage [num=" + num + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", gender=" + gender
 				+ ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", gradeNum=" + gradeNum
 				+ ", deftNum=" + deftNum + ", salary=" + salary + ", enrollDate=" + enrollDate + ", resignDate="
-				+ resignDate + ", status=" + status + ", account=" + account + ", bank=" + bank + "]";
+				+ resignDate + ", status=" + status + ", account=" + account + ", bank=" + bank + ", gradeName="
+				+ gradeName + ", deptName=" + deptName + "]";
 	}
+
+	
 	
 	
 
