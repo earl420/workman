@@ -53,7 +53,7 @@
 										novalidate="novalidate">
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="num">사번
-												<span class="text-danger">*</span>
+												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id="num"
@@ -62,7 +62,7 @@
 										</div>
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="name">이름
-												<span class="text-danger">*</span>
+												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id="name"
@@ -71,7 +71,7 @@
 										</div>
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="enrollDate">입사일
-												<span class="text-danger">*</span>
+												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id="enrollDate"
@@ -80,7 +80,7 @@
 										</div>
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="dept">소속
-												<span class="text-danger">*</span>
+												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id="dept"
@@ -89,7 +89,7 @@
 										</div>
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="grade">직위
-												<span class="text-danger">*</span>
+												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id="grade"
@@ -98,7 +98,7 @@
 										</div>
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="email">이메일
-												<span class="text-danger">*</span>
+												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
 												<input type="email" class="form-control" id="email"
@@ -107,7 +107,7 @@
 										</div>
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="phone">휴대전화
-												<span class="text-danger">*</span>
+												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id="phone"
@@ -198,9 +198,6 @@
 												</c:if>
 											</c:forTokens>
 										</c:if>
-										
-										
-										
 										<div class="form-group row">
 											<div class="col-lg-8 ml-auto">
 												<button type="submit" class="btn btn-primary">저장</button>

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -72,16 +73,6 @@ public class MypageController {
 	}
 
 	/**
-	 * 비밀번호 변경 페이지
-	 * 
-	 * @return
-	 */
-	@RequestMapping("changePwdPage.wo")
-	public String changePwdPage() {
-		return "myPage/changePwd";
-	}
-
-	/**
 	 * 사원번호 찾기 페이지
 	 * 
 	 * @return
@@ -110,7 +101,7 @@ public class MypageController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
-	public String loginEmp(Mypage m, Model model/* , HttpServletResponse response */){
+	public String loginEmp(Mypage m, Model model){
 		  
 		  Mypage loginMan = mService.loginMan(m);
 		  
@@ -181,17 +172,15 @@ public class MypageController {
 							@RequestParam("address2") String address2) {
 		
 		
-		m.setAddress(address1 + "," + address2);
-		System.out.println("controller" + m);
 		int result = mService.empUpdate(m);
 		Mypage mp = (Mypage)model.getAttribute("loginMan");
 		if(result > 0) {
-			Mypage m1 = mService.loginMan(mp);
-			model.addAttribute("loginMan",m1);
+			Mypage loginMan = mService.loginMan(mp);
+			model.addAttribute("loginMan",loginMan);
 			return "redirect:home.wo";
 		}else {
 			
-			return "myPage/empInfo";
+			return "myPage/changePwd";
 		}
 	}
 	
@@ -213,21 +202,53 @@ public class MypageController {
 	
 	
 	/**
-	 * 비밀번호 변경 전 확인
+	 * 비번 변경 전 재확인
 	 * @param pwd
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("confirmPwd.wo")
-	public String confirmPwd(String pwd, Model model) {
+	public String confirmPwd(Model model, @RequestParam("pwd") String pwd) {
 		
-			  
-			  return "myPage/changePwd";
-			  
-		  
+		Mypage mp = (Mypage)model.getAttribute("loginMan");
 		
+		System.out.println(mp.getPwd());
+		System.out.println(pwd);
+		
+		if(pwd != null && pwd.equals(mp.getPwd())) { 
+			Mypage loginMan = mService.loginMan(mp);
+			model.addAttribute("loginMan", loginMan);
+			return "myPage/changePwd";
+		}else {
+			
+			return "redirect:loginPage.wo";
+			  	
+		}
 		
 	}
+	
+	/**
+	 * 비번 수정
+	 * @param model
+	 * @param pwd
+	 * @return
+	 */
+	@RequestMapping("changePwd.wo")
+	public String changePwd(Model model, @RequestParam("pwd") String pwd) {
+		
+		Mypage m = (Mypage)model.getAttribute("loginMan");
+		m.setPwd(pwd);
+		int result = mService.pwdUpdate(m);		
+		if(result > 0) {
+			return "redirect:logout.wo";
+		}else {
+			
+			return "myPage/changePwd";
+		}
+		
+	}
+	
+	
 	
 	@RequestMapping(value = "findPwd.wo", method = RequestMethod.POST)
 	public String findPwd() {
@@ -235,11 +256,6 @@ public class MypageController {
 		return "00";
 	}
 		
-		
-		
-		
-	
-	
 	
 	
 

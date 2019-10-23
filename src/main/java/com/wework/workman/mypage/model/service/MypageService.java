@@ -10,4 +10,6 @@ public interface MypageService {
 	// 정보 수정
 	int empUpdate(Mypage m);
 
+	int pwdUpdate(Mypage m);
+
 }

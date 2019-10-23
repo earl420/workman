@@ -33,8 +33,25 @@
 <script src='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.js'></script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
+document.addEventListener('DOMContentLoaded', function() {
+	  var Calendar = FullCalendar.Calendar;
+	  var Draggable = FullCalendarInteraction.Draggable;
+
+	  var containerEl = document.getElementById('external-events');
+	  var calendarEl = document.getElementById('calendar');
+	  var checkbox = document.getElementById('drop-remove');
+
+	  // initialize the external events
+	  // -----------------------------------------------------------------
+
+	  new Draggable(containerEl, {
+	    itemSelector: '.fc-event',
+	    eventData: function(eventEl) {
+	      return {
+	        title: eventEl.innerText
+	      };
+	    }
+	  });
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'dayGrid', 'timeGrid' ],
@@ -42,6 +59,15 @@
         left: 'today',
         center: 'title',
         right: 'prevYear,prev,next,nextYear'
+      },
+      editable: true,
+      droppable: true, // this allows things to be dropped onto the calendar
+      drop: function(info) {
+        // is the "remove after drop" checkbox checked?
+        if (checkbox.checked) {
+          // if so, remove the element from the "Draggable Events" list
+          info.draggedEl.parentNode.removeChild(info.draggedEl);
+        }
       }
     });
 
