@@ -49,8 +49,7 @@
 								<h5>내 정보</h5>
 								<br>
 								<div class="form-validation">
-									<form class="form-valide" action="empUpdate.wo" method="post"
-										novalidate="novalidate">
+									<form class="form-valide" action="empUpdate.wo" method="post">
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="num">사번
 												<span class="text-danger"></span>
@@ -132,6 +131,22 @@
 													name="birth" value="${ loginMan.birth }">
 											</div>
 										</div>
+										<!-- <div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="birth">생년월일
+											</label>
+											<div class="col-lg-6">
+												<input type="hidden" name="birth">
+												<select class="col-md-3" id="year">
+													<option>-</option>
+												</select>
+												<select class="col-md-3" id="month">
+													<option>-</option>
+												</select>
+												<select class="col-md-3" id="day">
+													<option>-</option>
+												</select>
+											</div>
+										</div> -->
 										<%-- <div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="salary">연봉
 											</label>
@@ -143,7 +158,7 @@
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="bank">급여수령은행
 											</label>
-											<div class="col-lg-3">
+											<div class="col-lg-6">
 												<input type="text" class="form-control" id="bank"
 													name="bank" value="${ loginMan.bank }">
 											</div>
@@ -151,7 +166,7 @@
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="account">급여수령계좌
 											</label>
-											<div class="col-lg-3">
+											<div class="col-lg-6">
 												<input type="text" class="form-control" id="account"
 													name="account" value="${ loginMan.account }">
 											</div>
@@ -223,6 +238,33 @@
 		$(function(){
 			$(".postcodify_address").postcodifyPopUp();
 		});
+		
+		/* function appendYear(){
+			var date = new Date();
+			var year = date.getFullYear();
+			var selectValue = document.getElementById("year");
+			var optionIndex = 0;
+			for(var i=year-100;i<=year;i++){
+				selectValue.add(new Option(i+"년",i),optionIndex++);                        
+			}
+		}
+
+		function appendMonth(){
+			var selectValue = document.getElementById("month"); 
+			var optionIndex = 0;
+			for(var i=1;i<=12;i++){
+				selectValue.add(new Option(i+"월",i),optionIndex++);
+			}
+		}
+		
+		function appendDay(){
+			var selectValue = document.getElementById("day");
+			var optionIndex = 0;
+			for(var i=1;i<=31;i++){
+			selectValue.add(new Option(i+"일",i),optionIndex++);
+			}
+		}  */
+
 	</script>
 
 </body>

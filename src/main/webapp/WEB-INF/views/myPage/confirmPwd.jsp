@@ -50,14 +50,13 @@
 								<h5 align="center">계정보호를 위해 비밀번호를 다시 입력해주세요.</h5>
 								<br>
 								<div class="form-validation">
-									<form class="form-valide" action="confirmPwd.wo" method="post"
-										novalidate="novalidate">
+									<form class="form-valide" action="confirmPwd.wo" method="post">
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="pwd">비밀번호
 												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
-												<input type="password" class="form-control" id="pwd" name="pwd" required>
+												<input type="password" class="form-control" id="pwd" name="pwd" required="required">
 											</div>
 										</div>
 										<div class="form-group row">

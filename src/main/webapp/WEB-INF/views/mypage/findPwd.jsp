@@ -57,8 +57,7 @@
 								<h5 align="center"></h5>
 								<br>
 								<div class="form-validation">
-									<form class="form-valide" action="changePwd.wo" method="post"
-										novalidate="novalidate">
+									<form class="form-valide" action="changePwd.wo" method="post">
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="num">사원번호
 												<span class="text-danger"></span>
@@ -77,7 +76,7 @@
 										</div>
 										<div class="form-group row">
 											<div class="col-lg-8 ml-auto">
-												<button type="submit" class="btn btn-primary">비밀번호 변경</button>
+												<button type="submit" class="btn btn-primary">비밀번호 찾기</button>
 											</div>
 										</div>
 										

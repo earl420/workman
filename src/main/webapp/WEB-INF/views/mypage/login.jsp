@@ -346,8 +346,8 @@
 		    <form  action="login.wo" method="post">
 	        	<input type="number" id="num" class="fadeIn second" name="num" placeholder="사원번호" required>
 	        	<input type="password" class="fadeIn third" name="pwd" placeholder="비밀번호" required><br>
-	        	<p class="fadeIn fourth"><input type="checkbox" id="remember" class="fadeIn fourth" name="rememberMe" value="true"/>사원번호 저장</p>
-	        	<input type="submit" class="fadeIn fiveth" value="로그인">
+	        	<!-- <p class="fadeIn fourth"><input type="checkbox" id="remember" class="fadeIn fourth" value="true"/>사원번호 저장</p> -->
+	        	<input type="submit" id="btn" class="fadeIn fiveth" value="로그인">
 		    </form>
 	
 	    <!-- Remind Passowrd -->
@@ -359,7 +359,9 @@
 	</div>
 <script>
 //아이디저장. 테스트 해봄.
+	/*
    $(function(){
+	   
    	   $.cookie('key',$('#num').val(),{expires:7});
        $.removeCookie('key');
        var key =$.cookie("key");
@@ -370,7 +372,9 @@
        	   $('#num').val(key);
            $('#remember').attr("checked",true);
        };
+       
    });
+   */
 
 </script>
 </body>
