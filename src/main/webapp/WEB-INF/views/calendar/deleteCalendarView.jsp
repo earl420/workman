@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>일정등록</title>
+<title>일정삭제</title>
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
 
@@ -140,7 +140,7 @@
 
         <div class="butdiv">
             <button class="btn mb-1 btn-outline-warning" type="button" onclick="location.href='calDetailView.wo';">취소</button>
-            <button class="btn mb-1 btn-secondary" type="submit" onclick="location.href='calInsert.wo';">등록</button>
+            <button class="btn mb-1 btn-danger" type="button" onclick="location.href='calDelete.wo';">삭제</button>
         </div>
         <br>
     </form>	

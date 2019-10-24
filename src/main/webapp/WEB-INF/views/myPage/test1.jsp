@@ -67,7 +67,7 @@
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="email" name="email" value="${ loginMan.email }"></td>
+							<td><input type="email" name="email" value="${ loginMan.email }" readonly></td>
 						</tr>
 						<tr>
 							<td>생년월일</td>
@@ -79,11 +79,11 @@
 						</tr>
 						<tr>
 							<td>직급</td>
-							<td><input value="" readonly></td>
+							<td><input value="${ loginMan.gradeName }" readonly></td>
 						</tr>
 						<tr>
 							<td>부서</td>
-							<td><input value="" readonly></td>
+							<td><input value="${ loginMan.deptName }" readonly></td>
 						</tr>
 						<tr>
 							<td>입사일</td>
@@ -91,12 +91,6 @@
 						</tr>
 						
 						<c:if test="${ empty loginMan.address }">
-							<tr>
-								<td>우편번호</td>
-								<td>
-									<input type="text" name="post" size="20" class="postcodify_postcode5" readonly="readonly">
-								</td>
-							</tr>
 							<tr>
 								<td>주소</td>
 								<td>
@@ -112,23 +106,15 @@
 						</c:if>
 						<c:if test="${ !empty loginMan.address }">
 							<c:forTokens items="${ loginMan.address }" delims="," var="addr" varStatus="status">
-								<c:if test="${ status.inde eq 0 }">
+								<c:if test="${ status.index eq 0 }">
 									<tr>
-										<td>우편번호</td>
+										<td>주소</td>
 										<td>
-											<input type="text" name="post" size="20" value="${ addr }" class="postcodify_postcode5">
+											<input type="text" name="address1" size="40" value="${ addr }" class="postcodify_address">
 										</td>
 									</tr>
 								</c:if>
 								<c:if test="${ status.index eq 1 }">
-									<tr>
-										<td>도로명 주소</td>
-										<td>
-											<input type="text" name="address1" size="40" value="${ addr }"  class="postcodify_address">
-										</td>
-									</tr>
-								</c:if>
-								<c:if test="${ status.index eq 2 }">
 									<tr>
 										<td>상세 주소</td>
 										<td>
@@ -168,7 +154,6 @@
     <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	<script>
 		$(function(){
-			$(".postcodify_postcode5").postcodifyPopUp();
 			$(".postcodify_address").postcodifyPopUp();
 		});
 	</script>

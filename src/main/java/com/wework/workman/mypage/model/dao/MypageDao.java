@@ -21,4 +21,25 @@ public class MypageDao {
 	public Mypage loginMan(Mypage m) {
 		return sqlSession.selectOne("mypageMapper.loginMan", m);
 	}
+
+	
+	/**
+	 * 정보 수정
+	 * @param m
+	 * @return
+	 */
+	public int empUpdate(Mypage m) {
+		return sqlSession.update("mypageMapper.empUpdate", m);
+	}
+
+
+	/**
+	 * 비밀번호 수정
+	 * @param m
+	 * @return
+	 */
+	public int pwdUpdate(Mypage m) {
+		System.out.println("dao" + m);
+		return sqlSession.update("mypageMapper.pwdUpdate", m);
+	}
 }

@@ -22,6 +22,7 @@ END LOOP;
 END;
 /
 
+
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
 
 -- DEPT Table Create SQL
@@ -285,6 +286,50 @@ COMMENT ON COLUMN PARTNER.PARTNER_EMP IS '거래처담당자'
 
 
 -- DEPT Table Create SQL
+CREATE TABLE PAYMENT
+(
+    PAY_NUM        VARCHAR2(50)     NOT NULL, 
+    PAY_PRICE      INT              NOT NULL, 
+    PAY_AMOUNT     INT              NOT NULL, 
+    PARTNER_NUM    VARCHAR2(50)     NOT NULL, 
+    PAY_DATE       DATE             NOT NULL, 
+    PAY_METHOD     VARCHAR2(50)     NOT NULL, 
+    PAY_BANK       VARCHAR2(100)    NULL, 
+    CONSTRAINT PAYMENT_PK PRIMARY KEY (PAY_NUM)
+)
+/
+
+COMMENT ON TABLE PAYMENT IS '결제관리'
+/
+
+COMMENT ON COLUMN PAYMENT.PAY_NUM IS '결제번호PST'
+/
+
+COMMENT ON COLUMN PAYMENT.PAY_PRICE IS '결제금액'
+/
+
+COMMENT ON COLUMN PAYMENT.PAY_AMOUNT IS '수량'
+/
+
+COMMENT ON COLUMN PAYMENT.PARTNER_NUM IS '거래처번호F'
+/
+
+COMMENT ON COLUMN PAYMENT.PAY_DATE IS '결제일'
+/
+
+COMMENT ON COLUMN PAYMENT.PAY_METHOD IS '결제방식'
+/
+
+COMMENT ON COLUMN PAYMENT.PAY_BANK IS '결제은행'
+/
+
+ALTER TABLE PAYMENT
+    ADD CONSTRAINT FK_PAYMENT_PARTNER_NUM_PARTNER FOREIGN KEY (PARTNER_NUM)
+        REFERENCES PARTNER (PARTNER_NUM)
+/
+
+
+-- DEPT Table Create SQL
 CREATE TABLE ACCOUNT
 (
     ACCOUNT_NUM        VARCHAR2(50)     NOT NULL, 
@@ -319,11 +364,22 @@ ALTER TABLE ACCOUNT
 CREATE TABLE CHAT_ROOM
 (
     CHAT_ROOM    VARCHAR2(50)    NOT NULL, 
-    CONSTRAINT CHAT_ROOM_PK PRIMARY KEY (CHAT_ROOM)
+    CHAT_USER    VARCHAR2(50)    NOT NULL, 
+    CHAT_LAST    DATE            NULL, 
+    CONSTRAINT CHAT_ROOM_PK PRIMARY KEY (CHAT_ROOM, CHAT_USER)
 )
 /
 
-COMMENT ON COLUMN CHAT_ROOM.CHAT_ROOM IS '채팅룸번호'
+COMMENT ON TABLE CHAT_ROOM IS '채팅방,유저'
+/
+
+COMMENT ON COLUMN CHAT_ROOM.CHAT_ROOM IS '룸번호'
+/
+
+COMMENT ON COLUMN CHAT_ROOM.CHAT_USER IS '유저번호'
+/
+
+COMMENT ON COLUMN CHAT_ROOM.CHAT_LAST IS '마지막전송시간'
 /
 
 
@@ -399,50 +455,6 @@ ALTER TABLE DOC_HOLIDAY
 
 
 -- DEPT Table Create SQL
-CREATE TABLE PAYMENT
-(
-    PAY_NUM        VARCHAR2(50)     NOT NULL, 
-    PAY_PRICE      INT              NOT NULL, 
-    PAY_AMOUNT     INT              NOT NULL, 
-    PARTNER_NUM    VARCHAR2(50)     NOT NULL, 
-    PAY_DATE       DATE             NOT NULL, 
-    PAY_METHOD     VARCHAR2(50)     NOT NULL, 
-    PAY_BANK       VARCHAR2(100)    NULL, 
-    CONSTRAINT PAYMENT_PK PRIMARY KEY (PAY_NUM)
-)
-/
-
-COMMENT ON TABLE PAYMENT IS '결제관리'
-/
-
-COMMENT ON COLUMN PAYMENT.PAY_NUM IS '결제번호PST'
-/
-
-COMMENT ON COLUMN PAYMENT.PAY_PRICE IS '결제금액'
-/
-
-COMMENT ON COLUMN PAYMENT.PAY_AMOUNT IS '수량'
-/
-
-COMMENT ON COLUMN PAYMENT.PARTNER_NUM IS '거래처번호F'
-/
-
-COMMENT ON COLUMN PAYMENT.PAY_DATE IS '결제일'
-/
-
-COMMENT ON COLUMN PAYMENT.PAY_METHOD IS '결제방식'
-/
-
-COMMENT ON COLUMN PAYMENT.PAY_BANK IS '결제은행'
-/
-
-ALTER TABLE PAYMENT
-    ADD CONSTRAINT FK_PAYMENT_PARTNER_NUM_PARTNER FOREIGN KEY (PARTNER_NUM)
-        REFERENCES PARTNER (PARTNER_NUM)
-/
-
-
--- DEPT Table Create SQL
 CREATE TABLE PRODUCT
 (
     PRODUCT_CODE      varchar2(50)      NOT NULL, 
@@ -462,18 +474,6 @@ COMMENT ON COLUMN PRODUCT.PRODUCT_NAME IS '제품명'
 /
 
 COMMENT ON COLUMN PRODUCT.PRODUCT_PRICET IS '제품가격'
-/
-
-
--- DEPT Table Create SQL
-CREATE TABLE CHAT_USER
-(
-    CHAT_USER    VARCHAR2(50)    NOT NULL, 
-    CONSTRAINT CHAT_USER_PK PRIMARY KEY (CHAT_USER)
-)
-/
-
-COMMENT ON COLUMN CHAT_USER.CHAT_USER IS '채팅사용자'
 /
 
 
@@ -993,13 +993,14 @@ ALTER TABLE LICENSE
 -- DEPT Table Create SQL
 CREATE TABLE FIXTURE
 (
-    FIXTURE_NUM     VARCHAR2(50)     NOT NULL, 
-    FIXTURE_TYPE    VARCHAR2(100)    NOT NULL, 
-    FIXTURE_NAME    VARCHAR2(500)    NOT NULL, 
-    FIXTURE_BUY     DATE             NOT NULL, 
-    DEPT_NUM        INT              NULL, 
-    EMP_NUM         VARCHAR2(50)     NULL, 
-    ENDURANCE       INT              NOT NULL, 
+    FIXTURE_NUM          VARCHAR2(50)     NOT NULL, 
+    FIXTURE_TYPE         VARCHAR2(100)    NOT NULL, 
+    FIXTURE_NAME         VARCHAR2(500)    NOT NULL, 
+    FIXTURE_BUY          DATE             NOT NULL, 
+    DEPT_NUM             INT              NULL, 
+    EMP_NUM              VARCHAR2(50)     NULL, 
+    FIXTURE_ENDURANCE    INT              NOT NULL, 
+    FIXTURE_PAYMENT      VARCHAR2(50)     NULL, 
     CONSTRAINT FIXTURE_PK PRIMARY KEY (FIXTURE_NUM)
 )
 /
@@ -1025,7 +1026,10 @@ COMMENT ON COLUMN FIXTURE.DEPT_NUM IS '사용부서F'
 COMMENT ON COLUMN FIXTURE.EMP_NUM IS '사용자F'
 /
 
-COMMENT ON COLUMN FIXTURE.ENDURANCE IS '내구연한'
+COMMENT ON COLUMN FIXTURE.FIXTURE_ENDURANCE IS '내구연한'
+/
+
+COMMENT ON COLUMN FIXTURE.FIXTURE_PAYMENT IS '비품결제번호'
 /
 
 ALTER TABLE FIXTURE
@@ -1036,6 +1040,11 @@ ALTER TABLE FIXTURE
 ALTER TABLE FIXTURE
     ADD CONSTRAINT FK_FIXTURE_EMP_NUM_EMPLOYEE_EM FOREIGN KEY (EMP_NUM)
         REFERENCES EMPLOYEE (EMP_NUM)
+/
+
+ALTER TABLE FIXTURE
+    ADD CONSTRAINT FK_FIXTURE_FIXTURE_PAYMENT_PAY FOREIGN KEY (FIXTURE_PAYMENT)
+        REFERENCES PAYMENT (PAY_NUM)
 /
 
 
@@ -1322,6 +1331,9 @@ CREATE TABLE CHAT_MSG
 )
 /
 
+COMMENT ON TABLE CHAT_MSG IS '메세지'
+/
+
 COMMENT ON COLUMN CHAT_MSG.CHAT_MSG IS '메세지 식별번호'
 /
 
@@ -1341,40 +1353,9 @@ COMMENT ON COLUMN CHAT_MSG.MSG_STAT IS '메세지상태'
 /
 
 ALTER TABLE CHAT_MSG
-    ADD CONSTRAINT FK_CHAT_MSG_CHAT_ROOM_CHAT_ROO FOREIGN KEY (CHAT_ROOM)
-        REFERENCES CHAT_ROOM (CHAT_ROOM)
+    ADD CONSTRAINT FK_CHAT_MSG_CHAT_ROOM_CHAT_ROO FOREIGN KEY (CHAT_ROOM, CHAT_USER)
+        REFERENCES CHAT_ROOM (CHAT_ROOM, CHAT_USER)
 /
-
-
--- DEPT Table Create SQL
-CREATE TABLE CHAT_JOIIN
-(
-    CHAT_ROOM    VARCHAR2(50)    NOT NULL, 
-    CHAT_USER    VARCHAR2(50)    NOT NULL, 
-    CHAT_LAST    DATE            NULL, 
-    CONSTRAINT CHAT_JOIIN_PK PRIMARY KEY (CHAT_ROOM, CHAT_USER)
-)
-/
-
-COMMENT ON COLUMN CHAT_JOIIN.CHAT_ROOM IS '룸번호'
-/
-
-COMMENT ON COLUMN CHAT_JOIIN.CHAT_USER IS '유저번호'
-/
-
-COMMENT ON COLUMN CHAT_JOIIN.CHAT_LAST IS '마지막전송시간'
-/
-
-ALTER TABLE CHAT_JOIIN
-    ADD CONSTRAINT FK_CHAT_JOIIN_CHAT_USER_CHAT_U FOREIGN KEY (CHAT_USER)
-        REFERENCES CHAT_USER (CHAT_USER)
-/
-
-ALTER TABLE CHAT_JOIIN
-    ADD CONSTRAINT FK_CHAT_JOIIN_CHAT_ROOM_CHAT_R FOREIGN KEY (CHAT_ROOM)
-        REFERENCES CHAT_ROOM (CHAT_ROOM)
-/
-
 
 
 
@@ -1554,8 +1535,247 @@ INSERT INTO DEPT VALUES(700, '품질보증팀');
 
 -- 직급 입력
 INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '사원');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '주임');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '대리');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '과장');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '차장');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '부장');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '이사');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '상무');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '전무');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '부사장');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '사장');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '부회장');
+INSERT INTO GRADE VALUES(GRADE_NUM_SEQ.NEXTVAL, '회장');
+
 
 -- 사원 입력
+-- 회장
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강보람', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 13, 100, 150000000, '20120923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+-- 사장                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '민병현', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 11, 200, 150000000, '20120923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+-- 인사팀(상무, 부장, 차장, 과장, 대리, 사원)                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강연재', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 8, 301, 80000000, '20131001', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김수현', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 301, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김진수', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 301, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '임수빈', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 301, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '장현수', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 301, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '이지영', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 301, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);  
+
+-- 총무팀(상무, 부장, 차장, 과장, 대리, 사원)                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강정학', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 8, 302, 80000000, '20131001', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강진환', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 302, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '차승우', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 302, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김연지', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 302, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '박지민', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 302, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '이진희', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 302, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+-- 재무팀(상무, 부장, 차장, 과장, 대리, 사원)                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '장동현', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 8, 304, 80000000, '20131001', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김재욱', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 304, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김진희', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 304, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김동일', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 304, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강애리', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 304, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '유창수', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 304, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+-- 회계팀(상무, 부장, 차장, 과장, 대리, 사원)                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '양정환', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 8, 305, 80000000, '20131001', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '서가람', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 305, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김진혁', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 305, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '조장현', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 305, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김보미', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 305, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '유연수', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 305, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+
+-- 국내영팀(부장, 차장, 과장, 대리, 사원)
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '서동욱', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 401, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '장일동', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 401, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '최현준', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 401, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '박정현', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 401, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '윤동길', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 401, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+
+-- 해외영팀(부장, 차장, 과장, 대리, 사원)
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김정수', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 402, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김창현', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 402, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김준현', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 402, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '최태주', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 402, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '고세봉', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 402, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);                           
+                            
+-- 연구소(상무, 부장, 차장, 과장, 대리, 사원)
+
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '이동찬', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 8, 500, 80000000, '20131001', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '장동일', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 500, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '조수찬', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 500, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '정문수', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 500, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '이학수', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 500, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '진설희', DEFAULT, '여', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 500, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+-- 품질관리(상무, 부장, 차장, 과장, 대리, 사원)
+
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김동수', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 8, 600, 80000000, '20131001', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '최태진', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 600, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '장진환', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 600, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '서태일', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 600, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '차준수', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 600, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '민현기', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 600, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+
+-- 품질보증(부장, 차장, 과장, 대리, 사원)
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '장성환', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 6, 700, 50000000, '20140213', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '구현모', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 5, 700, 45000000, '20150703', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강승열', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 4, 700, 37000000, '20160923', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '길용우', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 3, 700, 34000000, '20170723', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT);
+                            
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '김기남', DEFAULT, '남', DEFAULT, DEFAULT, 
+                            DEFAULT, 1, 700, 26000000, '20191123', DEFAULT, DEFAULT
+                            , DEFAULT, DEFAULT); 
+        
+
 INSERT INTO EMPLOYEE VALUES(NULL, '0901', '공지철', 'gongyou@naver.com', '남', '19790710', '01024293301', 
                             '서울시 성동구 고산자로2길 65(서울숲리버뷰자이) 102동 1602호', 1, 301, 28000000, '20180901', DEFAULT, DEFAULT
                             ,'110411232450', '신한은행');

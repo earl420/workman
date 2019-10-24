@@ -26,5 +26,24 @@ public class MypageServiceImpl implements MypageService{
 		return mDao.loginMan(m);
 	}
 
+
+	/**
+	 * 정보수정
+	 */
+	@Override
+	public int empUpdate(Mypage m) {
+		return mDao.empUpdate(m);
+	}
+
+
+	/**
+	 * 비밀번호 변경
+	 */
+	@Override
+	public int pwdUpdate(Mypage m) {
+		System.out.println("service" + m);
+		return mDao.pwdUpdate(m);
+	}
+
 	
 }

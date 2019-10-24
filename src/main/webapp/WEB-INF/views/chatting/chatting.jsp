@@ -89,8 +89,10 @@
 }
 
 /*퍼온거*/
+img {
+	max-width: 100%;
+}
 
-img{ max-width:100%;}
 .inbox_chat {
 	height: 100%;
 	overflow-y: scroll;
@@ -143,19 +145,19 @@ img{ max-width:100%;}
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	<!--*******************
-        Preloader start
-    ********************-->
-	<div id="preloader">
-		<div class="loader">
-			<svg class="circular" viewBox="25 25 50 50"> <circle
-					class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-					stroke-miterlimit="10" /> </svg>
-		</div>
-	</div>
-	<!--*******************
-        Preloader end
-    ********************-->
+<!-- 	<!--******************* -->
+<!--         Preloader start -->
+<!--     ********************--> -->
+<!-- 	<div id="preloader"> -->
+<!-- 		<div class="loader"> -->
+<%-- 			<svg class="circular" viewBox="25 25 50 50"> <circle --%>
+<%-- 					class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" --%>
+<%-- 					stroke-miterlimit="10" /> </svg> --%>
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<!--******************* -->
+<!--         Preloader end -->
+<!--     ********************--> -->
 
 
 	<!--**********************************
@@ -183,146 +185,131 @@ img{ max-width:100%;}
 									<!-- 									</ul> -->
 
 
-<%-- <c:forEach --%>
-<!-- 									<div class="inbox_chat"> -->
-										<div class="chat_list active_chat">
-											<div class="chat_people">
-												<div class="chat_img">
-													<img src="https://ptetutorials.com/images/user-profile.png"
-														alt="sunil">
-												</div>
-												<div class="chat_ib">
-													<h5>
-														Sunil Rajput <span class="chat_date">Dec 25</span>
-													</h5>
-													<p>Test, which is a new approach to have all solutions
-														astrology under one roof.</p>
-												</div>
+									<%-- <c:forEach --%>
+									<!-- 									<div class="inbox_chat"> -->
+									<div class="chat_list active_chat">
+										<div class="chat_people">
+											<div class="chat_img">
+												<img src="https://ptetutorials.com/images/user-profile.png"
+													alt="sunil">
+											</div>
+											<div class="chat_ib">
+												<h5>
+													Sunil Rajput <span class="chat_date">Dec 25</span>
+												</h5>
+												<p>Test, which is a new approach to have all solutions
+													astrology under one roof.</p>
 											</div>
 										</div>
 									</div>
+								</div>
 
 
 
 
 
-									<div class="newChattingDiv">
-										<button onclick="newChat();" class="btn btn-light">
-											<i class="fas fa-comment-dots"></i>
-										</button>
-									</div>
+								<div class="newChattingDiv">
+									<button onclick="newChat();" class="btn btn-light">
+										<i class="fas fa-comment-dots"></i>
+									</button>
 								</div>
 							</div>
 						</div>
-						<div class="col col-lg-6">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-title">Chatting</div>
-
-									<div class="slimScrollDiv" id="msgContent">
-										<ul class="chatBox" id="chatBox"></ul>
-									</div>
-
-									<div class="col-lg-14">
-										<div class="input-group mb-3 msgInputDiv">
-											<input type="text" id="msgInput" onkeyDown="onKeyDown();"
-												class="form-control" placeholder="Type for..."
-												aria-label="msgInput" aria-describedby="sendBtn">
-											<div class="input-group-append">
-												<button class="btn btn-outline-dark" id="sendBtn"
-													type="button">@Send</button>
-											</div>
-										</div>
-										<!-- /input-group -->
-									</div>
-									<!-- col-lg-6 -->
-									<!-- <div class="input-group mb-3"> -->
-									<!--   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
-									<!--   <div class="input-group-append"> -->
-									<!--     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> -->
-									<!--   </div> -->
-									<!-- </div> -->
-
-
-								</div>
-							</div>
-						</div>
-						<div class="col col-lg-3">
-							<div class="card">
-								<div class="card-body">
-									<div class="card-title">memo..etc?</div>
-									<div class="slimScrollDiv"></div>
-								</div>
-							</div>
-						</div>
-
 					</div>
-				</div>
-				<!-- row -->
-				<div class="content-fluid"></div>
-				<!-- /.container -->
+					<div class="col col-lg-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="card-title">Chatting</div>
 
-				<!-- #/ container -->
+								<div class="slimScrollDiv" id="msgContent">
+									<ul class="chatBox" id="chatBox"></ul>
+								</div>
+
+								<div class="col-lg-14">
+									<div class="input-group mb-3 msgInputDiv">
+										<input type="text" id="msgInput" onkeyDown="onKeyDown();"
+											class="form-control" placeholder="Type for..."
+											aria-label="msgInput" aria-describedby="sendBtn">
+										<div class="input-group-append">
+											<button class="btn btn-outline-dark" id="sendBtn"
+												type="button">@Send</button>
+										</div>
+									</div>
+									<!-- /input-group -->
+								</div>
+								<!-- col-lg-6 -->
+								<!-- <div class="input-group mb-3"> -->
+								<!--   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
+								<!--   <div class="input-group-append"> -->
+								<!--     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> -->
+								<!--   </div> -->
+								<!-- </div> -->
+
+
+							</div>
+						</div>
+					</div>
+					<div class="col col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="card-title">memo..etc?</div>
+								<div class="slimScrollDiv"></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
 			</div>
-			<!--**********************************
+			<!-- row -->
+			<div class="content-fluid"></div>
+			<!-- /.container -->
+
+			<!-- #/ container -->
+		</div>
+		<!--**********************************
             Content body end
         ***********************************-->
-			<c:import url="../common/footer.jsp"></c:import>
-		</div>
+		<c:import url="../common/footer.jsp"></c:import>
 	</div>
 	<!--**********************************
         Main wrapper end
     ***********************************-->
 	<script>
+		var wbSocket;
 		var userId = $("#loginId").val();
 		var userName = $("#loginName").val();//!!!!!!!!!!!!!!!1확인
 		var roomId = $("#roomId").val();//!!!!!!!!!!!!!확인
 		var writer;
-		var wbSocket;
+		
+		//onOpen:userId
+		//rCng:roomId;
+		//newRoom:[userid..]
+		//exitRoom:roomId
+		//addUser:roomId:[userId]
+		//msg:userId:msgContent
+		
+		
 
 		$(function() {
 			connect();
-
 			$('#sendBtn').click(function() {
 				send();
 			});
-
 		});
 
-		function onKeyDown() {
-			console.log("bam" + event.keyCode);
-			if (event.keyCode == '13') {
-				send();
-				event.stopPropagation;
-			}
-		}
 		function connect() {
 			wbSocket = new WebSocket("ws://localhost:8888/workman/chatting.ch");
 			wbSocket.onopen = onOpen;
 			wbSocket.onclose = onClose;
 			wbSocket.onmessage = onMessage;
-
 		}
+		
 		function onOpen(evt) {
 			appendMessage("연결성공");
 			var openString = "onOpen:" + userId;
 			wbSocket.send(openString);
 		}
 
-		function onMessage(evt) {
-			var data = evt.data;
-			var spData = data.split(":");
-
-			console.log(spData);
-
-			writer = spData[1];//!!!!!!!!!!!!!!!!!!!!!!!!!!!확인
-
-			var spMsg = "";
-			for (i = 2; i < spData.length; i++) {
-				spMsg += spData[i];
-			}
-			appendMessage(spMsg);
-		}
 		function onClose(evt) {
 			appendMessage("연결종료");
 		}
@@ -334,6 +321,32 @@ img{ max-width:100%;}
 
 			$("#msgInput").val("");
 		}
+		function onMessage(evt) {
+			var data = evt.data;
+			var spData = data.split(":");
+			var preMsg = spData[0];
+			console.log(spData);
+			
+			//onOpen:userId
+			//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
+			//	<=msgHistory:sender:content:time:status
+			
+			//rCng:roomId;
+			//	<=msgHistory:sender:content:time:status
+			//newRoom:[userid..]
+			//exitRoom:roomId
+			//addUser:roomId:[userId]
+			//msg:userId:msgContent
+			
+			if(preMsg=="roomListSet"){
+				roomListSet(spData);
+			}else if(preMsg=="msgHistory"){
+				msgHistory(spData);
+			}else if(preMsg=="")
+				
+
+			appendMessage();
+		}
 
 		function appendMessage(msg) {
 			if (userName == writer) {
@@ -341,10 +354,21 @@ img{ max-width:100%;}
 			} else {
 				$("#chatBox").append(
 						"<li class='msgOhter'>liOther" + msg + "</li>");
-			}
-			;
-
+			};
 			// 		$("#testTa").append(msg);
+		}
+		function onKeyDown() {
+			console.log("bam" + event.keyCode);
+			if (event.keyCode == '13') {
+				send();
+				event.stopPropagation;
+			}
+		}
+		//onOpen:userId
+		//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
+		//	<=msgHistory:sender:content:time:status
+		function roomListSet(spData){
+			
 		}
 	</script>
 </body>
