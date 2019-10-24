@@ -1,4 +1,4 @@
-package com.wework.workman.hunamResource.model.vo;
+package com.wework.workman.humanResource.model.vo;
 
 import java.sql.Date;
 

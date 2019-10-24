@@ -8,6 +8,7 @@
 
 <typeAliases>
 	<typeAlias type="com.wework.workman.mypage.model.vo.Mypage" alias="Mypage"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.Notice" alias="Notice"/>
 	
 </typeAliases>
 

@@ -1,4 +1,6 @@
-package com.wework.workman.hunamResource.controller;
+package com.wework.workman.humanResource.controller;
+
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 
@@ -9,7 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.common.Pagination;
-import com.wework.workman.hunamResource.model.service.HumanResourceService;
+import com.wework.workman.humanResource.model.service.HumanResourceService;
+import com.wework.workman.humanResource.model.vo.Notice;
 
 @Controller
 public class HumanResourceController {
@@ -17,16 +20,20 @@ public class HumanResourceController {
 	private HumanResourceService hService;
 	
 	// 인사/공지사항
-//	@RequestMapping("hrNotice")
-//	public ModelAndView selectList(ModelAndView mv, @RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) {
-//		
-//		int listCount = hService.gethListCount();
-//		
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		
-////		ArrayList<Notice>
-//		
-//	}
+	@RequestMapping("hrNotice")
+	public ModelAndView selectList(ModelAndView mv, @RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) {
+		
+		int listCount = hService.gethListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Notice> list = hService.selecthList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("humanResource/notice");
+		
+		return mv;
+		
+	}
 	// 인사/인사정보/조직도
 	@RequestMapping("empChart.wo")
 	public String empChartMain() {
