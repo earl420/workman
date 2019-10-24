@@ -10,6 +10,7 @@ function accountList(content){
 			data:{
 				content:content,
 			},
+			dataType:"json",
 			type:"post",
 			success:function(data){
 				console.log(data);
@@ -41,19 +42,26 @@ function saleList(content){
 			data:{
 				content:content,
 			},
+			dataType:"json",
 			type:"post",
 			success:function(data){
-				console.log(data);
 				var $is=$('#incomeStatus');
-				$is.html("");
+				$is.text("");
 				$.each(data,function(index,value){
+					console.log(value.accountSubject);
 					var $tr=$('<tr>');
-					var $accountSubject= $('<td>').val(value.accountSubject);
-					var $account=$('<td>').val(value.account);
+					var $accountSubject= $('<td>').text(value.accountSubject);
+					var $account=$('<td>').text(value.account);
 					$tr.append($accountSubject);
 					$tr.append($account);
 					$is.append($tr);
 				});
+				$('#incomeStatus>tr').slice(0,1).css('font-size','1.8em').css('border-bottom','1px solid black');
+				$('#incomeStatus>tr').slice(0,1).children().eq(1).text("");
+				$('#incomeStatus>tr').slice(2,3).css('font-size','1.8em');
+				$('#incomeStatus>tr').slice(2,3).children().eq(1).text("");
+				$('#incomeStatus>tr').slice(7,8).css('font-size','1.8em');
+				$('#incomeStatus>tr').slice(9,10).css('font-size','1.8em');
 			},
 			error:function(){
 				console.log(11);
