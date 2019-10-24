@@ -56,8 +56,7 @@
 									<div id="DataTables_Table_0_wrapper"
 										class="dataTables_wrapper container-fluid dt-bootstrap4">
 										<div class="row">
-											<div class="col-sm-12 col-md-6">
-												총 게시글 갯수 : ${ pi.listCount }
+											<div class="col-sm-12 col-md-6">총 게시글 갯수 : ${ pi.listCount }
 											</div>
 											<div class="col-sm-12 col-md-6">
 												<div id="DataTables_Table_0_filter"
@@ -96,93 +95,30 @@
 																colspan="1"
 																aria-label="Age: activate to sort column ascending"
 																style="width: 69px; text-align: center;">작성일</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="DataTables_Table_0" rowspan="1"
-																colspan="1"
-																aria-label="Start date: activate to sort column ascending"
-																style="width: 50px; text-align: center;">조회수</th>
 														</tr>
 													</thead>
-					
+
 													<tbody>
-													<c:forEach items="${ list }" var="h">
-														<tr role="row" class="odd">
-															<td class="sorting_1">${ h.noticeNum }</td>
-													</c:forEach>
-														
-															
-															<td>Accountant</td>
-															<td>Tokyo</td>
-															<td>33</td>
-															<td>2008/11/28</td>
-														</tr>
-														<tr role="row" class="even">
-															<td class="sorting_1">Angelica Ramos</td>
-															<td>Chief Executive Officer (CEO)</td>
-															<td>London</td>
-															<td>47</td>
-															<td>2009/10/09</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td class="sorting_1">Ashton Cox</td>
-															<td>Junior Technical Author</td>
-															<td>San Francisco</td>
-															<td>66</td>
-															<td>2009/01/12</td>
-														</tr>
-														<tr role="row" class="even">
-															<td class="sorting_1">Bradley Greer</td>
-															<td>Software Engineer</td>
-															<td>London</td>
-															<td>41</td>
-															<td>2012/10/13</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td class="sorting_1">Brenden Wagner</td>
-															<td>Software Engineer</td>
-															<td>San Francisco</td>
-															<td>28</td>
-															<td>2011/06/07</td>
-														</tr>
-														<tr role="row" class="even">
-															<td class="sorting_1">Brielle Williamson</td>
-															<td>Integration Specialist</td>
-															<td>New York</td>
-															<td>61</td>
-															<td>2012/12/02</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td class="sorting_1">Bruno Nash</td>
-															<td>Software Engineer</td>
-															<td>London</td>
-															<td>38</td>
-															<td>2011/05/03</td>
-														</tr>
-														<tr role="row" class="even">
-															<td class="sorting_1">Caesar Vance</td>
-															<td>Pre-Sales Support</td>
-															<td>New York</td>
-															<td>21</td>
-															<td>2011/12/12</td>
-														</tr>
-														<tr role="row" class="odd">
-															<td class="sorting_1">Cara Stevens</td>
-															<td>Sales Assistant</td>
-															<td>New York</td>
-															<td>46</td>
-															<td>2011/12/06</td>
-														</tr>
-														<tr role="row" class="even">
-															<td class="sorting_1">Cedric Kelly</td>
-															<td>Senior Javascript Developer</td>
-															<td>Edinburgh</td>
-															<td>22</td>
-															<td>2012/03/29</td>
-														</tr>
+														<c:forEach items="${ list }" var="h">
+															<tr role="row" class="odd">
+																<td class="sorting_1">${ n.noticeNum }</td>
+																<td><c:if test="${ empty loginUser }">
+																	${ n.noticeTitle }
+																</c:if> <c:if test="${ !empty loginUser }">
+																		<c:url value="hrnDetail.wo" var="hrnDetail">
+																			<c:param name="noticeNum" value="${ n.noticeNum }" />
+																		</c:url>
+																		<a href="${ hrnDetail }">${ n.noticeTitle }</a>
+																	</c:if></td>
+																<td>${ n.empName }</td>
+																<td>${ n.noticeDate }</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
 										</div>
+										
 										<div class="row">
 											<div class="col-sm-12 col-md-5">
 												<div class="dataTables_info" id="DataTables_Table_0_info"
@@ -231,9 +167,9 @@
 
 														<!-- 다음 -->
 														<c:if test="${ pi.currentPage eq pi.maxPage }">
-																<li class="paginate_button page-item next disabled"
+															<li class="paginate_button page-item next disabled"
 																id="DataTables_Table_0_next">Next</li>
-															</c:if>
+														</c:if>
 														<c:if test="${ pi.currentPage ne pi.maxPage }">
 															<c:url value="hrNotice.wo" var="next">
 																<c:param name="currentPage"

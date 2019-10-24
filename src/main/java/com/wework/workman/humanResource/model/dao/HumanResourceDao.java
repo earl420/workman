@@ -20,12 +20,17 @@ public class HumanResourceDao {
 		return sqlSession.selectOne("humanMapper.gethListCount");
 	}
 	
-	public ArrayList<Notice> selecthList(PageInfo pi){
+	public ArrayList<Notice> selectHRnList(PageInfo pi){
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("humanResourceMapper.selecthList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("humanResourceMapper.selectHRnList", null, rowBounds);
 		
+	}
+	
+	public Notice gethrnDetail(String noticeNum) {
+		
+		return sqlSession.selectOne("humanResourceMapper.selectNotice", noticeNum);
 	}
 }

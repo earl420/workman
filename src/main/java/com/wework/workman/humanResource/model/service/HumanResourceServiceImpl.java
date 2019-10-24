@@ -22,9 +22,15 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	}
 
 	@Override
-	public ArrayList<Notice> selecthList(PageInfo pi) {
+	public ArrayList<Notice> selectHRnList(PageInfo pi) {
 
-		return hDao.selecthList(pi);
+		return hDao.selectHRnList(pi);
+	}
+
+	@Override
+	public Notice gethrnDetail(String noticeNum) {
+
+		return hDao.gethrnDetail(noticeNum);
 	}
 	
 }
