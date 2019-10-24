@@ -50,14 +50,13 @@
 								<h5 align="center">비밀번호 변경 시 계정보안을 위해 로그아웃 됩니다.</h5>
 								<br>
 								<div class="form-validation">
-									<form class="form-valide" action="changePwd.wo" method="post"
-										novalidate="novalidate">
+									<form class="form-valide" action="changePwd.wo" method="post">
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="pwd">새로운 비밀번호
 												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
-												<input type="password" class="form-control" id="pwd" name="pwd" placeholder="숫자+영문자+특수문자 조합으로 8자리 이상 " required="required">
+												<input type="password" class="form-control" id="pwd" name="pwd" placeholder="숫자+영문자+특수문자 조합으로 8자리 이상 " required>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -65,7 +64,7 @@
 												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
-												<input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="한번 더 입력 해주세요" required="required">
+												<input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="한번 더 입력 해주세요" required>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -96,7 +95,7 @@
 		var btn = document.getElementById("btn");
 	
 		$(function(){
-			$(pwd).on('blur', function(){
+			$(pwd).on('focusout', function(){
 				
 				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}$/.test(pwd.value)){            
 			        alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
@@ -104,7 +103,7 @@
 			    }
 			});
 			
-			$(pwd2).on('blur', function(){
+			$(pwd2).on('focusout', function(){
 				
 				if(pwd.value != pwd2.value){
 					alert("비밀번호가 일치하지 않습니다.");
