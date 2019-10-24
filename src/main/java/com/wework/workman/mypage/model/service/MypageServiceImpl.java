@@ -50,8 +50,16 @@ public class MypageServiceImpl implements MypageService{
 	 */
 	@Override
 	public Mypage findPwd(Mypage m) {
-		System.out.println(m);
 		return mDao.findPwd(m);
+	}
+
+
+	/**
+	 * 새로운 비번
+	 */
+	@Override
+	public int returnPwd(Mypage m) {
+		return mDao.returnPwd(m);
 	}
 
 	

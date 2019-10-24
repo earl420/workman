@@ -43,12 +43,12 @@ public class MypageController {
 	 */
 	@RequestMapping("loginPage.wo")
 	public String loginPage() {
-		return "mypage/login";
+		return "myPage/login";
 	}
 
 	@RequestMapping("mypageView.wo")
 	public String myPageView() {
-		return "mypage/mypageView";
+		return "myPage/mypageView";
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class MypageController {
 	public String empInfoView(HttpSession session) {
 		Mypage m = (Mypage)session.getAttribute("loginMan");
 
-		return "mypage/empInfo";
+		return "myPage/empInfo";
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class MypageController {
 	 */
 	@RequestMapping("confirmPwdPage.wo")
 	public String security() {
-		return "mypage/confirmPwd";
+		return "myPage/confirmPwd";
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class MypageController {
 	 */
 	@RequestMapping("findNoPage.wo")
 	public String findNoPage() {
-		return "mypage/findNo";
+		return "myPage/findNo";
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class MypageController {
 	 */
 	@RequestMapping("findPwdPage.wo")
 	public String findPwdPage() {
-		return "mypage/findPwd";
+		return "myPage/findPwd";
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public class MypageController {
 			return "redirect:home.wo";
 		}else {
 			
-			return "mypage/changePwd";
+			return "myPage/changePwd";
 		}
 	}
 	
@@ -198,7 +198,7 @@ public class MypageController {
 		if(pwd != null && pwd.equals(mp.getPwd())) { 
 			Mypage loginMan = mService.loginMan(mp);
 			model.addAttribute("loginMan", loginMan);
-			return "mypage/changePwd";
+			return "myPage/changePwd";
 		}else {
 			
 			return "redirect:confirmPwdPage.wo";
@@ -224,25 +224,52 @@ public class MypageController {
 			return "redirect:logout.wo";
 		}else {
 			
-			return "mypage/changePwd";
+			return "myPage/changePwd";
 		}
 		
 	}
 	
 	
 	
-	@RequestMapping(value = "findPwd.wo", method = RequestMethod.POST)
+	/**
+	 * 비밀번호 찾기
+	 * @param m
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("findPwd.wo")
 	public String findPwd(Mypage m, Model model) {
 		
-		System.out.println(m);
 		Mypage returnPwd = mService.findPwd(m);
 		if(returnPwd != null) {
 			model.addAttribute("returnPwd", returnPwd);
-			return "mypage/returnPwd";
+			return "myPage/returnPwd";
 		}else {
-			return "mypage/findPwd";
+			
+			return "myPage/findPwd";
 			
 		}
+		
+	}
+	
+	/**
+	 * 새로운 비번
+	 * @param pwd
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("returnPwd.wo")
+	public String returnPwd(Mypage m) {
+		
+		System.out.println(m);
+		int result = mService.returnPwd(m);
+		if(result > 0) {
+			return "myPage/login";
+		}else {
+			
+			return "myPage/returnPwd";
+		}
+		
 		
 	}
 		

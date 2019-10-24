@@ -34,7 +34,7 @@ public class MypageDao {
 
 
 	/**
-	 * 비밀번호 수정
+	 * 비번 수정
 	 * @param m
 	 * @return
 	 */
@@ -43,8 +43,21 @@ public class MypageDao {
 	}
 
 
+	/**
+	 * 비번 찾기
+	 * @param m
+	 * @return
+	 */
 	public Mypage findPwd(Mypage m) {
-		System.out.println(m);
 		return sqlSession.selectOne("mypageMapper.findPwd", m);
+	}
+
+	/**
+	 * 새로운 비번
+	 * @param m
+	 * @return
+	 */
+	public int returnPwd(Mypage m) {
+		return sqlSession.update("mypageMapper.pwdUpdate", m);
 	}
 }
