@@ -43,12 +43,12 @@ public class MypageController {
 	 */
 	@RequestMapping("loginPage.wo")
 	public String loginPage() {
-		return "myPage/login";
+		return "mypage/login";
 	}
 
-	@RequestMapping("myPageView.wo")
+	@RequestMapping("mypageView.wo")
 	public String myPageView() {
-		return "myPage/myPageView";
+		return "mypage/mypageView";
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class MypageController {
 	public String empInfoView(HttpSession session) {
 		Mypage m = (Mypage)session.getAttribute("loginMan");
 
-		return "myPage/empInfo";
+		return "mypage/empInfo";
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class MypageController {
 	 */
 	@RequestMapping("confirmPwdPage.wo")
 	public String security() {
-		return "myPage/confirmPwd";
+		return "mypage/confirmPwd";
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class MypageController {
 	 */
 	@RequestMapping("findNoPage.wo")
 	public String findNoPage() {
-		return "myPage/findNo";
+		return "mypage/findNo";
 	}
 
 	/**
@@ -90,9 +90,8 @@ public class MypageController {
 	 */
 	@RequestMapping("findPwdPage.wo")
 	public String findPwdPage() {
-		return "myPage/findPwd";
+		return "mypage/findPwd";
 	}
-	
 	
 	/**
 	 * 암호화 전 로그인
@@ -181,26 +180,9 @@ public class MypageController {
 			return "redirect:home.wo";
 		}else {
 			
-			return "myPage/changePwd";
+			return "mypage/changePwd";
 		}
 	}
-	
-	
-	
-	/**
-	 * 비밀번호 찾기
-	 * @return
-	 */
-	@RequestMapping("returnPwd.wo")
-	public String returnPwdPage(Mypage m) {
-		
-		
-		
-		
-		
-		return "myPage/returnPwdPage";
-	}
-	
 	
 	/**
 	 * 비번 변경 전 재확인
@@ -216,7 +198,7 @@ public class MypageController {
 		if(pwd != null && pwd.equals(mp.getPwd())) { 
 			Mypage loginMan = mService.loginMan(mp);
 			model.addAttribute("loginMan", loginMan);
-			return "myPage/changePwd";
+			return "mypage/changePwd";
 		}else {
 			
 			return "redirect:confirmPwdPage.wo";
@@ -242,7 +224,7 @@ public class MypageController {
 			return "redirect:logout.wo";
 		}else {
 			
-			return "myPage/changePwd";
+			return "mypage/changePwd";
 		}
 		
 	}
@@ -250,9 +232,18 @@ public class MypageController {
 	
 	
 	@RequestMapping(value = "findPwd.wo", method = RequestMethod.POST)
-	public String findPwd() {
+	public String findPwd(Mypage m, Model model) {
 		
-		return "00";
+		System.out.println(m);
+		Mypage returnPwd = mService.findPwd(m);
+		if(returnPwd != null) {
+			model.addAttribute("returnPwd", returnPwd);
+			return "mypage/returnPwd";
+		}else {
+			return "mypage/findPwd";
+			
+		}
+		
 	}
 		
 	

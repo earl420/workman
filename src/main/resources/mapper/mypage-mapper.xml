@@ -25,6 +25,11 @@
 		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
 	
+	<resultMap type="Mypage" id="findPwd">
+		<id property="num" column="EMP_NUM"/>
+		<result property="name" column="EMP_NAME"/>
+	</resultMap>
+	
 	<!-- 로그인 -->
 	<select id="loginMan" parameterType="Mypage" resultMap="empResultSet">
 		select *
@@ -47,6 +52,12 @@
 		set emp_pwd=#{pwd}
 		where emp_num=#{num}	
 	</update>
+	
+	<select id="findPwd" parameterType="myPage">
+		select *
+		from employee
+		where emp_num=#{num} and emp_name=#{name}
+	</select>
 	
 	
 </mapper>
