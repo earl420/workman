@@ -66,7 +66,17 @@
 							<div class="form-group row" style="padding-left: 30px;">
 								<label class="col-lg-2 col-form-label" for="title">파일</label><br />
 								<div class="col-lg-2">
-									<a href="경로+저장된파일명" download="다운로드될 파일명">filedownload</a>
+									<c:url var="downexcel" value="downexcel.wo">
+										<c:param name="noticeNum" value="${notice.noticeNum }" />
+										<c:param name="noticeContent" value="${notice.noticeContent}" />
+										<c:param name="noticeAccType" value="${notice.noticeAccType }" />
+									</c:url>
+									<c:choose>
+										<c:when test="${notice.noticeAccType eq 2 }"><a href="${downexcel }">excel다운로드</a></c:when>
+										<c:when test="${notice.noticeAccType eq 3}"><a href="${downexcel }">excel다운로드</a></c:when>
+										<c:otherwise><a href="경로+저장된파일명" download="다운로드될 파일명">filedownload</a></c:otherwise>
+									</c:choose>
+									
 								</div>
 							</div>
 							<p align="left" style="padding-left: 8%; padding-bottom:40px;">
@@ -102,7 +112,8 @@
 								</c:when>
 								<c:when test="${notice.noticeAccType eq 3}">
 									<div class="form-group row" style="padding-left: 30px;">
-										<div class="col-12">
+									<div class="col-2"></div>
+										<div class="col-8">
 											<div class="card">
 												<div class="card-body">
 													<h4 class="cart-title">${notice.noticeTitle }</h4>
@@ -122,6 +133,7 @@
 												</div>
 											</div>										
 										</div>
+										<div class="col-2"></div>
 									</div>
 								</c:when>
 								<c:otherwise>

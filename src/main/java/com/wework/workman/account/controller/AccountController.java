@@ -222,9 +222,16 @@ public class AccountController {
 	@RequestMapping(value="accountlist.wo", produces="application/json; charset=utf-8")
 	public void accountList(@RequestParam("content") String content, HttpServletResponse response) throws JsonIOException, IOException {
 		ArrayList<AccountStatus> list = aService.accountStatus(content);
+		int sum1=0;
+		int sum2 = 0;
+		for (int i = 0; i < list.size(); i++) {
+			sum1+=list.get(i).getAccount1();
+			sum2+=list.get(i).getAccount2();
+		}
+		AccountStatus as = new AccountStatus("차변합계 : ", sum1, "대변 합계 : ", sum2);
+		list.add(as);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(list,response.getWriter());
-		
 	}
 	@ResponseBody
 	@RequestMapping(value="incomelist.wo", produces="application/json; charset=utf-8")
@@ -262,6 +269,23 @@ public class AccountController {
 		}
 		IsState iss = new IsState(startDate, endDate);
 		ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
+		//비용합계
+		int sum =0;
+		for (int i = 1; i < 5; i++) {
+			sum+= list.get(i).getAccount();
+		}
+		int EBIT=list.get(0).getAccount()-sum;
+		IncomeStatement is1 = new IncomeStatement();
+		is1.setAccountSubject("매출");
+		IncomeStatement is2 = new IncomeStatement();
+		is2.setAccountSubject("비용");
+		IncomeStatement is3 = new IncomeStatement("EBIT", EBIT);
+		int earning = EBIT- list.get(list.size()-1).getAccount();
+		
+		list.add(0, is1);
+		list.add(2, is2);
+		list.add(7, is3);
+		list.add(9, new IncomeStatement("총수익", earning));
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(list,response.getWriter());
 		

@@ -35,6 +35,7 @@
 		from notice
 		JOIN
 		EMPLOYEE USING(EMP_NUM)
+		where notice_acc_type in(1,2,3)
 		order by notice_date desc
 	</select>
 	<select id="noticeDetail" parameterType="string"

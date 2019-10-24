@@ -319,7 +319,7 @@
                         		</a>
                         		
                         		<ul>
-                        			<li><a href="addHoliday.wo">-&nbsp;휴가신청</a>
+                        <!-- 			<li><a href="addHoliday.wo">-&nbsp;휴가신청</a> -->
                         			<li><a href="showHoliday.wo">-&nbsp;휴가현황</a>
                         			<li><a href="showAtt.wo">-&nbsp;근태현황</a>
                         		</ul>
