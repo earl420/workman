@@ -35,5 +35,15 @@ public class MypageServiceImpl implements MypageService{
 		return mDao.empUpdate(m);
 	}
 
+
+	/**
+	 * 비밀번호 변경
+	 */
+	@Override
+	public int pwdUpdate(Mypage m) {
+		System.out.println("service" + m);
+		return mDao.pwdUpdate(m);
+	}
+
 	
 }

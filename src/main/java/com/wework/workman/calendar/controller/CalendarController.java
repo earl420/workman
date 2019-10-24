@@ -27,14 +27,14 @@ public class CalendarController {
 	  
 	// 일정 상세보기-----
 	@RequestMapping("cDetail.wo")
-	public ModelAndView CalendarDetail(int _id, ModelAndView mv) {
+	public ModelAndView calendarDetail(int empNum, ModelAndView mv) {
 		
-		Calendar c = cService.CalendarDetail(_id);
+		Calendar c = cService.calendarDetail(empNum);
 		
 		if(c != null) {
 			mv.addObject("c",c).setViewName("calendar/CalendarDetailView");
 		}else {
-			mv.addObject("msg","게시글 상세조회 실패").setViewName("common/404error");
+			mv.addObject("msg","일정 상세조회 실패").setViewName("common/404error");
 		}
 		
 		return mv;
@@ -58,18 +58,17 @@ public class CalendarController {
 		if(result > 0) {
 			return "redirect:calDetail.wo";
 		}else {
-			model.addAttribute("msg", "게시판 작성 실패!!");
+			model.addAttribute("msg", "일정 등록 실패!!");
 			return "common/404error";
 		}
 		
 	}
-	
-	
-	// 일정수정------
+
+	// 일정수정
 	@RequestMapping("calUpdate.wo")
-	public String updateCalendar(int _id, HttpServletRequest request) {
+	public String updateCalendar(int empNum, HttpServletRequest request) {
 		
-		int result = cService.deleteCalendar(_id);
+		int result = cService.updateCalendar(empNum);
 		
 		if(result > 0) {
 			return "redirect:calDetail.wo";
@@ -78,11 +77,11 @@ public class CalendarController {
 		}
 	}
 	
-	// 일정삭제-------
+	// 일정삭제
 	@RequestMapping("calDelete.wo")
-	public String CalendarDelete(int _id, HttpServletRequest request) {
+	public String CalendarDelete(int empNum, HttpServletRequest request) {
 		
-		int result = cService.deleteCalendar(_id);
+		int result = cService.deleteCalendar(empNum);
 		
 		if(result > 0) {
 			return "redirect:calDetail.wo";

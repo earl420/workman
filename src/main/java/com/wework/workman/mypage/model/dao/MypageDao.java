@@ -31,4 +31,15 @@ public class MypageDao {
 	public int empUpdate(Mypage m) {
 		return sqlSession.update("mypageMapper.empUpdate", m);
 	}
+
+
+	/**
+	 * 비밀번호 수정
+	 * @param m
+	 * @return
+	 */
+	public int pwdUpdate(Mypage m) {
+		System.out.println("dao" + m);
+		return sqlSession.update("mypageMapper.pwdUpdate", m);
+	}
 }

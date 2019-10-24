@@ -25,6 +25,7 @@
 		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
 	
+	<!-- 로그인 -->
 	<select id="loginMan" parameterType="Mypage" resultMap="empResultSet">
 		select *
 		from employee
@@ -33,14 +34,19 @@
 		where emp_num=#{num} and emp_status='Y'
 	</select>
 	
+	<!-- 정보 수정 -->
 	<update id="empUpdate" parameterType="Mypage">
 		update employee
-		set emp_phone=#{phone}, emp_address=#{address}
+		set emp_email=#{email}, emp_phone=#{phone}, emp_bank=#{bank}, emp_account=#{account}, emp_address=#{address}, emp_birth=#{birth}
 		where emp_num=#{num}
-	
-	
 	</update>
 	
+	<!-- 비번 수정 -->
+	<update id="pwdUpdate" parameterType="Mypage">
+		update employee
+		set emp_pwd=#{pwd}
+		where emp_num=#{num}	
+	</update>
 	
 	
 </mapper>
