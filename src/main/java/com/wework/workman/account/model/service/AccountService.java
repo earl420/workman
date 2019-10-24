@@ -1,6 +1,7 @@
 package com.wework.workman.account.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
@@ -16,9 +17,9 @@ import com.wework.workman.common.PageInfo;
 
 public interface AccountService {
 
-	int getNoticeListCount(ArrayList<String> search);
+	int getNoticeListCount();
 
-	ArrayList<AcNotice> noticeList(ArrayList<String> search, PageInfo pi);
+	ArrayList<AcNotice> noticeList(PageInfo pi);
 
 	AcNotice noticeDetail(String aNo);
 

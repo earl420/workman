@@ -1,6 +1,7 @@
 package com.wework.workman.account.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -25,13 +26,13 @@ public class AccountServiceImpl implements AccountService{
 	private AccountDao aDao;
 
 	@Override
-	public int getNoticeListCount(ArrayList<String> search) {
-		return aDao.getNoticeListCount(search);
+	public int getNoticeListCount() {
+		return aDao.getNoticeListCount();
 	}
 
 	@Override
-	public ArrayList<AcNotice> noticeList(ArrayList<String> search, PageInfo pi) {
-		return aDao.noticeList(search,pi);
+	public ArrayList<AcNotice> noticeList( PageInfo pi) {
+		return aDao.noticeList(pi);
 	}
 
 	@Override
@@ -56,14 +57,15 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public ArrayList<IncomeStatement> incomeStatus(IsState iss) {
-		//연단위 소모품 감가상각할 총비용
-		int sumFixtureDiscount = aDao.sumFixtureDiscount(iss);
-		//감가상각한 거 비용처리해서 update
-		int result1= aDao.updateFixture(sumFixtureDiscount);
-		//연단위 소프트웨어 감가상각할 총비용
-		int sumOsDiscount = aDao.sumOsDiscount(iss);
-		//감가상각한거 비용처리해서 update
-		int result2= aDao.updateOs(sumOsDiscount);
+		//notice insert 할때 처리하자
+//		//연단위 소모품 감가상각할 총비용
+//		int sumFixtureDiscount = aDao.sumFixtureDiscount(iss);
+//		//감가상각한 거 비용처리해서 update
+//		int result1= aDao.updateFixture(sumFixtureDiscount);
+//		//연단위 소프트웨어 감가상각할 총비용
+//		int sumOsDiscount = aDao.sumOsDiscount(iss);
+//		//감가상각한거 비용처리해서 update
+//		int result2= aDao.updateOs(sumOsDiscount);
 		
 		return aDao.incomeStatus(iss);
 	}

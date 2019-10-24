@@ -4,41 +4,125 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="accountMapper">
 	<resultMap id="acnotice" type="AcNotice">
-		<id column="NOTICE_NUM" property="noticeNum" />
-		<result column="NOTICE_DEPT" property="noticeDept" />
-		<result column="NOTICE_TITLE" property="noticeTitle" />
-		<result column="NOTICE_CONTENT" property="noticeContent" />
-		<result column="EMP_NUM" property="empNum" />
-		<result column="EMP_NAME" property="empName" />
-		<result column="NOTICE_DATE" property="noticeDate" />
-		<result column="NOTICE_MODIFY" property="noticeModify" />
-		<result column="NOTICE_STATUS" property="noticeStatus" />
-		<result column="NOTICE_ACC_TYPE" property="noticeAccType" />
+		<id column="notice_num" property="noticeNum" />
+		<result column="notice_dept" property="noticeDept" />
+		<result column="notice_title" property="noticeTitle" />
+		<result column="notice_content" property="noticeContent" />
+		<result column="emp_num" property="empNum" />
+		<result column="emp_name" property="empName" />
+		<result column="notice_date" property="noticeDate" />
+		<result column="notice_modify" property="noticeModify" />
+		<result column="notice_status" property="noticeStatus" />
+		<result column="notice_acc_type" property="noticeAccType" />
 	</resultMap>
 
-	<select id="getNoticeListCount" parameterType="arraylist"
-		resultType="_int">
-		select count(*) from notice where
-		<foreach item="item" index="index" collection="arraylist"
-			open="(" separator="AND" close=")">
-			concat(notice_title, notice_content)
-			like '%'||item||'%'
-		</foreach>
+	<resultMap id="as" type="AccountStatus">
+		<result column="DEPT" property="deptside"></result>
+		<result column="ACCOUNT1" property="account1"></result>
+		<result column="CREDIT" property="credit"></result>
+		<result column="ACCOUNT2" property="account2"></result>
+	</resultMap>
+	<resultMap id="ics" type="IncomeStatement">
+		<result column="credit" property="accountSubject"></result>
+		<result column="price" property="account"></result>
+	</resultMap>
+	<select id="getNoticeListCount" resultType="_int">
+		select count(*) from
+		notice
+	</select>
+	<select id="noticeList" resultMap="acnotice">
+		select *
+		from notice
+		JOIN
+		EMPLOYEE USING(EMP_NUM)
+		order by notice_date desc
+	</select>
+	<select id="noticeDetail" parameterType="string"
+		resultMap="acnotice">
+
+		select * from notice
+		join employee using(emp_num)
+		where
+		notice_num =
+		concat('NOTICE',#{notice_num})
 
 	</select>
-	<select id="noticeList" parameterType="java.util.ArrayList"
-		resultType="AcNotice">
-		select NOTICE_NUM, NOTICE_DEPT, NOTICE_TITLE,
-		NOTICE_CONTENT, EMP_NUM, EMP_NAME, NOTICE_DATE, NOTICE_MODIFY,
-		NOTICE_STATUS, NOTICE_ACC_TYPE
-		from notice
-		JOIN EMPLOYEE USING(EMP_NUM)
-		WHERE
-		<foreach item="item" index="index" collection="arraylist"
-			open="(" separator="AND" close=")">
-			concat(notice_title, notice_content)
-			like '%'||item||'%'
-		</foreach>
+
+
+	<select id="accountStatus" parameterType="string" resultMap="as">
+		<![CDATA[
+		SELECT A1.ACCOUNTNAME as "DEPT", A1.ACOUNTSUM as
+		"ACCOUNT1" , A2.ACCOUNTNAME AS "CREDIT",A2.ACCOUNTSUM2 AS "ACCOUNT2"
+		FROM
+		(SELECT ACCOUNTNAME, ACOUNTSUM, ROWNUM AS "RN"
+		FROM
+		(SELECT ACCOUNTNAME, ACOUNTSUM
+		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
+		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
+		"ACOUNTSUM"
+		from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
+		j1.debt_price from journalizing j1
+		where j1.journ_date<=#{noticeContent})
+		group by debt)
+		full outer join (select credit, sum(credit_price) as "PRICE2" from (select
+		j1.credit, j1.credit_price from journalizing j1
+		where j1.journ_date<=#{noticeContent})
+		group by credit) on(debt =credit))
+		JOIN ACCOUNT ON(ACCOUNTNAME= ACCOUNT_NAME)
+		WHERE ACCOUNT_ALI LIKE('1%')OR ACCOUNT_ALI LIKE'2%'
+		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A1
+		LEFT OUTER JOIN
+		(SELECT ACCOUNTNAME,ACCOUNTSUM2,ROWNUM AS "RN"
+		FROM
+		(SELECT ACCOUNTNAME, ACOUNTSUM*(-1) AS ACCOUNTSUM2
+		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
+		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
+		"ACOUNTSUM"
+		from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
+		j1.debt_price from journalizing j1
+		where j1.journ_date<=#{noticeContent})
+		group by debt)
+		full outer join (select credit, sum(credit_price) as "PRICE2" from (select
+		j1.credit, j1.credit_price from journalizing j1
+		where j1.journ_date<=#{noticeContent})
+		group by credit) on(debt =credit))
+		JOIN ACCOUNT ON(ACCOUNTNAME= ACCOUNT_NAME)
+		WHERE ACCOUNT_ALI LIKE('3%')OR ACCOUNT_ALI LIKE'4%' OR ACCOUNT_ALI LIKE
+		'5%'
+		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A2 ON(A1.RN = A2.RN)
+		ORDER BY A1.RN
+		]]>
+
+	</select>
+
+	<select id="incomeStatus" parameterType="IsState" resultMap="ics">
+		<![CDATA[
+			select credit , price  from
+(select credit, sum(credit_price) as price 
+from journalizing
+right outer join account on(credit=account_name)
+where journ_date between #{startDate} and #{endDate}
+and account_ali like '5%'
+group by credit
+union
+select debt, sum(debt_price)
+from journalizing
+right outer join account on (debt=account_name)
+where journ_date between #{startDate} and #{endDate}
+and account_ali like '2%'
+and account_name!='세금'
+group by debt
+union
+select debt, sum(debt_price)
+from journalizing
+right outer join account on (debt=account_name)
+where journ_date between #{startDate} and #{endDate}
+and account_ali like '2%'
+and account_name ='세금'
+group by debt)
+join account on(credit = account_name)
+order by account_ali desc, account_num
+		]]>
 	</select>
 
 </mapper>

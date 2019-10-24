@@ -2,6 +2,7 @@ package com.wework.workman.account.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +19,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.wework.workman.account.model.service.AccountService;
 import com.wework.workman.account.model.vo.AcNotice;
-import com.wework.workman.account.model.vo.Fixture;
-import com.wework.workman.account.model.vo.OsManage;
-import com.wework.workman.account.model.vo.Partner;
-import com.wework.workman.account.model.vo.Product;
-import com.wework.workman.account.model.vo.SalaryManage;
-import com.wework.workman.account.model.vo.SaleManage;
+import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.IncomeStatement;
+import com.wework.workman.account.model.vo.IsState;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.common.Pagination;
 
@@ -33,20 +31,17 @@ public class AccountController {
 	private AccountService aService;
 	
 	@RequestMapping("acnoticeList.wo")
-	public String accountList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value="search", required = false, defaultValue = "") String search1) {
+	public String accountList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage, Model model) {
 		
-//		String[] search= search1.split(" ");
-//		ArrayList<String> selist = new ArrayList<String>();
-//		for (int i = 0; i < search.length; i++) {
-//			selist.add(search[i]);
-//		}
-//		
-//		int listCount = aService.getNoticeListCount(selist);
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		ArrayList<AcNotice> list = aService.noticeList(selist,pi);
-//		
-//		System.out.println(list);
+		
+		int listCount = aService.getNoticeListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<AcNotice> list = aService.noticeList(pi);
+		for (int i = 0; i < list.size(); i++) {
+			String nNo=list.get(i).getNoticeNum().substring(6);
+			list.get(i).setNoticeNum(nNo);
+		}
+		model.addAttribute("list",list);
 		return "account/aNotice";
 	}
 	@RequestMapping("aninsertpage.wo")
@@ -93,9 +88,18 @@ public class AccountController {
 		return "redirect:acnoticeList.wo";
 	}
 	@RequestMapping("acDetail.wo")
-	public String aNoticeDetail(@RequestParam(name = "aNo", defaultValue = "1") String aNo , Model model) {
-//		AcNotice notice = aService.noticeDetail(aNo);
-//		model.addAttribute("notice", notice);
+	public String aNoticeDetail(@RequestParam(name = "noticeNum", required = false, defaultValue = "") String acDetail, Model model) {
+		AcNotice notice = aService.noticeDetail(acDetail);
+		
+		model.addAttribute("notice", notice);
+		//파일도 넣는처리할것 
+		
+		
+		
+		
+		
+		
+		
 //		if(notice.getNoticeAccType()==2) {
 //			
 //		ajax로 나중에 처리 재무상태표
@@ -112,6 +116,7 @@ public class AccountController {
 //			다른거 검색하는 항목있을시 null값 처리해주는 작업해줘야
 //			arrayList로 변환 하는 작업도 해줘야된다...
 //		}
+		
 		return "account/detailNotice";
 	}
 	@RequestMapping("salelist.wo")
@@ -211,6 +216,54 @@ public class AccountController {
 //		
 //		Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
 //		gson.toJson(list,response.getWriter());
+		
+	}
+	@ResponseBody
+	@RequestMapping(value="accountlist.wo", produces="application/json; charset=utf-8")
+	public void accountList(@RequestParam("content") String content, HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<AccountStatus> list = aService.accountStatus(content);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(list,response.getWriter());
+		
+	}
+	@ResponseBody
+	@RequestMapping(value="incomelist.wo", produces="application/json; charset=utf-8")
+	public void incomeList(@RequestParam("content") String content, HttpServletResponse response) throws JsonIOException, IOException {
+		String[] date=content.split(" ");
+		String startDate =new String();
+		String endDate =new String();
+		if(date[0].equals("년")) {
+			startDate=date[1]+"/01/01";
+			endDate=date[1]+"/12/31";
+		}else {
+			startDate = date[1];
+			endDate = date[1];
+			switch (date[2]) {
+			case "1/4":
+				startDate +="/01/01";
+				endDate +="/03/31";
+				break;
+			case "2/4":
+				startDate +="/04/01";
+				endDate +="/06/30";
+				break;
+			case "3/4":
+				startDate +="/07/01";
+				endDate +="/09/30";
+				break;
+			case "4/4":
+				startDate +="/10/01";
+				endDate +="/12/31";
+				break;
+
+			default:
+				break;
+			}
+		}
+		IsState iss = new IsState(startDate, endDate);
+		ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(list,response.getWriter());
 		
 	}
 }

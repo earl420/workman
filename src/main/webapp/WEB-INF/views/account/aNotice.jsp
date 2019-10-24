@@ -48,66 +48,28 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>11</td>
-								<td>11</td>
-								<td>11</td>
-								<td>11</td>
-							</tr>
-							<tr>
-								<td>11</td>
-								<td>11</td>
-								<td>11</td>
-								<td>11</td>
-							</tr>
-							<tr>
-								<td>11</td>
-								<td>11</td>
-								<td>11</td>
-								<td>11</td>
-							</tr>
-							<tr>
-								<td>11</td>
-								<td>11</td>
-								<td>11</td>
-								<td>11</td>
-							</tr>
-							<tr>
-								<td>22</td>
-								<td>22</td>
-								<td>22</td>
-								<td>22</td>
-							</tr>
-							<tr>
-								<td>22</td>
-								<td>22</td>
-								<td>22</td>
-								<td>22</td>
-							</tr>
-							<tr>
-								<td>22</td>
-								<td>22</td>
-								<td>22</td>
-								<td>22</td>
-							</tr>
-							<tr>
-								<td>22</td>
-								<td>22</td>
-								<td>22</td>
-								<td>22</td>
-							</tr>
-							<tr>
-								<td>33</td>
-								<td>33</td>
-								<td>33</td>
-								<td>33</td>
-							</tr>
-							<tr>
-								<td>44</td>
-								<td>55</td>
-								<td>66</td>
-								<td>77</td>
-							</tr>
+							<c:choose>
+								<c:when test="${empty list }">
+									<tr>
+										<td colspan="4">
+											등록된 공지사항이 없습니다.
+										</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="i" items="${list }">
+										<tr>
+											<td>${i.noticeNum }</td>
+											<td>${i.noticeTitle }</td>
+											<td>${i.empName }</td>
+											<td>${i.noticeDate }</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+							
+						
+							
 						</tbody>
 					</table>
 				</div>
