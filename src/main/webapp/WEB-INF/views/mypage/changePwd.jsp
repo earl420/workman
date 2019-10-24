@@ -57,7 +57,7 @@
 												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
-												<input type="password" class="form-control" id="pwd" name="pwd" required>
+												<input type="password" class="form-control" id="pwd" name="pwd" placeholder="숫자+영문자+특수문자 조합으로 8자리 이상 " required="required">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -65,12 +65,12 @@
 												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
-												<input type="password" class="form-control" id="pwd2" name="pwd2" required>
+												<input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="한번 더 입력 해주세요" required="required">
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-lg-8 ml-auto">
-												<button type="submit" class="btn btn-primary">비밀번호 변경</button>
+												<button type="submit" id="btn" class="btn btn-primary">비밀번호 변경</button>
 											</div>
 										</div>
 										
@@ -93,6 +93,7 @@
 		
 		var pwd = document.getElementById("pwd");
 		var pwd2 = document.getElementById("pwd2");
+		var btn = document.getElementById("btn");
 	
 		$(function(){
 			$(pwd).on('blur', function(){
@@ -111,7 +112,13 @@
 					pwd2.value="";
 				}
 			});
+			
+			
+		
+		
 		});
+		
+		
 	</script>
 
 </body>
