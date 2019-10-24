@@ -1,6 +1,7 @@
 package com.wework.workman.account.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,14 +25,14 @@ public class AccountDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public int getNoticeListCount(ArrayList<String> search) {
-		return sqlSession.selectOne("accountMapper.getNoticeListCount", search);
+	public int getNoticeListCount() {
+		return sqlSession.selectOne("accountMapper.getNoticeListCount");
 	}
 
-	public ArrayList<AcNotice> noticeList(ArrayList<String> search, PageInfo pi) {
+	public ArrayList<AcNotice> noticeList(PageInfo pi) {
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.noticeList",search,rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.noticeList",rb);
 	}
 
 	public AcNotice noticeDetail(String aNo) {
