@@ -11,6 +11,9 @@ public interface HumanResourceService {
 	int gethListCount();
 	
 	// 공지사항 중 인사(301) 관련 공지사항 리스트 조회
-	ArrayList<Notice> selecthList(PageInfo pi);
+	ArrayList<Notice> selectHRnList(PageInfo pi);
+	
+	// 공지사항 상세조회
+	Notice gethrnDetail(String noticeNum);
 
 }

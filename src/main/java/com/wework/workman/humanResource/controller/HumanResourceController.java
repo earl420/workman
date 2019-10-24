@@ -27,12 +27,26 @@ public class HumanResourceController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Notice> list = hService.selecthList(pi);
+		ArrayList<Notice> list = hService.selectHRnList(pi);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("humanResource/notice");
 		
 		return mv;
 		
+	}
+	
+	// 인사/공지사항 상세보기 조회
+	@RequestMapping("hrnDetail.wo")
+	public ModelAndView hrnDetail(ModelAndView mv, String noticeNum) {
+		
+		Notice n = hService.gethrnDetail(noticeNum);
+		
+		if(n != null) {
+			mv.addObject("n", n).setViewName("humanResource/noticeDetailView");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
 	}
 	// 인사/인사정보/조직도
 	@RequestMapping("empChart.wo")
