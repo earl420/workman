@@ -145,19 +145,19 @@ img {
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<!-- 	<!--******************* -->
-<!--         Preloader start -->
-<!--     ********************--> -->
-<!-- 	<div id="preloader"> -->
-<!-- 		<div class="loader"> -->
-<%-- 			<svg class="circular" viewBox="25 25 50 50"> <circle --%>
-<%-- 					class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" --%>
-<%-- 					stroke-miterlimit="10" /> </svg> --%>
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- 	<!--******************* -->
-<!--         Preloader end -->
-<!--     ********************--> -->
+	<!-- 	<!--******************* -->
+	<!--         Preloader start -->
+	<!--     ********************-->
+	<!-- 	<div id="preloader"> -->
+	<!-- 		<div class="loader"> -->
+	<%-- 			<svg class="circular" viewBox="25 25 50 50"> <circle --%>
+	<%-- 					class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" --%>
+	<%-- 					stroke-miterlimit="10" /> </svg> --%>
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+	<!-- 	<!--******************* -->
+	<!--         Preloader end -->
+	<!--     ********************-->
 
 
 	<!--**********************************
@@ -180,28 +180,18 @@ img {
 						<div class="card">
 							<div class="card-body">
 								<div class="card-title">ChatList</div>
-								<div class="slimScrollDiv">
-									<!-- 									<ul class="roomBox" id="listBox"> -->
-									<!-- 									</ul> -->
-
-
-									<%-- <c:forEach --%>
-									<!-- 									<div class="inbox_chat"> -->
-									<div class="chat_list active_chat">
-										<div class="chat_people">
-											<div class="chat_img">
-												<img src="https://ptetutorials.com/images/user-profile.png"
-													alt="sunil">
-											</div>
-											<div class="chat_ib">
-												<h5>
-													Sunil Rajput <span class="chat_date">Dec 25</span>
-												</h5>
-												<p>Test, which is a new approach to have all solutions
-													astrology under one roof.</p>
+								<div class="slimScrollDiv" id="chatListScroll">
+								
+										<div class="chat_list active_chat">
+											<div class="chat_people">
+												<div class="chat_ib">
+													<h5>
+														Sunil Rajput <span class="chat_date">Dec 25</span>
+													</h5>
+													<p>Test, which is a one roof.</p>
+												</div>
 											</div>
 										</div>
-									</div>
 								</div>
 
 
@@ -280,34 +270,33 @@ img {
 		var userName = $("#loginName").val();//!!!!!!!!!!!!!!!1확인
 		var roomId = $("#roomId").val();//!!!!!!!!!!!!!확인
 		var writer;
-		
+
 		//onOpen:userId
 		//rCng:roomId;
 		//newRoom:[userid..]
 		//exitRoom:roomId
 		//addUser:roomId:[userId]
 		//msg:userId:msgContent
-		
-		
 
 		$(function() {
 			connect();
-			$('#sendBtn').click(function() {
+			$('#sendBtn').click(function() {//엔터키 입력시 전송.
 				send();
 			});
 		});
 
-		function connect() {
+		function connect() {//초기설정
 			wbSocket = new WebSocket("ws://localhost:8888/workman/chatting.ch");
 			wbSocket.onopen = onOpen;
 			wbSocket.onclose = onClose;
 			wbSocket.onmessage = onMessage;
 		}
-		
+
 		function onOpen(evt) {
 			appendMessage("연결성공");
+			
 			var openString = "onOpen:" + userId;
-			wbSocket.send(openString);
+			wbSocket.send(openString);//오픈시 룸리스트, 메세지 히스토리 받아오기.
 		}
 
 		function onClose(evt) {
@@ -326,26 +315,25 @@ img {
 			var spData = data.split(":");
 			var preMsg = spData[0];
 			console.log(spData);
-			
+
 			//onOpen:userId
 			//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
 			//	<=msgHistory:sender:content:time:status
-			
+
 			//rCng:roomId;
 			//	<=msgHistory:sender:content:time:status
 			//newRoom:[userid..]
 			//exitRoom:roomId
 			//addUser:roomId:[userId]
 			//msg:userId:msgContent
-			
-			if(preMsg=="roomListSet"){
-				roomListSet(spData);
-			}else if(preMsg=="msgHistory"){
-				msgHistory(spData);
-			}else if(preMsg=="")
-				
 
-			appendMessage();
+			if (preMsg == "roomListSet") {
+				roomListSet(spData);
+			} else if (preMsg == "msgHistory") {
+				msgHistory(spData);
+			} else if (preMsg == "")
+
+				appendMessage();
 		}
 
 		function appendMessage(msg) {
@@ -354,7 +342,8 @@ img {
 			} else {
 				$("#chatBox").append(
 						"<li class='msgOhter'>liOther" + msg + "</li>");
-			};
+			}
+			;
 			// 		$("#testTa").append(msg);
 		}
 		function onKeyDown() {
@@ -367,8 +356,34 @@ img {
 		//onOpen:userId
 		//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
 		//	<=msgHistory:sender:content:time:status
-		function roomListSet(spData){
+		function roomListSet(spData) {
+
+// 						<div class="chat_list active_chat">
+// 						<div class="chat_people">
+// 							<div class="chat_ib">
+// 								<h5>
+// 									Sunil Rajput <span class="chat_date">Dec 25</span>
+// 								</h5>
+// 								<p>Test, which is a new approach to have all solutions
+// 									astrology under one roof.</p>
+// 							</div>
+// 						</div>
+// 					</div>
+
+			var $div =$('#chatListScroll');
+			var $div_chatList = $('<div class="chat_list active_chat">');
+			var $div_chat_people =$('<div class="chat_people">');
+			var $div_chat_ib =$('<div class="chat_ib">');
+			var $h5 = $('<h5>'+roomId+'<span class="chat_date">'+lastComm+'</span></h5>');
+			var $p = $('<p>'+lastWord+'<p>');
+			var $div_close =$('</div></div></div></div></div></div>');
 			
+			$div.append($div_chatList);
+			$div.append($div_chat_people);
+			$div.append($div_chat_ib);
+			$div.append($h5);
+			$div.append($p);
+			$div.append($div_close);
 		}
 	</script>
 </body>

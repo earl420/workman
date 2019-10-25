@@ -41,14 +41,15 @@
 
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/ws-config.xml</param-value>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
 	</servlet>
 	    <servlet-mapping>
-        <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/chatting.ch</url-pattern>
-    </servlet-mapping>
+	        <servlet-name>dispatcher</servlet-name>
+	        <url-pattern>/chatting.ch</url-pattern>
+	    </servlet-mapping>
 	<!-- 채팅뭐시기끝 -->
 	
 	<servlet-mapping>

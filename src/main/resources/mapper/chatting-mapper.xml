@@ -3,18 +3,53 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chattingMapper">
-
-	<resultMap id="roomListResultSet" type="Room">
 	
+	
+	<resultMap id="roomSetListRS" type="Room">
+		<id property="roomId" column="CHAT_ROOM" />
+		<result property="lastWord" column="CHAT_USER" />
+		<result property="lastman" column="MSG_CONT" />
+		<result property="lastComm" column="MSG_DATE" />
+	</resultMap>
+		
+	<resultMap id="MessageHistoryRS" type="Message">
+		<id property ="msgNum" column="CHAT_MSG"/>
+		<result property="sender" column="CHAT_USER"/>
+		<result property="msgCont" column="MSG_CONT"/>
+		<result property="msgTime" column="MSG_DATE"/>
+		<result property="status" column="MSG_STAT"/>
 	</resultMap>
 
-	<select id="roomSetList" parameterType="string">
-		SELECT CHAT_ROOM,CHAT_USER,CHAT_LAST
-		FROM CHAT_ROOM
-		WHERE CHAT_USER = ${userId}
-		ORDER BY CHAT_LAST DESC
-	</select>
 
+	<select id="userRoomList" parameterType="string" resultType="string">
+		SELECT CHAT_ROOM
+		FROM CHAT_JOIN
+		WHERE CHAT_USER=#{userId}
+	</select>
+	
+	<!-- 리저트맵 안잡혀있음 확인헐것 vo를 새로만들어야한다고? -->
+	<!-- 룸별 마지막 메세지 -->
+	<select id="initialLastChat" parameterType="string" resultMap="roomSetListRS">
+		select chat_room,msg_cont,chat_user,msg_date
+		from(select rownum rnum,a.*
+				from (select chat_room,msg_cont,chat_user,msg_date
+						from chat_msg
+						where chat_room=#{t}
+						order by msg_date DESC)a
+				)
+		where rnum=1
+	</select>
+	<select id="msgHistory" parameterType="string" resultMap="MessageHistoryRS">
+		SELECT CHAT_MSG,CHAT_USER,MSG_CONT,MSG_DATE,MSG_STAT 
+		FROM CHAT_MSG 
+		WHERE CHAT_ROOM=#{roomId} 
+		ORDER BY MSG_DATE ASC
+	</select>
+	
+	<insert id="msgDb" parameterType="Message">
+		INSERT INTO CHAT_MSG(NULL,#{roomId},#{sender},#{msgCont},SYSDATE,'Y')
+	</insert>
+	
 
 
 

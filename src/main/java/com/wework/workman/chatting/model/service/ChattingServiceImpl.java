@@ -4,27 +4,32 @@ import java.util.ArrayList;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wework.workman.chatting.model.dao.ChattingDao;
 import com.wework.workman.chatting.model.vo.Message;
 import com.wework.workman.chatting.model.vo.Room;
 
-@Service("chattingService")
+@Service("cService")
 public class ChattingServiceImpl implements ChattingService{
-	@Resource(name="chattingDao")
+	
+//	@Resource(name="cDao")
+//	private ChattingDao cDao;
+	@Autowired
 	private ChattingDao cDao;
 
-	@Override
-	public  ArrayList<Room> getRoomList(String userId) {
-		// TODO Auto-generated method stub
-		return cDao.getRoomList(userId);
-	}
 
 	@Override
-	public void sendMessage(String userName, String roomId) {
+	public  ArrayList<Room>getRoomList(String userId) {
 		// TODO Auto-generated method stub
 		
+		return cDao.getRoomList(userId);
+	}
+	@Override
+	public ArrayList<Message> msgHistory(String roomId) {
+		// TODO Auto-generated method stub
+		return cDao.msgHistory(roomId);
 	}
 
 	@Override
@@ -34,28 +39,29 @@ public class ChattingServiceImpl implements ChattingService{
 	}
 
 	@Override
-	public void roomCreate(String[] userIdList) {
+	public int roomCreate(String[] userIdList) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 	@Override
-	public void roomExit(String userId, String roomId) {
+	public int roomExit(String userId, String roomId) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 	@Override
-	public void addUser(String[] userIdList) {
+	public int addUser(String[] userIdList) {
 		// TODO Auto-generated method stub
-		
+		return 0;
+	}
+	@Override
+	public int msgDb(Message msg) {
+		return cDao.msgDb(msg);
 	}
 
-	@Override
-	public ArrayList<Message> msgHistory(String roomId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+
 	
 	
 	
