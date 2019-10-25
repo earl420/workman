@@ -33,8 +33,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	//세션에있는사람들을 맨마지막 룸으로 넣고.. 체인지발생시 룸변경 userId:roomId
 	//
 //	private Map<String, Integer[]> rooms = new ConcurrentHashMap<String, Integer[]>();
-	String userId;
-	String roomId;
 	
 	// onOpen
 	@Override
@@ -62,7 +60,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		}
 	}
 	//user 1명에게 메세지전송(값세팅)
-	public void msgSendOne(WebSocketSession session, TextMessage message) throws IOException {
+	public void msgSendOne(WebSocketSession session, TextMessage message, String userId) throws IOException {
 		WebSocketSession s = allUsers.get(userSessionId.get(userId));
 		s.sendMessage(message);
 		
@@ -76,15 +74,15 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 		if(preMsg.equals("onOpen")) {//소켓연결되자마자 초기세팅.
 			//onOpen:userId
-			userId=spMsg[1];//userId 세팅.
+			String userId=spMsg[1];//userId 세팅.
 			userSessionId.put(userId,session.getId());//id랑 session을 sessionId로 매칭
-			getRoomList(session);//룸리스트 전달
-			msgHistory(session);//마지막 룸의 메세지 리스트들 전송
+			getRoomList(session,userId);//룸리스트 전달
+			msgHistory(session,userId);//마지막 룸의 메세지 리스트들 전송
 			
 		}else if(preMsg.equals("rCng")){//룸 변경
 			//rCng:roomId;
 			//룸변경 등 상관없이 보낸메세지는 무조건 jsp단에서 active class 에append
-			roomId=spMsg[1];
+			String roomId=spMsg[1];
 			msgHistory(session);
 			
 		}else if(preMsg.equals("newRoom")){//룸생성
@@ -113,19 +111,19 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	/*-------------------------------------------------------------------------------*/
 	
 	//초기세팅 : 룸리스트 전달하기.
-	public void getRoomList(WebSocketSession session) throws IOException  {
+	public void getRoomList(WebSocketSession session,String userId) throws IOException  {
 		
 		ArrayList<Room> roomList= cService.getRoomList(userId);
 //		ArrayList<Room> roomList = new ChattingServiceImpl().getRoomList(userId);
 		for(Room i : roomList) {
 			String rId=i.getRoomId();
+			String rName =i.getRoomName();
 			String lastWord=i.getLastWord();
-			String lastMan=i.getLastman();
+			String lastMan=i.getLastMan();
 			String lastComm=i.getLastComm().toString();
-			String roomSetList="roomListSet:"+roomId +":"+ lastWord+":"+lastMan+":"+lastComm;
-			System.out.println(roomSetList);
+			String roomSetList="roomSetList:"+rId +":"+rName+":"+ lastWord+":"+lastMan+":"+lastComm;
 			TextMessage tx = new TextMessage(roomSetList);
-			msgSendOne(session,tx);
+			msgSendOne(session,tx,userId);
 			roomId = i.getRoomId();
 		}
 	}
@@ -138,13 +136,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			String content= i.getMsgCont();
 			String time = i.getMsgTime().toString();
 			String status;
-			if(i.getStatus()=="Y") {
+			if(i.getStatus().equals("Y")) {
 				status=i.getStatus();
 			}else {
 				status="삭제된메세지입니다.";
 			}
 			String msgHistory = "msgHistory:"+sender+":"+content+":"+time+":"+status;
 			TextMessage tx = new TextMessage(msgHistory);
+			System.out.println(tx.getPayload());
 			msgSendOne(session,tx);
 		
 		}
@@ -165,11 +164,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public void msgDb(TextMessage message) {
 		Message msg = new Message();
 		
-		String[] msgArr = message.getPayload().split(":",1);
-		String msgCont = msgArr[1];
-		msg.setMsgCont(msgCont);
+		String[] msgArr = message.getPayload().split(":",3);
+		String msgCont = msgArr[3];
+		userId = msgArr[1];
+		roomId = msgArr[2];
 		msg.setSender(userId);
 		msg.setRoomId(roomId);
+		msg.setMsgCont(msgCont);
+		System.out.println(msgArr);
 		int result = cService.msgDb(msg);
 	};
 

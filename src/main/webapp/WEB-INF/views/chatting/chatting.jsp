@@ -71,8 +71,11 @@
 .msgOther {
 	background-color: #ecf0f1;
 	max-width: 60%;
+	height: auto;
 	clear: both;
 	float: left;
+	margin-left:10px;
+	margin-right:10px;
 }
 
 .msgMe {
@@ -81,6 +84,8 @@
 	height: auto;
 	clear: both;
 	float: right;
+	margin-left:10px;
+	margin-right:100px;
 }
 /* UserList */
 #newchat {
@@ -108,33 +113,26 @@ img {
 	border-bottom: 1px solid #c4c4c4;
 	margin: 0;
 	padding: 18px 16px 10px;
-}
-
-.chat_people {
 	overflow: hidden;
 	clear: both;
 }
 
-.chat_ib h5 {
+.chat_list h5 {
 	font-size: 15px;
 	color: #464646;
 	margin: 0 0 8px 0;
 }
 
-.chat_ib h5 span {
+.chat_list h5 span {
 	font-size: 13px;
 	float: right;
 }
 
-.chat_ib p {
+.chat_list p {
 	font-size: 14px;
 	color: #989898;
-	margin: auto
-}
-
-.chat_img {
-	float: left;
-	width: 11%;
+	margin: auto;
+	align : left;
 }
 </style>
 </head>
@@ -167,7 +165,7 @@ img {
 		<c:import url="../common/header.jsp"></c:import>
 		<input type="hidden" value=${loginUser.loginId } id="loginId">
 		<input type="hidden" value=${loginUser.loginName } id="loginName">
-		<input type="hidden" value="null" id="roomId">
+		<input type="hidden" value="" id="roomId">
 
 		<!--**********************************
             Content body start
@@ -181,17 +179,13 @@ img {
 							<div class="card-body">
 								<div class="card-title">ChatList</div>
 								<div class="slimScrollDiv" id="chatListScroll">
-								
-										<div class="chat_list active_chat">
-											<div class="chat_people">
-												<div class="chat_ib">
-													<h5>
-														Sunil Rajput <span class="chat_date">Dec 25</span>
-													</h5>
-													<p>Test, which is a one roof.</p>
-												</div>
-											</div>
-										</div>
+
+									<div class="chat_list active_chat">
+										<h5>
+											Sunil Rajput <span class="chat_date">Dec 25</span>
+										</h5>
+										<p>Test, which is a one roof.</p>
+									</div>
 								</div>
 
 
@@ -227,13 +221,6 @@ img {
 									</div>
 									<!-- /input-group -->
 								</div>
-								<!-- col-lg-6 -->
-								<!-- <div class="input-group mb-3"> -->
-								<!--   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
-								<!--   <div class="input-group-append"> -->
-								<!--     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> -->
-								<!--   </div> -->
-								<!-- </div> -->
 
 
 							</div>
@@ -272,7 +259,12 @@ img {
 		var writer;
 
 		//onOpen:userId
+		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
+		//	<=msgHistory:sender:content:time:status
+
 		//rCng:roomId;
+		//	<=msgHistory:sender:content:time:status
+		
 		//newRoom:[userid..]
 		//exitRoom:roomId
 		//addUser:roomId:[userId]
@@ -305,8 +297,7 @@ img {
 
 		function send() {
 			var msg = $("#msgInput").val();
-			writer = userName;
-			wbSocket.send(roomId + ":" + userName + ":" + msg);
+			wbSocket.send("msg:"+userId + ":" + roomId +":"+msg );
 
 			$("#msgInput").val("");
 		}
@@ -317,7 +308,7 @@ img {
 			console.log(spData);
 
 			//onOpen:userId
-			//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
+			//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 			//	<=msgHistory:sender:content:time:status
 
 			//rCng:roomId;
@@ -327,23 +318,26 @@ img {
 			//addUser:roomId:[userId]
 			//msg:userId:msgContent
 
-			if (preMsg == "roomListSet") {
-				roomListSet(spData);
+			if (preMsg == "roomSetList") {
+				roomSetList(spData);
 			} else if (preMsg == "msgHistory") {
 				msgHistory(spData);
-			} else if (preMsg == "")
+			} else if (preMsg == "msg"){
+				
+				appendMessage(spData[1]);
+			}else{
+				
+			}
 
-				appendMessage();
+				
 		}
 
 		function appendMessage(msg) {
-			if (userName == writer) {
+			if (userId == writer) {
 				$("#chatBox").append("<li class='msgMe'>liMe" + msg + "</li>");
 			} else {
-				$("#chatBox").append(
-						"<li class='msgOhter'>liOther" + msg + "</li>");
-			}
-			;
+				$("#chatBox").append("<li class='msgOther'>liOt" + msg + "</li>");
+			};
 			// 		$("#testTa").append(msg);
 		}
 		function onKeyDown() {
@@ -353,38 +347,50 @@ img {
 				event.stopPropagation;
 			}
 		}
+		
+		
+		//--------초기설정----------
+		
 		//onOpen:userId
-		//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
+		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 		//	<=msgHistory:sender:content:time:status
-		function roomListSet(spData) {
+		function roomSetList(spData) {
+			console.log("roomListSet : "+spData);
+			roomSetList:ROOM201910250001:test1:testCont:empId:2019-10-25
+			var setRoomId   = spData[1];
+			var setRoomName = spData[2];
+			var setLastMan  = spData[3];
+			var setLastWord = spData[4];
+			var setLastComm = spData[5];
 
-// 						<div class="chat_list active_chat">
-// 						<div class="chat_people">
-// 							<div class="chat_ib">
-// 								<h5>
-// 									Sunil Rajput <span class="chat_date">Dec 25</span>
-// 								</h5>
-// 								<p>Test, which is a new approach to have all solutions
-// 									astrology under one roof.</p>
-// 							</div>
-// 						</div>
-// 					</div>
-
-			var $div =$('#chatListScroll');
-			var $div_chatList = $('<div class="chat_list active_chat">');
-			var $div_chat_people =$('<div class="chat_people">');
-			var $div_chat_ib =$('<div class="chat_ib">');
-			var $h5 = $('<h5>'+roomId+'<span class="chat_date">'+lastComm+'</span></h5>');
-			var $p = $('<p>'+lastWord+'<p>');
-			var $div_close =$('</div></div></div></div></div></div>');
+			var $divSc =$('#chatListScroll');
 			
-			$div.append($div_chatList);
-			$div.append($div_chat_people);
-			$div.append($div_chat_ib);
-			$div.append($h5);
-			$div.append($p);
-			$div.append($div_close);
+// 			var $div_chatList = $('<div class="chat_list" id="'+setRoomId+'">');
+// 			var $h5 = $('<h5>'+setRoomName+'<span class="chat_date">'+setLastComm+'</span></h5>');
+// 			var $p = $('<p>'+setLastWord+'<p>');
+			
+			
+			var $h5 = $('<h5>'+setRoomName+'<span class="chat_date">'+setLastComm+'</span></h5>');
+			var $p = $('<p>'+setLastWord+'<p>');
+			var $div_chatList = $('<div class="chat_list"></div>');
+
+			$divSc.append($div_chatList);
+			
+			$div_chatList.append($h5);
+			$h5.append($p);
+			
+			
+			console.log('ok');
+			// active_chat 맨위에꺼에 지정하고 룸번호날려..주나?
 		}
+		
+		function msgHistory(spData){
+			writer = spData[1];
+			console.log("msgHistory_spData[1] : "+spData[1]);
+			console.log("msgHistory_userName : "+userName);
+			appendMessage(spData[2]);
+		}
+		
 	</script>
 </body>
 </html>
