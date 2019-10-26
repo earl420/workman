@@ -62,7 +62,7 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-							<h5>조직도</h5>
+								<h5>조직도</h5>
 								<div class="input-group icons"
 									style="width: 200px; float: right;">
 									<div class="input-group-prepend">
@@ -71,11 +71,9 @@
 											id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
 									</div>
 									<input type="search" class="form-control"
-										placeholder="이름, 조직 검색" aria-label="Search Dashboard">
+										placeholder="이름, 조직 검색" aria-label="Search Dashboard" >
 								</div>
-								<br>
-								<br>
-								<br>
+								<br> <br> <br>
 								<div class="table-responsive">
 
 									<table class="table">
@@ -83,171 +81,74 @@
 											<col>
 										</colgroup>
 										<tbody class="org">
-											<tr class="level-1">
-												<th scope="row" style="width: 300px;">사장 (6)</th>
-												<td><span data-toggle="modal" data-target="#basicModal"
-													style="cursor: pointer;">민병현</span>
-													<div class="modal fade" id="basicModal"
-														style="display: none;" aria-hidden="true">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">직원정보</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																	<table width="450px" heigh="300px">
-																		<tbody>
-																			<tr>
-																				<td><h5>&nbsp;&nbsp;&nbsp;&nbsp;민병현</h5></td>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사장&gt;</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이메일</td>
-																				<td>kos8148@naver.com</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;휴대전화</td>
-																				<td>010-2222-2222</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㅇ</td>
-																				<td>ㅇ</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㅇ</td>
-																				<td>ㅇ</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Send
-																		Email</button>
-																</div>
-															</div>
-														</div>
-													</div></td>
-											</tr>
+											<c:forEach items="${ list }" var="d">
+												<tr class="level-1">
+													<th scope="row" style="width: 300px;">${ d.deptName }
+														<c:forEach items="${ count }" var="c">
+															<c:if test="${ d.deptNum eq c.deptNum }">
+															(${ c.count })
+															</c:if>
+														</c:forEach>
+													</th>
+													<c:forEach items="${ eList }" var="e" varStatus="status">
+														<c:if test="${ e.deptNum eq d.deptNum }">
+															<td><span data-toggle="modal"
+																data-target="#basicModal${ status.index }" style="cursor: pointer;">
+																	${ e.empName }</span>
+																<div class="modal fade" id="basicModal${ status.index }"
+																	style="display: none;" aria-hidden="true">
+																	<div class="modal-dialog" role="document">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<h5 class="modal-title">직원정보</h5>
+																				<button type="button" class="close"
+																					data-dismiss="modal">
+																					<span>×</span>
+																				</button>
+																			</div>
+																			<div class="modal-body">
+																				<table width="450px" height="300px">
+																					<tbody>
+																						<tr>
+																							<td><h5>&nbsp;&nbsp;&nbsp;&nbsp;${ e.empName }</h5></td>
+																							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ e.gradeName }&gt;</td>
+																						</tr>
+																						<tr>
+																							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;부서명</td>
+																							<td>${ e.deptName }</td>
+																						</tr>
+																						<tr>
+																							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;입사일</td>
+																							<td>${ e.enrollDate }</td>
+																						</tr>
+																						<tr>
+																							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이메일</td>
+																							<td>${ e.email }</td>
+																						</tr>
+																						<tr>
+																							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전화번호</td>
+																							<td>${ e.empPhone }</td>
+																						</tr>
+																						
+																					</tbody>
+																				</table>
+																			</div>
+																			<div class="modal-footer">
+																				<button type="button" class="btn btn-secondary"
+																					data-dismiss="modal">Close</button>
+																				<button type="button" class="btn btn-primary">Send
+																					Message</button>
+																			</div>
+																		</div>
+																	</div>
+																</div></td>
+														</c:if>
+													</c:forEach>
+												</tr>
+											</c:forEach>
 
-											<tr class="level-2">
-												<th scope="row"><span class="level-2">마케팅사업부 (4)</span></th>
-												<td><span data-toggle="modal" data-target="#basicModal"
-													style="cursor: pointer;">강연재</span>
-													<div class="modal fade" id="basicModal"
-														style="display: none;" aria-hidden="true">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">직원정보</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																	<table width="450px" height="300px">
-																		<tbody>
-																			<tr>
-																				<td><h5>&nbsp;&nbsp;&nbsp;&nbsp;민병현</h5></td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사장&gt;</td>
-																			</tr>
-																			<tr>
-																				<td></td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이메일</td>
-																				<td>kos8148@naver.com</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;휴대전화</td>
-																				<td>010-2222-2222</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㅇ</td>
-																				<td>ㅇ</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㅇ</td>
-																				<td>ㅇ</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Send
-																		Email</button>
-																</div>
-															</div>
-														</div>
-													</div></td>
-											</tr>
 
-											<tr class="level-3">
-												<th scope="row"><span class="level-3">영업팀 (2)</span></th>
-												<td><span data-toggle="modal" data-target="#basicModal"
-													style="cursor: pointer;">강정학</span>
-													<div class="modal fade" id="basicModal"
-														style="display: none;" aria-hidden="true">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">직원정보</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																	<table width="450px" height="300px">
-																		<tbody>
-																			<tr>
-																				<td><h5>&nbsp;&nbsp;&nbsp;&nbsp;민병현</h5></td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사장&gt;</td>
-																			</tr>
-																			<tr>
-																				<td></td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이메일</td>
-																				<td>kos8148@naver.com</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;휴대전화</td>
-																				<td>010-2222-2222</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㅇ</td>
-																				<td>ㅇ</td>
-																			</tr>
-																			<tr>
-																				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㅇ</td>
-																				<td>ㅇ</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Send
-																		Email</button>
-																</div>
-															</div>
-														</div>
-													</div></td>
-											</tr>
+
 										</tbody>
 									</table>
 								</div>
