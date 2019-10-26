@@ -92,7 +92,6 @@
 		
 		var pwd = document.getElementById("pwd");
 		var pwd2 = document.getElementById("pwd2");
-		var btn = document.getElementById("btn");
 	
 		$(function(){
 			$(pwd).on('focusout', function(){
@@ -111,10 +110,6 @@
 					pwd2.value="";
 				}
 			});
-			
-			
-		
-		
 		});
 		
 		

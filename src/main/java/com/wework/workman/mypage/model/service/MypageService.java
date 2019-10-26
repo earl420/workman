@@ -9,7 +9,14 @@ public interface MypageService {
 
 	// 정보 수정
 	int empUpdate(Mypage m);
-
+	
+	// 비번 수정
 	int pwdUpdate(Mypage m);
+
+	// 비번 찾기
+	Mypage findPwd(Mypage m);
+
+	// 새로운 비번
+	int returnPwd(Mypage m);
 
 }

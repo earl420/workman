@@ -37,12 +37,29 @@ public class MypageServiceImpl implements MypageService{
 
 
 	/**
-	 * 비밀번호 변경
+	 * 비번 변경
 	 */
 	@Override
 	public int pwdUpdate(Mypage m) {
-		System.out.println("service" + m);
 		return mDao.pwdUpdate(m);
+	}
+
+
+	/**
+	 * 비번 찾기
+	 */
+	@Override
+	public Mypage findPwd(Mypage m) {
+		return mDao.findPwd(m);
+	}
+
+
+	/**
+	 * 새로운 비번
+	 */
+	@Override
+	public int returnPwd(Mypage m) {
+		return mDao.returnPwd(m);
 	}
 
 	

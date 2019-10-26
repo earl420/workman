@@ -46,9 +46,9 @@ public class MypageController {
 		return "myPage/login";
 	}
 
-	@RequestMapping("myPageView.wo")
+	@RequestMapping("mypageView.wo")
 	public String myPageView() {
-		return "myPage/myPageView";
+		return "myPage/mypageView";
 	}
 
 	/**
@@ -92,7 +92,6 @@ public class MypageController {
 	public String findPwdPage() {
 		return "myPage/findPwd";
 	}
-	
 	
 	/**
 	 * 암호화 전 로그인
@@ -185,23 +184,6 @@ public class MypageController {
 		}
 	}
 	
-	
-	
-	/**
-	 * 비밀번호 찾기
-	 * @return
-	 */
-	@RequestMapping("returnPwd.wo")
-	public String returnPwdPage(Mypage m) {
-		
-		
-		
-		
-		
-		return "myPage/returnPwdPage";
-	}
-	
-	
 	/**
 	 * 비번 변경 전 재확인
 	 * @param pwd
@@ -249,10 +231,46 @@ public class MypageController {
 	
 	
 	
-	@RequestMapping(value = "findPwd.wo", method = RequestMethod.POST)
-	public String findPwd() {
+	/**
+	 * 비밀번호 찾기
+	 * @param m
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("findPwd.wo")
+	public String findPwd(Mypage m, Model model) {
 		
-		return "00";
+		Mypage returnPwd = mService.findPwd(m);
+		if(returnPwd != null) {
+			model.addAttribute("returnPwd", returnPwd);
+			return "myPage/returnPwd";
+		}else {
+			
+			return "myPage/findPwd";
+			
+		}
+		
+	}
+	
+	/**
+	 * 새로운 비번
+	 * @param pwd
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("returnPwd.wo")
+	public String returnPwd(Mypage m) {
+		
+		System.out.println(m);
+		int result = mService.returnPwd(m);
+		if(result > 0) {
+			return "myPage/login";
+		}else {
+			
+			return "myPage/returnPwd";
+		}
+		
+		
 	}
 		
 	

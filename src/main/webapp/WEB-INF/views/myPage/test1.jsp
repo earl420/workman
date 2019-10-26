@@ -1,36 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<style type="text/css">
-	table tr{
-		height: 50px;
-		color: black;
-		font-size: 20px;
-	}
-	
-	.postcodify_postcode5:hover, .postcodify_address:hover{
-		cursor: pointer;
-	}
-	
-	
-	
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>비밀번호 찾기</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="images/favicon.png">
+<!-- Custom Stylesheet -->
+<link
+	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
 
-</style>
-<title>개인정보</title>
 </head>
+<style>
+	input[type="number"]::-webkit-outer-spin-button,
+	input[type="number"]::-webkit-inner-spin-button {
+	    -webkit-appearance: none;
+	    margin: 0;
+	}
+</style>
+
 <body>
-	
-	
-	<!--*******************
-        Preloader start
-    ********************-->
+	<!-- preloader -->
 	<div id="preloader">
 		<div class="loader">
 			<svg class="circular" viewBox="25 25 50 50"> <circle
@@ -38,129 +34,70 @@
 					stroke-miterlimit="10" /> </svg>
 		</div>
 	</div>
-	<!--*******************
-        Preloader end
-    ********************-->
+	<!-- /preloader -->
 
 
-	<!--**********************************
-        Main wrapper start
-    ***********************************-->
-	<div id="main-wrapper" style="background: white;">
+	<!-- main wrapper -->
+	<div id="main-wrapper" style="">
 		<c:import url="../common/header.jsp"></c:import>
-		<!--**********************************
-            Content body start
-        ***********************************-->
-		<div class="content-body">
-			<div class="content-fluid" style="height: 100px;" align="center">
-				<h1>내 정보 관리</h1>
-				<br><br>
-				<form action="empUpdate.wo">
-					<table width="800" celspacing="5">
-						<tr>
-							<td width="200">사번</td>
-							<td><input type="text" name="num" value="${ loginMan.num }" readonly></td>
-						</tr>
-						<tr>
-							<td>이름</td>
-							<td><input name="name" value="${ loginMan.name }" readonly></td>
-						</tr>
-						<tr>
-							<td>이메일</td>
-							<td><input type="email" name="email" value="${ loginMan.email }" readonly></td>
-						</tr>
-						<tr>
-							<td>생년월일</td>
-							<td><input name="birth" value="${ loginMan.birth }" readonly></td>
-						</tr>
-						<tr>
-							<td>전화번호</td>
-							<td><input type="text" name="phone" value="${ loginMan.phone }"></td>
-						</tr>
-						<tr>
-							<td>직급</td>
-							<td><input value="${ loginMan.gradeName }" readonly></td>
-						</tr>
-						<tr>
-							<td>부서</td>
-							<td><input value="${ loginMan.deptName }" readonly></td>
-						</tr>
-						<tr>
-							<td>입사일</td>
-							<td><input value="${ loginMan.enrollDate }" readonly></td>
-						</tr>
-						
-						<c:if test="${ empty loginMan.address }">
-							<tr>
-								<td>주소</td>
-								<td>
-									<input type="text" name="address1" size="40" class="postcodify_address" readonly="readonly">
-								</td>
-							</tr>
-							<tr>
-								<td>상세주소</td>
-								<td>
-									<input type="text" name="address2" size="40" class="postcodify_extra_info">
-								</td>
-							</tr>
-						</c:if>
-						<c:if test="${ !empty loginMan.address }">
-							<c:forTokens items="${ loginMan.address }" delims="," var="addr" varStatus="status">
-								<c:if test="${ status.index eq 0 }">
-									<tr>
-										<td>주소</td>
-										<td>
-											<input type="text" name="address1" size="40" value="${ addr }" class="postcodify_address">
-										</td>
-									</tr>
-								</c:if>
-								<c:if test="${ status.index eq 1 }">
-									<tr>
-										<td>상세 주소</td>
-										<td>
-											<input type="text" name="address2" size="40" value="${ addr }"  class="postcodify_extra_info">
-										</td>
-									</tr>
-								</c:if>
-							</c:forTokens>
-							
-						
-						</c:if>
-						
-						
-					</table>
-					<br><br>
-					<button type="submit" class="btn btn-secondary btn-lg">수정</button>
-					
-				</form>
-				<br><br><br><br>
+		<!-- content-body -->
+		<div class="content-body" style="min-height: 889px;">
+
+			<div class="row page-titles mx-0">
+				<div class="col p-md-0"></div>
 			</div>
-				
-			
 			<!-- row -->
-	
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<h5>비밀번호 찾기</h5>
+								<h5 align="center"></h5>
+								<br>
+								<div class="form-validation">
+									<form class="form-valide" action="findPwd.wo" method="post">
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="num">사원번호
+												<span class="text-danger"></span>
+											</label>
+											<div class="col-lg-6">
+												<input type="number" class="form-control" id="num" name="num" required>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="name">이름
+												<span class="text-danger"></span>
+											</label>
+											<div class="col-lg-6">
+												<input type="text" class="form-control" id="name" name="name" required>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-lg-8 ml-auto">
+												<button type="submit" class="btn btn-primary">비밀번호 찾기</button>
+											</div>
+										</div>
+										
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- #/ container -->
 		</div>
-		<!--**********************************
-            Content body end
-        ***********************************-->
-		<c:import url="../common/footer.jsp"></c:import>	
+		<!-- /content-body -->
+		<c:import url="../common/footer.jsp"></c:import>
 	</div>
-	<!--**********************************
-        Main wrapper end
-    ***********************************-->
-    
-    
-    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-	<script>
-		$(function(){
-			$(".postcodify_address").postcodifyPopUp();
-		});
-	</script>
-    
-    
-    
-    
-    
+	<!-- /main-wrapper -->
+	
+	
+
 </body>
+<iframe id="google_esf" name="google_esf"
+	src="https://googleads.g.doubleclick.net/pagead/html/r20191003/r20190131/zrt_lookup.html#"
+	data-ad-client="ca-pub-2783044520727903" style="display: none;"></iframe>
 </html>
