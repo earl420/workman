@@ -9,6 +9,8 @@
 <typeAliases>
 	<typeAlias type="com.wework.workman.mypage.model.vo.Mypage" alias="Mypage"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Notice" alias="Notice"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.Department" alias="Department"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.Employee" alias="Employee"/>
 	<typeAlias type="com.wework.workman.account.model.vo.AccountStatus" alias="AccountStatus"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.AcNotice" alias="AcNotice"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.Fixture" alias="Fixture"></typeAlias>
@@ -19,8 +21,9 @@
 	<typeAlias type="com.wework.workman.account.model.vo.Product" alias="Product"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.SalaryManage" alias="SalaryManage"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.SaleManage" alias="SaleManage"></typeAlias>
+	<!-- chatting -->
 	<typeAlias type="com.wework.workman.chatting.model.vo.Room" alias= "Room"/>
-	
+	<typeAlias type="com.wework.workman.chatting.model.vo.Message" alias ="Message"/>
 </typeAliases>
 
 <mappers>

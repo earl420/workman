@@ -71,8 +71,11 @@
 .msgOther {
 	background-color: #ecf0f1;
 	max-width: 60%;
+	height: auto;
 	clear: both;
 	float: left;
+	margin-left:10px;
+	margin-right:10px;
 }
 
 .msgMe {
@@ -81,6 +84,8 @@
 	height: auto;
 	clear: both;
 	float: right;
+	margin-left:10px;
+	margin-right:100px;
 }
 /* UserList */
 #newchat {
@@ -108,33 +113,26 @@ img {
 	border-bottom: 1px solid #c4c4c4;
 	margin: 0;
 	padding: 18px 16px 10px;
-}
-
-.chat_people {
 	overflow: hidden;
 	clear: both;
 }
 
-.chat_ib h5 {
+.chat_list h5 {
 	font-size: 15px;
 	color: #464646;
 	margin: 0 0 8px 0;
 }
 
-.chat_ib h5 span {
+.chat_list h5 span {
 	font-size: 13px;
 	float: right;
 }
 
-.chat_ib p {
+.chat_list p {
 	font-size: 14px;
 	color: #989898;
-	margin: auto
-}
-
-.chat_img {
-	float: left;
-	width: 11%;
+	margin: auto;
+	align : left;
 }
 </style>
 </head>
@@ -145,19 +143,19 @@ img {
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<!-- 	<!--******************* -->
-<!--         Preloader start -->
-<!--     ********************--> -->
-<!-- 	<div id="preloader"> -->
-<!-- 		<div class="loader"> -->
-<%-- 			<svg class="circular" viewBox="25 25 50 50"> <circle --%>
-<%-- 					class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" --%>
-<%-- 					stroke-miterlimit="10" /> </svg> --%>
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- 	<!--******************* -->
-<!--         Preloader end -->
-<!--     ********************--> -->
+	<!-- 	<!--******************* -->
+	<!--         Preloader start -->
+	<!--     ********************-->
+	<!-- 	<div id="preloader"> -->
+	<!-- 		<div class="loader"> -->
+	<%-- 			<svg class="circular" viewBox="25 25 50 50"> <circle --%>
+	<%-- 					class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" --%>
+	<%-- 					stroke-miterlimit="10" /> </svg> --%>
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+	<!-- 	<!--******************* -->
+	<!--         Preloader end -->
+	<!--     ********************-->
 
 
 	<!--**********************************
@@ -167,7 +165,7 @@ img {
 		<c:import url="../common/header.jsp"></c:import>
 		<input type="hidden" value=${loginUser.loginId } id="loginId">
 		<input type="hidden" value=${loginUser.loginName } id="loginName">
-		<input type="hidden" value="null" id="roomId">
+		<input type="hidden" value="" id="roomId">
 
 		<!--**********************************
             Content body start
@@ -180,27 +178,13 @@ img {
 						<div class="card">
 							<div class="card-body">
 								<div class="card-title">ChatList</div>
-								<div class="slimScrollDiv">
-									<!-- 									<ul class="roomBox" id="listBox"> -->
-									<!-- 									</ul> -->
+								<div class="slimScrollDiv" id="chatListScroll">
 
-
-									<%-- <c:forEach --%>
-									<!-- 									<div class="inbox_chat"> -->
 									<div class="chat_list active_chat">
-										<div class="chat_people">
-											<div class="chat_img">
-												<img src="https://ptetutorials.com/images/user-profile.png"
-													alt="sunil">
-											</div>
-											<div class="chat_ib">
-												<h5>
-													Sunil Rajput <span class="chat_date">Dec 25</span>
-												</h5>
-												<p>Test, which is a new approach to have all solutions
-													astrology under one roof.</p>
-											</div>
-										</div>
+										<h5>
+											Sunil Rajput <span class="chat_date">Dec 25</span>
+										</h5>
+										<p>Test, which is a one roof.</p>
 									</div>
 								</div>
 
@@ -237,13 +221,6 @@ img {
 									</div>
 									<!-- /input-group -->
 								</div>
-								<!-- col-lg-6 -->
-								<!-- <div class="input-group mb-3"> -->
-								<!--   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
-								<!--   <div class="input-group-append"> -->
-								<!--     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> -->
-								<!--   </div> -->
-								<!-- </div> -->
 
 
 							</div>
@@ -280,34 +257,38 @@ img {
 		var userName = $("#loginName").val();//!!!!!!!!!!!!!!!1확인
 		var roomId = $("#roomId").val();//!!!!!!!!!!!!!확인
 		var writer;
-		
+
 		//onOpen:userId
+		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
+		//	<=msgHistory:sender:content:time:status
+
 		//rCng:roomId;
+		//	<=msgHistory:sender:content:time:status
+		
 		//newRoom:[userid..]
 		//exitRoom:roomId
 		//addUser:roomId:[userId]
 		//msg:userId:msgContent
-		
-		
 
 		$(function() {
 			connect();
-			$('#sendBtn').click(function() {
+			$('#sendBtn').click(function() {//엔터키 입력시 전송.
 				send();
 			});
 		});
 
-		function connect() {
+		function connect() {//초기설정
 			wbSocket = new WebSocket("ws://localhost:8888/workman/chatting.ch");
 			wbSocket.onopen = onOpen;
 			wbSocket.onclose = onClose;
 			wbSocket.onmessage = onMessage;
 		}
-		
+
 		function onOpen(evt) {
 			appendMessage("연결성공");
+			
 			var openString = "onOpen:" + userId;
-			wbSocket.send(openString);
+			wbSocket.send(openString);//오픈시 룸리스트, 메세지 히스토리 받아오기.
 		}
 
 		function onClose(evt) {
@@ -316,8 +297,7 @@ img {
 
 		function send() {
 			var msg = $("#msgInput").val();
-			writer = userName;
-			wbSocket.send(roomId + ":" + userName + ":" + msg);
+			wbSocket.send("msg:"+userId + ":" + roomId +":"+msg );
 
 			$("#msgInput").val("");
 		}
@@ -326,34 +306,37 @@ img {
 			var spData = data.split(":");
 			var preMsg = spData[0];
 			console.log(spData);
-			
+
 			//onOpen:userId
-			//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
+			//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 			//	<=msgHistory:sender:content:time:status
-			
+
 			//rCng:roomId;
 			//	<=msgHistory:sender:content:time:status
 			//newRoom:[userid..]
 			//exitRoom:roomId
 			//addUser:roomId:[userId]
 			//msg:userId:msgContent
-			
-			if(preMsg=="roomListSet"){
-				roomListSet(spData);
-			}else if(preMsg=="msgHistory"){
-				msgHistory(spData);
-			}else if(preMsg=="")
-				
 
-			appendMessage();
+			if (preMsg == "roomSetList") {
+				roomSetList(spData);
+			} else if (preMsg == "msgHistory") {
+				msgHistory(spData);
+			} else if (preMsg == "msg"){
+				
+				appendMessage(spData[1]);
+			}else{
+				
+			}
+
+				
 		}
 
 		function appendMessage(msg) {
-			if (userName == writer) {
+			if (userId == writer) {
 				$("#chatBox").append("<li class='msgMe'>liMe" + msg + "</li>");
 			} else {
-				$("#chatBox").append(
-						"<li class='msgOhter'>liOther" + msg + "</li>");
+				$("#chatBox").append("<li class='msgOther'>liOt" + msg + "</li>");
 			};
 			// 		$("#testTa").append(msg);
 		}
@@ -364,12 +347,50 @@ img {
 				event.stopPropagation;
 			}
 		}
+		
+		
+		//--------초기설정----------
+		
 		//onOpen:userId
-		//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
+		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 		//	<=msgHistory:sender:content:time:status
-		function roomListSet(spData){
+		function roomSetList(spData) {
+			console.log("roomListSet : "+spData);
+			roomSetList:ROOM201910250001:test1:testCont:empId:2019-10-25
+			var setRoomId   = spData[1];
+			var setRoomName = spData[2];
+			var setLastMan  = spData[3];
+			var setLastWord = spData[4];
+			var setLastComm = spData[5];
+
+			var $divSc =$('#chatListScroll');
 			
+// 			var $div_chatList = $('<div class="chat_list" id="'+setRoomId+'">');
+// 			var $h5 = $('<h5>'+setRoomName+'<span class="chat_date">'+setLastComm+'</span></h5>');
+// 			var $p = $('<p>'+setLastWord+'<p>');
+			
+			
+			var $h5 = $('<h5>'+setRoomName+'<span class="chat_date">'+setLastComm+'</span></h5>');
+			var $p = $('<p>'+setLastWord+'<p>');
+			var $div_chatList = $('<div class="chat_list"></div>');
+
+			$divSc.append($div_chatList);
+			
+			$div_chatList.append($h5);
+			$h5.append($p);
+			
+			
+			console.log('ok');
+			// active_chat 맨위에꺼에 지정하고 룸번호날려..주나?
 		}
+		
+		function msgHistory(spData){
+			writer = spData[1];
+			console.log("msgHistory_spData[1] : "+spData[1]);
+			console.log("msgHistory_userName : "+userName);
+			appendMessage(spData[2]);
+		}
+		
 	</script>
 </body>
 </html>

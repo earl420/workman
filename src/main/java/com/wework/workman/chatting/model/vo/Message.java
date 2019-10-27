@@ -14,6 +14,7 @@ public class Message {
 	public Message() {
 		
 	}
+	//전체
 	public Message(String msgNum, String roomId, String sender, String msgCont, Date msgTime, String status) {
 		super();
 		this.msgNum = msgNum;
@@ -23,9 +24,20 @@ public class Message {
 		this.msgTime = msgTime;
 		this.status = status;
 	}
+	
+	//msgHistory
+	public Message(String msgNum, String sender, String msgCont, Date msgTime, String status) {
+		super();
+		this.msgNum = msgNum;
+		this.sender = sender;
+		this.msgCont = msgCont;
+		this.msgTime = msgTime;
+		this.status = status;
+	}
 	public String getMsgNum() {
 		return msgNum;
 	}
+	
 	public void setMsgNum(String msgNum) {
 		this.msgNum = msgNum;
 	}
