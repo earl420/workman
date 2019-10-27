@@ -210,6 +210,14 @@
 		<c:import url="common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
+	
+	<script type="text/javascript">
+		$(function(){
+		   if(${!empty msg}){
+			   alert('${msg}');
+		   }
+		});
+	</script>
 
 </body>
 </html>
