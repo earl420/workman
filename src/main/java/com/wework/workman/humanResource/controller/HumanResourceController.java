@@ -79,7 +79,7 @@ public class HumanResourceController {
 		
 		String originalFileName = file.getOriginalFilename();
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		
 		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + originalFileName.substring(originalFileName.lastIndexOf("."));
 		
