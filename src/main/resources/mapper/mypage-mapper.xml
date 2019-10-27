@@ -58,7 +58,7 @@
 	</update>
 	
 	<!-- 비번 찾기 -->
-	<select id="findPwd" parameterType="myPage" resultMap="findPwd">
+	<select id="findPwd" parameterType="Mypage" resultMap="findPwd">
 		select *
 		from employee
 		where emp_num=#{num} and emp_name=#{name} and emp_status='Y'
