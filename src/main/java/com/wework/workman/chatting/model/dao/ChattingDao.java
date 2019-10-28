@@ -35,7 +35,7 @@ public class ChattingDao {
 		return list;
 	}
 	public int msgDb(Message msg) {
-		int result = sqlSession.insert("chattingMapper.sendMessage",msg);
+		int result = sqlSession.insert("chattingMapper.msgDb",msg);
 		return result;
 	}
 	

@@ -61,9 +61,51 @@
 				</div>
 			</div>
 			<!-- row -->
-
+<!-- <div class="row">
+                                        <div class="col-xl-4 col-md-4 col-sm-3 mb-4 mb-sm-0">
+                                            <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action active show" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" aria-selected="true">Home</a> <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a> <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages" aria-selected="false">Messages</a> <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-8 col-md-8 col-sm-9">
+                                            <div class="tab-content" id="nav-tabContent">
+                                                <div class="tab-pane fade active show" id="list-home">
+                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
+                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
+                                                    enim eu nostrud do aliquip veniam minim.</p>
+                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
+                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
+                                                    enim eu nostrud do aliquip veniam minim.</p>
+                                                </div>
+                                                <div class="tab-pane fade" id="list-profile" role="tabpanel">
+                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
+                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
+                                                    enim eu nostrud do aliquip veniam minim.</p>
+                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
+                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
+                                                    enim eu nostrud do aliquip veniam minim.</p>
+                                                </div>
+                                                <div class="tab-pane fade" id="list-messages">
+                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
+                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
+                                                    enim eu nostrud do aliquip veniam minim.</p>
+                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
+                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
+                                                    enim eu nostrud do aliquip veniam minim.</p>
+                                                </div>
+                                                <div class="tab-pane fade" id="list-settings">
+                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
+                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
+                                                    enim eu nostrud do aliquip veniam minim.</p>
+                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
+                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
+                                                    enim eu nostrud do aliquip veniam minim.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
 			<div class="container-fluid">
 				<div class="row">
+				
 					<div class="col-lg-2" style="border: 1px solid black">
 						<div class="sideDept1">부서1</div>
 						<div class="sideDept2">부서 1-1</div>
