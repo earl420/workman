@@ -64,7 +64,7 @@
 												<span class="text-danger"></span>
 											</label>
 											<div class="col-lg-6">
-												<input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="한번 더 입력 해주세요" required>
+												<input type="password" class="form-control" id="pwd2" placeholder="한번 더 입력 해주세요" required>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -83,7 +83,7 @@
 			<!-- #/ container -->
 		</div>
 		<!-- /content-body -->
-		<c:import url="../common/footer.jsp"></c:import>
+		<c:import url="../common/footer.jsp"	></c:import>
 	</div>
 	<!-- /main-wrapper -->
 	
@@ -92,7 +92,6 @@
 		
 		var pwd = document.getElementById("pwd");
 		var pwd2 = document.getElementById("pwd2");
-		var btn = document.getElementById("btn");
 	
 		$(function(){
 			$(pwd).on('focusout', function(){
@@ -111,10 +110,6 @@
 					pwd2.value="";
 				}
 			});
-			
-			
-		
-		
 		});
 		
 		

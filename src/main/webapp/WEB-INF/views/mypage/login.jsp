@@ -344,21 +344,27 @@
 	
 		    <!-- Login Form -->
 		    <form  action="login.wo" method="post">
-	        	<input type="number" id="num" class="fadeIn second" name="num" placeholder="사원번호" required>
-	        	<input type="password" class="fadeIn third" name="pwd" placeholder="비밀번호" required><br>
+	        	<input type="number" id="num" class="fadeIn first" name="num" placeholder="사원번호" required>
+	        	<input type="password" class="fadeIn second" name="pwd" placeholder="비밀번호" required><br>
 	        	<!-- <p class="fadeIn fourth"><input type="checkbox" id="remember" class="fadeIn fourth" value="true"/>사원번호 저장</p> -->
-	        	<input type="submit" id="btn" class="fadeIn fiveth" value="로그인">
+	        	<input type="submit" id="btn" class="fadeIn third" value="로그인">
 		    </form>
 	
 	    <!-- Remind Passowrd -->
 	    <div id="formFooter">
 	      <a class="underlineHover" href="findPwdPage.wo">비밀번호 찾기</a>
-    </div>
+    	</div>
 
 		</div>
 	</div>
 <script>
 //아이디저장. 테스트 해봄.
+   $(function(){
+	   if(${!empty msg}){
+		   alert('${msg}');
+	   }
+   });
+
 	/*
    $(function(){
 	   
@@ -375,7 +381,6 @@
        
    });
    */
-
 </script>
 </body>
 </html>
