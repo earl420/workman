@@ -359,6 +359,12 @@
 	</div>
 <script>
 //아이디저장. 테스트 해봄.
+   $(function(){
+	   if(${!empty msg}){
+		   alert('${msg}');
+	   }
+   });
+
 	/*
    $(function(){
 	   
@@ -375,7 +381,6 @@
        
    });
    */
-
 </script>
 </body>
 </html>

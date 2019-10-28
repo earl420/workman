@@ -22,6 +22,13 @@ public class Mypage {
 	private String bank;
 	private String gradeName;
 	private String deptName;
+	private String profileOriginName;
+	private String profilePath;
+	private int holidayCount;
+	private int holidayLeft;
+	private Date holidayYear;
+	
+	
 	
 	public Mypage() {
 		super();
@@ -29,7 +36,8 @@ public class Mypage {
 
 	public Mypage(String num, String pwd, String name, String email, String gender, Date birth, String phone,
 			String address, int gradeNum, int deftNum, int salary, Date enrollDate, Date resignDate, String status,
-			String account, String bank, String gradeName, String deptName) {
+			String account, String bank, String gradeName, String deptName, int holidayCount, int holidayLeft, 
+			Date holidayYear) {
 		super();
 		this.num = num;
 		this.pwd = pwd;
@@ -49,6 +57,9 @@ public class Mypage {
 		this.bank = bank;
 		this.gradeName = gradeName;
 		this.deptName = deptName;
+		this.holidayCount = holidayCount;
+		this.holidayLeft = holidayLeft;
+		this.holidayYear = holidayYear;
 	}
 
 	public String getNum() {
@@ -195,17 +206,42 @@ public class Mypage {
 		this.deptName = deptName;
 	}
 
+	public int getHolidayCount() {
+		return holidayCount;
+	}
+
+	public void setHolidayCount(int holidayCount) {
+		this.holidayCount = holidayCount;
+	}
+
+	public int getHolidayLeft() {
+		return holidayLeft;
+	}
+
+	public void setHolidayLeft(int holidayLeft) {
+		this.holidayLeft = holidayLeft;
+	}
+
+	public Date getHolidayYear() {
+		return holidayYear;
+	}
+
+	public void setHolidayYear(Date holidayYear) {
+		this.holidayYear = holidayYear;
+	}
+
 	@Override
 	public String toString() {
 		return "Mypage [num=" + num + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", gender=" + gender
 				+ ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", gradeNum=" + gradeNum
 				+ ", deftNum=" + deftNum + ", salary=" + salary + ", enrollDate=" + enrollDate + ", resignDate="
 				+ resignDate + ", status=" + status + ", account=" + account + ", bank=" + bank + ", gradeName="
-				+ gradeName + ", deptName=" + deptName + "]";
+				+ gradeName + ", deptName=" + deptName + ", profileOriginName=" + profileOriginName + ", profilePath="
+				+ profilePath + ", holidayCount=" + holidayCount + ", holidayLeft=" + holidayLeft + ", holidayYear="
+				+ holidayYear + "]";
 	}
 
 	
-	
-	
+
 
 }

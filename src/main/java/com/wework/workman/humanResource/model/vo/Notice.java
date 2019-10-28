@@ -9,6 +9,7 @@ public class Notice {
 	private String noticeTitle;
 	private String noticeContent;
 	private String empNum;
+	private String empName;
 	private Date noticeDate;
 	private Date noticeModify;
 	private String noticeStatus;
@@ -19,13 +20,14 @@ public class Notice {
 	}
 
 	public Notice(String noticeNum, int noticeDept, String noticeTitle, String noticeContent, String empNum,
-			Date noticeDate, Date noticeModify, String noticeStatus, int noticeAccType) {
+			String empName, Date noticeDate, Date noticeModify, String noticeStatus, int noticeAccType) {
 		super();
 		this.noticeNum = noticeNum;
 		this.noticeDept = noticeDept;
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
 		this.empNum = empNum;
+		this.empName = empName;
 		this.noticeDate = noticeDate;
 		this.noticeModify = noticeModify;
 		this.noticeStatus = noticeStatus;
@@ -72,6 +74,14 @@ public class Notice {
 		this.empNum = empNum;
 	}
 
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
 	public Date getNoticeDate() {
 		return noticeDate;
 	}
@@ -107,10 +117,11 @@ public class Notice {
 	@Override
 	public String toString() {
 		return "Notice [noticeNum=" + noticeNum + ", noticeDept=" + noticeDept + ", noticeTitle=" + noticeTitle
-				+ ", noticeContent=" + noticeContent + ", empNum=" + empNum + ", noticeDate=" + noticeDate
-				+ ", noticeModify=" + noticeModify + ", noticeStatus=" + noticeStatus + ", noticeAccType="
+				+ ", noticeContent=" + noticeContent + ", empNum=" + empNum + ", empName=" + empName + ", noticeDate="
+				+ noticeDate + ", noticeModify=" + noticeModify + ", noticeStatus=" + noticeStatus + ", noticeAccType="
 				+ noticeAccType + "]";
 	}
+	
 	
 
 }

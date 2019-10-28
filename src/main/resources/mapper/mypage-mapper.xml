@@ -23,6 +23,9 @@
 		<result property="bank" column="EMP_BANK"/>
 		<result property="gradeName" column="GRADE_NAME"/>
 		<result property="deptName" column="DEPT_NAME"/>
+		<result property="holidayCount" column="HOLIDAY_COUNT"/>
+		<result property="holidayLeft" column="HOLIDAY_LEFT"/>
+		<result property="holidayYear" column="HOLIDAY_YEAR"/>
 	</resultMap>
 	
 	<resultMap type="Mypage" id="findPwd">
@@ -34,8 +37,9 @@
 	<select id="loginMan" parameterType="Mypage" resultMap="empResultSet">
 		select *
 		from employee
-		join grade using(grade_num)
-		join dept using(dept_num)
+		left outer join grade using(grade_num)
+		left outer join dept using(dept_num)
+		left outer join holiday_count using(emp_num)
 		where emp_num=#{num} and emp_status='Y'
 	</select>
 	
@@ -54,7 +58,7 @@
 	</update>
 	
 	<!-- 비번 찾기 -->
-	<select id="findPwd" parameterType="myPage" resultMap="findPwd">
+	<select id="findPwd" parameterType="Mypage" resultMap="findPwd">
 		select *
 		from employee
 		where emp_num=#{num} and emp_name=#{name} and emp_status='Y'

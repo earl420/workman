@@ -46,6 +46,10 @@ public class MypageController {
 		return "myPage/login";
 	}
 
+	/**
+	 * 마이 페이지
+	 * @return
+	 */
 	@RequestMapping("mypageView.wo")
 	public String myPageView() {
 		return "myPage/mypageView";
@@ -104,14 +108,14 @@ public class MypageController {
 	public String loginEmp(Mypage m, Model model){
 		  
 		  Mypage loginMan = mService.loginMan(m);
-		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
-			  
-			  model.addAttribute("loginMan", loginMan); 
+			  System.out.println(m);
+			  model.addAttribute("loginMan", loginMan);
 			  return "redirect:home.wo";
 		  
 		  }else {
-			  return "redirect:loginPage.wo";
+			  model.addAttribute("msg", "사번 또는 비밀번호를 확인해주세요.");
+			  return "myPage/login";
 			  
 
 		  }
@@ -177,7 +181,8 @@ public class MypageController {
 		if(result > 0) {
 			Mypage loginMan = mService.loginMan(mp);
 			model.addAttribute("loginMan",loginMan);
-			return "redirect:home.wo";
+			model.addAttribute("msg", "정보가 수정 되었습니다.");
+			return "home";
 		}else {
 			
 			return "myPage/changePwd";
@@ -200,8 +205,8 @@ public class MypageController {
 			model.addAttribute("loginMan", loginMan);
 			return "myPage/changePwd";
 		}else {
-			
-			return "redirect:confirmPwdPage.wo";
+			model.addAttribute("msg", "비밀번호가 맞지 않습니다.");
+			return "myPage/confirmPwd";
 			  	
 		}
 		
@@ -218,10 +223,10 @@ public class MypageController {
 		
 		Mypage m = (Mypage)model.getAttribute("loginMan");
 		m.setPwd(pwd);
-		System.out.println(m);
 		int result = mService.pwdUpdate(m);		
 		if(result > 0) {
-			return "redirect:logout.wo";
+			model.addAttribute("msg", "비밀번호가 변경 되었습니다.");
+			return "myPage/login";
 		}else {
 			
 			return "myPage/changePwd";
@@ -245,7 +250,7 @@ public class MypageController {
 			model.addAttribute("returnPwd", returnPwd);
 			return "myPage/returnPwd";
 		}else {
-			
+			model.addAttribute("msg", "사원정보가 맞지 않습니다.");
 			return "myPage/findPwd";
 			
 		}
@@ -259,11 +264,12 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("returnPwd.wo")
-	public String returnPwd(Mypage m) {
+	public String returnPwd(Mypage m, Model model) {
 		
 		System.out.println(m);
 		int result = mService.returnPwd(m);
 		if(result > 0) {
+			model.addAttribute("msg", "비밀번호가 변경 되었습니다.");
 			return "myPage/login";
 		}else {
 			
