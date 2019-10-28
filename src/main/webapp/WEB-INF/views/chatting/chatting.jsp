@@ -74,8 +74,8 @@
 	height: auto;
 	clear: both;
 	float: left;
-	margin-left:10px;
-	margin-right:10px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .msgMe {
@@ -84,8 +84,8 @@
 	height: auto;
 	clear: both;
 	float: right;
-	margin-left:10px;
-	margin-right:100px;
+	margin-left: 10px;
+	margin-right: 100px;
 }
 /* UserList */
 #newchat {
@@ -117,6 +117,10 @@ img {
 	clear: both;
 }
 
+.chat_list:hover {
+	background: #ebebeb;
+}
+
 .chat_list h5 {
 	font-size: 15px;
 	color: #464646;
@@ -132,7 +136,11 @@ img {
 	font-size: 14px;
 	color: #989898;
 	margin: auto;
-	align : left;
+	align: left;
+}
+
+.setSpan {
+	float: left;
 }
 </style>
 </head>
@@ -165,7 +173,7 @@ img {
 		<c:import url="../common/header.jsp"></c:import>
 		<input type="hidden" value=${loginUser.loginId } id="loginId">
 		<input type="hidden" value=${loginUser.loginName } id="loginName">
-		<input type="hidden" value="" id="roomId">
+		<input type="hidden" value="" id="actiRoomId">
 
 		<!--**********************************
             Content body start
@@ -181,15 +189,15 @@ img {
 								<div class="slimScrollDiv" id="chatListScroll">
 
 									<div class="chat_list active_chat">
+										<input type="hidden" value="test">
 										<h5>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
+											<i class="fas fa-cog setSpan"></i> Sunil Rajput <span
+												class="chat_date">Dec 25</span>
 										</h5>
 										<p>Test, which is a one roof.</p>
 									</div>
+									
 								</div>
-
-
-
 
 
 								<div class="newChattingDiv">
@@ -255,29 +263,15 @@ img {
 		var wbSocket;
 		var userId = $("#loginId").val();
 		var userName = $("#loginName").val();//!!!!!!!!!!!!!!!1확인
-		var roomId = $("#roomId").val();//!!!!!!!!!!!!!확인
+		var actiRoomId = $("#actiRoomId").val();//!!!!!!!!!!!!!확인
 		var writer;
-
-		//onOpen:userId
-		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
-		//	<=msgHistory:sender:content:time:status
-
-		//rCng:roomId;
-		//	<=msgHistory:sender:content:time:status
-		
-		//newRoom:[userid..]
-		//exitRoom:roomId
-		//addUser:roomId:[userId]
-		//msg:userId:msgContent
 
 		$(function() {
 			connect();
-			$('#sendBtn').click(function() {//엔터키 입력시 전송.
-				send();
-			});
 		});
-
-		function connect() {//초기설정
+		
+		//webSocket 초기설정
+		function connect() {
 			wbSocket = new WebSocket("ws://localhost:8888/workman/chatting.ch");
 			wbSocket.onopen = onOpen;
 			wbSocket.onclose = onClose;
@@ -297,15 +291,24 @@ img {
 
 		function send() {
 			var msg = $("#msgInput").val();
-			wbSocket.send("msg:"+userId + ":" + roomId +":"+msg );
-
+			wbSocket.send("msg:"+userId+":"+actiRoomId+":"+msg);
+			
 			$("#msgInput").val("");
 		}
+		function onKeyDown() {
+			if (event.keyCode == '13') {
+				send();
+				event.stopPropagation;
+			}
+		}
+		$('#sendBtn').click(function() {//버튼클릭.
+			send();
+		});
+
 		function onMessage(evt) {
 			var data = evt.data;
 			var spData = data.split(":");
 			var preMsg = spData[0];
-			console.log(spData);
 
 			//onOpen:userId
 			//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
@@ -323,10 +326,9 @@ img {
 			} else if (preMsg == "msgHistory") {
 				msgHistory(spData);
 			} else if (preMsg == "msg"){
-				
-				appendMessage(spData[1]);
+				appendMessage(spData[3]);
 			}else{
-				
+				console.log("??????");
 			}
 
 				
@@ -334,19 +336,13 @@ img {
 
 		function appendMessage(msg) {
 			if (userId == writer) {
-				$("#chatBox").append("<li class='msgMe'>liMe" + msg + "</li>");
+				$("#chatBox").append("<li class='msgMe'>" + msg + "</li>");
 			} else {
-				$("#chatBox").append("<li class='msgOther'>liOt" + msg + "</li>");
+				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
 			};
 			// 		$("#testTa").append(msg);
 		}
-		function onKeyDown() {
-			console.log("bam" + event.keyCode);
-			if (event.keyCode == '13') {
-				send();
-				event.stopPropagation;
-			}
-		}
+		
 		
 		
 		//--------초기설정----------
@@ -355,8 +351,6 @@ img {
 		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 		//	<=msgHistory:sender:content:time:status
 		function roomSetList(spData) {
-			console.log("roomListSet : "+spData);
-			roomSetList:ROOM201910250001:test1:testCont:empId:2019-10-25
 			var setRoomId   = spData[1];
 			var setRoomName = spData[2];
 			var setLastMan  = spData[3];
@@ -365,32 +359,53 @@ img {
 
 			var $divSc =$('#chatListScroll');
 			
-// 			var $div_chatList = $('<div class="chat_list" id="'+setRoomId+'">');
-// 			var $h5 = $('<h5>'+setRoomName+'<span class="chat_date">'+setLastComm+'</span></h5>');
-// 			var $p = $('<p>'+setLastWord+'<p>');
-			
-			
-			var $h5 = $('<h5>'+setRoomName+'<span class="chat_date">'+setLastComm+'</span></h5>');
-			var $p = $('<p>'+setLastWord+'<p>');
-			var $div_chatList = $('<div class="chat_list"></div>');
 
+// 			<div class="chat_list active_chat">
+// 				<input type="hidden" value="">
+// 					<h5><i class="fas fa-cog setSpan"></i>
+// 						Sunil Rajput <span class="chat_date">Dec 25</span>
+// 					</h5>
+// 					<p>Test, which is a one roof.</p>
+// 				</div>
+// 			</div>
+			
+			var $div_chatList = $("<div class='chat_list'>");
+			var $hrId =$("<input type='hidden' value='"+setRoomId+"'>");
+			var $h5 = $("<h5>"+setRoomName+"<span class='chat_date'>"+setLastComm+"</span></h5>");
+			var $iSpan =$("<i class='fas fa-cog setSpan'></i>");
+			var $p = $("<p>"+setLastWord+"<p>");
+			
+			
+			
 			$divSc.append($div_chatList);
-			
+			$div_chatList.append($hrId);
 			$div_chatList.append($h5);
-			$h5.append($p);
+			$h5.append($iSpan);
+			$div_chatList.append($p);
 			
 			
-			console.log('ok');
+			$("#actiRoomId").val(setRoomId);
+			actiRoomId= setRoomId;
 			// active_chat 맨위에꺼에 지정하고 룸번호날려..주나?
 		}
-		
 		function msgHistory(spData){
 			writer = spData[1];
-			console.log("msgHistory_spData[1] : "+spData[1]);
-			console.log("msgHistory_userName : "+userName);
 			appendMessage(spData[2]);
 		}
+//		------------초기설정 끝
+
+		function newChat(){
+	
+		}
 		
+		//roomSetB
+		$("#chatListScroll").on("click", ".setSpan", function(){
+			alert("i");
+			var hrId = $(this).parent().parent().children().eq(0).val();
+			console.log(hrId);
+			
+		});
+
 	</script>
 </body>
 </html>

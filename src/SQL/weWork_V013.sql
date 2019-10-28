@@ -24,6 +24,8 @@ END;
 -------------------------------------
 
 
+
+
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
 
 -- DEPT Table Create SQL
@@ -408,15 +410,16 @@ ALTER TABLE CHAT_JOIN
 -- DEPT Table Create SQL
 CREATE TABLE DOC_HOLIDAY
 (
-    HOLI_NUM         VARCHAR2(50)    NOT NULL, 
-    DEPT_NUM         INT             NOT NULL, 
-    EMP_NUM          VARCHAR2(50)    NOT NULL, 
-    HOLI_TYPE        VARCHAR2(20)    NOT NULL, 
-    HOLI_APPLY       DATE            NOT NULL, 
-    HOLIDAY_START    DATE            NOT NULL, 
-    HOLIDAY_END      DATE            NOT NULL, 
-    APPROVAL_NUM     VARCHAR2(50)    NULL, 
-    CONFIRM_NUM      VARCHAR2(50)    NULL, 
+    HOLI_NUM          VARCHAR2(50)    NOT NULL, 
+    DEPT_NUM          INT             NOT NULL, 
+    EMP_NUM           VARCHAR2(50)    NOT NULL, 
+    HOLI_TYPE         VARCHAR2(20)    NOT NULL, 
+    HOLI_APPLY        DATE            NOT NULL, 
+    HOLIDAY_START     DATE            NOT NULL, 
+    HOLIDAY_END       DATE            NOT NULL, 
+    APPROVAL_NUM      VARCHAR2(50)    NULL, 
+    CONFIRM_NUM       VARCHAR2(50)    NULL, 
+    HOLIDAY_STATUS    VARCHAR2(20)    NOT NULL, 
     CONSTRAINT DOC_HOLIDAY_PK PRIMARY KEY (HOLI_NUM)
 )
 /
@@ -449,6 +452,9 @@ COMMENT ON COLUMN DOC_HOLIDAY.APPROVAL_NUM IS '승인번호F'
 /
 
 COMMENT ON COLUMN DOC_HOLIDAY.CONFIRM_NUM IS '결제번호F'
+/
+
+COMMENT ON COLUMN DOC_HOLIDAY.HOLIDAY_STATUS IS '상태YN'
 /
 
 ALTER TABLE DOC_HOLIDAY
@@ -1136,7 +1142,7 @@ CREATE TABLE HOLIDAY_COUNT
     EMP_NUM          VARCHAR2(50)    NOT NULL, 
     HOLIDAY_COUNT    NUMBER          NOT NULL, 
     HOLIDAY_LEFT     NUMBER          NOT NULL, 
-    HOLIDAY_YEAR     DATE            NOT NULL, 
+    HOLIDAY_YEAR     VARCHAR2(20)    NOT NULL, 
     CONSTRAINT HOLIDAY_COUNT_PK PRIMARY KEY (EMP_NUM)
 )
 /
@@ -1389,7 +1395,6 @@ ALTER TABLE CHAT_MSG
 
 
 
-
 --SEQ
 CREATE SEQUENCE APPROVAL_NUM_SEQ;
 CREATE SEQUENCE EMP_NUM_SEQ;
@@ -1417,12 +1422,12 @@ CREATE SEQUENCE CHAT_MSG_SEQ;
 
 --TRIGGER
 --CHAT_ROOM
-CREATE OR REPLACE TRIGGER TRG_CHAT_ROOM
-BEFORE INSERT ON CHAT_ROOM FOR EACH ROW
-BEGIN
-SELECT 'ROOM'||TO_CHAR(SYSDATE,'YYYYMMDD')||LPAD(CHAT_ROOM_SEQ.NEXTVAL,4,0) INTO :NEW.CHAT_ROOM FROM DUAL;
-END;
-/
+--CREATE OR REPLACE TRIGGER TRG_CHAT_ROOM
+--BEFORE INSERT ON CHAT_ROOM FOR EACH ROW
+--BEGIN
+--SELECT 'ROOM'||TO_CHAR(SYSDATE,'YYYYMMDD')||LPAD(CHAT_ROOM_SEQ.NEXTVAL,4,0) INTO :NEW.CHAT_ROOM FROM DUAL;
+--END;
+--/
 
 --CHAT_MSG
 CREATE OR REPLACE TRIGGER TRG_CHAT_MSG
@@ -1828,9 +1833,9 @@ INSERT INTO NOTICE VALUES(NULL, 301, '인사 관련 공지사항에 대해 알려드립니다.',
 
 
 --CHATTING DUMMY DATA
-insert into chat_room values(null,'test1');
-insert into chat_room values(null,'test1');
-insert into chat_room values(null,'test1');
+insert into chat_room values('ROOM201910250001','rName1');
+insert into chat_room values('ROOM201910250002','rName2');
+insert into chat_room values('ROOM201910250003','rName3');
 
 insert into chat_join values('ROOM201910250001','empId',sysdate);
 insert into chat_join values('ROOM201910250002','empId',sysdate);
@@ -1847,5 +1852,6 @@ insert into chat_msg values(null,'ROOM201910250002','test1','누가누구를 초대했대
 insert into chat_msg values(null,'ROOM201910250002','test1','누가누구를 초대했대!',sysdate,'Y');
 insert into chat_msg values(null,'ROOM201910250002','test1','누가누구를 초대했대!',sysdate,'Y');
 insert into chat_msg values(null,'ROOM201910250003','empId','누가누구를 초대했대!',sysdate,'Y');
-
 commit;
+
+
