@@ -60,8 +60,8 @@ function saleList(){
 				$('#incomeStatus>tr').slice(0,1).children().eq(1).text("");
 				$('#incomeStatus>tr').slice(2,3).css('font-size','1.8em');
 				$('#incomeStatus>tr').slice(2,3).children().eq(1).text("");
-				$('#incomeStatus>tr').slice(7,8).css('font-size','1.8em');
-				$('#incomeStatus>tr').slice(9,10).css('font-size','1.8em');
+				$('#incomeStatus>tr').slice(6,7).css('font-size','1.8em');
+				$('#incomeStatus>tr').slice(8,9).css('font-size','1.8em');
 			},
 			error:function(){
 				console.log(11);

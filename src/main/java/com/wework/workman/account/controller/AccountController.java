@@ -363,6 +363,83 @@ public class AccountController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(list,response.getWriter());
 	}
+	@RequestMapping("downexcel.wo")
+	public String downExcel(@RequestParam("noticeContent") String noticeContent,
+			@RequestParam("noticeAccType") int noticeAccType,
+			@RequestParam("title") String title,Model model) {
+		
+		if(noticeAccType==2) {
+			ArrayList<AccountStatus> list = aService.accountStatus(noticeContent.substring(2));
+			int sum1=0;
+			int sum2 = 0;
+			for (int i = 0; i < list.size(); i++) {
+				sum1+=list.get(i).getAccount1();
+				sum2+=list.get(i).getAccount2();
+			}
+			AccountStatus as = new AccountStatus("차변합계  ", sum1, "대변 합계  ", sum2);
+			list.add(as);
+			model.addAttribute("list", list);
+		}else if(noticeAccType==3) {
+			String[] date=noticeContent.split(" ");
+			String startDate =new String();
+			String endDate =new String();
+			if(date[0].equals("년")) {
+				startDate=date[1].substring(2)+"/01/01";
+				endDate=date[1].substring(2)+"/12/31";
+			}else {
+				startDate = date[1].substring(2);
+				endDate = date[1].substring(2);
+				switch (date[2]) {
+				case "1/4":
+					startDate +="/01/01";
+					endDate +="/03/31";
+					break;
+				case "2/4":
+					startDate +="/04/01";
+					endDate +="/06/30";
+					break;
+				case "3/4":
+					startDate +="/07/01";
+					endDate +="/09/30";
+					break;
+				case "4/4":
+					startDate +="/10/01";
+					endDate +="/12/31";
+					break;
+
+				default:
+					break;
+				}
+			}
+			IsState iss = new IsState(startDate, endDate);
+			ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
+			//비용합계
+			int sum =0;
+			for (int i = 1; i < list.size(); i++) {
+				sum+= list.get(i).getAccount();
+			}
+			int EBIT=list.get(0).getAccount()-sum;
+			IncomeStatement is1 = new IncomeStatement();
+			is1.setAccountSubject("매출");
+			is1.setAccount(list.get(0).getAccount());
+			IncomeStatement is2 = new IncomeStatement();
+			is2.setAccountSubject("비용");
+			is2.setAccount(sum);
+			IncomeStatement is3 = new IncomeStatement("EBIT", EBIT);
+			
+			
+			list.add(0, is1); //매출총계
+			list.add(2, is2);//비용총계
+			list.add(is3);//EBIT
+			
+			list.add(new IncomeStatement("세금", (int)Math.round(EBIT*0.15) ));
+			list.add(new IncomeStatement("총수익", (int)Math.round(EBIT*0.85)));
+			model.addAttribute("list",list);
+		}
+		model.addAttribute("accType", noticeAccType);
+		model.addAttribute("title", title);
+		return "account/downExcel";
+	}
 }
 
 

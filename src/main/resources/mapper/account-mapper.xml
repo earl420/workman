@@ -186,11 +186,11 @@ order by account_ali desc, account_num
 	(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) from fixture 
 join payment on(fixture_payment=pay_num)
 WHERE EXTRACT(MONTH FROM fixture_buy)
-BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance)),
+BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)),
 	'소모품',(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) from fixture 
 	join payment on(fixture_payment=pay_num)
 	WHERE EXTRACT(MONTH FROM fixture_buy) 
-	BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance)), null)
+	BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)), null)
 	
 	]]>
 	</insert>
@@ -200,10 +200,10 @@ BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},('무형자산상각비'),
 	(select decode(sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START)))) 
-    from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< license_end),
+    from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< add_months(license_end,3)),
 ('소프트웨어'),
 (select decode( sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START)))) 
-from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< license_end), null)
+from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< add_months(license_end,3)), null)
 	
 	]]>
 	</insert>

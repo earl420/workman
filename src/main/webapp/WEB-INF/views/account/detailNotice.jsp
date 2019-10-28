@@ -67,9 +67,9 @@
 								<label class="col-lg-2 col-form-label" for="title">파일</label><br />
 								<div class="col-lg-2">
 									<c:url var="downexcel" value="downexcel.wo">
-										<c:param name="noticeNum" value="${notice.noticeNum }" />
 										<c:param name="noticeContent" value="${notice.noticeContent}" />
 										<c:param name="noticeAccType" value="${notice.noticeAccType }" />
+										<c:param name="title" value="${notice.noticeTitle }" />
 									</c:url>
 									<c:choose>
 										<c:when test="${notice.noticeAccType eq 2 }"><a href="${downexcel }">excel다운로드</a></c:when>
