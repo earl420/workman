@@ -351,19 +351,20 @@
 		    </form>
 		    
 		    <div id="formFooter">
-			      <p class="underlineHover" style="cursor:pointer" onclick="history.back(-2);">처음으로</p>
+			      <p class="underlineHover" style="cursor:pointer" onclick="history.go(-2);">처음으로</p>
 		   	</div>
 
 		</div>
 	</div>
 	
 	<script type="text/javascript">
-		
-		var pwd = document.getElementById("pwd");
-		var pwd2 = document.getElementById("pwd2");
 	
 		$(function(){
-			$(pwd).on('bulr', function(){
+			
+			var pwd = document.getElementById("pwd");
+			var pwd2 = document.getElementById("pwd2");
+			
+			$(pwd).on('blur', function(){
 				
 				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}$/.test(pwd.value)){            
 			        alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
@@ -371,7 +372,7 @@
 			    }
 			});
 			
-			$(pwd2).on('bulr', function(){
+			$(pwd2).on('blur', function(){
 				
 				if(pwd.value != pwd2.value){
 					alert("비밀번호가 일치하지 않습니다.");
@@ -383,5 +384,6 @@
 		
 		
 	</script>
+	
 </body>
 </html>

@@ -350,6 +350,13 @@
 		</div>
 	</div>
 	
+	<script type="text/javascript">
+		$(function(){
+		   if(${!empty msg}){
+			   alert('${msg}');
+		   }
+		});
+	</script>
 	
 </body>
 </html>

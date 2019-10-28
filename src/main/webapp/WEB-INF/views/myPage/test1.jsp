@@ -1,32 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>비밀번호 찾기</title>
-<!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="images/favicon.png">
-<!-- Custom Stylesheet -->
-<link
-	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
-	rel="stylesheet">
-
-</head>
-<style>
-	input[type="number"]::-webkit-outer-spin-button,
-	input[type="number"]::-webkit-inner-spin-button {
-	    -webkit-appearance: none;
-	    margin: 0;
+<meta charset="UTF-8">
+<style type="text/css">
+	#left{
+		width: 500px;
+		height: 800px;
+		float: left;
+		margin-bottom: 20px;
 	}
+	
+	#right{
+		width: 750px;
+		height: 800px;
+		float: left;
+		margin-bottom: 20px;
+	}
+	
+	div{
+		border: 1px solid black;
+	
+	}
+
 </style>
 
+
+<title>마이 페이지</title>
+</head>
 <body>
-	<!-- preloader -->
+
+	
+	<!--*******************
+        Preloader start
+    ********************-->
 	<div id="preloader">
 		<div class="loader">
 			<svg class="circular" viewBox="25 25 50 50"> <circle
@@ -34,70 +43,66 @@
 					stroke-miterlimit="10" /> </svg>
 		</div>
 	</div>
-	<!-- /preloader -->
+	<!--*******************
+        Preloader end
+    ********************-->
 
 
-	<!-- main wrapper -->
-	<div id="main-wrapper" style="">
+	<!--**********************************
+        Main wrapper start
+    ***********************************-->
+	<div id="main-wrapper" style="background: white;">
 		<c:import url="../common/header.jsp"></c:import>
-		<!-- content-body -->
-		<div class="content-body" style="min-height: 889px;">
-
-			<div class="row page-titles mx-0">
-				<div class="col p-md-0"></div>
+		<!--**********************************
+            Content body start
+        ***********************************-->
+		<div class="content-body">
+			<div class="content-fluid" style="height: 100px;" align="center" border="1">
+				
+				<div id="left">
+					<img alt="" src="">
+					<br><br>
+					<label>ㅇㄴㅇㅁㄹ</label>
+					
+					
+				</div>
+				
+				<div id="right">
+					<br><br>
+					
+					<div>
+						결제처리
+						<br><br>
+					</div>
+					<br><br>
+					
+					<div>
+						내 프로젝트
+						<br><br>
+						<table align="center" border="1" cellspacing="0" width="700">
+							<tr>
+								<th>프로젝트명</th>
+								<th>상태</th>
+								<th>총 점수</th>
+							</tr>
+						
+						</table>
+						
+					</div>
+				</div>
+			
 			</div>
 			<!-- row -->
 
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
-								<h5>비밀번호 찾기</h5>
-								<h5 align="center"></h5>
-								<br>
-								<div class="form-validation">
-									<form class="form-valide" action="findPwd.wo" method="post">
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="num">사원번호
-												<span class="text-danger"></span>
-											</label>
-											<div class="col-lg-6">
-												<input type="number" class="form-control" id="num" name="num" required>
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="name">이름
-												<span class="text-danger"></span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id="name" name="name" required>
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-lg-8 ml-auto">
-												<button type="submit" class="btn btn-primary">비밀번호 찾기</button>
-											</div>
-										</div>
-										
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<!-- #/ container -->
 		</div>
-		<!-- /content-body -->
-		<c:import url="../common/footer.jsp"></c:import>
+		<!--**********************************
+            Content body end
+        ***********************************-->
+		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
-	<!-- /main-wrapper -->
-	
-	
-
+	<!--**********************************
+        Main wrapper end
+    ***********************************-->
 </body>
-<iframe id="google_esf" name="google_esf"
-	src="https://googleads.g.doubleclick.net/pagead/html/r20191003/r20190131/zrt_lookup.html#"
-	data-ad-client="ca-pub-2783044520727903" style="display: none;"></iframe>
 </html>

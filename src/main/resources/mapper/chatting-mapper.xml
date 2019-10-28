@@ -47,7 +47,7 @@
 	</select>
 	
 	<insert id="msgDb" parameterType="Message">
-		INSERT INTO CHAT_MSG(NULL,#{roomId},#{sender},#{msgCont},SYSDATE,'Y')
+		INSERT INTO CHAT_MSG VALUES (NULL,#{roomId},#{sender},#{msgCont},SYSDATE,'Y')
 	</insert>
 	
 

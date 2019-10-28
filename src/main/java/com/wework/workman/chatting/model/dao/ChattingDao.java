@@ -37,7 +37,10 @@ public class ChattingDao {
 		return list;
 	}
 	public int msgDb(Message msg) {
-		int result = sqlSession.insert("chattingMapper.sendMessage",msg);
+		System.out.println(msg.getRoomId());
+		System.out.println(msg.getSender());
+		System.out.println(msg.getMsgCont());
+		int result = sqlSession.insert("chattingMapper.msgDb",msg);
 		return result;
 	}
 	

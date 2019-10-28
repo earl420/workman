@@ -34,7 +34,54 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	//
 //	private Map<String, Integer[]> rooms = new ConcurrentHashMap<String, Integer[]>();
 	String userId;
-	String roomId;
+	
+	
+<<<<<<< HEAD
+	@Override
+	public void handleTransportError(WebSocketSession session, Throwable exception) {
+		System.out.println("exception! : " + exception);
+		String preMsg=spMsg[0];
+		
+		if(preMsg.equals("onOpen")) {//소켓연결되자마자 초기세팅.
+			//onOpen:userId
+			userId=spMsg[1];//userId 세팅.
+			userSessionId.put(userId,session.getId());//id랑 session을 sessionId로 매칭
+<<<<<<< HEAD
+			getRoomList(session);//룸리스트 전달
+			msgHistory(session);//마지막 룸의 메세지 리스트들 전송
+=======
+			String roomId=getRoomList(session,userId);//룸리스트 전달
+			msgHistory(session,roomId);//마지막 룸의 메세지 리스트들 전송
+>>>>>>> add48a1a61ea9567ce6209b4467a4996648e174b
+			
+		}else if(preMsg.equals("rCng")){//룸 변경
+			//rCng:roomId;
+			//룸변경 등 상관없이 보낸메세지는 무조건 jsp단에서 active class 에append
+<<<<<<< HEAD
+			roomId=spMsg[1];
+			msgHistory(session);
+=======
+			String roomId=spMsg[1];
+			msgHistory(session,roomId);
+>>>>>>> add48a1a61ea9567ce6209b4467a4996648e174b
+			
+		}else if(preMsg.equals("newRoom")){//룸생성
+			//newRoom.:[userId....]
+			String newRoomId= roomCreate(userId);
+			//add 유저를 jsp단에서 요청할지 java단에서 요청할지 생각해볼것.//자바단 조지자
+			addUsers(newRoomId);
+			
+		}else if(preMsg.equals("exitRoom")) {//룸나가기
+			//exitRoom:roomId
+		}else if(preMsg.equals("addUsers")) {//유저 추가
+//			addUsers(roomId);
+		}else if(preMsg.equals("msg")){
+			msgDb(message);
+			msgSend(session,message);
+		}else {
+		}
+	}
+	
 	
 	// onOpen
 	@Override
@@ -68,53 +115,16 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 	}
 
-	// handler
-	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException, InterruptedException, ExecutionException {
-		String[] spMsg=message.getPayload().split(":");
-		String preMsg=spMsg[0];
-		
-		if(preMsg.equals("onOpen")) {//소켓연결되자마자 초기세팅.
-			//onOpen:userId
-			userId=spMsg[1];//userId 세팅.
-			userSessionId.put(userId,session.getId());//id랑 session을 sessionId로 매칭
-			getRoomList(session);//룸리스트 전달
-			msgHistory(session);//마지막 룸의 메세지 리스트들 전송
-			
-		}else if(preMsg.equals("rCng")){//룸 변경
-			//rCng:roomId;
-			//룸변경 등 상관없이 보낸메세지는 무조건 jsp단에서 active class 에append
-			roomId=spMsg[1];
-			msgHistory(session);
-			
-		}else if(preMsg.equals("newRoom")){//룸생성
-			//newRoom.:[userId....]
-			String newRoomId= roomCreate(userId);
-			//add 유저를 jsp단에서 요청할지 java단에서 요청할지 생각해볼것.//자바단 조지자
-			addUsers(newRoomId);
-			
-		}else if(preMsg.equals("exitRoom")) {//룸나가기
-			//exitRoom:roomId
-		}else if(preMsg.equals("addUsers")) {//유저 추가
-			addUsers(roomId);
-		}else if(preMsg.equals("msg")){
-			msgDb(message);
-			msgSend(session,message);
-		}else {
-			System.out.println("뭐야 뭐가되는거야");
-		}
-		
-		
-	}
-
-
-	
-	
 	/*-------------------------------------------------------------------------------*/
 	
 	//초기세팅 : 룸리스트 전달하기.
+<<<<<<< HEAD
 	public void getRoomList(WebSocketSession session) throws IOException  {
 		
+=======
+	public String getRoomList(WebSocketSession session,String userId) throws IOException  {
+		String roomId="";
+>>>>>>> add48a1a61ea9567ce6209b4467a4996648e174b
 		ArrayList<Room> roomList= cService.getRoomList(userId);
 //		ArrayList<Room> roomList = new ChattingServiceImpl().getRoomList(userId);
 		for(Room i : roomList) {
@@ -128,11 +138,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			msgSendOne(session,tx);
 			roomId = i.getRoomId();
 		}
+		return roomId;
 	}
 	//초기세팅 : 마지막 룸 지난메세지 전송
 	//룸변경시 : 룸아이디로 지난 메세지 전송
-	public void msgHistory(WebSocketSession session) throws IOException {
+	public void msgHistory(WebSocketSession session,String roomId) throws IOException {
 		ArrayList<Message> msg = cService.msgHistory(roomId);
+		
 		for(Message i:msg) {
 			String sender = i.getSender();
 			String content= i.getMsgCont();
@@ -145,8 +157,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			}
 			String msgHistory = "msgHistory:"+sender+":"+content+":"+time+":"+status;
 			TextMessage tx = new TextMessage(msgHistory);
+<<<<<<< HEAD
+=======
+			
+>>>>>>> add48a1a61ea9567ce6209b4467a4996648e174b
 			msgSendOne(session,tx);
-		
 		}
 	}
 
@@ -164,12 +179,22 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	}
 	public void msgDb(TextMessage message) {
 		Message msg = new Message();
+<<<<<<< HEAD
 		
 		String[] msgArr = message.getPayload().split(":",1);
 		String msgCont = msgArr[1];
 		msg.setMsgCont(msgCont);
 		msg.setSender(userId);
 		msg.setRoomId(roomId);
+=======
+		String[] msgArr = message.getPayload().split(":");
+		String msgCont = msgArr[3];
+		userId = msgArr[1];
+		String roomId = msgArr[2];
+		msg.setSender(userId);
+		msg.setRoomId(roomId);
+		msg.setMsgCont(msgCont);
+>>>>>>> add48a1a61ea9567ce6209b4467a4996648e174b
 		int result = cService.msgDb(msg);
 	};
 
