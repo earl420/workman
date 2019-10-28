@@ -52,6 +52,7 @@
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">공지사항</h4>
+								<button class="btn mb-1 btn-rounded btn-warning" onclick="location.href='ninsertForm.wo';">글 작성</button>
 								<div class="table-responsive">
 									<div id="DataTables_Table_0_wrapper"
 										class="dataTables_wrapper container-fluid dt-bootstrap4">
@@ -99,8 +100,6 @@
 													</thead>
 
 													<tbody>
-														
-													
 														<c:forEach items="${ list }" var="n">
 															<tr role="row" class="odd">
 																<td class="sorting_1">${ n.noticeNum }</td>
@@ -123,9 +122,6 @@
 										
 										<div class="row">
 											<div class="col-sm-12 col-md-5">
-												<div class="dataTables_info" id="DataTables_Table_0_info"
-													role="status" aria-live="polite">Showing 1 to 10 of
-													57 entries</div>
 											</div>
 											<div class="col-sm-12 col-md-7">
 												<div class="dataTables_paginate paging_simple_numbers"

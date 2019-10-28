@@ -19,6 +19,7 @@ public class Notice {
 	}
 	public Notice(String noticeNum, int noticeDept, String noticeTitle, String noticeContent, String empNum,
 			String empName, Date noticeDate, Date noticeModify, String noticeStatus, int noticeAccType) {
+		super();
 		this.noticeNum = noticeNum;
 		this.noticeDept = noticeDept;
 		this.noticeTitle = noticeTitle;
@@ -60,12 +61,15 @@ public class Notice {
 	public void setEmpNum(String empNum) {
 		this.empNum = empNum;
 	}
+
 	public String getEmpName() {
 		return empName;
 	}
+
 	public void setEmpName(String empName) {
 		this.empName = empName;
 	}
+
 	public Date getNoticeDate() {
 		return noticeDate;
 	}
