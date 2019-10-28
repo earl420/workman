@@ -25,21 +25,16 @@ public class ChattingDao {
 		ArrayList<Room> setList = new ArrayList<>();
 		for(int i=0;i<list.size();i++) {
 			String rList = (String) list.get(i);
-			System.out.println("i : "+list.get(i));
 			setList.add(sqlSession.selectOne("chattingMapper.initialLastChat",rList));
 		}
 		return setList; 
 	}
 	
 	public ArrayList<Message>msgHistory(String roomId){
-		System.out.println("dao msgHistory_roomId : "+roomId);
 		ArrayList<Message> list = (ArrayList)sqlSession.selectList("chattingMapper.msgHistory",roomId);
 		return list;
 	}
 	public int msgDb(Message msg) {
-		System.out.println(msg.getRoomId());
-		System.out.println(msg.getSender());
-		System.out.println(msg.getMsgCont());
 		int result = sqlSession.insert("chattingMapper.msgDb",msg);
 		return result;
 	}

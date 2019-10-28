@@ -1,4 +1,3 @@
-import org.springframework.beans.factory.annotation.Autowired;
 package com.wework.workman.chatting.controller;
 
 import java.io.IOException;

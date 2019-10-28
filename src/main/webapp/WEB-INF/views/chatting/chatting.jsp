@@ -71,6 +71,7 @@
 .msgOther {
 	background-color: #ecf0f1;
 	max-width: 60%;
+	height: auto;
 	clear: both;
 	float: left;
 	margin-left: 10px;
@@ -85,6 +86,15 @@
 	float: right;
 	margin-left: 10px;
 	margin-right: 100px;
+}
+.msgNotice{
+	background-color: #ecf0f1;
+	max-width: 100%;
+	height: auto;
+	clear: both;
+	float: center;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 /* UserList */
 #newchat {
@@ -112,9 +122,6 @@ img {
 	border-bottom: 1px solid #c4c4c4;
 	margin: 0;
 	padding: 18px 16px 10px;
-}
-
-.chat_people {
 	overflow: hidden;
 	clear: both;
 }
@@ -129,12 +136,12 @@ img {
 	margin: 0 0 8px 0;
 }
 
-.chat_ib h5 span {
+.chat_list h5 span {
 	font-size: 13px;
 	float: right;
 }
 
-.chat_ib p {
+.chat_list p {
 	font-size: 14px;
 	color: #989898;
 	margin: auto;
@@ -231,13 +238,6 @@ img {
 									</div>
 									<!-- /input-group -->
 								</div>
-								<!-- col-lg-6 -->
-								<!-- <div class="input-group mb-3"> -->
-								<!--   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> -->
-								<!--   <div class="input-group-append"> -->
-								<!--     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button> -->
-								<!--   </div> -->
-								<!-- </div> -->
 
 
 							</div>
@@ -288,6 +288,7 @@ img {
 		}
 
 		function onOpen(evt) {
+			writer ="msgNotice";
 			appendMessage("연결성공");
 			
 			var openString = "onOpen:" + userId;
@@ -320,7 +321,7 @@ img {
 			var preMsg = spData[0];
 
 			//onOpen:userId
-			//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
+			//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 			//	<=msgHistory:sender:content:time:status
 
 			//rCng:roomId;
@@ -330,8 +331,8 @@ img {
 			//addUser:roomId:[userId]
 			//msg:userId:msgContent
 
-			if (preMsg == "roomListSet") {
-				roomListSet(spData);
+			if (preMsg == "roomSetList") {
+				roomSetList(spData);
 			} else if (preMsg == "msgHistory") {
 				msgHistory(spData);
 			} else if (preMsg == "msg"){
@@ -340,13 +341,15 @@ img {
 				console.log("??????");
 			}
 
-				appendMessage();
+				
 		}
 
 		function appendMessage(msg) {
 			if (userId == writer) {
 				$("#chatBox").append("<li class='msgMe'>" + msg + "</li>");
-			} else {
+			} else if(writer == "notice"){
+				$("#chatBox").append("<li class='msgNotice'>" + msg + "</li>");
+			}else{
 				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
 			};
 			// 		$("#testTa").append(msg);
@@ -357,7 +360,7 @@ img {
 		//--------초기설정----------
 		
 		//onOpen:userId
-		//	<=roomListSet:roomId:lastWord:lastMan:lastComm;
+		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 		//	<=msgHistory:sender:content:time:status
 		function roomSetList(spData) {
 			var setRoomId   = spData[1];
@@ -413,6 +416,11 @@ img {
 			var hrId = $(this).parent().parent().children().eq(0).val();
 			console.log(hrId);
 			
+		});
+		
+		//roomChange
+		$("#chatListScroll").on("click",".chat_list",function(){
+			$(this);
 		});
 
 	</script>
