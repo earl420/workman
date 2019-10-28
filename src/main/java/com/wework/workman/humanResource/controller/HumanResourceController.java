@@ -101,7 +101,7 @@ public class HumanResourceController {
 	public String saveFile(MultipartFile file, HttpServletRequest request, Attachment a) {
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\upload";
+		String savePath = root + "/upload";
 
 		File folder = new File(savePath);
 
@@ -116,7 +116,7 @@ public class HumanResourceController {
 		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))
 				+ originalFileName.substring(originalFileName.lastIndexOf("."));
 
-		String renamePath = savePath + "\\" + renameFileName;
+		String renamePath = savePath + "/" + renameFileName;
 
 		a.setAttPath(renamePath);
 
