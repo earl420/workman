@@ -131,22 +131,49 @@
 													name="birth" value="${ loginMan.birth }">
 											</div>
 										</div>
-										<!-- <div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="birth">생년월일
-											</label>
-											<div class="col-lg-6">
-												<input type="hidden" name="birth">
-												<select class="col-md-3" id="year">
-													<option>-</option>
-												</select>
-												<select class="col-md-3" id="month">
-													<option>-</option>
-												</select>
-												<select class="col-md-3" id="day">
-													<option>-</option>
-												</select>
+										
+										
+										
+										<c:if test="${ empty loginMan.birth }">
+												<div class="form-group row">
+													<label class="col-lg-4 col-form-label" for="birth">생년월일
+													</label>
+													<div class="col-lg-2 ">
+														<input type="hidden" name="birth">
+														<select class="form-control" id="year">
+															<option>-</option>
+														</select>
+													</div>
+													<div class="col-lg-2">
+														<select class="form-control" id="month">
+															<option>-</option>
+														</select>
+													</div>
+													<div class="col-lg-2">
+														<select class="form-control" id="day">
+															<option>-</option>
+														</select>
+													</div>
+												</div>
+										</c:if>	
+										
+										<c:if test="${ !empty loginMan.birth }">
+											<div class="form-group row">
+												<label class="col-lg-4 col-form-label" for="birth">생년월일
+												</label>
+												<c:forTokens items="${ loginMan.birth }" delims="-" var="birth" varStatus="status">
+													<c:if test="${ status.index eq 0 }">
+														<div class="col-lg-2 ">
+															<input type="hidden" name="birth">
+															<select class="form-control" value="${ birth }" name="year" id="year">
+																<option>-</option>
+															</select>
+														</div>
+													</c:if>
+												</c:forTokens>
 											</div>
-										</div> -->
+										</c:if>
+											
 										<%-- <div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="salary">연봉
 											</label>
