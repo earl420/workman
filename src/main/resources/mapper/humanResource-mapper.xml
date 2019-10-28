@@ -71,6 +71,16 @@
 		where notice_num = concat('NOTICE',#{notice_num}) and notice_status = 'Y'
 	</select>
 	
+	<insert id="insertNotice" parameterType="Notice">
+		insert into notice
+		values(notice_num_seq.nextval, #{noticeDept}, #{noticeTitle}, #{noticeContent}, 20190001, sysdate, sysdate, default, null)
+	</insert>
+	
+	<insert id="insertAtt" parameterType="Attachment">
+		insert into attachment
+		values(att_num_seq.nextval, notice_num_seq.currval, #{attOriginalName}, #{attPath}, #{attRename})
+	</insert>
+	
 	<select id="selectDeptList" resultMap="deptListResultSet">
 		select *
         from dept

@@ -4,9 +4,8 @@ import java.sql.Date;
 
 public class Room {
 	private String roomId;
-	private String roomName;
 	private String lastWord;
-	private String lastMan;
+	private String lastman;
 	private Date lastComm;
 	
 	
@@ -14,62 +13,61 @@ public class Room {
 		
 	}
 
-	public Room(String roomId, String roomName, String lastWord, String lastMan, Date lastComm) {
+
+	public Room(String roomId, String lastWord, String lastman, Date lastComm) {
 		super();
 		this.roomId = roomId;
-		this.roomName = roomName;
 		this.lastWord = lastWord;
-		this.lastMan = lastMan;
+		this.lastman = lastman;
 		this.lastComm = lastComm;
 	}
+
 
 	public String getRoomId() {
 		return roomId;
 	}
 
+
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
 
-	public String getRoomName() {
-		return roomName;
-	}
-
-	public void setRoomName(String roomName) {
-		this.roomName = roomName;
-	}
 
 	public String getLastWord() {
 		return lastWord;
 	}
 
+
 	public void setLastWord(String lastWord) {
 		this.lastWord = lastWord;
 	}
 
-	public String getLastMan() {
-		return lastMan;
+
+	public String getLastman() {
+		return lastman;
 	}
 
-	public void setLastMan(String lastMan) {
-		this.lastMan = lastMan;
+
+	public void setLastman(String lastman) {
+		this.lastman = lastman;
 	}
+
 
 	public Date getLastComm() {
 		return lastComm;
 	}
 
+
 	public void setLastComm(Date lastComm) {
 		this.lastComm = lastComm;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Room [roomId=" + roomId + ", roomName=" + roomName + ", lastWord=" + lastWord + ", lastMan=" + lastMan
-				+ ", lastComm=" + lastComm + "]";
+		return "Room [roomId=" + roomId + ", lastWord=" + lastWord + ", lastman=" + lastman + ", lastComm=" + lastComm
+				+ "]";
 	}
-
-
 
 
 	

@@ -6,17 +6,19 @@ public class Attachment {
 	private String docNum;
 	private String attOriginalName;
 	private String attPath;
+	private String attRename;
 	
 	public Attachment() {
 		
 	}
 
-	public Attachment(String attNum, String docNum, String attOriginalName, String attPath) {
+	public Attachment(String attNum, String docNum, String attOriginalName, String attPath, String attRename) {
 		super();
 		this.attNum = attNum;
 		this.docNum = docNum;
 		this.attOriginalName = attOriginalName;
 		this.attPath = attPath;
+		this.attRename = attRename;
 	}
 
 	public String getAttNum() {
@@ -51,10 +53,19 @@ public class Attachment {
 		this.attPath = attPath;
 	}
 
+	public String getAttRename() {
+		return attRename;
+	}
+
+	public void setAttRename(String attRename) {
+		this.attRename = attRename;
+	}
+
 	@Override
 	public String toString() {
 		return "Attachment [attNum=" + attNum + ", docNum=" + docNum + ", attOriginalName=" + attOriginalName
-				+ ", attPath=" + attPath + "]";
+				+ ", attPath=" + attPath + ", attRename=" + attRename + "]";
 	}
+	
 
 }

@@ -52,7 +52,7 @@
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">공지사항</h4>
-								<button class="btn mb-1 btn-rounded btn-warning" onclick="location.href='ninsert.wo';">글 작성</button>
+								<button class="btn mb-1 btn-rounded btn-warning" onclick="location.href='ninsertForm.wo';">글 작성</button>
 								<div class="table-responsive">
 									<div id="DataTables_Table_0_wrapper"
 										class="dataTables_wrapper container-fluid dt-bootstrap4">

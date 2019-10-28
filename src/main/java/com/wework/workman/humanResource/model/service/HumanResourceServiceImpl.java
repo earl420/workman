@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.dao.HumanResourceDao;
 import com.wework.workman.humanResource.model.vo.Department;
@@ -36,6 +37,18 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	}
 
 	@Override
+	public int insertNotice(Notice n) {
+		
+		return hDao.insertNotice(n);
+	}
+
+	@Override
+	public int insertAtt(Attachment a) {
+
+		return hDao.insertAtt(a);
+	}
+
+	@Override
 	public ArrayList<Department> getDeptList() {
 
 		return hDao.selectDeptList();
@@ -52,6 +65,7 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 
 		return hDao.getEmpCount();
 	}
+
 	
 }
 	

@@ -7,9 +7,8 @@
 	
 	<resultMap id="roomSetListRS" type="Room">
 		<id property="roomId" column="CHAT_ROOM" />
-		<result property ="roomName" column="CHAT_NAME"/>
-		<result property="lastMan" column="CHAT_USER" />
-		<result property="lastWord" column="MSG_CONT" />
+		<result property="lastWord" column="CHAT_USER" />
+		<result property="lastman" column="MSG_CONT" />
 		<result property="lastComm" column="MSG_DATE" />
 	</resultMap>
 		
@@ -28,16 +27,16 @@
 		WHERE CHAT_USER=#{userId}
 	</select>
 	
+	<!-- 리저트맵 안잡혀있음 확인헐것 vo를 새로만들어야한다고? -->
 	<!-- 룸별 마지막 메세지 -->
 	<select id="initialLastChat" parameterType="string" resultMap="roomSetListRS">
-		select chat_room,chat_name,msg_cont,chat_user,msg_date
+		select chat_room,msg_cont,chat_user,msg_date
 		from(select rownum rnum,a.*
-		        from (select chat_room,chat_name,msg_cont,chat_user,msg_date
-		                from chat_msg
-		                join chat_room using(chat_room)
-		                where chat_room=#{rList}
-		                order by msg_date DESC)a
-		        )
+				from (select chat_room,msg_cont,chat_user,msg_date
+						from chat_msg
+						where chat_room=#{t}
+						order by msg_date DESC)a
+				)
 		where rnum=1
 	</select>
 	<select id="msgHistory" parameterType="string" resultMap="MessageHistoryRS">

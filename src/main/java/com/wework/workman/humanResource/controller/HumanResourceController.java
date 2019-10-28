@@ -50,41 +50,76 @@ public class HumanResourceController {
 		return mv;
 
 	}
-	
+
+	// 인사/ 공지사항 / 공지글 작성 폼
+	@RequestMapping("ninsertForm.wo")
+	public ModelAndView ninsertForm(ModelAndView mv) {
+
+		ArrayList<Department> dlist = hService.getDeptList();
+
+		if (!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).setViewName("humanResource/insertNotice");
+		} else {
+			mv.setViewName("common/500error");
+		}
+
+		return mv;
+	}
+
 	// 인사/ 공지사항 / 글 작성
 	@RequestMapping("ninsert.wo")
-	public String insertNotice(Notice n, Attachment a, HttpServletRequest request, Model model,
-								@RequestParam(name="uploadFile", required=false) MultipartFile file) {
-		
-		if(file != null && !file.getOriginalFilename().equals("")) {
-			
-			String renameFileName = saveFile(file, request);
-			
-			if(renameFileName != null) {
+	public String insertNotice(Notice n, Attachment a, HttpServletRequest request,
+			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
+
+		if (file != null && !file.getOriginalFilename().equals("")) {
+
+			String renameFileName = saveFile(file, request, a);
+
+			if (renameFileName != null) {
+
+				a.setDocNum(n.getNoticeNum());
 				a.setAttOriginalName(file.getOriginalFilename());
+				a.setAttRename(renameFileName);
+
 			}
 		}
+
+		int result1 = hService.insertNotice(n);
+
+		if (file != null) {
+
+			hService.insertAtt(a);
+		}
+
+		if (result1 > 0) {
+			return "redirect:hrNotice.wo";
+		} else {
+			return "common/500error";
+		}
 	}
-	
-	public String saveFile(MultipartFile file, HttpServletRequest request) {
-		
+
+	public String saveFile(MultipartFile file, HttpServletRequest request, Attachment a) {
+
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\upload";
-		
+
 		File folder = new File(savePath);
-		
-		if(!folder.exists()) {
-			folder.mkdir();
+
+		if (!folder.exists()) {
+			folder.mkdirs();
 		}
-		
+
 		String originalFileName = file.getOriginalFilename();
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		
-		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + originalFileName.substring(originalFileName.lastIndexOf("."));
-		
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))
+				+ originalFileName.substring(originalFileName.lastIndexOf("."));
+
 		String renamePath = savePath + "\\" + renameFileName;
-		
+
+		a.setAttPath(renamePath);
+
 		try {
 			file.transferTo(new File(renamePath));
 		} catch (IllegalStateException e) {
@@ -94,7 +129,7 @@ public class HumanResourceController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return renameFileName;
 	}
 
@@ -140,11 +175,11 @@ public class HumanResourceController {
 	}
 
 	// 인사/휴가근태/휴가신청
-	@RequestMapping("addHoliday.wo")
-	public String addHoliday() {
-
-		return "humanResource/addHolidayForm";
-	}
+//	@RequestMapping("addHoliday.wo")
+//	public String addHoliday() {
+//
+//		return "humanResource/addHolidayForm";
+//	}
 
 	// 인사/휴가근태/휴가현황
 	@RequestMapping("showHoliday.wo")
@@ -179,6 +214,25 @@ public class HumanResourceController {
 	public String addEmpForm() {
 
 		return "humanResource/addEmpForm";
+	}
+
+	// 직원 등록
+	@RequestMapping("addEmp.wo")
+	public String addEmp(Employee e) {
+		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+//		int sysYear = Integer.parseInt(sdf.format(new Date(System.currentTimeMillis())));
+//
+//		if(sysYear - Integer.parseInt(e.getEnrollDate().toString().substring(0, 4)) == 0) {
+//			
+//			SimpleDateFormat sdf1 = new SimpleDateFormat("MM");
+//			sdf1.format(new Date(System.currentTimeMillis()));
+//			int year = Integer.parseInt((e.getEnrollDate().toString().substring(4, 6)));
+//			
+//			
+//		}
+
+		return "humanResource/empList";
 	}
 
 	// 직원정보 수정 화면
