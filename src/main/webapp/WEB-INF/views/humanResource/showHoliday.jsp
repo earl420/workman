@@ -69,6 +69,8 @@
 											<div class="p-t-15">
 												<h4>휴가 신청 내역</h4>
 												<br>
+												<h5 align="center">올해 휴가 현황 : 총 휴가 00일 / 사용 00일 / 잔여 00일</h5>
+												<br>
 												<div class="dropdown custom-dropdown">
 													<div data-toggle="dropdown" aria-expanded="false"
 														style="color: #F36F30;">
