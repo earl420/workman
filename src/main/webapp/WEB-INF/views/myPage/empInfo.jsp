@@ -123,14 +123,17 @@
 													name="gender" value="여">&nbsp;&nbsp;여
 											</div>
 										</div> -->
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="birth">생년월일
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id="birth"
-													name="birth" value="${ loginMan.birth }">
+										
+										<c:if test="${ !empty loginMan.birth }">
+											<div class="form-group row">
+												<label class="col-lg-4 col-form-label" for="birth">생년월일
+												</label>
+												<div class="col-lg-6">
+													<input type="text" class="form-control" id="birth"
+														name="birth" value="${ loginMan.birth }">
+												</div>
 											</div>
-										</div>
+										</c:if>
 										
 										
 										
@@ -138,8 +141,8 @@
 												<div class="form-group row">
 													<label class="col-lg-4 col-form-label" for="birth">생년월일
 													</label>
+													<input type="hidden" name="birth">
 													<div class="col-lg-2 ">
-														<input type="hidden" name="birth">
 														<select class="form-control" id="year">
 															<option>-</option>
 														</select>
@@ -165,7 +168,7 @@
 													<c:if test="${ status.index eq 0 }">
 														<div class="col-lg-2 ">
 															<input type="hidden" name="birth">
-															<select class="form-control" value="${ birth }" name="year" id="year">
+															<select class="form-control" value="${ birth }" id="year">
 																<option>-</option>
 															</select>
 														</div>
@@ -266,31 +269,55 @@
 			$(".postcodify_address").postcodifyPopUp();
 		});
 		
-		/* function appendYear(){
+		function appendYear(){
+
 			var date = new Date();
+
 			var year = date.getFullYear();
+
 			var selectValue = document.getElementById("year");
+
 			var optionIndex = 0;
+
 			for(var i=year-100;i<=year;i++){
-				selectValue.add(new Option(i+"년",i),optionIndex++);                        
+
+					selectValue.add(new Option(i+"년",i),optionIndex++);                        
+
 			}
+
 		}
 
+
+
+
+
 		function appendMonth(){
+
 			var selectValue = document.getElementById("month"); 
+
 			var optionIndex = 0;
+
 			for(var i=1;i<=12;i++){
-				selectValue.add(new Option(i+"월",i),optionIndex++);
+
+					selectValue.add(new Option(i+"월",i),optionIndex++);
+
 			}
+
 		}
-		
+
 		function appendDay(){
+
 			var selectValue = document.getElementById("day");
+
 			var optionIndex = 0;
+
 			for(var i=1;i<=31;i++){
-			selectValue.add(new Option(i+"일",i),optionIndex++);
+
+				selectValue.add(new Option(i+"일",i),optionIndex++);
+
 			}
-		}  */
+
+		} 
 
 	</script>
 
