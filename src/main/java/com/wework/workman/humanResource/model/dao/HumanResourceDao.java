@@ -25,12 +25,12 @@ public class HumanResourceDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("humanResourceMapper.selectHRnList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("humanMapper.selectHRnList", null, rowBounds);
 		
 	}
 	
 	public Notice gethrnDetail(String noticeNum) {
 		
-		return sqlSession.selectOne("humanResourceMapper.selectNotice", noticeNum);
+		return sqlSession.selectOne("humanMapper.selectNotice", noticeNum);
 	}
 }

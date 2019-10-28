@@ -99,7 +99,9 @@
 													</thead>
 
 													<tbody>
-														<c:forEach items="${ list }" var="h">
+														
+													
+														<c:forEach items="${ list }" var="n">
 															<tr role="row" class="odd">
 																<td class="sorting_1">${ n.noticeNum }</td>
 																<td><c:if test="${ empty loginUser }">

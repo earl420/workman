@@ -1,19 +1,19 @@
 
 
 
-
+var accType = $('#accType');
+var noticeContent1=$('#noticeContent').val();
 
 
 function accountList(content){
 	 $.ajax({
 			url:"accountlist.wo",
 			data:{
-				content:content,
+				content:noticeContent1,
 			},
 			dataType:"json",
 			type:"post",
 			success:function(data){
-				console.log(data);
 				var $as =$('#accountStatus');
 				$as.html("");
 				$.each(data,function(index,value){
@@ -36,11 +36,11 @@ function accountList(content){
 		}) 
 }
 
-function saleList(content){
+function saleList(){
 	 $.ajax({
 			url:"incomelist.wo",
 			data:{
-				content:content,
+				content:noticeContent1,
 			},
 			dataType:"json",
 			type:"post",

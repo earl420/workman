@@ -151,7 +151,7 @@
 									<button type="button" class="btn mb-1 btn-outline-warning"
 										onclick="location.href='acupdate.wo'">수정하기</button>
 									<button type="button" class="btn mb-1 btn-outline-warning"
-										id="listBtn" onclick="location.href='acnoticeList.wo'">목록으로</button>
+										id="listBtn" onclick="javascript:history.back();">목록으로</button>
 								</div>
 							</div>
 						</form>
@@ -169,17 +169,28 @@
 	<!--**********************************
         Main wrapper end
     ***********************************-->
+    <input type="hidden" id="accType" value="${notice.noticeAccType }" />
+	<c:choose>
+		<c:when test="${notice.noticeAccType eq  1}"></c:when>
+		<c:otherwise>
+		<input type="hidden" id="noticeContent" value="${notice.noticeContent }" />
+		</c:otherwise>
+	</c:choose>
     
 	<script src="resources/account/js/detailNotice.js"></script>
 	<script>
 		$(function(){
-			 if(${notice.noticeAccType eq 3}){
-				 saleList('${notice.noticeContent}');
-			}
-			 
-			 
-			if(${notice.noticeAccType eq 2}){
-				accountList('${notice.noticeContent}');
+			var accType = $('#accType').val();
+			console.log(accType);
+			var noticeContent1=$('#noticeContent').val();
+			 if(accType==3){
+				console.log('111');
+				 saleList();
+
+			 }
+
+			 if(accType==2){
+				accountList();
 			}			
 		})
 	</script>

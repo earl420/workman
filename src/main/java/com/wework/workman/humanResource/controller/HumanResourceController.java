@@ -20,9 +20,8 @@ public class HumanResourceController {
 	private HumanResourceService hService;
 	
 	// 인사/공지사항
-	@RequestMapping("hrNotice")
+	@RequestMapping("hrNotice.wo")
 	public ModelAndView selectList(ModelAndView mv, @RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) {
-		
 		int listCount = hService.gethListCount();
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
