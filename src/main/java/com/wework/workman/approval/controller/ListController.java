@@ -1,16 +1,33 @@
 package com.wework.workman.approval.controller;
 
+import java.util.ArrayList;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.wework.workman.approval.model.service.ListService;
+import com.wework.workman.hunamResource.model.service.HumanResourceService;
+import com.wework.workman.hunamResource.model.vo.Dept;
+import com.wework.workman.hunamResource.model.vo.Modal;
 
 @Controller
 public class ListController {
 	
 	@Autowired
 	private ListService lService;
+	
+	@Resource(name="humanResourceService")
+	private HumanResourceService hService;
 	
 	/** 전체리스트
 	 * @return
@@ -117,9 +134,33 @@ public class ListController {
 	}
 	
 	@RequestMapping("test.wo")
-	public String test() {
+	public ModelAndView test(ModelAndView mv ) {
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		ArrayList<Modal> mlist = hService.selectModalEmpList();
 		
-		return "approval/test";
+		
+		mv.addObject("dlist",dlist);
+		mv.addObject("mlist",mlist);
+		mv.setViewName("approval/test");
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value= "submitEmpList.wo", produces="application/json; charset=utf-8")
+	public String submitEmpList(HttpServletResponse response,@RequestParam(value="empList[]",required=false) String[] empList) throws JsonProcessingException{
+		
+			
+			System.out.println(empList);
+			
+			ObjectMapper mapper = new ObjectMapper();
+			ArrayList list = new ArrayList();
+			for(int i =0; i<empList.length; i++) {
+				list.add(empList[i]);
+			}
+			System.out.println(list);
+			String jsonStr =  mapper.writeValueAsString(list);
+			System.out.println(jsonStr);
+			return jsonStr;
 	}
 	
 	
