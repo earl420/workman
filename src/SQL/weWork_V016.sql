@@ -2113,5 +2113,13 @@ insert into product values (null, 'ºñ½Ñ°Å', 100000000);
 insert into salary values('20190001',2018, 24000000);
 insert into salary values('20190001',2019, 24000000);
 
+-- MODAL ºä Ãß°¡
+CREATE OR REPLACE VIEW MODAL AS
+select EMP_NUM, EMP_NAME, GRADE_NAME, DEPT_NAME
+FROM EMPLOYEE 
+JOIN GRADE USING(GRADE_NUM)
+JOIN DEPT USING(DEPT_NUM)
+ORDER BY DEPT_NUM, GRADE_NUM desc;
+
 commit;
 

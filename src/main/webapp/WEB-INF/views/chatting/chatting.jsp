@@ -314,7 +314,11 @@ img {
 				$("#chatBox").append("<li class='msgNotice'>" + msg + "</li>");
 			}else{
 				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
-			};
+			}
+			$("#msgContent").scrollTop($("#msgContent")[0].scrollHeight);
+
+			
+			;
 			// 		$("#testTa").append(msg);
 		}
 		
@@ -363,7 +367,7 @@ img {
 			var $divSc =$('#chatListScroll');
 			
 
-// 			<div class="chat_list active_chat">
+// 			<div class="chat_list active_chat" id="RoomId">
 // 				<input type="hidden" value="test">
 // 				<h5>
 // 					<i class="fas fa-cog setSpan"></i> Sunil Rajput <span
@@ -422,6 +426,7 @@ img {
 			$('#actiRoomId').val(rCng);
 			$('#'+actiRoomId).addClass('active_chat');
 			wbSocket.send("rCng:"+actiRoomId);
+			$('#chatBox').empty();
 // 			rCng:roomId
 // 			console.log("#actiRoomId : "+$('#actiRoomId').val());
 		});

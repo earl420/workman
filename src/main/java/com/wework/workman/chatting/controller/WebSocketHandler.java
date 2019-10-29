@@ -2,7 +2,7 @@ package com.wework.workman.chatting.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -29,32 +29,28 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	private Map<String, WebSocketSession> allUsers = new ConcurrentHashMap<>();
 	//userId,sessionId
 	private Map<String,String> userSessionId = new ConcurrentHashMap<>();
-	//룸 다시생각.
-	private Map<String,ArrayList<String>> RoomArrList = new ConcurrentHashMap<>();
-	//세션에있는사람들을 맨마지막 룸으로 넣고.. 체인지발생시 룸변경 userId:roomId
-	//
-//	private Map<String, Integer[]> rooms = new ConcurrentHashMap<String, Integer[]>();
+	//userId,roomId - 접속중인user:actiRoomId
+	private Map<String,String> userRoom = new ConcurrentHashMap<>();
 	String userId;
-	
 	
 	// handler
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException, InterruptedException, ExecutionException {
 		String[] spMsg=message.getPayload().split(":");
 		String preMsg=spMsg[0];
-		
+		System.out.println("handlerMessage - "+message.getPayload());
 		if(preMsg.equals("onOpen")) {//소켓연결되자마자 초기세팅.
 			//onOpen:userId
 			userId=spMsg[1];//userId 세팅.
 			userSessionId.put(userId,session.getId());//id랑 session을 sessionId로 매칭
 			String roomId=getRoomList(session,userId);//룸리스트 전달
-			msgHistory(session,roomId);//마지막 룸의 메세지 리스트들 전송
+			msgHistory(session,roomId,userId);//마지막 룸의 메세지 리스트들 전송
 			
 		}else if(preMsg.equals("rCng")){//룸 변경
 			//rCng:roomId;
 			//룸변경 등 상관없이 보낸메세지는 무조건 jsp단에서 active class 에append
 			String roomId=spMsg[1];
-			msgHistory(session,roomId);
+			msgHistory(session,roomId,userId);
 			
 		}else if(preMsg.equals("newRoom")){//룸생성
 			//newRoom.:[userId....]
@@ -67,8 +63,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		}else if(preMsg.equals("addUsers")) {//유저 추가
 //			addUsers(roomId);
 		}else if(preMsg.equals("msg")){
-			msgDb(message);
-			msgSend(session,message);
+//			msg:userId:RoomId:msgCont
+			msgDb(message,userId);
+			msgSendHandler(session,message,userId);
 		}else {
 		}
 	}
@@ -92,28 +89,47 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		System.out.println("exception! : " + exception);
 	}
 	
-	//방에있는 사람들에게 메세지 전송(실시간)
-	public void msgSend(WebSocketSession session, TextMessage message) throws IOException{
-		for (WebSocketSession s : allUsers.values()) {
-
-			s.sendMessage(message);
+	//sendHandler
+	public void msgSendHandler(WebSocketSession session, TextMessage message,String uId) throws IOException{
+//		msg:userId:RoomId:msgCont
+		String[] spData = message.getPayload().split(":",3);
+		String rId= spData[3];
+		for(String key : userRoom.keySet()) {
+			String value = userRoom.get(key);
+			if(value == rId) {
+				//저걸 그대로 보내니까 문제가 생기는거아냐. 다시 확인해
+				TextMessage tx = new TextMessage("msg:"+spData[1]+spData[3]);
+				msgSend(session,tx,uId);
+			}else {
+				//모든사용자에게 알람을 보내고 jsp단에서 처리
+				String al = "alam:"+rId;
+				TextMessage tx = new TextMessage(al);
+				msgSendAll(session,tx);
+			}
 		}
 	}
 	//user 1명에게 메세지전송(값세팅)
-	public void msgSendOne(WebSocketSession session, TextMessage message) throws IOException {
-		WebSocketSession s = allUsers.get(userSessionId.get(userId));
+	public void msgSend(WebSocketSession session, TextMessage message,String uId) throws IOException {
+		WebSocketSession s = allUsers.get(userSessionId.get(uId));
 		s.sendMessage(message);
+		
+	}
+	//모든사용자에게 보내기
+	public void msgSendAll(WebSocketSession session, TextMessage message) throws IOException {
+		for (WebSocketSession s : allUsers.values()) {
+			s.sendMessage(message);
+		}
 		
 	}
 
 	/*-------------------------------------------------------------------------------*/
 	
 	//초기세팅 : 룸리스트 전달하기.
-	public String getRoomList(WebSocketSession session,String userId) throws IOException  {
+	public String getRoomList(WebSocketSession session,String uId) throws IOException  {
 		String roomId="";
-		ArrayList<Room> roomList= cService.getRoomList(userId);
-//		ArrayList<Room> roomList = new ChattingServiceImpl().getRoomList(userId);
+		ArrayList<Room> roomList= cService.getRoomList(uId);
 		for(Room i : roomList) {
+			
 			String rId=i.getRoomId();
 			String rName =i.getRoomName();
 			String lastWord=i.getLastWord();
@@ -121,16 +137,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			String lastComm=i.getLastComm().toString();
 			String roomSetList="roomSetList:"+rId +":"+rName+":"+ lastWord+":"+lastMan+":"+lastComm;
 			TextMessage tx = new TextMessage(roomSetList);
-			msgSendOne(session,tx);
+			
+			
+			msgSend(session,tx,uId);
 			roomId = i.getRoomId();
+			
 		}
+		
 		return roomId;
 	}
 	//초기세팅 : 마지막 룸 지난메세지 전송
 	//룸변경시 : 룸아이디로 지난 메세지 전송
-	public void msgHistory(WebSocketSession session,String roomId) throws IOException {
+	public void msgHistory(WebSocketSession session,String roomId,String uId) throws IOException {
 		ArrayList<Message> msg = cService.msgHistory(roomId);
-		
+		userRoom.put(uId, roomId);
 		for(Message i:msg) {
 			String sender = i.getSender();
 			String content= i.getMsgCont();
@@ -143,29 +163,28 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			}
 			String msgHistory = "msgHistory:"+sender+":"+content+":"+time+":"+status;
 			TextMessage tx = new TextMessage(msgHistory);
-			msgSendOne(session,tx);
+			msgSend(session,tx,uId);
 		}
 	}
 
-	public String roomCreate(String userId) {
+	public String roomCreate(String uId) {
 		
 		return null;//생성된roomId반환
 	}
 
 	public void exitRoom() {
-
 	}
 	
 	public void addUsers(String roomId) {
 		
 	}
-	public void msgDb(TextMessage message) {
+	public void msgDb(TextMessage message,String uId) {
 		Message msg = new Message();
 		String[] msgArr = message.getPayload().split(":");
 		String msgCont = msgArr[3];
-		userId = msgArr[1];
+		uId = msgArr[1];
 		String roomId = msgArr[2];
-		msg.setSender(userId);
+		msg.setSender(uId);
 		msg.setRoomId(roomId);
 		msg.setMsgCont(msgCont);
 		cService.msgDb(msg);

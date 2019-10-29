@@ -102,6 +102,11 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 		return hDao.selectModalEmpList();
 	}
 
+	@Override
+	public ArrayList<Modal> selectModalList(String[] empList) {
+		return hDao.selectModalList(empList);
+	}
+
 	
 }
 	
