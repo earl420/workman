@@ -5,39 +5,40 @@
 <mapper namespace="calendarMapper">
 
     <resultMap id="calendarResultSet" type="Calendar">
-		<id property="_id" column=""/>
-		<result property="title" column=""/>
-		<result property="description" column=""/>
-		<result property="start" column=""/>
-		<result property="end" column=""/>
-		<result property="type" column=""/>
-		<result property="userName" column=""/>
-		<result property="backgroundColor" column=""/>
-		<result property="textColor" column=""/>
-		<result property="allDay" column=""/>
+		<id property="empNum" column="emp_num"/>
+		<result property="description" column="sch_content"/>
+		<result property="start" column="sch_emp_start"/>
+		<result property="end" column="sch_emp_end"/>
+		<result property="userName" column="register_emp_num"/>
 	</resultMap>
 
 	<insert id="insertCalendar" parameterType="Calendar">
 		insert into calendar
-		values()
+		values(#{emp_num}, #{dept_num}, #{sch_emp_start}, #{sch_emp_end}, #{register_emp_name}, #{sch_content})
 	</insert>
 	
 	<update id="updateCalendar" parameterType="_int">
 		update calendar
 		set 
-		where 
+		where emp_num=#{empNum}
 	</update>
 	
-	<select id="CalendarDetail" parameterType="_int" resultMap="CalendarResultSet">
+	<select id="calendarDetail" parameterType="_int" resultMap="CalendarResultSet">
 		select *
 		from calendar
-		where 
+		where emp_num=#{empNum}
 	</select>
 	
-	<update id="deleteCalendar" parameterType="_int">
-		update calendar
-		set 
-		where 
-	</update>
+	<delete id="deleteCalendar" parameterType="_int">
+		delete from calendar
+		where emp_num=#{empNum}
+	</delete>
+	
+	
+	<!-- 출퇴근 -->
+	<insert id="insertAttend" parameterType="Attendance">
+		insert into attendance
+		values(#{emp_num}, sysdate, #{time_on}, #{time_off})
+	</insert>
 	
 </mapper>

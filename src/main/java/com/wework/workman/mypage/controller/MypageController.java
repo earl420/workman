@@ -3,6 +3,7 @@ package com.wework.workman.mypage.controller;
 
 import java.io.IOException;
 
+import javax.print.attribute.PrintRequestAttribute;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -44,9 +46,13 @@ public class MypageController {
 		return "myPage/login";
 	}
 
-	@RequestMapping("myPageView.wo")
+	/**
+	 * 마이 페이지
+	 * @return
+	 */
+	@RequestMapping("mypageView.wo")
 	public String myPageView() {
-		return "myPage/myPageView";
+		return "myPage/mypageView";
 	}
 
 	/**
@@ -72,16 +78,6 @@ public class MypageController {
 	}
 
 	/**
-	 * 비밀번호 변경 페이지
-	 * 
-	 * @return
-	 */
-	@RequestMapping("changePwdPage.wo")
-	public String changePwdPage() {
-		return "myPage/changePwd";
-	}
-
-	/**
 	 * 사원번호 찾기 페이지
 	 * 
 	 * @return
@@ -101,7 +97,6 @@ public class MypageController {
 		return "myPage/findPwd";
 	}
 	
-	
 	/**
 	 * 암호화 전 로그인
 	 * @param m
@@ -110,17 +105,17 @@ public class MypageController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
-	public String loginEmp(Mypage m, Model model/* , HttpServletResponse response */){
+	public String loginEmp(Mypage m, Model model){
 		  
 		  Mypage loginMan = mService.loginMan(m);
-		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
-			  
-			  model.addAttribute("loginMan", loginMan); 
+			  System.out.println(m);
+			  model.addAttribute("loginMan", loginMan);
 			  return "redirect:home.wo";
 		  
 		  }else {
-			  return "redirect:loginPage.wo";
+			  model.addAttribute("msg", "사번 또는 비밀번호를 확인해주세요.");
+			  return "myPage/login";
 			  
 
 		  }
@@ -181,65 +176,109 @@ public class MypageController {
 							@RequestParam("address2") String address2) {
 		
 		
-		m.setAddress(address1 + "," + address2);
-		
 		int result = mService.empUpdate(m);
 		Mypage mp = (Mypage)model.getAttribute("loginMan");
 		if(result > 0) {
-			Mypage m1 = mService.loginMan(mp);
-			model.addAttribute("loginMan",m1);
-			return "redirect:home.wo";
+			Mypage loginMan = mService.loginMan(mp);
+			model.addAttribute("loginMan",loginMan);
+			model.addAttribute("msg", "정보가 수정 되었습니다.");
+			return "home";
 		}else {
 			
-			return "myPage/empInfo";
+			return "myPage/changePwd";
 		}
+	}
+	
+	/**
+	 * 비번 변경 전 재확인
+	 * @param pwd
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("confirmPwd.wo")
+	public String confirmPwd(Model model, @RequestParam("pwd") String pwd) {
+		
+		Mypage mp = (Mypage)model.getAttribute("loginMan");
+		
+		if(pwd != null && pwd.equals(mp.getPwd())) { 
+			Mypage loginMan = mService.loginMan(mp);
+			model.addAttribute("loginMan", loginMan);
+			return "myPage/changePwd";
+		}else {
+			model.addAttribute("msg", "비밀번호가 맞지 않습니다.");
+			return "myPage/confirmPwd";
+			  	
+		}
+		
+	}
+	
+	/**
+	 * 비번 수정
+	 * @param model
+	 * @param pwd
+	 * @return
+	 */
+	@RequestMapping("changePwd.wo")
+	public String changePwd(Model model, @RequestParam("pwd") String pwd) {
+		
+		Mypage m = (Mypage)model.getAttribute("loginMan");
+		m.setPwd(pwd);
+		int result = mService.pwdUpdate(m);		
+		if(result > 0) {
+			model.addAttribute("msg", "비밀번호가 변경 되었습니다.");
+			return "myPage/login";
+		}else {
+			
+			return "myPage/changePwd";
+		}
+		
 	}
 	
 	
 	
 	/**
 	 * 비밀번호 찾기
+	 * @param m
+	 * @param model
 	 * @return
 	 */
-	@RequestMapping("returnPwd.wo")
-	public String returnPwdPage(Mypage m) {
+	@RequestMapping("findPwd.wo")
+	public String findPwd(Mypage m, Model model) {
 		
+		Mypage returnPwd = mService.findPwd(m);
+		if(returnPwd != null) {
+			model.addAttribute("returnPwd", returnPwd);
+			return "myPage/returnPwd";
+		}else {
+			model.addAttribute("msg", "사원정보가 맞지 않습니다.");
+			return "myPage/findPwd";
+			
+		}
 		
-		
-		
-		
-		return "myPage/returnPwdPage";
 	}
 	
-	
 	/**
-	 * 비밀번호 변경 전 확인
+	 * 새로운 비번
 	 * @param pwd
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("confirmPwd.wo")
-	public String confirmPwd(String pwd, Model model) {
+	@RequestMapping("returnPwd.wo")
+	public String returnPwd(Mypage m, Model model) {
 		
-			  
-			  return "myPage/changePwd";
-			  
-		  
+		System.out.println(m);
+		int result = mService.returnPwd(m);
+		if(result > 0) {
+			model.addAttribute("msg", "비밀번호가 변경 되었습니다.");
+			return "myPage/login";
+		}else {
+			
+			return "myPage/returnPwd";
+		}
 		
 		
 	}
-	
-	@RequestMapping(value = "findPwd.wo", method = RequestMethod.POST)
-	public String findPwd() {
 		
-		return "00";
-	}
-		
-		
-		
-		
-	
-	
 	
 	
 

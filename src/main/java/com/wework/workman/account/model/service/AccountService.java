@@ -1,9 +1,11 @@
 package com.wework.workman.account.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
@@ -16,9 +18,9 @@ import com.wework.workman.common.PageInfo;
 
 public interface AccountService {
 
-	int getNoticeListCount(ArrayList<String> search);
+	int getNoticeListCount();
 
-	ArrayList<AcNotice> noticeList(ArrayList<String> search, PageInfo pi);
+	ArrayList<AcNotice> noticeList(PageInfo pi);
 
 	AcNotice noticeDetail(String aNo);
 
@@ -30,27 +32,27 @@ public interface AccountService {
 
 	ArrayList<IncomeStatement> incomeStatus(IsState iss);
 
-	int insertIncome(int income);
+	int insertIncome(IsState iss);
 
-	int getSaleListCount(ArrayList<String> search);
+	int getSaleListCount();
 
-	ArrayList<SaleManage> saleList(ArrayList<String> search, PageInfo pi);
+	ArrayList<SaleManage> saleList(PageInfo pi);
 
 	int insertSale(SaleManage sm);
 
-	int getOSListCount(ArrayList<String> search);
+	int getOSListCount();
 
-	ArrayList<OsManage> osList(ArrayList<String> search, PageInfo pi);
+	ArrayList<OsManage> osList(PageInfo pi);
 
-	int getFixtureListCount(ArrayList<String> search);
+	int getFixtureListCount();
 
-	ArrayList<Fixture> fixtureList(ArrayList<String> search, PageInfo pi);
+	ArrayList<Fixture> fixtureList(PageInfo pi);
 
-	int getSalaryListCount(ArrayList<String> search);
+	int getSalaryListCount();
 
-	ArrayList<SalaryManage> salaryList(ArrayList<String> search, PageInfo pi);
+	ArrayList<SalaryManage> salaryList(PageInfo pi);
 
-	SalaryManage salaryDetail(String empNum);
+	ArrayList<SalaryManage> salaryDetail(String empNum);
 
 	int checkSalary();
 
@@ -59,6 +61,14 @@ public interface AccountService {
 	ArrayList<Partner> getPartner(String partnerNum);
 
 	ArrayList<Product> getProduct(String productCode);
+
+	int validCheck(String noticeTitle);
+
+	ArrayList<Product> productList();
+
+	ArrayList<Partner> partnerList();
+
+	AvgSalary avgSalary(SalaryManage salaryManage);
 
 	
 }

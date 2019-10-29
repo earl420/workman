@@ -319,7 +319,7 @@
                         		</a>
                         		
                         		<ul>
-                        			<li><a href="addHoliday.wo">-&nbsp;휴가신청</a>
+                        <!-- 			<li><a href="addHoliday.wo">-&nbsp;휴가신청</a> -->
                         			<li><a href="showHoliday.wo">-&nbsp;휴가현황</a>
                         			<li><a href="showAtt.wo">-&nbsp;근태현황</a>
                         		</ul>
@@ -363,11 +363,9 @@
                             <i class="fas fa-user"></i> <span class="nav-text">마이 페이지</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="myPageView.wo">-&nbsp;마이 페이지</a></li>
+                            <li><a href="mypageView.wo">-&nbsp;마이 페이지</a></li>
                             <li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
                             <li><a href="confirmPwdPage.wo">-&nbsp;비밀번호 변경</a></li>
-                            <!-- 비밀번호 확인 후 비밀번호 변경 페이지 이동하도록 처리 -->
-                            <li><a href="changePwdPage.wo">-&nbsp;비밀번호 변경</a></li>
                         </ul>
                     </li>
                     

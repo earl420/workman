@@ -54,15 +54,15 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="i" begin="1" end="10">
+							<c:forEach var="i" items="${list }">
 								<tr>
-									<td>${i }</td>
-									<td>회계/총무</td>
-									<td>양정환</td>
-									<td>대리</td>
-									<td>2000000</td>
-									<td>24000000</td>
-									<td>${i-1 }%</td>
+									<td>${i.empNum }</td>
+									<td>${i.deptName }</td>
+									<td>${i.empName }</td>
+									<td>${i.gradeName }</td>
+									<td>${i.monSalary }</td>
+									<td>${i.yearSalary }</td>
+									<td>${i.increaseRate }%</td>
 								</tr>
 							</c:forEach>							
 						</tbody>

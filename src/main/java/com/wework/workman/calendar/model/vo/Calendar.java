@@ -4,6 +4,8 @@ import java.sql.Date;
 
 public class Calendar {
 	
+	private int empNum;
+	private int deptNum;
 	private String _id;
 	private String title;
 	private String description;
@@ -20,10 +22,13 @@ public class Calendar {
 		super();
 	}
 
+	
 
-	public Calendar(String _id, String title, String description, Date start, Date end, String type, String userName,
-			String backgroundColor, String textColor, Boolean allDay) {
+	public Calendar(int empNum, int deptNum, String _id, String title, String description, Date start, Date end,
+			String type, String userName, String backgroundColor, String textColor, Boolean allDay) {
 		super();
+		this.empNum = empNum;
+		this.deptNum = deptNum;
 		this._id = _id;
 		this.title = title;
 		this.description = description;
@@ -34,6 +39,27 @@ public class Calendar {
 		this.backgroundColor = backgroundColor;
 		this.textColor = textColor;
 		this.allDay = allDay;
+	}
+
+
+
+	public int getEmpNum() {
+		return empNum;
+	}
+
+
+	public void setEmpNum(int empNum) {
+		this.empNum = empNum;
+	}
+
+
+	public int getDeptNum() {
+		return deptNum;
+	}
+
+
+	public void setDeptNum(int deptNum) {
+		this.deptNum = deptNum;
 	}
 
 
@@ -139,12 +165,14 @@ public class Calendar {
 
 	@Override
 	public String toString() {
-		return "Calendar [_id=" + _id + ", title=" + title + ", description=" + description + ", start=" + start
-				+ ", end=" + end + ", type=" + type + ", userName=" + userName + ", backgroundColor=" + backgroundColor
-				+ ", textColor=" + textColor + ", allDay=" + allDay + "]";
+		return "Calendar [empNum=" + empNum + ", deptNum=" + deptNum + ", _id=" + _id + ", title=" + title
+				+ ", description=" + description + ", start=" + start + ", end=" + end + ", type=" + type
+				+ ", userName=" + userName + ", backgroundColor=" + backgroundColor + ", textColor=" + textColor
+				+ ", allDay=" + allDay + "]";
 	}
-	
-	
+
+
 	
 
+	
 }

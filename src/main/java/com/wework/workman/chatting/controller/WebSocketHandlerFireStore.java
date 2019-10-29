@@ -22,9 +22,9 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
-import com.wework.workman.chatting.model.vo.User;
+//import com.wework.workman.chatting.model.vo.User;
 
-public class WebSocketHandler extends TextWebSocketHandler {
+public class WebSocketHandlerFireStore extends TextWebSocketHandler {
 	public Firestore db = FirestoreClient.getFirestore();
 	private Map<String, WebSocketSession> allUsers = new ConcurrentHashMap<String, WebSocketSession>();
 //	private Map<String, Integer[]> rooms = new ConcurrentHashMap<String, Integer[]>();
@@ -166,7 +166,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String paticipant ="123";
 //		private List<String> roomId;
 		
-		futures.add(users.document(roomId).set(new User(Arrays.asList("123", "1233"))));
+//		futures.add(users.document(roomId).set(new User(Arrays.asList("123", "1233"))));
 	
 		// (optional) block on operation
 		ApiFutures.allAsList(futures).get();

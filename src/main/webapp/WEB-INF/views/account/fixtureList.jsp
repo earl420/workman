@@ -41,29 +41,27 @@
 					<table class="table table-bordered verticle-middle" id="acList" style="border: 1px solid black; padding-left: 10px; padding-right:10px;">
 						<thead>
 							<tr>
-								<th width="10%">비품번호</th>
+								<th width="15%">비품번호</th>
 								<th width="10%">비품종류</th>
-								<th width="15%">제품명</th>
+								<th width="20%">제품명</th>
 								<th width="10%">사용부서</th>
 								<th width="10%">사용자</th>
-								<th width="10%">갯수</th>
 								<th width="15%">구매일</th>
 								<th width="10%">내구연한</th>
 								<th width="10%">잔존가치</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="i" begin="1" end="10">
+							<c:forEach var="i" items="${list }">
 								<tr>
-									<td>${i }</td>
-									<td>소모품</td>
-									<td>노트북</td>
-									<td>인사부</td>
-									<td>양정환</td>
-									<td>1</td>
-									<td>2018/01/01</td>
-									<td>4</td>
-									<td>400000</td>
+									<td>${i.fixtureNum }</td>
+									<td>${i.fixtureType }</td>
+									<td>${i.fixtureName }</td>
+									<td>${i.deptName }</td>
+									<td>${i.empName }</td>
+									<td>${i.fixtureBuy }</td>
+									<td>${i.endurance }</td>
+									<td>${i.residualValue }</td>
 								</tr>
 							</c:forEach>
 							
@@ -79,13 +77,20 @@
 					</button>
 				</div>
 				<div align="center" style="padding-top: 20px;" >
-					<div class="pages" onclick="paging(1);">&lt;&lt;</div>
-					<div class="pages" onclick="paging(1);">&lt;</div>
-					<c:forEach var="i" begin="1" end="10">
+					<div class="pages" onclick="paging(${1});">&lt;&lt;</div>
+					<c:choose>
+						<c:when test="${pi.currentPage eq 1 }">
+							<div class="pages" onclick="paging(1);">&lt;</div>
+						</c:when>
+						<c:otherwise>
+							<div class="pages" onclick="paging(${pi.currentPage-1});">&lt;</div>
+						</c:otherwise>
+					</c:choose>
+					<c:forEach var="i" begin="1" end="${pi.endPage }">
 						<div class="pages" onclick="paging(this.innerText);">${ i }</div>
 					</c:forEach>
-					<div class="pages" onclick="paging(10);">&gt;</div>
-					<div class="pages" onclick="paging(10);">&gt;&gt;</div>
+					<div class="pages" onclick="paging(${i+1});">&gt;</div>
+					<div class="pages" onclick="paging(${pi.maxPage});">&gt;&gt;</div>
 				</div>
 			</div>
 			<!-- /.container -->

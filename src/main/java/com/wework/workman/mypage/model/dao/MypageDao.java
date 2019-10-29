@@ -31,4 +31,33 @@ public class MypageDao {
 	public int empUpdate(Mypage m) {
 		return sqlSession.update("mypageMapper.empUpdate", m);
 	}
+
+
+	/**
+	 * 비번 수정
+	 * @param m
+	 * @return
+	 */
+	public int pwdUpdate(Mypage m) {
+		return sqlSession.update("mypageMapper.pwdUpdate", m);
+	}
+
+
+	/**
+	 * 비번 찾기
+	 * @param m
+	 * @return
+	 */
+	public Mypage findPwd(Mypage m) {
+		return sqlSession.selectOne("mypageMapper.findPwd", m);
+	}
+
+	/**
+	 * 새로운 비번
+	 * @param m
+	 * @return
+	 */
+	public int returnPwd(Mypage m) {
+		return sqlSession.update("mypageMapper.pwdUpdate", m);
+	}
 }

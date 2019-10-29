@@ -3,7 +3,384 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="accountMapper">
+	<resultMap id="acnotice" type="AcNotice">
+		<id column="notice_num" property="noticeNum" />
+		<result column="notice_dept" property="noticeDept" />
+		<result column="notice_title" property="noticeTitle" />
+		<result column="notice_content" property="noticeContent" />
+		<result column="emp_num" property="empNum" />
+		<result column="emp_name" property="empName" />
+		<result column="notice_date" property="noticeDate" />
+		<result column="notice_modify" property="noticeModify" />
+		<result column="notice_status" property="noticeStatus" />
+		<result column="notice_acc_type" property="noticeAccType" />
+	</resultMap>
+	<resultMap id="empSalary" type="SalaryManage">
+		<id column="EMP_NUM" property="empNum"></id>
+		<id column="SAL_YEAR" property="salYear"></id>
+		<result column="DEPT_NUM" property="deptNum"></result>
+		<result column="DEPT_NAME" property="deptName"></result>
+		<result column="EMP_NAME" property="empName"></result>
+		<result column="GRADE_NAME" property="gradeName"></result>
+		<result column="MONSALARY" property="monSalary"></result>
+		<result column="SALARY" property="yearSalary"></result>
+		<result column="INCREASERATE" property="increaseRate"></result>
+	</resultMap>
+	<resultMap id="as" type="AccountStatus">
+		<result column="DEPT" property="deptside"></result>
+		<result column="ACCOUNT1" property="account1"></result>
+		<result column="CREDIT" property="credit"></result>
+		<result column="ACCOUNT2" property="account2"></result>
+	</resultMap>
+	<resultMap id="ics" type="IncomeStatement">
+		<result column="credit" property="accountSubject"></result>
+		<result column="price" property="account"></result>
+	</resultMap>
+	<resultMap id="product" type="Product" >
+		<id column="PRODUCT_CODE" property="productCode"></id>
+		<result column="PRODUCT_NAME" property="productName"></result>
+		<result column="PRODUCT_PRICET" property="productPrice"></result>
+	</resultMap>
+	<resultMap id="partner" type="Partner">
+		<id column="PARTNER_NUM" property="partnerNum"></id>
+		<result column="PARTNER_NAME" property="partnerName"></result>
+	</resultMap>
+	<resultMap id="sales" type="SaleManage">
+		<id column="SALES_NUM" property="salesNum"></id>
+		<result column="PRODUCT_CODE" property="productCode"></result>
+		<result column="PRODUCT_NAME" property="productName"></result>
+		<result column="PRODUCT_PRICET" property="productPrice"></result>
+		<result column="SALES_DATE" property="salesDate"></result>
+		<result column="EMP_NUM" property="empNum"></result>
+		<result column="EMP_NAME" property="empName"></result>
+		<result column="SALES_AMOUNT" property="salesAmount"></result>
+		<result column="PARTNER_NUM" property="partnerNum"></result>
+		<result column="PARTNER_NAME" property="partnerName"></result>
+	</resultMap>
+	<resultMap id="osManage" type="OsManage">
+		<id column="LICENSE_MANAGE" property="licenseManage"></id>
+		<result column="PRODUCT_NAME" property="productName"></result>
+		<result column="LICENSE_NUM" property="licenseNum"></result>
+		<result column="PAY_NUM" property="payNum"></result>
+		<result column="LICENSE_START" property="licenseStart"></result>
+		<result column="LICENSE_END" property="licenseEnd"></result>
+		<result column="LICENSE_UPDATE" property="licenseUpdate"></result>
+	</resultMap>
+	<resultMap id="fixturea" type="Fixture">
+		<id column="FIXTURE_NUM" property="fixtureNum"></id>
+		<result column="FIXTURE_TYPE" property="fixtureType"></result>
+		<result column="FIXTURE_NAME" property="fixtureName"></result>
+		<result column="FIXTURE_BUY" property="fixtureBuy"></result>
+		<result column="DEPT_NUM" property="deptNum"></result>
+		<result column="DEPT_NAME" property="deptName"></result>
+		<result column="EMP_NUM" property="empNum"></result>
+		<result column="EMP_NAME" property="empName"></result>
+		<result column="FIXTURE_ENDURANCE" property="endurance"></result>
+		<result column="PAY_PRICE" property="fixturePrice"></result>
+	</resultMap>
+	<resultMap id="salaryAvg" type="AvgSalary">
+		<result column="AVGTOTAL" property="avgTotal"></result>
+		<result column="AVGDEPT" property="avgDept"></result>
+		<result column="AVGGRADE" property="avgGrade"></result>
+	</resultMap>
+	<select id="getNoticeListCount" resultType="_int">
+		select count(*) from
+		notice
+	</select>
+	<select id="noticeList" resultMap="acnotice">
+		select *
+		from notice
+		JOIN
+		EMPLOYEE USING(EMP_NUM)
+		where notice_acc_type in(1,2,3)
+		order by notice_date desc
+	</select>
+	<select id="noticeDetail" parameterType="string"
+		resultMap="acnotice">
+
+		select * from notice
+		join employee using(emp_num)
+		where
+		notice_num =
+		concat('NOTICE',#{notice_num})
+
+	</select>
+
+
+	<select id="accountStatus" parameterType="string" resultMap="as">
+		<![CDATA[
+		SELECT A1.ACCOUNTNAME as "DEPT", A1.ACOUNTSUM as
+		"ACCOUNT1" , A2.ACCOUNTNAME AS "CREDIT",A2.ACCOUNTSUM2 AS "ACCOUNT2"
+		FROM
+		(SELECT ACCOUNTNAME, ACOUNTSUM, ROWNUM AS "RN"
+		FROM
+		(SELECT ACCOUNTNAME, ACOUNTSUM
+		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
+		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
+		"ACOUNTSUM"
+		from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
+		j1.debt_price from journalizing j1
+		where j1.journ_date<=#{noticeContent})
+		group by debt)
+		full outer join (select credit, sum(credit_price) as "PRICE2" from (select
+		j1.credit, j1.credit_price from journalizing j1
+		where j1.journ_date<=#{noticeContent})
+		group by credit) on(debt =credit))
+		JOIN ACCOUNT ON(ACCOUNTNAME= ACCOUNT_NAME)
+		WHERE ACCOUNT_ALI LIKE('1%')OR ACCOUNT_ALI LIKE'2%'
+		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A1
+		LEFT OUTER JOIN
+		(SELECT ACCOUNTNAME,ACCOUNTSUM2,ROWNUM AS "RN"
+		FROM
+		(SELECT ACCOUNTNAME, ACOUNTSUM*(-1) AS ACCOUNTSUM2
+		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
+		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
+		"ACOUNTSUM"
+		from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
+		j1.debt_price from journalizing j1
+		where j1.journ_date<=#{noticeContent})
+		group by debt)
+		full outer join (select credit, sum(credit_price) as "PRICE2" from (select
+		j1.credit, j1.credit_price from journalizing j1
+		where j1.journ_date<=#{noticeContent})
+		group by credit) on(debt =credit))
+		JOIN ACCOUNT ON(ACCOUNTNAME= ACCOUNT_NAME)
+		WHERE ACCOUNT_ALI LIKE('3%')OR ACCOUNT_ALI LIKE'4%' OR ACCOUNT_ALI LIKE
+		'5%'
+		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A2 ON(A1.RN = A2.RN)
+		ORDER BY A1.RN
+		]]>
+
+	</select>
+
+	<select id="incomeStatus" parameterType="IsState" resultMap="ics">
+		<![CDATA[
+			select credit , price  from
+(select credit, sum(credit_price) as price 
+from journalizing
+right outer join account on(credit=account_name)
+where journ_date between #{startDate} and #{endDate}
+and account_ali like '5%'
+group by credit
+union
+select debt, sum(debt_price)
+from journalizing
+right outer join account on (debt=account_name)
+where journ_date between #{startDate} and #{endDate}
+and account_ali like '2%'
+and account_name!='세금'
+group by debt)
+join account on(credit = account_name)
+order by account_ali desc, account_num
+		]]>
+	</select>
+<select id="validCheck" parameterType="string" resultType="_int">
+	select count(*) from notice where notice_title=#{noticeTitle}
+</select>
+
+<insert id="insertIncome1" parameterType="IsState">
+<![CDATA[
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,#{endDate},'소모품비',
+	(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) from fixture 
+join payment on(fixture_payment=pay_num)
+WHERE EXTRACT(MONTH FROM fixture_buy)
+BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)),
+	'소모품',(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) from fixture 
+	join payment on(fixture_payment=pay_num)
+	WHERE EXTRACT(MONTH FROM fixture_buy) 
+	BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)), null)
 	
+	]]>
+	</insert>
+<insert id="insertIncome2" parameterType="IsState">
+	<![CDATA[
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,#{endDate},('무형자산상각비'),
+	(select decode(sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START)))) 
+    from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< add_months(license_end,3)),
+('소프트웨어'),
+(select decode( sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START)))) 
+from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< add_months(license_end,3)), null)
 	
+	]]>
+	</insert>
+<insert id="insertIncome3" parameterType="IsState">
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='급여' 
+	and journ_date between #{startDate} and #{endDate}),
+	'급여',
+(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='급여' 
+	and journ_date between #{startDate} and #{endDate})
+, null)
+</insert>
+<insert id="insertIncome4" parameterType="IsState">
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='소모품비' 
+	and journ_date between #{startDate} and #{endDate}),
+	'소모품비',
+(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='소모품비' 
+	and journ_date between #{startDate} and #{endDate})
+, null)
+</insert>
+<insert id="insertIncome5" parameterType="IsState">
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='무형자산상각비' 
+	and journ_date between #{startDate} and #{endDate}),
+	'무형자산상각비',
+(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='무형자산상각비' 
+	and journ_date between #{startDate} and #{endDate})
+, null)
+</insert>
+<insert id="insertIncome6" parameterType="IsState">
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,#{endDate},'세금',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),
+	'현금',
+(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual)
+, null)
+</insert>
+<insert id="insertIncome7" parameterType="IsState">
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),
+	'세금',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual)
+	, null)
+</insert>
+
+<insert id="insertIncome8" parameterType="IsState">
+	   insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/09/30',
+('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))),
+('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))), null )
+  
+</insert>
+
+<insert id="insertIncome9" parameterType="IsState">
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),
+	'이익잉여금',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual)
+	, null)
+</insert>
+
+<insert id="aNoticeInsert" parameterType="AcNotice">
+	insert into notice 
+	values (null,#{noticeDept}, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, 'Y', #{noticeAccType} )
+</insert>
+
+<select id="getSaleListCount" resultType="_int">
+	select count(*) from sales
+</select>
+<select id="saleList" resultMap="sales">
+	select * from sales join employee using(emp_num) join partner using(partner_num) 
+	join product using (PRODUCT_CODE) order by sales_num desc
+</select>
+
+<select id="productList" resultMap="product">
+	select * from product
+</select>
+
+<select id="partnerList" resultMap="partner">
+	select * from partner
+</select>
+<insert id="insertSale" parameterType="SaleManage">
+	insert into sales values (null, #{productCode}, sysdate, #{empNum},
+	#{salesAmount}, #{partnerNum}, 
+	(select product_pricet*#{salesAmount} from product where product_code=#{productCode}))
+</insert>
+<insert id="insertSaleAccount" parameterType="SaleManage">
+	insert into journalizing values (JOURN_NUM_SEQ.nextval, sysdate, '현금', (select product_pricet*#{salesAmount} from product where product_code=#{productCode}),
+	'매출', (select product_pricet*#{salesAmount} from product where product_code=#{productCode}),null 
+	)
+</insert>
+<select id="osListCount" resultType="_int">
+	<![CDATA[
+	select count(*) from license where LICENSE_END>sysdate
+	]]>
+</select>
+<select id="osList" resultMap="osManage">
+	<![CDATA[
+	select * from license where LICENSE_END>sysdate
+	]]>
 	
+</select>
+<select id="getFixtureListCount" resultType="_int">
+	<![CDATA[
+	select count(*) from fixture where sysdate < add_months(FIXTURE_BUY,12*FIXTURE_ENDURANCE)
+	]]>
+</select>
+<select id="fixtureList" resultMap="fixturea">
+<![CDATA[
+	select * from fixture
+	join dept using(DEPT_NUM)
+	join employee using(EMP_NUM)
+	join payment on(FIXTURE_PAYMENT=PAY_NUM)
+	where sysdate<add_months(FIXTURE_BUY,12*FIXTURE_ENDURANCE)
+	]]>
+</select>
+
+<select id="getSalaryListCount" resultType="_int">
+	select count(*) from salary 
+	where sal_year =(extract(year from sysdate))
+</select>
+
+<select id="salaryList" resultMap="empSalary">
+
+	<![CDATA[
+	select EMP_NUM,SAL_YEAR,DEPT_NUM,DEPT_NAME,EMP_NAME,GRADE_NAME, round(SALARY/12) AS "MONSALARY",SALARY,
+decode((select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num), null, 0,round((salary -(select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num))/(select salary from salary where sal_year =( extract(year from sysdate)-1) and emp_num=emp_num)*100))
+ as "INCREASERATE"
+from salary
+		join employee using(emp_num)
+		join dept using(dept_num)
+		join grade using(grade_num)
+		where sal_year in extract(year from sysdate)
+		
+	]]>
+</select>
+
+<select id="salaryDetail" resultMap="empSalary" parameterType="string">
+
+	<![CDATA[
+	select EMP_NUM,SAL_YEAR,DEPT_NUM,DEPT_NAME,EMP_NAME,GRADE_NAME, round(SALARY/12) AS "MONSALARY",SALARY,
+decode((select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num), null, 0,round((salary -(select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num))/(select salary from salary where sal_year =( extract(year from sysdate)-1) and emp_num=emp_num)*100))
+ as "INCREASERATE"
+from salary
+		join employee using(emp_num)
+		join dept using(dept_num)
+		join grade using(grade_num)
+		where emp_num=#{empNum}
+		order by sal_year desc
+	]]>
+</select>
+
+<select id="avgSalary" resultMap="salaryAvg" parameterType="SalaryManage">
+
+	select 
+	(select avg(salary) from salary where SAL_YEAR=extract(year from sysdate)) as "AVGTOTAL",
+	(select avg(salary) from salary join employee using (emp_num) join dept using(dept_Num) where SAL_YEAR=extract(year from sysdate) and dept_num=#{deptNum}) as "AVGDEPT",
+	(select avg(salary) from salary join employee using (emp_num) join grade using(grade_Num) where SAL_YEAR=extract(year from sysdate) and grade_name=#{gradeName}) as "AVGGRADE"
+	from dual
+	
+</select>
+
 </mapper>

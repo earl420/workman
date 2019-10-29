@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class AcNotice {
 	private String noticeNum;
-	private String noticeDept;
+	private int noticeDept;
 	private String noticeTitle;
 	private String noticeContent;
 	private String empNum;
@@ -12,22 +12,12 @@ public class AcNotice {
 	private Date noticeDate;
 	private Date noticeModify;
 	private String noticeStatus;
-	private int NoticeAccType;
+	private int noticeAccType;
 	public AcNotice() {
 		super();
 	}
-	
-	public AcNotice(String noticeDept, String noticeTitle, String noticeContent, String empNum, int noticeAccType) {
-		this.noticeDept = noticeDept;
-		this.noticeTitle = noticeTitle;
-		this.noticeContent = noticeContent;
-		this.empNum = empNum;
-		NoticeAccType = noticeAccType;
-	}
-
-	public AcNotice(String noticeNum, String noticeDept, String noticeTitle, String noticeContent, String empNum,
+	public AcNotice(String noticeNum, int noticeDept, String noticeTitle, String noticeContent, String empNum,
 			String empName, Date noticeDate, Date noticeModify, String noticeStatus, int noticeAccType) {
-		super();
 		this.noticeNum = noticeNum;
 		this.noticeDept = noticeDept;
 		this.noticeTitle = noticeTitle;
@@ -37,7 +27,7 @@ public class AcNotice {
 		this.noticeDate = noticeDate;
 		this.noticeModify = noticeModify;
 		this.noticeStatus = noticeStatus;
-		NoticeAccType = noticeAccType;
+		this.noticeAccType = noticeAccType;
 	}
 	public String getNoticeNum() {
 		return noticeNum;
@@ -45,10 +35,10 @@ public class AcNotice {
 	public void setNoticeNum(String noticeNum) {
 		this.noticeNum = noticeNum;
 	}
-	public String getNoticeDept() {
+	public int getNoticeDept() {
 		return noticeDept;
 	}
-	public void setNoticeDept(String noticeDept) {
+	public void setNoticeDept(int noticeDept) {
 		this.noticeDept = noticeDept;
 	}
 	public String getNoticeTitle() {
@@ -94,17 +84,17 @@ public class AcNotice {
 		this.noticeStatus = noticeStatus;
 	}
 	public int getNoticeAccType() {
-		return NoticeAccType;
+		return noticeAccType;
 	}
 	public void setNoticeAccType(int noticeAccType) {
-		NoticeAccType = noticeAccType;
+		this.noticeAccType = noticeAccType;
 	}
 	@Override
 	public String toString() {
 		return "AcNotice [noticeNum=" + noticeNum + ", noticeDept=" + noticeDept + ", noticeTitle=" + noticeTitle
 				+ ", noticeContent=" + noticeContent + ", empNum=" + empNum + ", empName=" + empName + ", noticeDate="
-				+ noticeDate + ", noticeModify=" + noticeModify + ", noticeStatus=" + noticeStatus + ", NoticeAccType="
-				+ NoticeAccType + "]";
+				+ noticeDate + ", noticeModify=" + noticeModify + ", noticeStatus=" + noticeStatus + ", noticeAccType="
+				+ noticeAccType + "]";
 	}
 	
 	
