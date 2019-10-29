@@ -127,7 +127,7 @@
 											<label class="col-lg-4 col-form-label" for="birth">생년월일
 											</label>
 											<div class="col-lg-6">
-												<input type="date" class="form-control" id="birth"
+												<input type="date" min="1960-01-01" max="1999-12-12" class="form-control" id="birth"
 													name="birth" value="${ loginMan.birth }">
 											</div>
 										</div>
