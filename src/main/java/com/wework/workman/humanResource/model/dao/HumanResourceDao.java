@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
@@ -96,5 +97,13 @@ public class HumanResourceDao {
 		// ModalEmpList 불러오기
 		public ArrayList<Modal> selectModalEmpList() {
 			return (ArrayList)sqlSession.selectList("humanMapper.selectModalEmpList");
+		}
+
+		public ArrayList<Modal> selectModalList(String[] empList) {
+			ArrayList<Modal> list = new ArrayList();
+			for(int i=0; i<empList.length; i++) {
+				list.add((Modal) sqlSession.selectOne("humanMapper.selectModalList", empList[i]));
+			}
+			return list;
 		}
 }

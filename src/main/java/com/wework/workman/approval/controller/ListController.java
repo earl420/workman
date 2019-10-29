@@ -141,6 +141,7 @@ public class ListController {
 		
 		mv.addObject("dlist",dlist);
 		mv.addObject("mlist",mlist);
+		System.out.println(mlist);
 		mv.setViewName("approval/test");
 		return mv;
 	}

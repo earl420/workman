@@ -17,6 +17,9 @@
 	.box_from ul {
 		margin-bottom : 0px;
 	}
+	.box_from ul li button {
+	padding: 7px 15px;
+	}
 </style>
 <script type="text/javascript" src="resources/se2/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
@@ -48,7 +51,7 @@
                                     <table class="table">
                                     	<tr>
                                         	<td rowspan="2" align="center" width="10%">결재라인</td>
-                                            <td width="10%"  align="center">
+                                            <td width="10%">
                                            		<div class="bootstrap-modal1">
                                            			<!-- Button trigger modal1 -->
                                             		<button type="button" class="btn mb-1 btn-rounded btn-success"
@@ -119,7 +122,7 @@
                                             </th>
                                         </tr>
                                         <tr>
-                                        	<td align="center">
+                                        	<td>
                                         	<div class="bootstrap-modal2">
                                         	<!-- Button trigger modal2 -->
                                             		<button type="button" class="btn mb-1 btn-rounded btn-secondary"
@@ -173,7 +176,7 @@
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-																		<button type="button" class="btn btn-primary" onclick="modalSubmit1();" data-dismiss="modal" >완료</button>
+																		<button type="button" class="btn btn-primary" onclick="modalSubmit2();" data-dismiss="modal" >완료</button>
 																	</div>
 																</div>
 															</div>
@@ -256,7 +259,7 @@
       		files.push( input.files[i]);
       		var $ul = $(".files ul");
 			var $li = $("<li class='alert'>");
-			var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary' data-dismiss='alert' aria-label='Close'>").text(files[i].name + "");
+			var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary' aria-label='Close'>").text(files[i].name + "");
 			var $span = $("<span class='btn-icon-right'><i class='fa fa-close'></i>");
 			 	$button.append($span);
 				$li.append($button);
@@ -264,6 +267,9 @@
     		}
 			console.log(files);
   }); /* 파일 추가  */
+  	$(function(){
+	  
+  	});
   
   var empList = new Array();
   var empList2 = new Array();
@@ -303,12 +309,36 @@
 		});
 	});
 	
+	function modalSubmit1(){
+		 
+		$.ajax({
+			 url: "submitEmpList1.wo",
+			 dataType : "json",
+			 method : 'POST',
+			 data: {"empList" : empList},
+			 success : function(data) {
+				 console.log(empList);
+				
+				 var $ul = $(".applicant ul");
+				 $ul.html("");
+				 $.each(data,function(index,value) {
+					var $li = $("<li>");
+					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-success'>").text(value);
+					$li.append($button);
+					$ul.append($li);
+				 });
+			 },error : function() {
+				 console.log("ajax 통신실패");
+			 }
+		 });
+	}
+	
 	$(function(){
 		
 		$(".referrerSelect").find("button").on("click" ,function() {
 		var emp3 = $(this);
 		 console.log(emp3.text());
-		if(empList.length >= 0 && empList.length < 4){
+		if(empList2.length >= 0 && empList2.length < 4){
 			 empList2.push(emp3.text());
 			 emp3.attr("disabled",true);
 				 var $ul = $(".referrerMember ul");
@@ -328,7 +358,7 @@
 					var emp4 = $(this).text();
 					 
 					 for(i=0; i<empList2.length; i++){
-						 if(empList[i] == emp4){
+						 if(empList2[i] == emp4){
 							 empList2.splice(i,1);
 							 emp3.attr("disabled",false);
 							 $(this).attr("data-dismiss",'alert'); 
@@ -338,30 +368,6 @@
 				});
 		});
 	});
-	 
-	function modalSubmit1(){
-		 
-		$.ajax({
-			 url: "submitEmpList1.wo",
-			 dataType : "json",
-			 method : 'POST',
-			 data: {"empList" : empList},
-			 success : function(data) {
-				 console.log(empList);
-				
-				 var $ul = $(".applicant ul");
-				 $ul.html("");
-				 $.each(data,function(index,value) {
-					var $li = $("<li>");
-					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(value);
-					$li.append($button);
-					$ul.append($li);
-				 });
-			 },error : function() {
-				 console.log("ajax 통신실패");
-			 }
-		 });
-	}
 	
 	function modalSubmit2(){
 		 
@@ -376,7 +382,7 @@
 				 $ul.html("");
 				 $.each(data,function(index,value) {
 					var $li = $("<li>");
-					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(value);
+					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-secondary'>").text(value);
 					$li.append($button);
 					$ul.append($li);
 				 });

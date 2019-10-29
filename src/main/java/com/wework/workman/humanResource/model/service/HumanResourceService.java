@@ -53,5 +53,8 @@ public interface HumanResourceService {
 		
 	// modal emp리스트 불러오기
 	ArrayList<Modal> selectModalEmpList();
+	
+	// modal에서 선택된 empNum의 Modal 리스트 불러오기
+	ArrayList<Modal> selectModalList(String[] empList);
 
 }
