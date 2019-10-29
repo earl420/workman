@@ -14,11 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.wework.workman.approval.model.service.ListService;
-import com.wework.workman.hunamResource.model.service.HumanResourceService;
-import com.wework.workman.hunamResource.model.vo.Dept;
-import com.wework.workman.hunamResource.model.vo.Modal;
+import com.wework.workman.humanResource.model.service.HumanResourceService;
+import com.wework.workman.humanResource.model.vo.Dept;
+import com.wework.workman.humanResource.model.vo.Modal;
 
 @Controller
 public class ListController {
@@ -133,6 +132,7 @@ public class ListController {
 		return "approval/temporaryList";
 	}
 	
+	// 모델에 부서 및 사원들 리시트
 	@RequestMapping("test.wo")
 	public ModelAndView test(ModelAndView mv ) {
 		ArrayList<Dept> dlist = hService.selectModaDeptlList();
@@ -145,6 +145,7 @@ public class ListController {
 		return mv;
 	}
 	
+	// 결제자 선택 리시트 
 	@ResponseBody
 	@RequestMapping(value= "submitEmpList.wo", produces="application/json; charset=utf-8")
 	public String submitEmpList(HttpServletResponse response,@RequestParam(value="empList[]",required=false) String[] empList) throws JsonProcessingException{
