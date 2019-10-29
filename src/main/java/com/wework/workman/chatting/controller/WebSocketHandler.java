@@ -2,6 +2,7 @@ package com.wework.workman.chatting.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -13,7 +14,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.wework.workman.chatting.model.service.ChattingService;
-import com.wework.workman.chatting.model.service.ChattingServiceImpl;
 import com.wework.workman.chatting.model.vo.Message;
 import com.wework.workman.chatting.model.vo.Room;
 
@@ -30,6 +30,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	//userId,sessionId
 	private Map<String,String> userSessionId = new ConcurrentHashMap<>();
 	//룸 다시생각.
+	private Map<String,ArrayList<String>> RoomArrList = new ConcurrentHashMap<>();
 	//세션에있는사람들을 맨마지막 룸으로 넣고.. 체인지발생시 룸변경 userId:roomId
 	//
 //	private Map<String, Integer[]> rooms = new ConcurrentHashMap<String, Integer[]>();
@@ -142,7 +143,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			}
 			String msgHistory = "msgHistory:"+sender+":"+content+":"+time+":"+status;
 			TextMessage tx = new TextMessage(msgHistory);
-			
 			msgSendOne(session,tx);
 		}
 	}
@@ -168,7 +168,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		msg.setSender(userId);
 		msg.setRoomId(roomId);
 		msg.setMsgCont(msgCont);
-		int result = cService.msgDb(msg);
+		cService.msgDb(msg);
 	};
 
 

@@ -180,6 +180,8 @@ img {
     ***********************************-->
 	<div id="main-wrapper">
 		<c:import url="../common/header.jsp"></c:import>
+<%-- 		<input type="hidden" value=${loginMan.num } id="loginId"> --%>
+<%-- 		<input type="hidden" value=${loginMan.name } id="loginName"> --%>
 		<input type="hidden" value=${loginUser.loginId } id="loginId">
 		<input type="hidden" value=${loginUser.loginName } id="loginName">
 		<input type="hidden" value="" id="actiRoomId">
@@ -196,18 +198,8 @@ img {
 							<div class="card-body">
 								<div class="card-title">ChatList</div>
 								<div class="slimScrollDiv" id="chatListScroll">
-
-									<div class="chat_list active_chat">
-										<input type="hidden" value="test">
-										<h5>
-											<i class="fas fa-cog setSpan"></i> Sunil Rajput <span
-												class="chat_date">Dec 25</span>
-										</h5>
-										<p>Test, which is a one roof.</p>
-									</div>
 									
 								</div>
-
 
 								<div class="newChattingDiv">
 									<button onclick="newChat();" class="btn btn-light">
@@ -314,7 +306,19 @@ img {
 		$('#sendBtn').click(function() {//버튼클릭.
 			send();
 		});
-
+		
+		function appendMessage(msg) {
+			if (userId == writer) {
+				$("#chatBox").append("<li class='msgMe'>" + msg + "</li>");
+			} else if(writer == "notice"){
+				$("#chatBox").append("<li class='msgNotice'>" + msg + "</li>");
+			}else{
+				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
+			};
+			// 		$("#testTa").append(msg);
+		}
+		
+		//handler
 		function onMessage(evt) {
 			var data = evt.data;
 			var spData = data.split(":");
@@ -344,19 +348,6 @@ img {
 				
 		}
 
-		function appendMessage(msg) {
-			if (userId == writer) {
-				$("#chatBox").append("<li class='msgMe'>" + msg + "</li>");
-			} else if(writer == "notice"){
-				$("#chatBox").append("<li class='msgNotice'>" + msg + "</li>");
-			}else{
-				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
-			};
-			// 		$("#testTa").append(msg);
-		}
-		
-		
-		
 		//--------초기설정----------
 		
 		//onOpen:userId
@@ -373,15 +364,15 @@ img {
 			
 
 // 			<div class="chat_list active_chat">
-// 				<input type="hidden" value="">
-// 					<h5><i class="fas fa-cog setSpan"></i>
-// 						Sunil Rajput <span class="chat_date">Dec 25</span>
-// 					</h5>
-// 					<p>Test, which is a one roof.</p>
-// 				</div>
+// 				<input type="hidden" value="test">
+// 				<h5>
+// 					<i class="fas fa-cog setSpan"></i> Sunil Rajput <span
+// 						class="chat_date">Dec 25</span>
+// 				</h5>
+// 				<p>Test, which is a one roof.</p>
 // 			</div>
 			
-			var $div_chatList = $("<div class='chat_list'>");
+			var $div_chatList = $("<div class='chat_list' id='"+setRoomId+"'>");
 			var $hrId =$("<input type='hidden' value='"+setRoomId+"'>");
 			var $h5 = $("<h5>"+setRoomName+"<span class='chat_date'>"+setLastComm+"</span></h5>");
 			var $iSpan =$("<i class='fas fa-cog setSpan'></i>");
@@ -420,7 +411,19 @@ img {
 		
 		//roomChange
 		$("#chatListScroll").on("click",".chat_list",function(){
-			$(this);
+			var rCng =$(this).children().eq(0).val();
+			
+// 			console.log("rCng : "+rCng);
+			
+			
+			
+			$('#'+actiRoomId).removeClass('active_chat');
+			actiRoomId= rCng;
+			$('#actiRoomId').val(rCng);
+			$('#'+actiRoomId).addClass('active_chat');
+			wbSocket.send("rCng:"+actiRoomId);
+// 			rCng:roomId
+// 			console.log("#actiRoomId : "+$('#actiRoomId').val());
 		});
 
 	</script>

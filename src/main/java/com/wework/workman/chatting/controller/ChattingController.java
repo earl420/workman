@@ -1,10 +1,6 @@
 package com.wework.workman.chatting.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import javax.servlet.http.HttpSession;
@@ -14,9 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.wework.workman.chatting.model.vo.LoginTemp;
 
 
@@ -28,7 +21,7 @@ public class ChattingController {
 	public static int initialChattingDB = 0;
 
 	@RequestMapping(value = "/chatting.wo", method = RequestMethod.GET)
-	public String chattingMain(Model m) throws IOException, InterruptedException, ExecutionException {
+	public String chattingMain(Model m,HttpSession session) throws IOException, InterruptedException, ExecutionException {
 //		if(initialChattingDB ==0) {
 //		}else{
 //			System.out.println("already connected");
@@ -38,6 +31,10 @@ public class ChattingController {
 		loginUser.setLoginId("empId");
 		loginUser.setLoginName("empName");
 		m.addAttribute("loginUser", loginUser);
+		
+//		Mypage mp = (Mypage)session.getAttribute("loginMan");
+//		m.addAttribute(mp);
+		
 		return "chatting/chatting";
 	}
 	
