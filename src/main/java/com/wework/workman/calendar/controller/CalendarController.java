@@ -17,7 +17,7 @@ public class CalendarController {
 	private CalendarService cService;
 	
 	
-	// Ä¶¸°´õ »ó¼¼º¸±â ºä
+	// ìº˜ë¦°ë”
 	@RequestMapping("calDetailView.wo") 
 	public String calendarDetailView() { 
 		
@@ -25,7 +25,7 @@ public class CalendarController {
 	}
 	  
 	  
-	// ÀÏÁ¤ »ó¼¼º¸±â-----
+	// ìƒì„¸ë³´ê¸°
 	@RequestMapping("cDetail.wo")
 	public ModelAndView calendarDetail(int empNum, ModelAndView mv) {
 		
@@ -34,7 +34,7 @@ public class CalendarController {
 		if(c != null) {
 			mv.addObject("c",c).setViewName("calendar/CalendarDetailViewNew");
 		}else {
-			mv.addObject("msg","ÀÏÁ¤ »ó¼¼Á¶È¸ ½ÇÆĞ").setViewName("common/404error");
+			mv.addObject("msg","ìƒì„¸ë³´ê¸° ì‹¤íŒ¨").setViewName("common/404error");
 		}
 		
 		return mv;
@@ -42,7 +42,7 @@ public class CalendarController {
   
 	  
 	
-	  // ÀÏÁ¤µî·Ï ºä
+	  // ì¼ì •ë“±ë¡ ë·°
 	  @RequestMapping("calInsertView.wo") 
 	  public String calendarInsertView() {
 	  
@@ -50,11 +50,11 @@ public class CalendarController {
 	 
 	 
 	
-	  // ÀÏÁ¤µî·Ï
+	  // ì¼ì •ë“±ë¡
 	 @RequestMapping("calInsert.wo") 
 	  public String insertBoard(Calendar c, HttpServletRequest request, Model model) {
 	  
-		 //System.out.println(c);
+		 System.out.println(c);
 		 
 		int result = cService.insertCalendar(c);
 		  
@@ -62,14 +62,14 @@ public class CalendarController {
 			 return "redirect:calDetail.wo"; 
 			 }
 		 else {
-			  model.addAttribute("msg", "ÀÏÁ¤ µî·Ï ½ÇÆĞ!!"); 
+			  model.addAttribute("msg", "ì¼ì •ë“±ë¡ ì‹¤íŒ¨!!"); 
 			  return "common/404error"; 
 		 }
 		 
 	  }
 	
 
-	// ÀÏÁ¤¼öÁ¤
+	// ìˆ˜ì •í•˜ê¸°
 	@RequestMapping("calUpdate.wo")
 	public String updateCalendar(int empNum, HttpServletRequest request) {
 		
@@ -82,7 +82,7 @@ public class CalendarController {
 		}
 	}
 	
-	// ÀÏÁ¤»èÁ¦
+	// ì‚­ì œí•˜ê¸°
 	@RequestMapping("calDelete.wo")
 	public String CalendarDelete(int empNum, HttpServletRequest request) {
 		

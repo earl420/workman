@@ -12,13 +12,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 	@Resource(name="attendanceDao")
 	private AttendanceDao aDao;
 	
-	@Override // Ãâ¼®µî·Ï
+	@Override // ì¶œê·¼
 	public int insertAttendance(Attendance a) {
 		
 		return aDao.insertAttendance(a);
 	}
 
-	@Override // Åð±Ù
+	@Override // í‡´ê·¼
 	public int insertOut(Attendance a) {
 		
 		return aDao.insertOut(a);

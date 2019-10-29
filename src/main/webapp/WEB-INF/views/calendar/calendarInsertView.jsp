@@ -65,6 +65,9 @@
         <h2 style="color:navy;">일 정&nbsp; 등 록</h2>
         <br>
         
+       <!--  <input type="hidden" name="empNum" value="">
+        <input type="hidden" name="deptNum" value=""> -->
+        
      <div class="inlinediv" style="width: 70%;">
      <div class="input-group mb-3">
         <div class="input-group-text" style="width: 20%;"><p id="ptype">Type</p></div>
@@ -90,9 +93,9 @@
                 </div>
             <input type="text" name="userName" class="form-control" value="" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
          </div>
-        </div>  
+        </div> 
 
-        <div class="inlinediv" style="width: 40.5%;">
+        <div class="inlinediv" style="width: 47.5%;">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">시작</span>
@@ -108,26 +111,26 @@
           </div>
         </div>
            
-        <div class="inlinediv" style="width: 40.5%;">
+        <div class="inlinediv" style="width: 47.5%;">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">마감</span>
             </div>
-            <input type="date" id="endDate" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="endDate" name="end" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             <input type="time" id="endTime" value="23:59" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
 
-        <div class="inlinediv">
+        <!-- <div class="inlinediv">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                    <input id="checkBoxId" type="checkbox" name="allDay" aria-label="Checkbox for following text input">
+                    <input id="checkBoxId" type="checkbox" name="allDay" value="allDay" aria-label="Checkbox for following text input">
                     </div>
                 </div>
                 <p class="form-control input-group-text" aria-label="Text input with checkbox">&nbsp;ALL DAY&nbsp;</p>
             </div>
-         </div>
+         </div> -->
          
          
 

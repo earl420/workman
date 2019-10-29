@@ -15,7 +15,7 @@ public class AttendanceController {
 	@Resource(name="attendanceService")
 	private AttendanceService aService;
 	
-	// Ãâ±Ù
+	// ì¶œê·¼
 	@RequestMapping("attend.wo")
 	public String Attendance(Attendance a, Model model,
 							   @RequestParam("empNum") int empNum,
@@ -24,19 +24,19 @@ public class AttendanceController {
 		
 		int result = aService.insertAttendance(a);
 		
-		if(result > 0) { //Ãâ¼®µÊ
+		if(result > 0) { //ì„±ê³µ
 			
 			return "calendar/calendarDetailView";
 		
-		}else { // ¾ÈµÊ
+		}else { // ì‹¤íŒ¨
 			
-			System.out.println("Ãâ¼® ½ÇÆÐ");
+			System.out.println("ì¶œê·¼ì‹¤íŒ¨");
 			return "common/errorPage";
 			
 		}
 	}
 	
-	// Åð±Ù
+	// í‡´ê·¼
 	@RequestMapping("out.wo")
 	public String Out(Attendance a, Model model,
 							   @RequestParam("empNum") int empNum,
@@ -45,13 +45,13 @@ public class AttendanceController {
 		
 		int result = aService.insertOut(a);
 		
-		if(result > 0) { //Åð±ÙµÊ
+		if(result > 0) { // ì„±ê³µ
 			
 			return "calendar/calendarDetailView";
 		
-		}else { // ¾ÈµÊ
+		}else { // ì‹¤íŒ¨
 			
-			System.out.println("Åð±Ù ½ÇÆÐ");
+			System.out.println("í‡´ê·¼ì‹¤íŒ¨");
 			return "common/errorPage";
 			
 		}
