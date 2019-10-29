@@ -67,6 +67,7 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 
 		return hDao.getEmpCount();
 	}
+
 	
 	@Override
 	public ArrayList<Dept> selectModaDeptlList() {

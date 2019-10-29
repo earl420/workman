@@ -14,7 +14,6 @@
 		<id property="deptNum" column="DEPT_NUM"/>
 		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
-	
 	<resultMap type="Notice" id="HRnListResultSet">
 		<id property="noticeNum" column="notice_num"/>
 		<result property="noticeDept" column="notice_dept"/>
