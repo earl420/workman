@@ -200,7 +200,6 @@ public class MypageController {
 		
 		Mypage mp = (Mypage)model.getAttribute("loginMan");
 		
-		
 		if(pwd != null && pwd.equals(mp.getPwd())) { 
 			Mypage loginMan = mService.loginMan(mp);
 			model.addAttribute("loginMan", loginMan);
@@ -267,6 +266,7 @@ public class MypageController {
 	@RequestMapping("returnPwd.wo")
 	public String returnPwd(Mypage m, Model model) {
 		
+		System.out.println(m);
 		int result = mService.returnPwd(m);
 		if(result > 0) {
 			model.addAttribute("msg", "비밀번호가 변경 되었습니다.");
