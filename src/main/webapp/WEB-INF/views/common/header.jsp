@@ -52,7 +52,13 @@
                     
                 </div>
                 <div class="header-right">
+					
                     <ul class="clearfix">
+                    	
+                    	<li class="icons dropdown"><c:out value="${ loginMan.name }"/> <c:out value="${ loginMan.gradeName }"/></li>
+                    	<li class="icons dropdown"><c:out value="${ loginMan.deptName }"/></li>
+                    
+                    
                         <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                 <i class="mdi mdi-email-outline"></i>
                                 <span class="badge gradient-1 badge-pill badge-primary">3</span>
@@ -163,13 +169,14 @@
                         </li>
                         <li class="icons dropdown d-none d-md-flex">
                             <a href="javascript:void(0)" class="log-user"  data-toggle="dropdown">
-                                <span>English</span>  <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+                                <span></span>  <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
                             </a>
                             <div class="drop-down dropdown-language animated fadeIn  dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <li><a href="javascript:void()">English</a></li>
-                                        <li><a href="javascript:void()">Dutch</a></li>
+                                        <li><a href="javascript:void()">출근</a></li>
+                                        <li><a href="javascript:void()">퇴근</a></li>
+                                        <li><a href="logout.wo"">로그아웃</a></li>
                                     </ul>
                                 </div>
                             </div>
