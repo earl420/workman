@@ -14,7 +14,7 @@
 		<result property="phone" column="EMP_PHONE"/>
 		<result property="address" column="EMP_ADDRESS"/>
 		<result property="gradeNum" column="GRADE_NUM"/>
-		<result property="deftNum" column="DEFT_NUM"/>
+		<result property="deftNum" column="DEPT_NUM"/>
 		<result property="salary" column="EMP_SALARY"/>
 		<result property="enrollDate" column="ENROLL_DATE"/>
 		<result property="resignDate" column="RESIGN_DATE"/>

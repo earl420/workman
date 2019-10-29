@@ -66,14 +66,13 @@ public class AccountController {
 			@RequestParam(value="insertDate", required = false) String insertDate,
 			@RequestParam(value="ir1", required=false) String ir1,
 			HttpSession session) {
-		Mypage mp = new Mypage();
-		mp.setNum("20190001");
-		session.setAttribute("loginUser", mp);
-//		String empNum=((Mypage)session.getAttribute("loginUser")).getNum();
+		Mypage mp=(Mypage)session.getAttribute("loginMan");
+		
 		String empNum=mp.getNum();
-		int deptNum=305;
+		int deptNum=mp.getDeftNum();
 		int result =1;
 		AcNotice notice = new AcNotice(null, deptNum, noticeTitle, noticeContent, empNum, null, null, null, "Y", noticeAccType);
+		System.out.println("11" + notice);
 		if(noticeAccType ==1) {
 			notice.setNoticeContent(ir1);
 			int result2=aService.aNoticeInsert(notice);
@@ -312,7 +311,7 @@ public class AccountController {
 //			int result =aService.insertIncome(iss);
 //			System.out.println("결과...."+result);
 //		}
-		
+		System.out.println("check" + iss);
 		ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
 		//비용합계
 		int sum =0;
