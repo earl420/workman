@@ -21,7 +21,7 @@ public class CalendarController {
 	@RequestMapping("calDetailView.wo") 
 	public String calendarDetailView() { 
 		
-		return "calendar/calendarDetailView"; 
+		return "calendar/calendarDetailViewNew"; 
 	}
 	  
 	  
@@ -32,7 +32,7 @@ public class CalendarController {
 		Calendar c = cService.calendarDetail(empNum);
 		
 		if(c != null) {
-			mv.addObject("c",c).setViewName("calendar/CalendarDetailView");
+			mv.addObject("c",c).setViewName("calendar/CalendarDetailViewNew");
 		}else {
 			mv.addObject("msg","일정 상세조회 실패").setViewName("common/404error");
 		}
@@ -41,28 +41,33 @@ public class CalendarController {
 	}
   
 	  
-	// 일정등록 뷰
-	 @RequestMapping("calInsertView.wo") 
-	 public String calendarInsertView() { 
-		 
-		return "calendar/calendarInsertView"; 
-	}
+	
+	  // 일정등록 뷰
+	  @RequestMapping("calInsertView.wo") 
+	  public String calendarInsertView() {
+	  
+	  return "calendar/calendarInsertView"; }
+	 
 	 
 	
-	// 일정등록
-	@RequestMapping("calInsert.wo")
-	public String insertBoard(Calendar c, HttpServletRequest request, Model model) {
-		
+	  // 일정등록
+	 @RequestMapping("calInsert.wo") 
+	  public String insertBoard(Calendar c, HttpServletRequest request, Model model) {
+	  
+		 //System.out.println(c);
+		 
 		int result = cService.insertCalendar(c);
-		
-		if(result > 0) {
-			return "redirect:calDetail.wo";
-		}else {
-			model.addAttribute("msg", "일정 등록 실패!!");
-			return "common/404error";
-		}
-		
-	}
+		  
+		 if(result > 0) { 
+			 return "redirect:calDetail.wo"; 
+			 }
+		 else {
+			  model.addAttribute("msg", "일정 등록 실패!!"); 
+			  return "common/404error"; 
+		 }
+		 
+	  }
+	
 
 	// 일정수정
 	@RequestMapping("calUpdate.wo")
@@ -89,4 +94,6 @@ public class CalendarController {
 			return "common/404error";
 		}
 	}
+	
+
 }

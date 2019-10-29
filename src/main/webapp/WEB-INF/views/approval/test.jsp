@@ -23,8 +23,8 @@
 	padding: 0px;
 }
 
-.box_from ul {
-	padding: 0px;
+.box_from ul li button {
+	padding: 7px 15px;
 }
 </style>
 </head>
@@ -41,7 +41,8 @@
 								<div class="bootstrap-modal">
 									<!-- Button trigger modal -->
 									<button type="button" class="btn mb-1 btn-rounded btn-success"
-										data-toggle="modal" data-target="#exampleModalCenter" id="select">
+										data-toggle="modal" data-target="#exampleModalCenter"
+										id="select">
 										<span class="btn-icon-left"> <i
 											class="fa fa-share-alt color-secondary"></i>
 										</span>결제자선택
@@ -51,7 +52,7 @@
 										style="display: none;" aria-hidden="true">
 										<div class="modal-dialog modal-dialog-centered"
 											role="document">
-											<div class="modal-content">
+											<div class="modal-content" style="width: 500px;">
 												<div class="modal-header">
 													<h5 class="modal-title">직원선택</h5>
 													<button type="button" class="close" data-dismiss="modal">
@@ -60,109 +61,47 @@
 												</div>
 												<div class="col-md-12">
 													<div class="modal-body">
-														<div class="row"id="deptList">
+														<div class="row" id="deptList">
 															<ul class="nav nav-pills mb-3">
-																<li class="nav-item"><a href="#navpills-1"
-																	class="nav-link active show" data-toggle="tab"
-																	aria-expanded="true">전체직원</a></li>
-																<li class="nav-item"><a href="#navpills-2"
-																	class="nav-link" data-toggle="tab"
-																	aria-expanded="false">인사과</a></li>
-																<li class="nav-item"><a href="#navpills-3"
-																	class="nav-link" data-toggle="tab"
-																	aria-expanded="false">총무과</a></li>
-																<li class="nav-item"><a href="#navpills-4"
-																	class="nav-link" data-toggle="tab"
-																	aria-expanded="false">품질부서</a></li>
-																<li class="nav-item"><a href="#navpills-5"
-																	class="nav-link" data-toggle="tab"
-																	aria-expanded="false">국내영업</a></li>
-																<li class="nav-item"><a href="#navpills-6"
-																	class="nav-link" data-toggle="tab"
-																	aria-expanded="false">해외영업</a></li>
-																<li class="nav-item"><a href="#navpills-7"
-																	class="nav-link" data-toggle="tab"
-																	aria-expanded="false">인증부서</a></li>
-																<li class="nav-item"><a href="#navpills-8"
-																	class="nav-link" data-toggle="tab"
-																	aria-expanded="false">연구소</a></li>
+																<c:forEach items="${ dlist }" var="d">
+																	<li class="nav-item">
+																		<a class="nav-link" data-toggle="tab" aria-expanded="true" href="#${d.deptName}">${d.deptName}</a>
+																	</li>
+																</c:forEach>
 															</ul>
-															<div class="tab-content br-n pn" id="nameList">
-																<div id="navpills-1" class="tab-pane active show">
-																	<ul>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">강정학</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">조용준</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">강연재</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">양정환</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">민병현</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">김사랑</button></li>
-																		</ul>
+														</div>
+														<div class="tab-content br-n pn" id="nameList">
+															<c:forEach items="${ dlist }" var="d">
+																<div class='tab-pane' id="${d.deptName}">
+																	<ul class="nav nav-pills mb-3">
+																		<c:forEach items="${ mlist }" var="m">
+																			<c:if test="${d.deptName eq m.deptName }">
+																				<li class="select">
+																					<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																				</li>
+																			</c:if>
+																			<c:if test="${d.deptName eq '전체부서' }">
+																				<li class="select">
+																					<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																				</li>	
+																			</c:if>
+																		</c:forEach>
+																	</ul>
 																</div>
-																<div id="navpills-2" class="tab-pane">
-																	
-																		<ul>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">강정학</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">민병현</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">강연재</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">양정환</button></li>
-																		</ul>
-																	
-																</div>
-																<div id="navpills-3" class="tab-pane">
-																	
-																		<ul>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">김사랑</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">민병현</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">조용준</button></li>
-																			<li><button type="button"
-																					class="btn mb-1 btn-rounded btn-outline-primary">양정환</button></li>
-																		</ul>
-																	
-																</div>
-															</div>
+															</c:forEach>
 														</div>
 														<div class="member box_from">
 															<ul>
-																<li class="alert"><button type="button"
-																		class="btn mb-1 btn-rounded btn-secondary"
-																		data-dismiss="alert" aria-label="Close">
-																		강연재 <span><i class="fa fa-close"></i></span>
-																	</button></li>
-																<li class="alert"><button type="button"
-																		class="btn mb-1 btn-rounded btn-secondary"
-																		data-dismiss="alert" aria-label="Close">
-																		민병현 <span><i class="fa fa-close"></i></span>
-																	</button></li>
-																<li class="alert"><button type="button"
-																		class="btn mb-1 btn-rounded btn-secondary"
-																		data-dismiss="alert" aria-label="Close">
-																		김사랑 <span><i class="fa fa-close"></i></span>
-																	</button></li>
-																<li class="alert"><button type="button"
-																		class="btn mb-1 btn-rounded btn-secondary"
-																		data-dismiss="alert" aria-label="Close">
-																		조용준 <span><i class="fa fa-close"></i></span>
-																	</button></li>
 															</ul>
 														</div>
 
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary"
 																data-dismiss="modal">취소</button>
-															<button type="button" class="btn btn-primary">완료</button>
+															
+															<button type="button" class="btn btn-primary" onclick="submit();" data-dismiss="modal" >완료</button>
+															
+														
 														</div>
 													</div>
 												</div>
@@ -174,14 +113,14 @@
 						</div>
 					</div>
 					<div class="col-lg-12">
-					<div class="card">
-						<div class="card-body">
-							<div id="memberArray">
-							
+						<div class="card">
+							<div class="card-body">
+								<div id="memberArray">
+									<ul>
+									</ul>
+								</div>
 							</div>
-							
 						</div>
-					</div>
 					</div>
 				</div>
 
@@ -190,38 +129,66 @@
 		</div>
 		<c:import url="../common/footer.jsp" />
 	</div>
-<script>
-	
-	$(function getdeptList() {
-		$("#select").on("click", function(){
+	<script>
+		var empList = new Array();
+		$(function(){
 			
-			$.ajax({
-				url : "empList.wo",
-				dataTpy : "json",
-				success:function(data){
-					console.log(data);
-					var $deptList = $("#deptList");
-					$deptList.html("");
-						$.each(data, function(index, value){
-							var $ul = $("<ul class='nav nav-pills mb-3'>");
-							var $li = $("<li class='nav-item'>");
-							var $a= $("<a class='nav-link active show' data-toggle='tab' aria-expanded='true'>").text(value.deptName).attr("href", '#'+value.deptName);
-							
-							$li.append($a);
-							$ul.append($li);
-							$deptList.append($ul);
-						});
-				},	
-				error:function(){
-					console.log("ajax 통신실패");
-				}
+			$(".select").find("button").on("click" ,function() {
+			var emp1 = $(this);
+			if(empList.length >= 0 && empList.length < 4){
+				 empList.push(emp1.text());
+				 emp1.attr("disabled",true);
+					 var $ul = $(".member ul");
+					var $li = $("<li class='alert'>");
+					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp1.text());
+					
+						$li.append($button);
+						$ul.append($li);
+				 
+			}
+			else {
+				alert("더이상 추가할수 없습니다.");
 				
-			});
-			
-		})
-	}) 
-	
+			}
 
-</script>
+					$(".alert").find("button").on("click" ,function() {
+						var emp2 = $(this).text();
+						 
+						 for(i=0; i<empList.length; i++){
+							 if(empList[i] == emp2){
+								 empList.splice(i,1);
+								 emp1.attr("disabled",false);
+								 $(this).attr("data-dismiss",'alert'); 
+								 
+							 }
+						 }
+					});
+			});
+		});
+		
+		function submit(){
+			 
+			$.ajax({
+				 url: "submitEmpList.wo",
+				 dataType : "json",
+				 method : 'POST',
+				 data: {"empList" : empList},
+				 success : function(data) {
+					 console.log(data);
+					 var $ul = $("#memberArray ul");
+					 $ul.html("");
+					 $.each(data,function(index,value) {
+						var $li = $("<li class='alert'>");
+						var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(value);
+						$li.append($button);
+						$ul.append($li);
+					 });
+				 },error : function() {
+					 console.log("ajax 통신실패");
+				 }
+			 });
+		}
+	
+	</script>
 </body>
 </html>
