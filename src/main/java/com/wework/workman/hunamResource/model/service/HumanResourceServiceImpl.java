@@ -7,8 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.wework.workman.hunamResource.model.dao.HumanResourceDao;
-import com.wework.workman.hunamResource.model.vo.Dept;
-import com.wework.workman.hunamResource.model.vo.Modal;
+import com.wework.workman.humanResource.model.vo.*;
 
 @Service("humanResourceService")
 public class HumanResourceServiceImpl implements HumanResourceService{

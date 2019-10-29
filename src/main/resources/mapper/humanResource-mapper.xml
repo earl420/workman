@@ -73,6 +73,7 @@
 	<select id="selectModalEmpList" resultMap="modalResultSet">
 	 select *
 	 from modal
+	 </select>
 	<select id="selectHRnList" resultMap="HRnListResultSet">
 		select *
 		from notice

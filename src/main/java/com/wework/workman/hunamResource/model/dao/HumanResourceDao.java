@@ -6,8 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.wework.workman.hunamResource.model.vo.Dept;
-import com.wework.workman.hunamResource.model.vo.Modal;
+import com.wework.workman.humanResource.model.vo.*;
 
 @Repository("humanResourceDao")
 public class HumanResourceDao {

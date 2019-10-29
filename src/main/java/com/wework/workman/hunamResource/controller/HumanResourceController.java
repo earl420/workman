@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.wework.workman.hunamResource.model.service.HumanResourceService;
-import com.wework.workman.hunamResource.model.vo.Dept;
-import com.wework.workman.hunamResource.model.vo.Modal;
+import com.wework.workman.humanResource.model.vo.Dept;
+import com.wework.workman.humanResource.model.vo.Modal;
 
 @Controller
 public class HumanResourceController {
