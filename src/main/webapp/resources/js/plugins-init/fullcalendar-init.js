@@ -1,7 +1,9 @@
 ! function(e) {
     "use strict";
     var t = function() {
-        this.$body = e("body"), this.$modal = e("#event-modal"), this.$event = "#external-events div.external-event", this.$calendar = e("#calendar"), this.$saveCategoryBtn = e(".save-category"), this.$categoryForm = e("#add-category form"), this.$extEvents = e("#external-events"), this.$calendarObj = null
+        this.$body = e("body"), this.$modal = e("#event-modal"), this.$event = "#external-events div.external-event", 
+        this.$calendar = e("#calendar"), this.$saveCategoryBtn = e(".save-category"), this.$categoryForm = e("#add-category form"), 
+        this.$extEvents = e("#external-events"), this.$calendarObj = null
     };
     t.prototype.onDrop = function(t, n) {
         var a = t.data("eventObject"),
@@ -26,7 +28,7 @@
             backdrop: "static"
         });
         var i = e("<form></form>");
-        i.append("<div class='row'></div>"), i.find(".row").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>상세내용</label><input class='form-control' placeholder='내용을 입력하세요' type='text' name='title'/></div></div>").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Type</label><select class='form-control' name='category'></select></div></div>").find("select[name='category']").append("<option value='bg-danger'>전체일정</option>").append("<option value='bg-success'>부서일정</option>").append("<option value='bg-pink'>개인일정</option>").append("<option value='bg-warning'>보고서</option>"), o.$modal.find(".delete-event").hide().end().find(".save-event").show().end().find(".modal-body").empty().prepend(i).end().find(".save-event").unbind("click").on("click", function() {
+        i.append("<div class='row'></div>"), i.find(".row").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>상세내용</label><input class='form-control' placeholder='내용을 입력하세요' type='text' name='title'/></div></div>").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Type</label><select class='form-control' name='category'></select></div></div>").find("select[name='category']").append("<option value='bg-danger'>전체일정</option>").append("<option value='bg-success'>부서일정</option>").append("<option value='bg-pink'>개인일정</option>"), o.$modal.find(".delete-event").hide().end().find(".save-event").show().end().find(".modal-body").empty().prepend(i).end().find(".save-event").unbind("click").on("click", function() {
             i.submit()
         }), o.$modal.find("form").on("submit", function() {
             var e = i.find("input[name='title']").val(),
