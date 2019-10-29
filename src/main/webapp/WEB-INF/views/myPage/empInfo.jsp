@@ -127,34 +127,23 @@
 											<label class="col-lg-4 col-form-label" for="birth">생년월일
 											</label>
 											<div class="col-lg-6">
-												<input type="text" class="form-control" id="birth"
+												<input type="date" min="1960-01-01" max="1999-12-12" class="form-control" id="birth"
 													name="birth" value="${ loginMan.birth }">
 											</div>
 										</div>
-										<!-- <div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="birth">생년월일
-											</label>
-											<div class="col-lg-6">
-												<input type="hidden" name="birth">
-												<select class="col-md-3" id="year">
-													<option>-</option>
-												</select>
-												<select class="col-md-3" id="month">
-													<option>-</option>
-												</select>
-												<select class="col-md-3" id="day">
-													<option>-</option>
-												</select>
-											</div>
-										</div> -->
-										<%-- <div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="salary">연봉
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="salary" value="${ loginMan.salary }" readonly>
-											</div>
-										</div> --%>
+										
+										<%-- <c:if test="${ empty loginMan.address }">
+											<div class="form-group row">
+												<label class="col-lg-4 col-form-label" for="birth">생년월일
+												</label>
+												<div class="col-lg-6">
+													<input type="date" class="form-control" id="birth"
+														name="birth" value="1000-01-01">
+												</div>
+											</div>											
+										</c:if> --%>
+										
+										
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="bank">급여수령은행
 											</label>

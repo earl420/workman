@@ -213,7 +213,7 @@
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a href="widgets.html" aria-expanded="false">
+                        <a href="notice.wo" aria-expanded="false">
                             <i class="far fa-check-square"></i><span class="nav-text">공지사항</span>
                         </a>
                     </li>
