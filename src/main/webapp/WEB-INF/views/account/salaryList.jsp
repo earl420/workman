@@ -34,10 +34,7 @@
         ***********************************-->
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px; padding-left: 100px; padding-right: 100px;" align="center">
-				<div class="row" style="padding-top: 50px;">
-					<div class="col-sm-6"><h2>총 월급 : 1000000</h2></div>
-					<div class="col-sm-6"><h2>총 연봉 : 12000000</h2></div>
-				</div>
+				
 				
 				<div class="table-responsive" style="text-align: center;">
 					<h3 style="padding-top: 40px; padding-bottom: 10px;">월급관리</h3>

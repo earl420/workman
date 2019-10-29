@@ -29,7 +29,122 @@ public class HumanResourceController {
 	@Resource(name = "humanResourceService")
 	private HumanResourceService hService;
 
-	// 인사/공지사항
+	// 전체 공지 리스트
+	@RequestMapping("notice.wo")
+	public ModelAndView selectTotal(ModelAndView mv,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		int listCount = hService.getnListCount();
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+		ArrayList<Notice> list = hService.selectnList(pi);
+
+		for (int i = 0; i < list.size(); i++) {
+			String noticeNum = list.get(i).getNoticeNum().toString().substring(6);
+			list.get(i).setNoticeNum(noticeNum);
+		}
+
+		mv.addObject("pi", pi).addObject("list", list).setViewName("humanResource/notice");
+
+		return mv;
+
+	}
+	
+	// 전체 공지사항 상세보기 조회
+	@RequestMapping("nDetail.wo")
+	public ModelAndView nDetail(ModelAndView mv, String noticeNum) {
+
+		Notice n = hService.getnDetail(noticeNum);
+
+		if (n != null) {
+			mv.addObject("n", n).setViewName("humanResource/noticeDetailView");
+		} else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
+	}
+	
+	// 공지글 수정 폼
+	@RequestMapping("updateNoticeForm.wo")
+	public ModelAndView updateNoticeForm(ModelAndView mv, String noticeNum) {
+		
+		
+		String num = noticeNum.substring(6);
+		
+		Notice n = hService.getnDetail(num);
+		
+		if(n != null) {
+			mv.addObject("n", n).setViewName("humanResource/updateNoticeForm");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
+	}
+	
+	// 공지글 수정
+	@RequestMapping("updateNotice.wo")
+	public String updateNotice(Notice n, Attachment a, HttpServletRequest request,
+			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
+		
+		int result1 = hService.updateNotice(n);
+		
+//		System.out.println(result1); // 1 잘나옴
+		
+		if (file != null && !file.getOriginalFilename().equals("")) {
+			
+			deleteFile(n.getNoticeNum(), request);
+			
+			String renameFileName = saveFile(file, request, a);
+
+			if (renameFileName != null) {
+
+				a.setDocNum(n.getNoticeNum());
+				a.setAttOriginalName(file.getOriginalFilename());
+				a.setAttRename(renameFileName);
+
+			}
+		}
+		
+		int result2 = hService.insertAtt(a);
+		
+		System.out.println(result1);
+		System.out.println(result2);
+		
+		if (result1 > 0 && result2>0) {
+			return "redirect:notice.wo";
+		} else {
+			return "common/500error";
+		}
+	}
+	
+	public void deleteFile(String noticeNum, HttpServletRequest request) {
+		
+		String root = request.getSession().getServletContext().getRealPath("resource");
+		String savePath = root + "/upload";
+		
+		File f = new File(savePath + "/" + noticeNum);
+		
+		if(f.exists()) {
+			f.delete();
+		}
+	}
+
+	// 공지사항 / 공지글 작성 폼
+	@RequestMapping("ninsertForm.wo")
+	public ModelAndView ninsertForm(ModelAndView mv) {
+
+		ArrayList<Department> dlist = hService.getDeptList();
+		
+		if (!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).setViewName("humanResource/insertNotice");
+		} else {
+			mv.setViewName("common/500error");
+		}
+
+		return mv;
+	}
+
+	// 인사/공지사항 리스트
 	@RequestMapping("hrNotice.wo")
 	public ModelAndView selectList(ModelAndView mv,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
@@ -45,28 +160,13 @@ public class HumanResourceController {
 			list.get(i).setNoticeNum(noticeNum);
 		}
 
-		mv.addObject("pi", pi).addObject("list", list).setViewName("humanResource/notice");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("humanResource/humanNotice");
 
 		return mv;
 
 	}
 
-	// 인사/ 공지사항 / 공지글 작성 폼
-	@RequestMapping("ninsertForm.wo")
-	public ModelAndView ninsertForm(ModelAndView mv) {
-
-		ArrayList<Department> dlist = hService.getDeptList();
-
-		if (!dlist.isEmpty()) {
-			mv.addObject("dlist", dlist).setViewName("humanResource/insertNotice");
-		} else {
-			mv.setViewName("common/500error");
-		}
-
-		return mv;
-	}
-
-	// 인사/ 공지사항 / 글 작성
+	// 공지사항 / 글 작성
 	@RequestMapping("ninsert.wo")
 	public String insertNotice(Notice n, Attachment a, HttpServletRequest request,
 			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
@@ -92,7 +192,7 @@ public class HumanResourceController {
 		}
 
 		if (result1 > 0) {
-			return "redirect:hrNotice.wo";
+			return "redirect:notice.wo";
 		} else {
 			return "common/500error";
 		}
@@ -219,7 +319,7 @@ public class HumanResourceController {
 	// 직원 등록
 	@RequestMapping("addEmp.wo")
 	public String addEmp(Employee e) {
-		
+
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 //		int sysYear = Integer.parseInt(sdf.format(new Date(System.currentTimeMillis())));
 //

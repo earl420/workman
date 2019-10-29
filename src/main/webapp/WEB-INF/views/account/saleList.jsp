@@ -143,9 +143,9 @@
        			<tr>
        				<th>판매자</th>
        				<td>
-       				<input type="text" name="empName" id="empName" readonly="readonly" value="공지철"/>
-       				<%-- <input type="text" readonly="readonly" value="${loginUser.empname }"/> --%>
-       				<input type="hidden" name="empNum" id="empNum"  value="20190001"/>
+       				<input type="text" name="empName" id="empName" readonly="readonly" value="${loginMan.name }"/>
+       				<%-- <input type="text" readonly="readonly" value="${loginUser.loginMan }"/> --%>
+       				<input type="hidden" name="empNum" id="empNum"  value="${loginMan.num }"/>
        				<%-- <input type="hidden" value="${loginUser.empNum }"/> --%>
        				</td>
        			</tr>

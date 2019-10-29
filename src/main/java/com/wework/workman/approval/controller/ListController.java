@@ -145,24 +145,6 @@ public class ListController {
 		return mv;
 	}
 	
-	// 결제자 선택 리시트 
-	@ResponseBody
-	@RequestMapping(value= "submitEmpList.wo", produces="application/json; charset=utf-8")
-	public String submitEmpList(HttpServletResponse response,@RequestParam(value="empList[]",required=false) String[] empList) throws JsonProcessingException{
-		
-			
-			System.out.println(empList);
-			
-			ObjectMapper mapper = new ObjectMapper();
-			ArrayList list = new ArrayList();
-			for(int i =0; i<empList.length; i++) {
-				list.add(empList[i]);
-			}
-			System.out.println(list);
-			String jsonStr =  mapper.writeValueAsString(list);
-			System.out.println(jsonStr);
-			return jsonStr;
-	}
 	
 	
 	
