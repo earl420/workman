@@ -6,9 +6,9 @@ public interface CalendarService {
 
 		int insertCalendar(Calendar c); // 일정등록
 		
-		int updateCalendar(int empNum); // 일정수정
+		int updateCalendar(int emp_num); // 일정수정
 		
-		Calendar calendarDetail(int empNum); // 일정상세보기
+		Calendar calendarDetail(int emp_num); // 일정상세보기
 		
-		int deleteCalendar(int empNum); // 일정삭제
+		int deleteCalendar(int emp_num); // 일정삭제
 }

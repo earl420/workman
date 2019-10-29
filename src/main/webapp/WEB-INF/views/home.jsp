@@ -103,18 +103,18 @@
 <%--  <c:if test="${ !empty loginUser}"> --%> <!-- 로그인해야보이게 -->
 	 <div class="hidiv">
 	 	<br>
-	    <h3 id="hih2">출/퇴근</h3> <!-- 토스트 안먹어 확인해....! -->
-	    <button class="btn mb-1 btn-rounded btn-success" type="button" id="hi">출근</button>
+	    <h3 id="hih2">출/퇴근</h3>
+	    <button class="btn mb-1 btn-rounded btn-success" type="button" id="hi" onclick="location.href='attend.wo';">출근</button>
 	</div>
 <%-- </c:if> --%>
 
 <!-- 출근버튼 눌러야 보이게-->
 <!-- 	 <div class="hidiv">
 	 	<br>
-	    <h3 id="hih2">출/퇴근</h3> 토스트 안먹어 확인해....!
-	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="bye">퇴근</button>
+	    <h3 id="hih2">출/퇴근</h3>
+	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="bye" onclick="location.href='out.wo';">퇴근</button>
 	</div> -->
-	
+
  <script>
  	/* 출퇴근 버튼 스크립트 */
  		// 출근 버튼 누르면 알림창 뜨기
@@ -168,7 +168,7 @@
             
             <div class="indiv" id="div2" style="background: rgb(255, 214, 51)">
                 <div class="paddiv">
-                <a href="myPageView.wo">
+                <a href="mypageView.wo">
                     <h2 id="h2">마이페이지</h2>
                     <p>마이페이지 바로가기</p>
                 </a>

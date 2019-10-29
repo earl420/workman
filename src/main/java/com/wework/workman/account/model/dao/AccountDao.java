@@ -1,5 +1,6 @@
 package com.wework.workman.account.model.dao;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
@@ -44,7 +46,7 @@ public class AccountDao {
 	}
 
 	public int checkNotice(String noticeTitle) {
-		return sqlSession.selectOne("accountMapper.checkNotice",noticeTitle);
+		return sqlSession.selectOne("accountMapper.validCheck",noticeTitle);
 	}
 
 	public ArrayList<AccountStatus> accountStatus(String noticeContent) {
@@ -69,20 +71,17 @@ public class AccountDao {
 		return (ArrayList)sqlSession.selectList("accountMapper.incomeStatus", iss);
 	}
 
-	public int insertIncome(int income) {
-		//소모품비, OS비용, 인건비, 매출 다 0으로 만드는 작업해줘야함
-		return sqlSession.insert("accountMapper.insertIncome", income);
+
+
+	public int getSaleListCount() {
+		return sqlSession.selectOne("accountMapper.getSaleListCount");
 	}
 
-	public int getSaleListCount(ArrayList<String> search) {
-		return sqlSession.selectOne("accountMapper.getSaleListCount", search);
-	}
-
-	public ArrayList<SaleManage> saleList(ArrayList<String> search, PageInfo pi) {
+	public ArrayList<SaleManage> saleList(PageInfo pi) {
 		
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.saleList",search,rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.saleList",rb);
 	}
 
 	public int insertSale(SaleManage sm) {
@@ -90,38 +89,38 @@ public class AccountDao {
 		return sqlSession.insert("accountMapper.insertSale", sm);
 	}
 
-	public int OSListCount(ArrayList<String> search) {
-		return sqlSession.selectOne("accountMapper.osListCount",search);
+	public int OSListCount() {
+		return sqlSession.selectOne("accountMapper.osListCount");
 	}
 
-	public ArrayList<OsManage> osList(ArrayList<String> search, PageInfo pi) {
+	public ArrayList<OsManage> osList(PageInfo pi) {
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.osList",search,rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.osList",rb);
 	}
 
-	public int getFixtureListCount(ArrayList<String> search) {
-		return sqlSession.selectOne("accountMapper.getFixtureListCount", search);
+	public int getFixtureListCount() {
+		return sqlSession.selectOne("accountMapper.getFixtureListCount");
 	}
 
-	public ArrayList<Fixture> fixtureList(ArrayList<String> search, PageInfo pi) {
+	public ArrayList<Fixture> fixtureList(PageInfo pi) {
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.fixtureList",search,rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.fixtureList",rb);
 	}
 
-	public int getSalaryListCount(ArrayList<String> search) {
-		return sqlSession.selectOne("accountMapper.getSalaryListCount", search);
+	public int getSalaryListCount() {
+		return sqlSession.selectOne("accountMapper.getSalaryListCount");
 	}
 
-	public ArrayList<SalaryManage> salaryList(ArrayList<String> search, PageInfo pi) {
+	public ArrayList<SalaryManage> salaryList(PageInfo pi) {
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.salaryList",search,rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.salaryList",rb);
 	}
 
-	public SalaryManage salaryDetail(String empNum) {
-		return sqlSession.selectOne("accountMapper.salaryDetail", empNum);
+	public ArrayList<SalaryManage> salaryDetail(String empNum) {
+		return (ArrayList)sqlSession.selectList("accountMapper.salaryDetail", empNum);
 	}
 	//이번달에 월급입금확인
 	public int checkSalary() {
@@ -138,6 +137,64 @@ public class AccountDao {
 	//Num -> Name으로 해줄것
 	public ArrayList<Product> getProduct(String productCode) {
 		return (ArrayList)sqlSession.selectList("accountMapper.getProduct", productCode);
+	}
+
+	public int validCheck(String noticeTitle) {
+		return sqlSession.selectOne("accountMapper.validCheck", noticeTitle);
+	}
+
+	public int insertIncome1(IsState iss) {
+		
+		int r1=sqlSession.insert("accountMapper.insertIncome1",iss);
+		return r1;
+	}
+
+	public int insertIncome2(IsState iss) {
+		return sqlSession.insert("accountMapper.insertIncome2",iss);
+	}
+
+	public int insertIncome3(IsState iss) {
+		return sqlSession.insert("accountMapper.insertIncome3",iss);
+	}
+
+	public int insertIncome4(IsState iss) {
+		return sqlSession.insert("accountMapper.insertIncome4",iss);
+	}
+
+	public int insertIncome5(IsState iss) {
+		return sqlSession.insert("accountMapper.insertIncome5",iss);
+	}
+
+	public int insertIncome6(IsState iss) {
+		return sqlSession.insert("accountMapper.insertIncome6",iss);
+	}
+
+	public int insertIncome7(IsState iss) {
+		return sqlSession.insert("accountMapper.insertIncome7",iss);
+	}
+
+	public int insertIncome8(IsState iss) {
+		return sqlSession.insert("accountMapper.insertIncome8",iss);
+	}
+
+	public int insertIncome9(IsState iss) {
+		return sqlSession.insert("accountMapper.insertIncome9",iss);
+	}
+
+	public ArrayList<Product> productList() {
+		return (ArrayList)sqlSession.selectList("accountMapper.productList");
+	}
+
+	public ArrayList<Partner> partnerList() {
+		return (ArrayList)sqlSession.selectList("accountMapper.partnerList");
+	}
+
+	public int insertSaleAccount(SaleManage sm) {
+		return sqlSession.insert("accountMapper.insertSaleAccount", sm);
+	}
+
+	public AvgSalary avgSalary(SalaryManage salaryManage) {
+		return sqlSession.selectOne("accountMapper.avgSalary", salaryManage);
 	}
 
 
