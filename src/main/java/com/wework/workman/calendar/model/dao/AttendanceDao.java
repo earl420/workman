@@ -11,13 +11,7 @@ public class AttendanceDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	// 출근
 		public int insertAttendance(Attendance a) {
-			return sqlSession.insert("calendar-mapper.insertAttend", a);
-		}
-		
-	// 퇴근
-		public int insertOut(Attendance a) {
-			return sqlSession.insert("calendar-mapper.insertAttend", a);
+			return sqlSession.insert("calendar-mapper.Attendance", a);
 		}
 }

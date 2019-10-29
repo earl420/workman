@@ -35,10 +35,10 @@
 	</delete>
 	
 	
-	<!-- 출퇴근 -->
-	<insert id="insertAttend" parameterType="Attendance">
+	<!-- 출근/퇴근-->
+	<insert id="Attendance" parameterType="Attendance">
 		insert into attendance
-		values(#{emp_num}, sysdate, #{time_on}, #{time_off})
+		values(#{empNum}, #{att_date}, #{time_on}, #{time_off})
 	</insert>
 	
 </mapper>

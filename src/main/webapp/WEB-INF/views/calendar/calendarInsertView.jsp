@@ -65,8 +65,8 @@
         <h2 style="color:navy;">일 정&nbsp; 등 록</h2>
         <br>
         
-       <!--  <input type="hidden" name="empNum" value="">
-        <input type="hidden" name="deptNum" value=""> -->
+       <input type="hidden" name="empNum" value="${ loginMan.num }">
+        <input type="hidden" name="deptNum" value="${ loginMan.deftNum }">
         
      <div class="inlinediv" style="width: 70%;">
      <div class="input-group mb-3">
@@ -78,9 +78,7 @@
                 <input type="radio" name="ctype" value="부서" id="dep"> 
                 <label for="dep">부서일정</label>&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" name="ctype" value="개인" id="pri"> 
-                <label for="pri">개인일정</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="ctype" value="보고서" id="report"> 
-                <label for="report">보고서</label>
+                <label for="pri">개인일정</label>
               </div>
             </div>
           </div>
@@ -91,7 +89,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">작성자</span>
                 </div>
-            <input type="text" name="userName" class="form-control" value="" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text" name="userName" class="form-control" value="${ loginMan.name }" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
          </div>
         </div> 
 
@@ -105,9 +103,14 @@
             	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             	String strToday = sdf.format(today);
             	/* 오늘날짜 value값으로 박으려고 */
+            	
+            	Date time = new Date();
+			  	SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+			  	String strTime = sdf2.format(time);
+			  	/* 현재시간 value값으로 박으려고 */
             %>
-            <input type="date" id="startDate" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            <input type="time" id="startTime" value="00:00" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="start" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="time" id="startTime" value="<%= strTime %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
            
@@ -116,23 +119,10 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">마감</span>
             </div>
-            <input type="date" id="endDate" name="end" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            <input type="time" id="endTime" value="23:59" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="end" name="end" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="time" id="endTime" value="<%= strTime %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
-
-        <!-- <div class="inlinediv">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                    <input id="checkBoxId" type="checkbox" name="allDay" value="allDay" aria-label="Checkbox for following text input">
-                    </div>
-                </div>
-                <p class="form-control input-group-text" aria-label="Text input with checkbox">&nbsp;ALL DAY&nbsp;</p>
-            </div>
-         </div> -->
-         
-         
 
          <div class="input-group mb-3" style="width: 96%;">
             <div class="input-group-prepend">
@@ -150,27 +140,7 @@
 				</div>
 			</div> 
 		</div>
-		
-		<script>
-        	/* all day 체크박스 이벤트  */
-	        $(function(){
-	        	$("#checkBoxId").change(function(){
-        	        if($("#checkBoxId").is(":checked")){ /* 체크 했을 떄 */
-        	        	$("#startDate").attr("disabled",true);
-        	        	$("#endDate").attr("disabled",true);
-        	        	$("#startTime").attr("disabled",true);
-        	        	$("#endTime").attr("disabled",true);
-        	        	
-        	        }else{ /* 체크 해제했을 떄 */
-        	        	$("#startDate").attr("disabled",false);
-        	        	$("#endDate").attr("disabled",false);
-        	        	$("#startTime").attr("disabled",false);
-        	        	$("#endTime").attr("disabled",false);
-        	        }
-        	    });
-	         });
-         </script>
- 
+	
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 </body>

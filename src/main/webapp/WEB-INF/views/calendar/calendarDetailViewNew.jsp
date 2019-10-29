@@ -90,7 +90,6 @@
                                                                 <select class="form-control form-white" data-placeholder="타입을 선택하세요" name="category-color">
                                                                     <option value="전체">전체일정</option>
                                                                     <option value="부서">부서일정</option>
-                                                                    <option value="보고서">보고서</option>
                                                                     <option value="개인">개인일정</option>
                                                                 </select>
                                                             </div>

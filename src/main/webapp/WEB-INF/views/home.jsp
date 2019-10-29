@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.Date, java.text.SimpleDateFormat"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html lang="ko">
@@ -50,7 +50,19 @@
    		padding-left:40px;
         padding-top: 90px;
     }
-    #h2{
+    #hibtn{
+        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
+        color: white;
+        width:50%;
+    }
+    
+    #byebtn{
+        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
+        color: white;
+        width:50%;
+    }
+    
+     #h2{
         font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
         color: white;
     }
@@ -70,12 +82,6 @@
         background:rgb(224, 224, 235);
         border-radius: 10px;
         padding-bottom:1%;
-    }
-    #hi{
-    	width:50%;
-    }
-    #bye{
-    	width:50%;
     }
 </style>
 </head>
@@ -99,39 +105,65 @@
 			<div class="content-fluid" style="height: 100px">
 
  <div class="outdiv">
- 
-<%--  <c:if test="${ !empty loginUser}"> --%> <!-- 로그인해야보이게 -->
-	 <div class="hidiv">
+ <%
+  	Date today = new Date();
+  	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+  	String strToday = sdf.format(today);
+  	/* 오늘날짜 value값으로 박으려고 */
+  	
+  	Date time = new Date();
+  	SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+  	String strTime = sdf2.format(time);
+  	/* 현재시간 value값으로 박으려고 */
+ %>
+	 <div class="hidiv" id="hi">
 	 	<br>
 	    <h3 id="hih2">출/퇴근</h3>
-	    <button class="btn mb-1 btn-rounded btn-success" type="button" id="hi" onclick="location.href='attend.wo';">출근</button>
+	    <button class="btn mb-1 btn-rounded btn-success" type="button" id="hibtn" onclick="location.href='attend.wo'">출근</button>
+	    <input type="hidden" name="empNum" value="${ loginMan.num }">
+        <input type="hidden" name="att_date" value="<%= strToday %>">
+        <input type="hidden" name="time_on" value="<%= strTime %>">
+        <input type="hidden" name="time_off" value="null">
 	</div>
-<%-- </c:if> --%>
 
-<!-- 출근버튼 눌러야 보이게-->
-<!-- 	 <div class="hidiv">
+ 	<div class="hidiv" id="bye">
 	 	<br>
 	    <h3 id="hih2">출/퇴근</h3>
-	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="bye" onclick="location.href='out.wo';">퇴근</button>
-	</div> -->
+	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="byebtn" onclick="location.href='attend.wo'">퇴근</button>
+		<input type="hidden" name="empNum" value="${ loginMan.num }">
+        <input type="hidden" name="att_date" value="<%= strToday %>">
+        <input type="hidden" name="time_on" value="null">
+        <input type="hidden" name="time_off" value="<%= strTime %>">
+	</div>
 
  <script>
  	/* 출퇴근 버튼 스크립트 */
+ 		$(function(){
+ 			$("#bye").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
+ 		});
+ 	
  		// 출근 버튼 누르면 알림창 뜨기
- 		$("#hi").on("click", function(){
- 			alert('출근 확인되었습니다.');
+ 		 $("#hibtn").on("click", function(){
+ 			 var d = new Date();
+ 			 var time = d.getHours() + '시' + d.getMinutes() + '분';
+ 			alert(time + ' 출근.');
+ 			$("#bye").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
+ 			$("#hi").hide(); /* 출근버튼은 안보이게 */
  		});
  	
  		// 퇴근 버튼 누르면 알림창 뜨기
- 		$("#bye").on("click", function(){
- 			alert('퇴근 확인되었습니다.');
+ 		$("#byebtn").on("click", function(){
+ 			var d = new Date();
+			var time = d.getHours() + '시' + d.getMinutes() + '분';
+ 			alert(time + ' 퇴근.');
+ 			$("#bye").hide(); /* 퇴근버튼은 안보이게 */
  		});
  </script>
  
 		<div class="topdiv">
             <div class="indiv" id="div1" style="background: rgb(133, 133, 173)">
                 <div class="paddiv">
-                <a href="">
+                <a href="notice.wo">
                     <h2 id="h2">공지사항</h2>
                     <p>새로운 공지사항을 확인하세요.</p>
                 </a>
@@ -140,8 +172,8 @@
             <div class="indiv" id="div2" style="background: rgb(153, 0, 204)">
                 <div class="paddiv">
                 <a href="allList.wo">
-                    <h2 id="h2">전자결제</h2>
-                    <p>전자결제 바로가기</p>
+                    <h2 id="h2">전자결재</h2>
+                    <p>전자결재 바로가기</p>
                 </a>
                 </div>
             </div>
