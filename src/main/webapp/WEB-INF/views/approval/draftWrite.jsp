@@ -169,7 +169,13 @@
 			console.log(files);
   }); /* 파일 추가  */
 
-		
+		$(function(){
+			console.log("${empName}");
+			if("${empName}" !=null|| "${empName}"!=""){
+				$('#ir1').val("${empName}"+" "+"${empNum}");
+			}
+			
+		})
 </script>
 
 </body>
