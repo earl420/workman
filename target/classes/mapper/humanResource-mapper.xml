@@ -67,7 +67,7 @@
 	</select>
 	
 	<select id="selectModaDeptlList" resultMap="deptResultSet">
-		SELECT DEPT_NAME 
+		SELECT *
 		FROM DEPT
 	</select>
 	<select id="selectModalEmpList" resultMap="modalResultSet">

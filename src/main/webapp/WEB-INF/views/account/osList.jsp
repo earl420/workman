@@ -66,7 +66,8 @@
 						
 				</div>
 				<div class="row" align="right" style="padding-left:85%;">
-					<button class="btn mb-1 btn-rounded btn-outline-warning" style="width: 140px; height: 50px;">OS등록하기</button>
+					<button class="btn mb-1 btn-rounded btn-outline-warning"
+					onclick="location.href='expenseWrite.wo'" style="width: 140px; height: 50px;">OS등록하기</button>
 				</div>
 				<div align="center" style="padding-top: 20px;" >
 					<div class="pages" onclick="paging(${1});">&lt;&lt;</div>

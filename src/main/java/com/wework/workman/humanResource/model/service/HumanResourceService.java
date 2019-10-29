@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.vo.Department;
+import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
+import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.Notice;
 
 public interface HumanResourceService {
@@ -33,5 +35,11 @@ public interface HumanResourceService {
 	
 	// 조직별 직원 수 조회
 	ArrayList<Employee> getEmpCount();
+	
+	// modal dept리스트 불러오기
+	ArrayList<Dept> selectModaDeptlList();
+		
+	// modal emp리스트 불러오기
+	ArrayList<Modal> selectModalEmpList();
 
 }
