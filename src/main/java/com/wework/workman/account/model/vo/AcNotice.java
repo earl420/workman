@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class AcNotice {
 	private String noticeNum;
-	private String noticeDept;
+	private int noticeDept;
 	private String noticeTitle;
 	private String noticeContent;
 	private String empNum;
@@ -14,8 +14,9 @@ public class AcNotice {
 	private String noticeStatus;
 	private int noticeAccType;
 	public AcNotice() {
+		super();
 	}
-	public AcNotice(String noticeNum, String noticeDept, String noticeTitle, String noticeContent, String empNum,
+	public AcNotice(String noticeNum, int noticeDept, String noticeTitle, String noticeContent, String empNum,
 			String empName, Date noticeDate, Date noticeModify, String noticeStatus, int noticeAccType) {
 		this.noticeNum = noticeNum;
 		this.noticeDept = noticeDept;
@@ -34,10 +35,10 @@ public class AcNotice {
 	public void setNoticeNum(String noticeNum) {
 		this.noticeNum = noticeNum;
 	}
-	public String getNoticeDept() {
+	public int getNoticeDept() {
 		return noticeDept;
 	}
-	public void setNoticeDept(String noticeDept) {
+	public void setNoticeDept(int noticeDept) {
 		this.noticeDept = noticeDept;
 	}
 	public String getNoticeTitle() {

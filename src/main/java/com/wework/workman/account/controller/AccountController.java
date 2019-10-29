@@ -1,8 +1,10 @@
 package com.wework.workman.account.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +22,18 @@ import com.google.gson.JsonIOException;
 import com.wework.workman.account.model.service.AccountService;
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.AvgSalary;
+import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
+import com.wework.workman.account.model.vo.OsManage;
+import com.wework.workman.account.model.vo.Partner;
+import com.wework.workman.account.model.vo.Product;
+import com.wework.workman.account.model.vo.SalaryManage;
+import com.wework.workman.account.model.vo.SaleManage;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.common.Pagination;
+import com.wework.workman.mypage.model.vo.Mypage;
 
 @Controller
 public class AccountController {
@@ -41,6 +51,7 @@ public class AccountController {
 			String nNo=list.get(i).getNoticeNum().substring(6);
 			list.get(i).setNoticeNum(nNo);
 		}
+		model.addAttribute("pi",pi);
 		model.addAttribute("list",list);
 		return "account/aNotice";
 	}
@@ -51,40 +62,67 @@ public class AccountController {
 	@RequestMapping("aninsert.wo")
 	public String aNoticeInsert(@RequestParam("noticeTitle") String noticeTitle,
 			@RequestParam(value="noticeContent", required = false) String noticeContent,
-			@RequestParam("noticeType") int noticeAccType,
+			@RequestParam(value="noticeType", required =false) int noticeAccType,
 			@RequestParam(value="insertDate", required = false) String insertDate,
-			@RequestParam(value="type", required=false) String type,
-			@RequestParam(value="term", required=false) String term,
+			@RequestParam(value="ir1", required=false) String ir1,
 			HttpSession session) {
-		
-//		String empNum=(Member)session.getAttribute("loginUser").getEmpNum();
-//		String deptNum=(Member)session.getAttribute("loginUser").getdeptNum();
-//		AcNotice notice = new AcNotice(deptNum, noticeTitle, null, empNum, noticeAccType);
-//		if(noticeAccType==1) {
-			//일반공지
-//			notice.setNoticeContent(noticeContent);
+		Mypage mp = new Mypage();
+		mp.setNum("20190001");
+		session.setAttribute("loginUser", mp);
+//		String empNum=((Mypage)session.getAttribute("loginUser")).getNum();
+		String empNum=mp.getNum();
+		int deptNum=305;
+		int result =1;
+		AcNotice notice = new AcNotice(null, deptNum, noticeTitle, noticeContent, empNum, null, null, null, "Y", noticeAccType);
+		if(noticeAccType ==1) {
+			notice.setNoticeContent(ir1);
+			int result2=aService.aNoticeInsert(notice);
+			if(result2<1) {
+				result=0;
+			}
+		}else {
 			
-//		}else if (noticeAccType==2) {
-			//재무상태표
-			//기존에 같은 날짜의 재무상태표가있는지 체크
-//			int check = aService.checkNotice(noticeTitle);
-//			if(check>0) {
-//				return "redirect:"
-//			}
-//			notice.setNoticeContent(insertDate);
-//		}else if(noticeAccType==3) {
-			//손익계산서
-//			int check = aService.checkNotice(noticeTitle);
-//			if(check>0) {
-//				return "redirect:"
-//			}
-//			notice.setNoticeContent(type+" " + term);
-//		}
-		
-//		int result = aService.aNoticeInsert(notice);
-//		if(result<1) {
-//			return "common/errorPage";
-//		}
+			String[] date = noticeContent.split(" ");
+			String startDate = noticeContent.split(" ")[1].substring(2);
+			String endDate = date[1].substring(2);
+			if(noticeAccType==3) {
+				if(date[0].equals("분기")) {
+						
+						switch (date[2]) {
+						case "1/4":
+							startDate +="/01/01";
+							endDate +="/03/31";
+							break;
+						case "2/4":
+							startDate +="/04/01";
+							endDate +="/06/30";
+							break;
+						case "3/4":
+							startDate +="/07/01";
+							endDate +="/09/30";
+							break;
+						case "4/4":
+							startDate +="/10/01";
+							endDate +="/12/31";
+							break;
+
+						default:
+							break;
+						}
+						IsState iss = new IsState(startDate, endDate);
+						result =aService.insertIncome(iss);
+					}
+					
+				}
+			int result2=aService.aNoticeInsert(notice);
+			if(result<1||result2<1) {
+				result=0;
+			}
+			
+		}
+		if(result<1) {
+			return "common/errorPage";
+		}
 		return "redirect:acnoticeList.wo";
 	}
 	@RequestMapping("acDetail.wo")
@@ -93,96 +131,95 @@ public class AccountController {
 		
 		model.addAttribute("notice", notice);
 		//파일도 넣는처리할것 
-		
-		
-		
-		
-		
-		
-		
-//		if(notice.getNoticeAccType()==2) {
-//			
-//		ajax로 나중에 처리 재무상태표
-//			ArrayList<AccountStatus> as = aService.accountStatus(notice.getNoticeContent());
-//		}else if(notice.getNoticeAccType()==3) {
-//			ajax로 나중에 처리 손익계산서
-//			String[] date = notice.getNoticeContent().split(" ");
-//			IsState iss = new IsState(date[0], date[1]);
-//			ArrayList<IncomeStatement> is = aService.incomeStatus(iss);
-//			연간으로 할 떄는 안해도되게 처리  매출과 비용은 그냥 차변에서대변 빼는 것과 같은 작업 하지않고 가지고 올것
-//			int income = is.get(is.length-1).getAccount();
-//			int result = aService.insertIncome(income);
-//			세금도 몇번째 위친지 확인해서 넣는 작업해줘야함
-//			다른거 검색하는 항목있을시 null값 처리해주는 작업해줘야
-//			arrayList로 변환 하는 작업도 해줘야된다...
-//		}
-		
 		return "account/detailNotice";
 	}
 	@RequestMapping("salelist.wo")
 	public String saleList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value="type", required = false, defaultValue = "") String type,
-			@RequestParam(value="search", required = false, defaultValue = "") String search1) {
+			Model model) {
 		
-//		String[] search= search1.split(" ");
 //		
-//		int listCount = aService.getSaleListCount(search);
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		ArrayList<SaleManage> list = aService.saleList(search,pi);
+		int listCount = aService.getSaleListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<SaleManage> list = aService.saleList(pi);
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
 		return "account/saleList";
 	}
 	@RequestMapping("insertsale.wo")
-	public String insertSale(@RequestParam("productCode") String productCode,
-			@RequestParam("partnerNum") String partnerNum,
-			@RequestParam("salesAmount") int salesAmount,
-			@RequestParam("productPrice") int productPrice) {
-//		SaleManage sm = new SaleManage();
-//		sm.setProductCode(productCode);
-//		sm.setPartnerNum(partnerNum);
-//		sm.setSalesAmount(salesAmount);
-//		sm.setProductPrice(productPrice);
-//		int result = aService.insertSale(sm);
-		return "redirect:salelist.wo"; 
+	public String insertSale(@RequestParam("product") String productCode,
+			@RequestParam("partner") String partnerNum,
+			@RequestParam(value = "saleCount", required = false, defaultValue = "1") int salesAmount,
+			@RequestParam(value="empNum", required = false) String empNum) {
+		
+		SaleManage sm = new SaleManage();
+		sm.setEmpNum(empNum);
+		sm.setProductCode(productCode);
+		sm.setPartnerNum(partnerNum);
+		sm.setSalesAmount(salesAmount);
+		int result = aService.insertSale(sm);
+		if(result>0) {
+			return "redirect:salelist.wo"; 
+		}else {
+			return "common/500error";
+		}
+		
 	}
 	@RequestMapping("oslist.wo")
 	public String osList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value="type", required = false, defaultValue = "") String type,
-			@RequestParam(value="search", required = false, defaultValue = "") String search1) {
+			Model model) {
 		
-//		String[] search= search1.split(" ");
-//		
-//		int listCount = aService.getOSListCount(search);
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		ArrayList<OsManage> list = aService.osList(search,pi);
+
+		int listCount = aService.getOSListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<OsManage> list = aService.osList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
 		return "account/osList";
 	}
 	@RequestMapping("fixturelist.wo")
 	public String fixtureList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value="type", required = false, defaultValue = "") String type,
-			@RequestParam(value="search", required = false, defaultValue = "") String search1) {
+			Model model) throws ParseException {
 		
-//		String[] search= search1.split(" ");
-//		
-//		int listCount = aService.getFixtureListCount(search);
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		ArrayList<Fixture> list = aService.fixtureList(search,pi);
+		int listCount = aService.getFixtureListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Fixture> list = aService.fixtureList(pi);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(new Date());
+		Date todayParse = sdf.parse(today);
+		for (int i = 0; i < list.size(); i++) {
+			String listDay = sdf.format(list.get(i).getFixtureBuy());
+			Date listDayParse = sdf.parse(listDay);
+			int diff = (int)(todayParse.getTime()-listDayParse.getTime())/(24*60*60*1000*365);
+			int val = (list.get(i).getFixturePrice()/list.get(i).getEndurance())*(list.get(i).getEndurance()-diff);
+			list.get(i).setResidualValue(val);
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		return "account/fixtureList";
 	}
 	@RequestMapping("salarylist.wo")
 	public String salaryList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value="type", required = false, defaultValue = "") String type,
-			@RequestParam(value="search", required = false, defaultValue = "") String search1) {
+			Model model) {
 		
-//		String[] search= search1.split(" ");
-//		
-//		int listCount = aService.getSalaryListCount(search);
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		ArrayList<SalaryManage> list = aService.salaryList(search,pi);
+		int listCount = aService.getSalaryListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<SalaryManage> list = aService.salaryList(pi);
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
 		return "account/salaryList";
 	}
 	@RequestMapping("salarydetail.wo")
-	public String salaryDetail(@RequestParam(value = "empNum") String empNum) {
-//		SalaryManage salary = aService.salaryDetail(empNum);
+	public String salaryDetail(@RequestParam(value = "empNum", required = false) String empNum,
+			Model model) {
+		ArrayList<SalaryManage> salary = aService.salaryDetail(empNum);
+		AvgSalary avg =null;
+		if (salary.size()>0) {
+			avg =aService.avgSalary(salary.get(0));
+		}	
+		model.addAttribute("list", salary);
+		model.addAttribute("avg", avg);
 		return "account/salaryDetail";
 	}
 	
@@ -221,30 +258,32 @@ public class AccountController {
 	@ResponseBody
 	@RequestMapping(value="accountlist.wo", produces="application/json; charset=utf-8")
 	public void accountList(@RequestParam("content") String content, HttpServletResponse response) throws JsonIOException, IOException {
-		ArrayList<AccountStatus> list = aService.accountStatus(content);
+		
+		ArrayList<AccountStatus> list = aService.accountStatus(content.substring(2));
 		int sum1=0;
 		int sum2 = 0;
 		for (int i = 0; i < list.size(); i++) {
 			sum1+=list.get(i).getAccount1();
 			sum2+=list.get(i).getAccount2();
 		}
-		AccountStatus as = new AccountStatus("차변합계 : ", sum1, "대변 합계 : ", sum2);
+		AccountStatus as = new AccountStatus("차변합계  ", sum1, "대변 합계  ", sum2);
 		list.add(as);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(list,response.getWriter());
 	}
 	@ResponseBody
 	@RequestMapping(value="incomelist.wo", produces="application/json; charset=utf-8")
-	public void incomeList(@RequestParam("content") String content, HttpServletResponse response) throws JsonIOException, IOException {
+	public void incomeList(@RequestParam(value = "content", required = false) String content,
+			HttpServletResponse response) throws JsonIOException, IOException {
 		String[] date=content.split(" ");
 		String startDate =new String();
 		String endDate =new String();
 		if(date[0].equals("년")) {
-			startDate=date[1]+"/01/01";
-			endDate=date[1]+"/12/31";
+			startDate=date[1].substring(2)+"/01/01";
+			endDate=date[1].substring(2)+"/12/31";
 		}else {
-			startDate = date[1];
-			endDate = date[1];
+			startDate = date[1].substring(2);
+			endDate = date[1].substring(2);
 			switch (date[2]) {
 			case "1/4":
 				startDate +="/01/01";
@@ -268,26 +307,139 @@ public class AccountController {
 			}
 		}
 		IsState iss = new IsState(startDate, endDate);
+//		int validCheck = aService.validCheck(noticeTitle);
+//		if(validCheck<1) {
+//			int result =aService.insertIncome(iss);
+//			System.out.println("결과...."+result);
+//		}
+		
 		ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
 		//비용합계
 		int sum =0;
-		for (int i = 1; i < 5; i++) {
+		for (int i = 1; i < list.size(); i++) {
 			sum+= list.get(i).getAccount();
 		}
 		int EBIT=list.get(0).getAccount()-sum;
 		IncomeStatement is1 = new IncomeStatement();
 		is1.setAccountSubject("매출");
+		is1.setAccount(list.get(0).getAccount());
 		IncomeStatement is2 = new IncomeStatement();
 		is2.setAccountSubject("비용");
+		is2.setAccount(sum);
 		IncomeStatement is3 = new IncomeStatement("EBIT", EBIT);
-		int earning = EBIT- list.get(list.size()-1).getAccount();
 		
-		list.add(0, is1);
-		list.add(2, is2);
-		list.add(7, is3);
-		list.add(9, new IncomeStatement("총수익", earning));
+		
+		list.add(0, is1); //매출총계
+		list.add(2, is2);//비용총계
+		list.add(is3);//EBIT
+		
+		list.add(new IncomeStatement("세금", (int)Math.round(EBIT*0.15) ));
+		list.add(new IncomeStatement("총수익", (int)Math.round(EBIT*0.85)));
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(list,response.getWriter());
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping("check.wo")
+	public void checkTitle(@RequestParam("content") String noticeTitle, HttpServletResponse response) throws JsonIOException, IOException {
+		int check = aService.checkNotice(noticeTitle);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(check,response.getWriter());
+	}
+	@ResponseBody
+	@RequestMapping("productinfo.wo")
+	public void productInfo( HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Product> list = aService.productList();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(list,response.getWriter());
+	}
+	@ResponseBody
+	@RequestMapping("partnerInfo.wo")
+	public void partnerInfo( HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Partner> list = aService.partnerList();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(list,response.getWriter());
+	}
+	@RequestMapping("downexcel.wo")
+	public String downExcel(@RequestParam("noticeContent") String noticeContent,
+			@RequestParam("noticeAccType") int noticeAccType,
+			@RequestParam("title") String title,Model model) {
+		
+		if(noticeAccType==2) {
+			ArrayList<AccountStatus> list = aService.accountStatus(noticeContent.substring(2));
+			int sum1=0;
+			int sum2 = 0;
+			for (int i = 0; i < list.size(); i++) {
+				sum1+=list.get(i).getAccount1();
+				sum2+=list.get(i).getAccount2();
+			}
+			AccountStatus as = new AccountStatus("차변합계  ", sum1, "대변 합계  ", sum2);
+			list.add(as);
+			model.addAttribute("list", list);
+		}else if(noticeAccType==3) {
+			String[] date=noticeContent.split(" ");
+			String startDate =new String();
+			String endDate =new String();
+			if(date[0].equals("년")) {
+				startDate=date[1].substring(2)+"/01/01";
+				endDate=date[1].substring(2)+"/12/31";
+			}else {
+				startDate = date[1].substring(2);
+				endDate = date[1].substring(2);
+				switch (date[2]) {
+				case "1/4":
+					startDate +="/01/01";
+					endDate +="/03/31";
+					break;
+				case "2/4":
+					startDate +="/04/01";
+					endDate +="/06/30";
+					break;
+				case "3/4":
+					startDate +="/07/01";
+					endDate +="/09/30";
+					break;
+				case "4/4":
+					startDate +="/10/01";
+					endDate +="/12/31";
+					break;
+
+				default:
+					break;
+				}
+			}
+			IsState iss = new IsState(startDate, endDate);
+			ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
+			//비용합계
+			int sum =0;
+			for (int i = 1; i < list.size(); i++) {
+				sum+= list.get(i).getAccount();
+			}
+			int EBIT=list.get(0).getAccount()-sum;
+			IncomeStatement is1 = new IncomeStatement();
+			is1.setAccountSubject("매출");
+			is1.setAccount(list.get(0).getAccount());
+			IncomeStatement is2 = new IncomeStatement();
+			is2.setAccountSubject("비용");
+			is2.setAccount(sum);
+			IncomeStatement is3 = new IncomeStatement("EBIT", EBIT);
+			
+			
+			list.add(0, is1); //매출총계
+			list.add(2, is2);//비용총계
+			list.add(is3);//EBIT
+			
+			list.add(new IncomeStatement("세금", (int)Math.round(EBIT*0.15) ));
+			list.add(new IncomeStatement("총수익", (int)Math.round(EBIT*0.85)));
+			model.addAttribute("list",list);
+		}
+		model.addAttribute("accType", noticeAccType);
+		model.addAttribute("title", title);
+		return "account/downExcel";
+	}
 }
+
+

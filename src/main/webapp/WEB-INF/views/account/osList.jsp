@@ -41,106 +41,24 @@
 					<table class="table table-bordered verticle-middle" id="acList" style="border: 1px solid black; padding-left: 10px; padding-right:10px;">
 						<thead>
 							<tr>
-								<th width="10%">O/S번호</th>
-								<th width="20%">제품명</th>
-								<th width="15%">라이센스번호</th>
-								<th width="10%">사용시작일</th>
-								<th width="10%">만료일</th>
-								<th width="10%">갱신일</th>
-								<th width="15%">갱신</th>
+								<th width="20%">O/S번호</th>
+								<th width="30%">제품명</th>
+								<th width="20%">라이센스번호</th>
+								<th width="15%">사용시작일</th>
+								<th width="15%">만료일</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark">갱신</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark" disabled="disabled">결재대기</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark">갱신</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark">갱신</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark" disabled="disabled">결재대기</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark">갱신</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark">갱신</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark">갱신</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark">갱신</button></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-								<td><button class="btn mb-1 btn-rounded btn-outline-dark">갱신</button></td>
-							</tr>
+							<c:forEach var="i" items="${list }">
+								<tr>
+									<td>${i.licenseManage }</td>
+									<td>${i.productName }</td>
+									<td>${i.licenseNum }</td>
+									<td>${i.licenseStart }</td>
+									<td>${i.licenseEnd }</td>
+								</tr>
+							</c:forEach>
+							
 							
 						</tbody>
 					</table>
@@ -151,13 +69,20 @@
 					<button class="btn mb-1 btn-rounded btn-outline-warning" style="width: 140px; height: 50px;">OS등록하기</button>
 				</div>
 				<div align="center" style="padding-top: 20px;" >
-					<div class="pages" onclick="paging(1);">&lt;&lt;</div>
-					<div class="pages" onclick="paging(1);">&lt;</div>
-					<c:forEach var="i" begin="1" end="10">
+					<div class="pages" onclick="paging(${1});">&lt;&lt;</div>
+					<c:choose>
+						<c:when test="${pi.currentPage eq 1 }">
+							<div class="pages" onclick="paging(1);">&lt;</div>
+						</c:when>
+						<c:otherwise>
+							<div class="pages" onclick="paging(${pi.currentPage-1});">&lt;</div>
+						</c:otherwise>
+					</c:choose>
+					<c:forEach var="i" begin="1" end="${pi.endPage }">
 						<div class="pages" onclick="paging(this.innerText);">${ i }</div>
 					</c:forEach>
-					<div class="pages" onclick="paging(10);">&gt;</div>
-					<div class="pages" onclick="paging(10);">&gt;&gt;</div>
+					<div class="pages" onclick="paging(${i+1});">&gt;</div>
+					<div class="pages" onclick="paging(${pi.maxPage});">&gt;&gt;</div>
 				</div>
 			</div>
 			<!-- /.container -->

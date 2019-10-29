@@ -1,7 +1,0 @@
-eclipse.preferences.version=1
-encoding//src/main/java/com/wework/workman/mypage/controller/MypageController.java=UTF-8
-encoding//src/main/java/com/wework/workman/mypage/model/dao/MypageDao.java=UTF-8
-encoding//src/main/java/com/wework/workman/mypage/model/service/MypageService.java=UTF-8
-encoding//src/main/java/com/wework/workman/mypage/model/service/MypageServiceImpl.java=UTF-8
-encoding//src/main/java/com/wework/workman/mypage/model/vo/Mypage.java=UTF-8
-encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
