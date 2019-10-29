@@ -126,7 +126,7 @@
         <input type="hidden" name="time_off" value="null">
 	</div>
 
- 	<div class="hidiv" id="bye">
+ 	<%-- <div class="hidiv" id="bye">
 	 	<br>
 	    <h3 id="hih2">출/퇴근</h3>
 	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="byebtn" onclick="location.href='attend.wo'">퇴근</button>
@@ -134,7 +134,7 @@
         <input type="hidden" name="att_date" value="<%= strToday %>">
         <input type="hidden" name="time_on" value="null">
         <input type="hidden" name="time_off" value="<%= strTime %>">
-	</div>
+	</div> --%>
 
  <script>
  	/* 출퇴근 버튼 스크립트 */
