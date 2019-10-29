@@ -19,11 +19,34 @@ import com.wework.workman.humanResource.model.vo.Notice;
 public class HumanResourceServiceImpl implements HumanResourceService{
 	@Resource(name="humanResourceDao")
 	private HumanResourceDao hDao;
+	
+	@Override
+	public int getnListCount() {
 
+		return hDao.getnListCount();
+	}
+
+	@Override
+	public ArrayList<Notice> selectnList(PageInfo pi) {
+
+		return hDao.selectnList(pi);
+	}
 	@Override
 	public int gethListCount() {
 		
 		return hDao.gethListCount();
+	}
+
+	@Override
+	public Notice getnDetail(String noticeNum) {
+
+		return hDao.getnDetail(noticeNum);
+	}
+	
+	@Override
+	public int updateNotice(Notice n) {
+		
+		return hDao.updateNotice(n);
 	}
 
 	@Override

@@ -39,7 +39,8 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="notice.wo">공지사항</a></li>
+						<li class="breadcrumb-item"><a href="hrNotice.wo">인사관리</a></li>
+						<li class="breadcrumb-item active"><a href="hrNotice.wo">공지사항</a></li>
 					</ol>
 				</div>
 			</div>
@@ -50,8 +51,7 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="card-title">공지사항</h4>
-								<button class="btn mb-1 btn-rounded btn-warning" onclick="location.href='ninsertForm.wo';">글 작성</button>
+								<h4 class="card-title">인사 공지사항</h4>
 								<div class="table-responsive">
 									<div id="DataTables_Table_0_wrapper"
 										class="dataTables_wrapper container-fluid dt-bootstrap4">
@@ -92,10 +92,10 @@
 																<td><%-- <c:if test="${ empty loginUser }">
 																	${ n.noticeTitle } --%>
 																<%-- </c:if> <c:if test="${ !empty loginUser }"> --%>
-																		<c:url value="nDetail.wo" var="nDetail">
+																		<c:url value="hrnDetail.wo" var="hrnDetail">
 																			<c:param name="noticeNum" value="${ n.noticeNum }" />
 																		</c:url>
-																		<a href="${ nDetail }">${ n.noticeTitle }</a>
+																		<a href="${ hrnDetail }">${ n.noticeTitle }</a>
 																	<%-- </c:if> --%>
 																	</td>
 																<td>${ n.empName }</td>

@@ -12,6 +12,15 @@ import com.wework.workman.humanResource.model.vo.Notice;
 
 public interface HumanResourceService {
 	
+	// 전체 공지사항 리스트 갯수
+	int getnListCount();
+	
+	// 전체 공지사항 리스트
+	ArrayList<Notice> selectnList(PageInfo pi);
+	
+	// 전체 공지사항 상세조회
+	Notice getnDetail(String noticeNum);
+	
 	// 공지사항 중 인사(301) 관련 공지사항 갯수 조회
 	int gethListCount();
 	
@@ -23,6 +32,9 @@ public interface HumanResourceService {
 	
 	// 공지사항 작성
 	int insertNotice(Notice n);
+	
+	// 공지사항 수정
+	int updateNotice(Notice n);
 	
 	// 첨부파일 업로드
 	int insertAtt(Attachment a);

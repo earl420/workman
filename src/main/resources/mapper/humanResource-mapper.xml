@@ -61,6 +61,20 @@
 		<result property="count" column="count"/>
 	</resultMap>
 	
+	<select id="getnListCount" resultType="_int">
+		select count(*)
+		from notice
+		where notice_status = 'Y'
+	</select>
+	
+	<select id="selectnList" resultMap="HRnListResultSet">
+		select *
+		from notice
+		join employee using(emp_num)
+		where notice_status = 'Y'
+		order by notice_num desc
+	</select>
+	
 	<select id="gethListCount" resultType="_int">
 		select count(*)
 		from notice
@@ -89,6 +103,12 @@
 		join employee using(emp_num)
 		where notice_num = concat('NOTICE',#{notice_num}) and notice_status = 'Y'
 	</select>
+	
+	<update id="updateNotice" parameterType="Notice">
+		update notice
+		set notice_title = #{noticeTitle}, notice_content = #{noticeContent}
+		where notice_num = #{noticeNum}
+	</update>
 	
 	<insert id="insertNotice" parameterType="Notice">
 		insert into notice
