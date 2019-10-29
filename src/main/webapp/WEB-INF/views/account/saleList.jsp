@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <link href="resources/account/css/saleList.css" rel="stylesheet">
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
 </head>
 <body>
 		<!--*******************
@@ -50,86 +54,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>무언가</td>
-								<td>....</td>
-								<td>양정환</td>
-								<td>2000000</td>
-								<td>19/10/17</td>
-							</tr>
+							<c:forEach var="i" items="${list }">
+								<tr>
+									<td>${i.salesNum }</td>
+									<td>${i.productName } 
+									<input type="hidden" name="productCode" id="productCode" value="productCode" />
+									</td>
+									<td>${i.partnerName }
+									<input type="hidden" name="partnerNum" id="partnerNum" value="partnerNum" /></td>
+									<td>${i.empName }</td>
+									<td>${i.productPrice*i.salesAmount }</td>
+									<td>${i.salesDate }</td>
+								</tr>
+							</c:forEach>
 							
 						</tbody>
 					</table>
@@ -143,13 +80,20 @@
 					</button>
 				</div>
 				<div align="center" style="padding-top: 20px;" >
-					<div class="pages" onclick="paging(1);">&lt;&lt;</div>
-					<div class="pages" onclick="paging(1);">&lt;</div>
-					<c:forEach var="i" begin="1" end="10">
+					<div class="pages" onclick="paging(${1});">&lt;&lt;</div>
+					<c:choose>
+						<c:when test="${pi.currentPage eq 1 }">
+							<div class="pages" onclick="paging(1);">&lt;</div>
+						</c:when>
+						<c:otherwise>
+							<div class="pages" onclick="paging(${pi.currentPage-1});">&lt;</div>
+						</c:otherwise>
+					</c:choose>
+					<c:forEach var="i" begin="1" end="${pi.endPage }">
 						<div class="pages" onclick="paging(this.innerText);">${ i }</div>
 					</c:forEach>
-					<div class="pages" onclick="paging(10);">&gt;</div>
-					<div class="pages" onclick="paging(10);">&gt;&gt;</div>
+					<div class="pages" onclick="paging(${i+1});">&gt;</div>
+					<div class="pages" onclick="paging(${pi.maxPage});">&gt;&gt;</div>
 				</div>
 			</div>
 			<!-- /.container -->
@@ -180,23 +124,35 @@
        		<table class="table" id="updateSale">
        			<tr>
        				<th>판매제품</th>
-       				<td><input type="text" /></td>
+       				<td>
+       				<select name="product" id="product">
+       					
+       				</select>
+       				</td>
        			</tr>
        			<tr>
        				<th>거래처</th>
-       				<td><input type="text" /></td>
+       				<td><select name="partner" id="partner">
+       					
+       				</select></td>
+       			</tr>
+       			<tr>
+       				<th>판매갯수 </th>
+       				<td><input type="number" name="saleCount" id="saleCount" /></td>
        			</tr>
        			<tr>
        				<th>판매자</th>
-       				<td><input type="text" readonly="readonly"/></td>
+       				<td>
+       				<input type="text" name="empName" id="empName" readonly="readonly" value="${loginMan.name }"/>
+       				<%-- <input type="text" readonly="readonly" value="${loginUser.loginMan }"/> --%>
+       				<input type="hidden" name="empNum" id="empNum"  value="${loginMan.num }"/>
+       				<%-- <input type="hidden" value="${loginUser.empNum }"/> --%>
+       				</td>
        			</tr>
-       			<tr>
-       				<th>판매가격</th>
-       				<td><input type="text" /></td>
-       			</tr>
+       			
        			<tr>
        				<th>판매일시</th>
-       				<td><input type="text" readonly="readonly"/></td>
+       				<td><input type="text" readonly="readonly" id="today11" name="today11" /></td>
        			</tr>
        		</table>
        		<button type="submit" id="modalBtn" class="btn mb-1 btn-rounded btn-outline-warning">
@@ -208,6 +164,9 @@
     </div>
   </div>
 </div>
+
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	 <script src="resources/account/js/saleList.js"></script>
 </body>
 </html>

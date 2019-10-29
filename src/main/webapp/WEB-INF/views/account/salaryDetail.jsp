@@ -52,19 +52,19 @@
 									style="border: 1px solid lightgray;">
 									<tr>
 										<th width="20px;">사원번호</th>
-										<td width="30px">1</td>
+										<td width="30px">${list.get(0).empNum }</td>
 									</tr>
 									<tr>
 										<th>부서</th>
-										<td>회계부</td>
+										<td>${list.get(0).deptName }</td>
 									</tr>
 									<tr>
 										<th>사원명</th>
-										<td>양정환</td>
+										<td>${list.get(0).empName }</td>
 									</tr>
 									<tr>
 										<th>현재연봉</th>
-										<td>27000000</td>
+										<td>${list.get(0).yearSalary }</td>
 									</tr>
 								</table>
 							</div>
@@ -75,19 +75,12 @@
 											<th>연도</th>
 											<th>연봉</th>
 										</tr>
-										<tr>
-											<th>2017</th>
-											<td>22000000</td>
-										</tr>
-									
-										<tr>
-											<th>2018</th>
-											<td>24000000</td>
-										</tr>
-										<tr>
-											<th>2019</th>
-											<td>27000000</td>
-										</tr>
+										<c:forEach var="i" items="${list }">
+											<tr>
+												<th>${i.salYear }</th>
+												<th>${i.yearSalary }</th>
+											</tr>
+										</c:forEach>
 								</table>
 
 							</div>
@@ -104,15 +97,20 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>80%</td>
-										<td>100%</td>
-										<td>100%</td>
+										<td>${list.get(0).yearSalary/avg.avgTotal*100}%</td>
+										<td>${list.get(0).yearSalary/avg.avgDept*100}%</td>
+										<td>${list.get(0).yearSalary/avg.avgGrade*100}%</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
+						<c:url var="updateSalary" value="draftWrite.wo" >
+							<c:param name="empNum" value="${list.get(0).empNum }" />
+							<c:param name="empName" value="${list.get(0).empName }" />
+						</c:url>
 						<div class="row" style="padding-left: 48%; padding-top: 70px;">
-							<button class="btn mb-1 btn-rounded btn-outline-warning">연봉수정하기</button>
+							<button class="btn mb-1 btn-rounded btn-outline-warning"
+							onclick="location.href='${updateSalary}';">연봉수정하기</button>
 						</div>
 					</div>
 				</div>
@@ -127,7 +125,7 @@
         Main wrapper end
     ***********************************-->
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-	<script src="resources/account/js/salaryDetail.js"></script>
+	
 
 
 </body>

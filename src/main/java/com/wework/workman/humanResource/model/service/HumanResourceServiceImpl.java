@@ -10,7 +10,9 @@ import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.dao.HumanResourceDao;
 import com.wework.workman.humanResource.model.vo.Department;
+import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
+import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.Notice;
 
 @Service("humanResourceService")
@@ -87,6 +89,17 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	public ArrayList<Employee> getEmpCount() {
 
 		return hDao.getEmpCount();
+	}
+
+	
+	@Override
+	public ArrayList<Dept> selectModaDeptlList() {
+		return hDao.selectModaDeptlList();
+	}
+	
+	@Override
+	public ArrayList<Modal> selectModalEmpList() {
+		return hDao.selectModalEmpList();
 	}
 
 	

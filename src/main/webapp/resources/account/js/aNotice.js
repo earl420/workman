@@ -10,5 +10,5 @@ $(function(){
 	
 })
 function paging(page){
-	location.href="acnoticeList.wo?page="+page;
+	location.href="acnoticeList.wo?currentPage="+page;
 }

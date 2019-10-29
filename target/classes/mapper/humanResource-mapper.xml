@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="humanMapper">
+	
+	 <resultMap id="modalResultSet" type="Modal">
+		<id property="empName" column="EMP_NAME"/>
+		<result property="gradeName" column="GRADE_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+	
+	<resultMap id="deptResultSet" type="Dept">
+		<id property="deptNum" column="DEPT_NUM"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+	
+	<resultMap type="Notice" id="HRnListResultSet">
+		<id property="noticeNum" column="notice_num"/>
+		<result property="noticeDept" column="notice_dept"/>
+		<result property="noticeTitle" column="notice_title"/>
+		<result property="noticeContent" column="notice_content"/>
+		<result property="empNum" column="emp_num"/>
+		<result property="empName" column="emp_name"/>
+		<result property="noticeDate" column="notice_date"/>
+		<result property="noticeModify" column="notice_modify"/>
+		<result property="noticeStatus" column="notice_status"/>
+		<result property="noticeAccType" column="notice_acc_type"/>
+	</resultMap>
+	
+	<resultMap type="Department" id="deptListResultSet">
+		<id property="deptNum" column="dept_num"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="empNum" column="emp_num"/>
+		<result property="empName" column="emp_name"/>
+	</resultMap>
+	
+	<resultMap type="Employee" id="selectEmp">
+		<id property="empNum" column="emp_Name"/>
+		<result property="empPwd" column="emp_pwd"/>
+		<result property="empName" column="EMP_NAME"/>
+		<result property="email" column="EMP_EMAIL"/>
+		<result property="gender" column="EMP_GENDER"/>
+		<result property="birth" column="EMP_BIRTH"/>
+		<result property="empPhone" column="EMP_PHONE"/>
+		<result property="empAddress" column="EMP_ADDRESS"/>
+		<result property="gradeNum" column="GRADE_NUM"/>
+		<result property="gradeName" column="GRADE_NAME"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="empSalary" column="EMP_SALARY"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="resignDate" column="RESIGN_DATE"/>
+		<result property="empStatus" column="EMP_STATUS"/>
+		<result property="empAccount" column="EMP_ACCOUNT"/>
+		<result property="empBank" column="EMP_BANK"/>
+	</resultMap>
+	
+	<resultMap type="Employee" id="getEmpCount">
+		<id property="deptNum" column="dept_num"/>
+		<result property="count" column="count"/>
+	</resultMap>
+	
+	<select id="gethListCount" resultType="_int">
+		select count(*)
+		from notice
+		where notice_status = 'Y' and notice_dept = 301
+	</select>
+	
+	<select id="selectModaDeptlList" resultMap="deptResultSet">
+		SELECT *
+		FROM DEPT
+	</select>
+	<select id="selectModalEmpList" resultMap="modalResultSet">
+	 select *
+	 from modal
+	 </select>
+	<select id="selectHRnList" resultMap="HRnListResultSet">
+		select *
+		from notice
+		join employee using(emp_num)
+		where notice_status = 'Y' and notice_dept = 301
+		order by notice_num desc
+	</select>
+	
+	<select id="selectNotice" parameterType="string" resultMap="HRnListResultSet">
+		select *
+		from notice
+		join employee using(emp_num)
+		where notice_num = concat('NOTICE',#{notice_num}) and notice_status = 'Y'
+	</select>
+	
+	<insert id="insertNotice" parameterType="Notice">
+		insert into notice
+		values(notice_num_seq.nextval, #{noticeDept}, #{noticeTitle}, #{noticeContent}, 20190001, sysdate, sysdate, default, null)
+	</insert>
+	
+	<insert id="insertAtt" parameterType="Attachment">
+		insert into attachment
+		values(att_num_seq.nextval, notice_num_seq.currval, #{attOriginalName}, #{attPath}, #{attRename})
+	</insert>
+	
+	<select id="selectDeptList" resultMap="deptListResultSet">
+		select *
+        from dept
+        where dept_name != '전체부서'
+	</select>
+	
+	<select id="selectEmp" resultMap="selectEmp">
+		select *
+        from employee
+        join grade using(grade_num)
+        join dept using(dept_num)
+        where emp_status='Y'
+        order by emp_salary desc
+	</select>
+	
+	<select id="selectEmpCount" resultMap="getEmpCount">
+		select count(*) count, dept_num
+		from employee
+        where emp_status='Y'
+		group by dept_num
+	</select>
+</mapper>

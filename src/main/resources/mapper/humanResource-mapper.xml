@@ -4,6 +4,17 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="humanMapper">
 	
+	 <resultMap id="modalResultSet" type="Modal">
+		<id property="empName" column="EMP_NAME"/>
+		<result property="gradeName" column="GRADE_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+	
+	<resultMap id="deptResultSet" type="Dept">
+		<id property="deptNum" column="DEPT_NUM"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+	
 	<resultMap type="Notice" id="HRnListResultSet">
 		<id property="noticeNum" column="notice_num"/>
 		<result property="noticeDept" column="notice_dept"/>
@@ -70,6 +81,14 @@
 		where notice_status = 'Y' and notice_dept = 301
 	</select>
 	
+	<select id="selectModaDeptlList" resultMap="deptResultSet">
+		SELECT *
+		FROM DEPT
+	</select>
+	<select id="selectModalEmpList" resultMap="modalResultSet">
+	 select *
+	 from modal
+	 </select>
 	<select id="selectHRnList" resultMap="HRnListResultSet">
 		select *
 		from notice

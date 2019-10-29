@@ -34,10 +34,7 @@
         ***********************************-->
 		<div class="content-body">
 			<div class="content-fluid" style="height: 100px; padding-left: 100px; padding-right: 100px;" align="center">
-				<div class="row" style="padding-top: 50px;">
-					<div class="col-sm-6"><h2>총 월급 : 1000000</h2></div>
-					<div class="col-sm-6"><h2>총 연봉 : 12000000</h2></div>
-				</div>
+				
 				
 				<div class="table-responsive" style="text-align: center;">
 					<h3 style="padding-top: 40px; padding-bottom: 10px;">월급관리</h3>
@@ -54,15 +51,15 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="i" begin="1" end="10">
+							<c:forEach var="i" items="${list }">
 								<tr>
-									<td>${i }</td>
-									<td>회계/총무</td>
-									<td>양정환</td>
-									<td>대리</td>
-									<td>2000000</td>
-									<td>24000000</td>
-									<td>${i-1 }%</td>
+									<td>${i.empNum }</td>
+									<td>${i.deptName }</td>
+									<td>${i.empName }</td>
+									<td>${i.gradeName }</td>
+									<td>${i.monSalary }</td>
+									<td>${i.yearSalary }</td>
+									<td>${i.increaseRate }%</td>
 								</tr>
 							</c:forEach>							
 						</tbody>

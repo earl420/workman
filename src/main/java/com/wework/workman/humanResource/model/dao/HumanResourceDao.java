@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.vo.Department;
+import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
+import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.Notice;
 
 @Repository("humanResourceDao")
@@ -86,4 +88,13 @@ public class HumanResourceDao {
 
 		return (ArrayList) sqlSession.selectList("humanMapper.selectEmpCount");
 	}
+	
+	// ModalDeptList 불러오기
+		public ArrayList<Dept> selectModaDeptlList() {
+			return (ArrayList)sqlSession.selectList("humanMapper.selectModaDeptlList");
+			}
+		// ModalEmpList 불러오기
+		public ArrayList<Modal> selectModalEmpList() {
+			return (ArrayList)sqlSession.selectList("humanMapper.selectModalEmpList");
+		}
 }
