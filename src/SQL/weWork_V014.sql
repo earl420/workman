@@ -2124,6 +2124,15 @@ insert into payment values(null, 1000000,1,'PARTNER2019000002','18/09/01','Çö±Ý'
 insert into fixture values(null, '³ëÆ®ºÏ', 'lg³ëÆ®ºÏ', '18/09/01', 301, '20190001', 4,'PAYMENT2019000002');
 insert into license values(null, 'mswindow', '123-123-12345', 'PAYMENT2019000001', '18/09/01' , '22/08/31', null);
 
+insert into sales values (null,'PRODUCT2019000001','18/11/02', '20190001',20, 'PARTNER2019000003', 2000000000);
+insert into sales values (null,'PRODUCT2019000001','19/02/02', '20190001',19, 'PARTNER2019000003', 1900000000);
+insert into sales values (null,'PRODUCT2019000001','19/05/31', '20190001',13, 'PARTNER2019000003', 1300000000);
+insert into sales values (null,'PRODUCT2019000001','19/08/31', '20190001',14, 'PARTNER2019000003', 1400000000);
+insert into product values (null, 'ºñ½Ñ°Å', 100000000);
+
+insert into salary values('20190001',2018, 24000000);
+insert into salary values('20190001',2019, 24000000);
+
 commit;
 
 
