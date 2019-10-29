@@ -1,15 +1,19 @@
 package com.wework.workman.hunamResource.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.wework.workman.common.PageInfo;
-import com.wework.workman.common.Pagination;
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.wework.workman.hunamResource.model.service.HumanResourceService;
+import com.wework.workman.hunamResource.model.vo.Dept;
+import com.wework.workman.hunamResource.model.vo.Modal;
 
 @Controller
 public class HumanResourceController {
@@ -107,5 +111,6 @@ public class HumanResourceController {
 	}
 	
 	//----------------------------------------
+	
 	
 }

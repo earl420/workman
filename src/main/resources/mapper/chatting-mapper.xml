@@ -4,9 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chattingMapper">
 
-	<resultMap id="roomListResultSet" type="Room">
 	
-	</resultMap>
 
 	<select id="roomSetList" parameterType="string">
 		SELECT CHAT_ROOM,CHAT_USER,CHAT_LAST
