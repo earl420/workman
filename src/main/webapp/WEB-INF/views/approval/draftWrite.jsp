@@ -49,13 +49,16 @@
                                     	<tr>
                                         	<td rowspan="2" align="center" width="10%">결재라인</td>
                                             <td width="10%"  align="center">
-                                            	<button type="button" class="btn mb-1 btn-rounded btn-success">
-                                            		<span class="btn-icon-left">
-                                            			<i class="fa fa-share-alt color-secondary"></i> 
-                                            		</span>결제자선택
-                                            	</button>
+                                           		<div class="bootstrap-modal1">
+                                           			<!-- Button trigger modal1 -->
+                                            		<button type="button" class="btn mb-1 btn-rounded btn-success"
+														data-toggle="modal" data-target="#exampleModalCenter1">
+													<span class="btn-icon-left"> <i	class="fa fa-share-alt color-secondary"></i>
+													</span>결제자선택
+													</button>
+                                            	</div>
                                             	<!-- Modal -->
-												<div class="modal fade" id="exampleModalCenter" style="display: none;" aria-hidden="true">
+												<div class="modal fade" id="exampleModalCenter1" style="display: none;" aria-hidden="true">
 													<div class="modal-dialog modal-dialog-centered"role="document">
 														<div class="modal-content" style="width: 500px;">
 															<div class="modal-header">
@@ -64,7 +67,7 @@
 															</div>
 															<div class="col-md-12">
 																<div class="modal-body">
-																	<div class="row" id="deptList">
+																	<div class="row">
 																		<ul class="nav nav-pills mb-3">
 																			<c:forEach items="${ dlist }" var="d">
 																				<li class="nav-item">
@@ -73,18 +76,18 @@
 																			</c:forEach>
 																		</ul>
 																	</div>
-																	<div class="tab-content br-n pn" id="nameList">
+																	<div class="tab-content br-n pn">
 																		<c:forEach items="${ dlist }" var="d">
 																			<div class='tab-pane' id="${d.deptName}">
 																				<ul class="nav nav-pills mb-3">
 																					<c:forEach items="${ mlist }" var="m">
 																						<c:if test="${d.deptName eq m.deptName }">
-																							<li class="select">
+																							<li class="applicantSelect">
 																								<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
 																							</li>
 																						</c:if>
 																						<c:if test="${d.deptName eq '전체부서' }">
-																							<li class="select">
+																							<li class="applicantSelect">
 																							<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
 																							</li>
 																						</c:if>
@@ -93,13 +96,13 @@
 																			</div>
 																		</c:forEach>
 																	</div>
-																	<div class="member box_from">
+																	<div class="applicantMember box_from">
 																		<ul>
 																		</ul>
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-																		<button type="button" class="btn btn-primary" onclick="submit();" data-dismiss="modal" >완료</button>
+																		<button type="button" class="btn btn-primary" onclick="modalSubmit1();" data-dismiss="modal" >완료</button>
 																	</div>
 																</div>
 															</div>
@@ -111,37 +114,77 @@
                                             <th  width="80%">
                                             	<div class="applicant box_from" >
                                             		<ul>
-                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-success"  data-dismiss="alert" aria-label="Close">강연재 
-                                            					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                   							 </button>
-                                   						</li>
-                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-success"  data-dismiss="alert" aria-label="Close">민병현 
-                                            					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                   							 </button>
-                                   						</li>
                                             		</ul>
                                             	</div>
                                             </th>
                                         </tr>
                                         <tr>
                                         	<td align="center">
-                                            	<button type="button" class="btn mb-1 btn-rounded btn-secondary">
-                                            		<span class="btn-icon-left">
-                                            			<i class="fa fa-share-alt color-secondary"></i> 
-                                            		</span>참조자선택
-                                            	</button>
+                                        	<div class="bootstrap-modal2">
+                                        	<!-- Button trigger modal2 -->
+                                            		<button type="button" class="btn mb-1 btn-rounded btn-secondary"
+														data-toggle="modal" data-target="#exampleModalCenter2">
+													<span class="btn-icon-left"> <i	class="fa fa-share-alt color-secondary"></i>
+													</span>참조자선택
+													</button>
+                                        	</div>
+                                     <!-- Modal -->
+												<div class="modal fade" id="exampleModalCenter2" style="display: none;" aria-hidden="true">
+													<div class="modal-dialog modal-dialog-centered"role="document">
+														<div class="modal-content" style="width: 500px;">
+															<div class="modal-header">
+																<h5 class="modal-title">직원선택</h5>
+																<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+															</div>
+															<div class="col-md-12">
+																<div class="modal-body">
+																	<div class="row">
+																		<ul class="nav nav-pills mb-3">
+																			<c:forEach items="${ dlist }" var="d">
+																				<li class="nav-item">
+																					<a class="nav-link" data-toggle="tab" aria-expanded="true" href="#${d.deptName}referrer">${d.deptName}</a>
+																				</li>
+																			</c:forEach>
+																		</ul>
+																	</div>
+																	<div class="tab-content br-n pn">
+																		<c:forEach items="${ dlist }" var="d">
+																			<div class='tab-pane' id="${d.deptName}referrer">
+																				<ul class="nav nav-pills mb-3">
+																					<c:forEach items="${ mlist }" var="m">
+																						<c:if test="${d.deptName eq m.deptName }">
+																							<li class="referrerSelect">
+																								<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																							</li>
+																						</c:if>
+																						<c:if test="${d.deptName eq '전체부서' }">
+																							<li class="referrerSelect">
+																							<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																							</li>
+																						</c:if>
+																					</c:forEach>
+																				</ul>
+																			</div>
+																		</c:forEach>
+																	</div>
+																	<div class="referrerMember box_from">
+																		<ul>
+																		</ul>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+																		<button type="button" class="btn btn-primary" onclick="modalSubmit1();" data-dismiss="modal" >완료</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											<!-- Modal -->   	
                                             </td>
                                             <th>
-                                            	<div class="member box_from">
+                                            	<div class="referrer box_from">
                                             		<ul>
-                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-secondary"  data-dismiss="alert" aria-label="Close">강연재
-                                            					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                   							 </button>
-                                   						</li>
-                                            			<li class="alert"><button type="button" class="btn mb-1 btn-rounded btn-secondary"  data-dismiss="alert" aria-label="Close">민병현 
-                                            					<span class="btn-icon-right"><i class="fa fa-close"></i></span>
-                                   							 </button>
-                                   						</li>
                                             		</ul>
                                             	</div>
                                             </th>
@@ -223,15 +266,17 @@
   }); /* 파일 추가  */
   
   var empList = new Array();
+  var empList2 = new Array();
 	$(function(){
 		
-		$(".select").find("button").on("click" ,function() {
+		$(".applicantSelect").find("button").on("click" ,function() {
 		var emp1 = $(this);
+		console.log(emp1.text());
 		if(empList.length >= 0 && empList.length < 4){
 			 empList.push(emp1.text());
 			 emp1.attr("disabled",true);
-				 var $ul = $(".member ul");
-				var $li = $("<li class='alert'>");
+				 var $ul = $(".applicantMember ul");
+				var $li = $("<li class='applicantList alert'>");
 				var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp1.text());
 				
 					$li.append($button);
@@ -243,7 +288,7 @@
 			
 		}
 
-				$(".alert").find("button").on("click" ,function() {
+				$(".applicantList").find("button").on("click" ,function() {
 					var emp2 = $(this).text();
 					 
 					 for(i=0; i<empList.length; i++){
@@ -258,19 +303,79 @@
 		});
 	});
 	
-	function submit(){
+	$(function(){
+		
+		$(".referrerSelect").find("button").on("click" ,function() {
+		var emp3 = $(this);
+		 console.log(emp3.text());
+		if(empList.length >= 0 && empList.length < 4){
+			 empList2.push(emp3.text());
+			 emp3.attr("disabled",true);
+				 var $ul = $(".referrerMember ul");
+				var $li = $("<li class='referrerList alert'>");
+				var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp3.text());
+				
+					$li.append($button);
+					$ul.append($li);
+			 
+		}
+		else {
+			alert("더이상 추가할수 없습니다.");
+			
+		} console.log(empList2);
+
+				$(".referrerList").find("button").on("click" ,function() {
+					var emp4 = $(this).text();
+					 
+					 for(i=0; i<empList2.length; i++){
+						 if(empList[i] == emp4){
+							 empList2.splice(i,1);
+							 emp3.attr("disabled",false);
+							 $(this).attr("data-dismiss",'alert'); 
+							 
+						 }
+					 }
+				});
+		});
+	});
+	 
+	function modalSubmit1(){
 		 
 		$.ajax({
-			 url: "submitEmpList.wo",
+			 url: "submitEmpList1.wo",
 			 dataType : "json",
 			 method : 'POST',
 			 data: {"empList" : empList},
 			 success : function(data) {
-				 console.log(data);
-				 var $ul = $("#applicant ul");
+				 console.log(empList);
+				
+				 var $ul = $(".applicant ul");
 				 $ul.html("");
 				 $.each(data,function(index,value) {
-					var $li = $("<li class='alert'>");
+					var $li = $("<li>");
+					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(value);
+					$li.append($button);
+					$ul.append($li);
+				 });
+			 },error : function() {
+				 console.log("ajax 통신실패");
+			 }
+		 });
+	}
+	
+	function modalSubmit2(){
+		 
+		$.ajax({
+			 url: "submitEmpList2.wo",
+			 dataType : "json",
+			 method : 'POST',
+			 data: {"empList2" : empList2},
+			 success : function(data) {
+				 console.log(data);
+				 var $ul = $(".referrer ul");
+				 $ul.html("");
+				 $.each(data,function(index,value) {
+					var $li = $("<li>");
 					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(value);
 					$li.append($button);
 					$ul.append($li);
