@@ -5,10 +5,21 @@ import java.util.ArrayList;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.vo.Department;
+import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
+import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.Notice;
 
 public interface HumanResourceService {
+	
+	// 전체 공지사항 리스트 갯수
+	int getnListCount();
+	
+	// 전체 공지사항 리스트
+	ArrayList<Notice> selectnList(PageInfo pi);
+	
+	// 전체 공지사항 상세조회
+	Notice getnDetail(String noticeNum);
 	
 	// 공지사항 중 인사(301) 관련 공지사항 갯수 조회
 	int gethListCount();
@@ -22,6 +33,9 @@ public interface HumanResourceService {
 	// 공지사항 작성
 	int insertNotice(Notice n);
 	
+	// 공지사항 수정
+	int updateNotice(Notice n);
+	
 	// 첨부파일 업로드
 	int insertAtt(Attachment a);
 	
@@ -33,5 +47,11 @@ public interface HumanResourceService {
 	
 	// 조직별 직원 수 조회
 	ArrayList<Employee> getEmpCount();
+	
+	// modal dept리스트 불러오기
+	ArrayList<Dept> selectModaDeptlList();
+		
+	// modal emp리스트 불러오기
+	ArrayList<Modal> selectModalEmpList();
 
 }

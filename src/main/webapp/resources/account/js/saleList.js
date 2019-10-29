@@ -1,6 +1,5 @@
 $(function(){
-
-	$('#acList td').dblclick(function(){
+	/*$('#acList td').dblclick(function(){
 		var sale=$(this).parent().children().eq(1).text();
 		var place=$(this).parent().children().eq(2).text();
 		var saler=$(this).parent().children().eq(3).text();
@@ -17,15 +16,61 @@ $(function(){
 		$('#modalForm').attr('action','updateSale.wo');
 		$('#myModal').modal("show");
 		
-	})
+	})*/
 	$('#insertSale').click(function(){
-		$('#updateSale input').val('');
+		$('#today11').val('');
+		var date = new Date();
+		var abc = date.getFullYear();
+		abc+= "/" +(date.getMonth()+1)+"/"+date.getDate();
+		$('#today11').val(abc);
 		$('.modal-header>h4').text('판매정보등록');
 		$('#modalBtn').text('판매등록');
-		$('#modalForm').attr('action','insertSale.wo');
+		$('#modalForm').attr('action','insertsale.wo');
 		$('#myModal').modal("show");
 		
 	})
+	
+	
+   
+
+$.ajax({
+	url:"productinfo.wo",
+	dataType:"json",
+	type:"post",
+	success:function(data){
+		console.log(data);
+		var $pr =$('#product');
+		$pr.html("");
+		$.each(data,function(index,value){
+			var $option = $('<option>').val(value.productCode).text(value.productName);
+			$pr.append($option);
+		})
+	},
+	error:function(){
+		console.log(11);
+		
+	}
+});
+
+	$.ajax({
+		url:"partnerInfo.wo",
+		dataType:"json",
+		type:"post",
+		success:function(data){
+			var $pr =$('#partner');
+			$pr.html("");
+			$.each(data,function(index,value){
+				var $option = $('<option>').val(value.partnerNum).text(value.partnerName);
+				$pr.append($option);
+			})
+		},
+		error:function(){
+			console.log(11);
+			
+		}
+	});	
+	
+	
 })
 function paging(page){
 	location.href="acnoticeList.wo?page="+page;

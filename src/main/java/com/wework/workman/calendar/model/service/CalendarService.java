@@ -4,11 +4,11 @@ import com.wework.workman.calendar.model.vo.Calendar;
 
 public interface CalendarService {
 
-		int insertCalendar(Calendar c); // ÀÏÁ¤µî·Ï
+		int insertCalendar(Calendar c);  // ì¼ì •ë“±ë¡
+		 
+		int updateCalendar(int emp_num); // ì¼ì •ìˆ˜ì •
 		
-		int updateCalendar(int empNum); // ÀÏÁ¤¼öÁ¤
+		Calendar calendarDetail(int emp_num); // ì¼ì • ìƒì„¸ë³´ê¸°
 		
-		Calendar calendarDetail(int empNum); // ÀÏÁ¤»ó¼¼º¸±â
-		
-		int deleteCalendar(int empNum); // ÀÏÁ¤»èÁ¦
+		int deleteCalendar(int emp_num); // ì¼ì • ì‚­ì œ
 }

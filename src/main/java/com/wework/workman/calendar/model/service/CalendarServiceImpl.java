@@ -12,28 +12,28 @@ public class CalendarServiceImpl implements CalendarService {
 	@Resource(name="calendarDao")
 	private CalendarDao cDao;
 
-	@Override // ÀÏÁ¤µî·Ï
+	@Override // ì¼ì •ë“±ë¡
 	public int insertCalendar(Calendar c) {
 		
 		return cDao.insertCalendar(c);
 	}
 
-	@Override // ÀÏÁ¤¼öÁ¤
-	public int updateCalendar(int empNum) {
+	@Override // ì¼ì •ìˆ˜ì •
+	public int updateCalendar(int emp_num) {
 	
-		return cDao.updateCalendar(empNum);
+		return cDao.updateCalendar(emp_num);
 	}
 
-	@Override // ÀÏÁ¤»ó¼¼º¸±â
-	public Calendar calendarDetail(int empNum) {
+	@Override // ìƒì„¸ë³´ê¸°
+	public Calendar calendarDetail(int emp_num) {
 		
-		return cDao.calendarDetail(empNum);
+		return cDao.calendarDetail(emp_num);
 	}
 
-	@Override // ÀÏÁ¤»èÁ¦
-	public int deleteCalendar(int empNum) {
+	@Override // ì‚­ì œ
+	public int deleteCalendar(int emp_num) {
 		
-		return cDao.deleteCalendar(empNum);
+		return cDao.deleteCalendar(emp_num);
 	}
 
 }

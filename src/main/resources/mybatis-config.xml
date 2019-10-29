@@ -8,6 +8,8 @@
 
 <typeAliases>
 	<typeAlias type="com.wework.workman.mypage.model.vo.Mypage" alias="Mypage"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.Modal" alias="Modal"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.Dept" alias="Dept"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Notice" alias="Notice"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Department" alias="Department"/>
 	<typeAlias type="com.wework.workman.common.Attachment" alias="Attachment"/>
@@ -22,6 +24,7 @@
 	<typeAlias type="com.wework.workman.account.model.vo.Product" alias="Product"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.SalaryManage" alias="SalaryManage"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.SaleManage" alias="SaleManage"></typeAlias>
+	<typeAlias type="com.wework.workman.account.model.vo.AvgSalary" alias="AvgSalary"></typeAlias>
 	<!-- chatting -->
 	<typeAlias type="com.wework.workman.chatting.model.vo.Room" alias= "Room"/>
 	<typeAlias type="com.wework.workman.chatting.model.vo.Message" alias ="Message"/>

@@ -4,6 +4,17 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="humanMapper">
 	
+	 <resultMap id="modalResultSet" type="Modal">
+		<id property="empName" column="EMP_NAME"/>
+		<result property="gradeName" column="GRADE_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+	
+	<resultMap id="deptResultSet" type="Dept">
+		<id property="deptNum" column="DEPT_NUM"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+	
 	<resultMap type="Notice" id="HRnListResultSet">
 		<id property="noticeNum" column="notice_num"/>
 		<result property="noticeDept" column="notice_dept"/>
@@ -50,12 +61,34 @@
 		<result property="count" column="count"/>
 	</resultMap>
 	
+	<select id="getnListCount" resultType="_int">
+		select count(*)
+		from notice
+		where notice_status = 'Y'
+	</select>
+	
+	<select id="selectnList" resultMap="HRnListResultSet">
+		select *
+		from notice
+		join employee using(emp_num)
+		where notice_status = 'Y'
+		order by notice_num desc
+	</select>
+	
 	<select id="gethListCount" resultType="_int">
 		select count(*)
 		from notice
 		where notice_status = 'Y' and notice_dept = 301
 	</select>
 	
+	<select id="selectModaDeptlList" resultMap="deptResultSet">
+		SELECT *
+		FROM DEPT
+	</select>
+	<select id="selectModalEmpList" resultMap="modalResultSet">
+	 select *
+	 from modal
+	 </select>
 	<select id="selectHRnList" resultMap="HRnListResultSet">
 		select *
 		from notice
@@ -70,6 +103,12 @@
 		join employee using(emp_num)
 		where notice_num = concat('NOTICE',#{notice_num}) and notice_status = 'Y'
 	</select>
+	
+	<update id="updateNotice" parameterType="Notice">
+		update notice
+		set notice_title = #{noticeTitle}, notice_content = #{noticeContent}
+		where notice_num = #{noticeNum}
+	</update>
 	
 	<insert id="insertNotice" parameterType="Notice">
 		insert into notice

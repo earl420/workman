@@ -12,9 +12,9 @@
  <meta charset='utf-8'>
  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
  <meta name='viewport' content='width=device-width, initial-scale=1'>
- <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
- <link href="css/style.css" rel="stylesheet">
- <script src='main.js'></script>
+<!--  <link rel='stylesheet' type='text/css' media='screen' href='resources/main.css'> -->
+ <link href="resources/css/style.css" rel="stylesheet">
+  <!--<script src='resources/main.js'></script> -->
  
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -65,6 +65,9 @@
         <h2 style="color:navy;">일 정&nbsp; 등 록</h2>
         <br>
         
+       <!--  <input type="hidden" name="empNum" value="">
+        <input type="hidden" name="deptNum" value=""> -->
+        
      <div class="inlinediv" style="width: 70%;">
      <div class="input-group mb-3">
         <div class="input-group-text" style="width: 20%;"><p id="ptype">Type</p></div>
@@ -88,11 +91,11 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">작성자</span>
                 </div>
-            <input type="text" class="form-control" value="${ loginUser.id }" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text" name="userName" class="form-control" value="" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
          </div>
-        </div>  
+        </div> 
 
-        <div class="inlinediv" style="width: 40.5%;">
+        <div class="inlinediv" style="width: 47.5%;">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">시작</span>
@@ -103,31 +106,31 @@
             	String strToday = sdf.format(today);
             	/* 오늘날짜 value값으로 박으려고 */
             %>
-            <input type="date" id="startDate" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="startDate" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             <input type="time" id="startTime" value="00:00" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
            
-        <div class="inlinediv" style="width: 40.5%;">
+        <div class="inlinediv" style="width: 47.5%;">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">마감</span>
             </div>
-            <input type="date" id="endDate" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="endDate" name="end" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             <input type="time" id="endTime" value="23:59" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
 
-        <div class="inlinediv">
+        <!-- <div class="inlinediv">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                    <input id="checkBoxId" type="checkbox" aria-label="Checkbox for following text input">
+                    <input id="checkBoxId" type="checkbox" name="allDay" value="allDay" aria-label="Checkbox for following text input">
                     </div>
                 </div>
                 <p class="form-control input-group-text" aria-label="Text input with checkbox">&nbsp;ALL DAY&nbsp;</p>
             </div>
-         </div>
+         </div> -->
          
          
 
@@ -135,12 +138,12 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">상세내용</span>
             </div>
-            <textarea id="detailId" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
+            <textarea id="detailId" name="description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
         </div>
 
         <div class="butdiv">
             <button class="btn mb-1 btn-outline-warning" type="button" onclick="location.href='calDetailView.wo';">취소</button>
-            <button class="btn mb-1 btn-secondary" type="submit" onclick="location.href='calInsert.wo';">등록</button>
+            <button class="btn mb-1 btn-secondary" type="submit">등록</button>
         </div>
         <br>
     </form>	

@@ -97,6 +97,14 @@
 													<button type="button"
 														class="btn mb-1 btn-rounded btn-warning"
 														onclick="location.href='hrNotice.wo';">목록으로</button>
+													<c:url value="updateNoticeForm.wo" var="updateNotice">
+															<c:param name="noticeNum" value="${ n.noticeNum }"/>
+													</c:url>
+													<%-- <c:if test="${ loginUser.id eq n.empNum}"> --%>
+													<a class="btn mb-1 btn-rounded btn-dark"
+														href="${ updateNotice }">수정
+													</a>
+													<%-- </c:if> --%>
 												</span>
 											</div>
 										</div>

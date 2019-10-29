@@ -17,54 +17,59 @@ public class CalendarController {
 	private CalendarService cService;
 	
 	
-	// Ä¶¸°´õ »ó¼¼º¸±â ºä
+	// ìº˜ë¦°ë”
 	@RequestMapping("calDetailView.wo") 
 	public String calendarDetailView() { 
 		
-		return "calendar/calendarDetailView"; 
+		return "calendar/calendarDetailViewNew"; 
 	}
 	  
 	  
-	// ÀÏÁ¤ »ó¼¼º¸±â-----
+	// ìƒì„¸ë³´ê¸°
 	@RequestMapping("cDetail.wo")
 	public ModelAndView calendarDetail(int empNum, ModelAndView mv) {
 		
 		Calendar c = cService.calendarDetail(empNum);
 		
 		if(c != null) {
-			mv.addObject("c",c).setViewName("calendar/CalendarDetailView");
+			mv.addObject("c",c).setViewName("calendar/CalendarDetailViewNew");
 		}else {
-			mv.addObject("msg","ÀÏÁ¤ »ó¼¼Á¶È¸ ½ÇÆĞ").setViewName("common/404error");
+			mv.addObject("msg","ìƒì„¸ë³´ê¸° ì‹¤íŒ¨").setViewName("common/404error");
 		}
 		
 		return mv;
 	}
   
 	  
-	// ÀÏÁ¤µî·Ï ºä
-	 @RequestMapping("calInsertView.wo") 
-	 public String calendarInsertView() { 
-		 
-		return "calendar/calendarInsertView"; 
-	}
+	
+	  // ì¼ì •ë“±ë¡ ë·°
+	  @RequestMapping("calInsertView.wo") 
+	  public String calendarInsertView() {
+	  
+	  return "calendar/calendarInsertView"; }
+	 
 	 
 	
-	// ÀÏÁ¤µî·Ï
-	@RequestMapping("calInsert.wo")
-	public String insertBoard(Calendar c, HttpServletRequest request, Model model) {
-		
+	  // ì¼ì •ë“±ë¡
+	 @RequestMapping("calInsert.wo") 
+	  public String insertBoard(Calendar c, HttpServletRequest request, Model model) {
+	  
+		 System.out.println(c);
+		 
 		int result = cService.insertCalendar(c);
-		
-		if(result > 0) {
-			return "redirect:calDetail.wo";
-		}else {
-			model.addAttribute("msg", "ÀÏÁ¤ µî·Ï ½ÇÆĞ!!");
-			return "common/404error";
-		}
-		
-	}
+		  
+		 if(result > 0) { 
+			 return "redirect:calDetail.wo"; 
+			 }
+		 else {
+			  model.addAttribute("msg", "ì¼ì •ë“±ë¡ ì‹¤íŒ¨!!"); 
+			  return "common/404error"; 
+		 }
+		 
+	  }
+	
 
-	// ÀÏÁ¤¼öÁ¤
+	// ìˆ˜ì •í•˜ê¸°
 	@RequestMapping("calUpdate.wo")
 	public String updateCalendar(int empNum, HttpServletRequest request) {
 		
@@ -77,7 +82,7 @@ public class CalendarController {
 		}
 	}
 	
-	// ÀÏÁ¤»èÁ¦
+	// ì‚­ì œí•˜ê¸°
 	@RequestMapping("calDelete.wo")
 	public String CalendarDelete(int empNum, HttpServletRequest request) {
 		
@@ -89,4 +94,6 @@ public class CalendarController {
 			return "common/404error";
 		}
 	}
+	
+
 }

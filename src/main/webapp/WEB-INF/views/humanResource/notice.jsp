@@ -39,8 +39,7 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="hrNotice.wo">인사관리</a></li>
-						<li class="breadcrumb-item active"><a href="hrNotice.wo">공지사항</a></li>
+						<li class="breadcrumb-item active"><a href="notice.wo">공지사항</a></li>
 					</ol>
 				</div>
 			</div>
@@ -76,25 +75,12 @@
 													aria-describedby="DataTables_Table_0_info">
 													<thead>
 														<tr role="row">
-															<th class="sorting_asc" tabindex="0"
-																aria-controls="DataTables_Table_0" rowspan="1"
-																colspan="1" aria-sort="ascending"
-																aria-label="Name: activate to sort column descending"
-																style="width: 70px; text-align: center;">번호</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="DataTables_Table_0" rowspan="1"
-																colspan="1"
-																aria-label="Position: activate to sort column ascending"
+															<th style="width: 70px; text-align: center;">번호</th>
+															<th rowspan="1" colspan="1"
 																style="width: 446px; text-align: center;">제목</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="DataTables_Table_0" rowspan="1"
-																colspan="1"
-																aria-label="Office: activate to sort column ascending"
+															<th rowspan="1" colspan="1"
 																style="width: 111px; text-align: center;">작성자</th>
-															<th class="sorting" tabindex="0"
-																aria-controls="DataTables_Table_0" rowspan="1"
-																colspan="1"
-																aria-label="Age: activate to sort column ascending"
+															<th rowspan="1" colspan="1"
 																style="width: 69px; text-align: center;">작성일</th>
 														</tr>
 													</thead>
@@ -103,14 +89,15 @@
 														<c:forEach items="${ list }" var="n">
 															<tr role="row" class="odd">
 																<td class="sorting_1">${ n.noticeNum }</td>
-																<td><c:if test="${ empty loginUser }">
-																	${ n.noticeTitle }
-																</c:if> <c:if test="${ !empty loginUser }">
-																		<c:url value="hrnDetail.wo" var="hrnDetail">
+																<td><%-- <c:if test="${ empty loginUser }">
+																	${ n.noticeTitle } --%>
+																<%-- </c:if> <c:if test="${ !empty loginUser }"> --%>
+																		<c:url value="nDetail.wo" var="nDetail">
 																			<c:param name="noticeNum" value="${ n.noticeNum }" />
 																		</c:url>
-																		<a href="${ hrnDetail }">${ n.noticeTitle }</a>
-																	</c:if></td>
+																		<a href="${ nDetail }">${ n.noticeTitle }</a>
+																	<%-- </c:if> --%>
+																	</td>
 																<td>${ n.empName }</td>
 																<td>${ n.noticeDate }</td>
 															</tr>
