@@ -10,7 +10,7 @@
 <title>마이페이지</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
-	href="images/favicon.png">
+	href="resources/icons/logo1.png">
 <!-- Custom Stylesheet -->
 <link
 	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"

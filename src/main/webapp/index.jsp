@@ -8,7 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="loginPage.wo"></jsp:forward>
+	
+	<c:choose>
+		<c:when  test="${ empty sessionScope.loginMan }">
+			<jsp:forward page="loginPage.wo"></jsp:forward>
+		</c:when>
+		<c:otherwise>
+			<jsp:forward page="home.wo"></jsp:forward>
+		</c:otherwise>
+	</c:choose>
+	
+	
+	
 	
 </body>
 </html>

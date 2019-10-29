@@ -8,9 +8,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>비밀번호 변경</title>
+
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
-	href="images/favicon.png">
+	href="resources/icons/logo1.png">
+<!-- Custom Stylesheet -->
 <!-- Custom Stylesheet -->
 <link
 	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
