@@ -105,7 +105,7 @@ public class MypageController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
-	public String loginEmp(Mypage m, Model model){
+	public String loginEmp(Mypage m, Model model, HttpSession session){
 		  
 		  Mypage loginMan = mService.loginMan(m);
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 

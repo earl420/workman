@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>비밀번호 변경</title>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
@@ -99,7 +99,7 @@
 			$(pwd).on('focusout', function(){
 				
 				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}$/.test(pwd.value)){            
-			        alert('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+					swal('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
 			        pwd.value="";
 			    }
 			});
@@ -107,7 +107,7 @@
 			$(pwd2).on('focusout', function(){
 				
 				if(pwd.value != pwd2.value){
-					alert("비밀번호가 일치하지 않습니다.");
+					swal("비밀번호가 일치하지 않습니다.");
 					pwd.value="";
 					pwd2.value="";
 				}

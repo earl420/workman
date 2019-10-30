@@ -8,6 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>비밀번호 재확인</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
@@ -82,7 +83,7 @@
 	<script type="text/javascript">
 		$(function(){
 		   if(${!empty msg}){
-			   alert('${msg}');
+			   swal('${msg}');
 		   }
 		});
 	</script>

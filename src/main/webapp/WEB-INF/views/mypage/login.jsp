@@ -11,6 +11,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
@@ -359,30 +360,14 @@
 
 		</div>
 	</div>
-<script>
-//아이디저장. 테스트 해봄.
-   $(function(){
-	   if(${!empty msg}){
-		   alert('${msg}');
-	   }
-   });
+	<script>
+	   $(function(){
+		   if(${!empty msg}){
+			   swal("${msg}");
+			   
+		   }
+	   });
 
-	/*
-   $(function(){
-	   
-   	   $.cookie('key',$('#num').val(),{expires:7});
-       $.removeCookie('key');
-       var key =$.cookie("key");
-       key = 'test';
-       if(key==null){
-           console.log('널값!');         
-       }else{
-       	   $('#num').val(key);
-           $('#remember').attr("checked",true);
-       };
-       
-   });
-   */
-</script>
+	</script>
 </body>
 </html>
