@@ -86,12 +86,12 @@
 																					<c:forEach items="${ mlist }" var="m">
 																						<c:if test="${d.deptName eq m.deptName }">
 																							<li class="applicantSelect">
-																								<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																								<button type='button' class='btn mb-1 btn-rounded btn-outline-primary'  value="${m.empNum}" >${m.empName}${m.gradeName}</button>
 																							</li>
 																						</c:if>
 																						<c:if test="${d.deptName eq '전체부서' }">
 																							<li class="applicantSelect">
-																							<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																							<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' value="${m.empNum}" >${m.empName}${m.gradeName}</button>
 																							</li>
 																						</c:if>
 																					</c:forEach>
@@ -157,12 +157,12 @@
 																					<c:forEach items="${ mlist }" var="m">
 																						<c:if test="${d.deptName eq m.deptName }">
 																							<li class="referrerSelect">
-																								<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																								<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' value="${m.empNum}" >${m.empName}${m.gradeName}</button>
 																							</li>
 																						</c:if>
 																						<c:if test="${d.deptName eq '전체부서' }">
 																							<li class="referrerSelect">
-																							<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																							<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' value="${m.empNum}"  >${m.empName}${m.gradeName}</button>
 																							</li>
 																						</c:if>
 																					</c:forEach>
@@ -195,7 +195,7 @@
                                         <tr>
                                         	<td align="center">제목</td>
                                         	<td colspan="2">
-                                        		<input type="text" class="form-control" id="val-title" name="title" placeholder="제목등록">
+                                        		<input type="text" class="form-control" id="val-title" name=" draftTitle" placeholder="제목등록">
                                         	</td>
 										</tr>
 										<tr>
@@ -204,7 +204,7 @@
                                         		<label class="btn mb-1 btn-rounded btn-primary" for="file-input">
                                         			<span class="btn-icon-left"><i class="fa fa-upload color-success"></i> 
                                         		</span>Upload</label>
-                                        		<input id='file-input' type='file' multiple style= "display:none;">
+                                        		<input id="file-input" class='file' type='file' name='file' style= "display:none;">
                                         	</td>
                                         	<th>
                                         		<div class="files box_from">
@@ -217,12 +217,12 @@
 										<tr>
                                         	<td align="center">내용</td>
                                         	<th colspan="2">
-                                        		<textarea id="ir1" rows="15" cols="137"  style="resize: none;"></textarea>
+                                        		<textarea id="ir1" rows="15" cols="137"  style="resize: none;" name="draftContent"></textarea>
                                         	</th>
 										</tr>
 										<tr>
                                         	<td colspan="7" align="center">
-                                        		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;등록 &nbsp;</button> &nbsp;&nbsp;
+                                        		<button type="submit" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;등록 &nbsp;</button> &nbsp;&nbsp;
                                         		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;취소&nbsp;</button> &nbsp;&nbsp;
                                         		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">임시저장</button>
                                         	</td>
@@ -249,27 +249,19 @@
 	});	
 </script>
 <script>
-  var fileInput = document.getElementById('file-input');
-  var files = new Array();
+	var fileInput = document.getElementById('file-input');
   		fileInput.addEventListener('change', function(event) {
   			
     		var input = event.target;
-			for (var i = 0; i < input.files.length; i++) {
-      		console.log(input.files[i].name);
-      		files.push( input.files[i]);
       		var $ul = $(".files ul");
-			var $li = $("<li class='alert'>");
-			var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary' aria-label='Close'>").text(files[i].name + "");
-			var $span = $("<span class='btn-icon-right'><i class='fa fa-close'></i>");
-			 	$button.append($span);
+      		 $ul.html("");
+			var $li = $("<li>");
+			 $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(input.files[0].name);
 				$li.append($button);
 				$ul.append($li);
-    		}
-			console.log(files);
+    		
+    		
   }); /* 파일 추가  */
-  	$(function(){
-	  
-  	});
   
   var empList = new Array();
   var empList2 = new Array();
@@ -277,13 +269,13 @@
 		
 		$(".applicantSelect").find("button").on("click" ,function() {
 		var emp1 = $(this);
-		console.log(emp1.text());
+		console.log(emp1.val());
 		if(empList.length >= 0 && empList.length < 4){
-			 empList.push(emp1.text());
+			 empList.push(emp1.val());
 			 emp1.attr("disabled",true);
 				 var $ul = $(".applicantMember ul");
 				var $li = $("<li class='applicantList alert'>");
-				var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp1.text());
+				var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp1.text()).val(emp1.val());
 				
 					$li.append($button);
 					$ul.append($li);
@@ -295,7 +287,7 @@
 		}
 
 				$(".applicantList").find("button").on("click" ,function() {
-					var emp2 = $(this).text();
+					var emp2 = $(this).val();
 					 
 					 for(i=0; i<empList.length; i++){
 						 if(empList[i] == emp2){
@@ -323,8 +315,10 @@
 				 $ul.html("");
 				 $.each(data,function(index,value) {
 					var $li = $("<li>");
-					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-success'>").text(value);
+					var $input = $("<input type='hidden' name='applicant'>").val(value.empNum);
+					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-success'>").text(value.empName + value.gradeName).val(value.empNum);
 					$li.append($button);
+					$li.append($input);
 					$ul.append($li);
 				 });
 			 },error : function() {
@@ -337,13 +331,12 @@
 		
 		$(".referrerSelect").find("button").on("click" ,function() {
 		var emp3 = $(this);
-		 console.log(emp3.text());
 		if(empList2.length >= 0 && empList2.length < 4){
-			 empList2.push(emp3.text());
+			 empList2.push(emp3.val());
 			 emp3.attr("disabled",true);
 				 var $ul = $(".referrerMember ul");
 				var $li = $("<li class='referrerList alert'>");
-				var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp3.text());
+				var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp3.text()).val(emp3.val());
 				
 					$li.append($button);
 					$ul.append($li);
@@ -355,7 +348,7 @@
 		} console.log(empList2);
 
 				$(".referrerList").find("button").on("click" ,function() {
-					var emp4 = $(this).text();
+					var emp4 = $(this).val();
 					 
 					 for(i=0; i<empList2.length; i++){
 						 if(empList2[i] == emp4){
@@ -382,8 +375,10 @@
 				 $ul.html("");
 				 $.each(data,function(index,value) {
 					var $li = $("<li>");
-					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-secondary'>").text(value);
+					var $input = $("<input type='hidden' name='referrer'>").val(value.empNum);
+					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-secondary'>").text(value.empName + value.gradeName).val(value.empNum);
 					$li.append($button);
+					$li.append($input);
 					$ul.append($li);
 				 });
 			 },error : function() {

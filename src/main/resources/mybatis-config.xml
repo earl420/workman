@@ -31,6 +31,22 @@
 	<!-- chatting -->
 	<typeAlias type="com.wework.workman.chatting.model.vo.Room" alias= "Room"/>
 	<typeAlias type="com.wework.workman.chatting.model.vo.Message" alias ="Message"/>
+	
+	<!-- 전자결재 -->
+	<typeAlias type="com.wework.workman.approval.model.vo.Draft" alias="Draft"/>
+	<typeAlias type="com.wework.workman.approval.model.vo.Expense" alias="Expense"/>
+	<typeAlias type="com.wework.workman.approval.model.vo.Holiday" alias="Holiday"/>
+	<typeAlias type="com.wework.workman.approval.model.vo.Request" alias="Request"/>
+	<!-- 결제자 -->
+	<typeAlias type="com.wework.workman.common.Conflrm" alias="Conflrm"/>
+	
+	<!-- 문서정렬  -->
+	<typeAlias type="com.wework.workman.common.ConflrmSort" alias="ConflrmSort"/>
+	<typeAlias type="com.wework.workman.approval.model.vo.DraftSort" alias="DraftSort"/>
+	<typeAlias type="com.wework.workman.approval.model.vo.ExpenseSort" alias="ExpenseSort"/>
+	<typeAlias type="com.wework.workman.approval.model.vo.HolidaySort" alias="HolidaySort"/>
+	<typeAlias type="com.wework.workman.approval.model.vo.RequestSort" alias="RequestSort"/>
+	
 </typeAliases>
 
 <mappers>
