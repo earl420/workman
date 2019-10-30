@@ -14,4 +14,8 @@ public class AttendanceDao {
 		public int insertAttendance(Attendance a) {
 			return sqlSession.insert("calendarMapper.Attendance", a);
 		}
+		
+		public int updateAttendance(Attendance a) {
+			return sqlSession.update("calendarMapper.updateAttendance", a);
+		}
 }

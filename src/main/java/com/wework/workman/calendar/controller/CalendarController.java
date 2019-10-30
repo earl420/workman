@@ -59,7 +59,7 @@ public class CalendarController {
 		int result = cService.insertCalendar(c);
 		  
 		 if(result > 0) { 
-			 return "redirect:calDetail.wo"; 
+			 return "redirect:calDetailView.wo"; 
 			 }
 		 else {
 			  model.addAttribute("msg", "일정등록 실패!!"); 

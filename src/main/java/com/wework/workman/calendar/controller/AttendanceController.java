@@ -16,21 +16,27 @@ public class AttendanceController {
 	
 	// 출퇴근
 	@RequestMapping("attend.wo")
-	public String Attendance(Attendance a, Model model) {
+	public String Attendance(Attendance a, Model model, String flag) {
 		System.out.println(a);
 		
-		int result = aService.insertAttendance(a);
+		int result = 1;
 		
-		if(result > 0) { //성공
-			
-			return "home";
-		
-		}else { // 실패
-			
-			System.out.println("실패");
-			return "common/errorPage";
-			
+		if(flag.equals("출")) {
+			result = aService.insertAttendance(a);
+			flag="퇴";
+		}else if (flag.equals("퇴")) {
+			result = aService.updateAttendance(a);
+			flag="출";
 		}
+		model.addAttribute("flag",flag);
+		if(result > 0) { 
+			 return "redirect:home.wo";
+			 }
+		 else {
+			  model.addAttribute("msg", "실패!!"); 
+			  return "common/404error"; 
+		 }
+		
 	}
 
 }
