@@ -8,6 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>내 정보</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">

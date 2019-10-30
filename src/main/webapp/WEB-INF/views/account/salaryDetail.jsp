@@ -97,9 +97,9 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>${list.get(0).yearSalary/avg.avgTotal*100}%</td>
-										<td>${list.get(0).yearSalary/avg.avgDept*100}%</td>
-										<td>${list.get(0).yearSalary/avg.avgGrade*100}%</td>
+										<td>${(list.get(0).yearSalary/avg.avgTotal*100)-((list.get(0).yearSalary/avg.avgTotal*100)%1)}% (${avg.avgTotal })</td>
+										<td>${(list.get(0).yearSalary/avg.avgDept*100)-((list.get(0).yearSalary/avg.avgDept*100)%1)}% (${ avg.avgDept})</td>
+										<td>${(list.get(0).yearSalary/avg.avgGrade*100)-((list.get(0).yearSalary/avg.avgGrade*100)%1)}% (${avg.avgGrade })</td>
 									</tr>
 								</tbody>
 							</table>

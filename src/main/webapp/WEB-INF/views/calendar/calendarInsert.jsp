@@ -13,10 +13,8 @@
 <link href='resources/css/demo-to-codepen.css' rel='stylesheet' />
 
 
-  <style>
-	tbody:hover{
-   	 	cursor:pointer;
-   	} 
+   <style>
+
     html, body {
       margin: 0;
       padding: 0;
@@ -26,7 +24,7 @@
 
     #calendar {
       max-width: 900px;
-      margin-left: 27%
+      margin: 40px auto;
     }
 
   </style>
@@ -35,11 +33,7 @@
 <link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />
 
 
-  
-
   <link href='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.css' rel='stylesheet' />
-
-  <link href='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.css' rel='stylesheet' />
 
 
 <script src='resources/js/demo-to-codepen.js'></script>
@@ -49,34 +43,23 @@
 
 
 
-  <script src='https://unpkg.com/@fullcalendar/interaction@4.3.0/main.min.js'></script>
-
   <script src='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.js'></script>
-
-  <script src='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.js'></script>
 
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
-    
     var calendarEl = document.getElementById('calendar');
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-      selectable: true,
-      header: {
-        left: 'today',
-        center: 'title',
-        right: 'prev,next'
-      },
-      dateClick: function(info) {
-        //alert('clicked ' + info.dateStr);
-        location.href= 'calInsertView.wo';
-    	 // $( info ).add( '.fc-day' ).css( 'background', 'red' );
-      } ,
-      select: function(info) {
-        //alert('selected ' + info.startStr + ' to ' + info.endStr);
-        location.href= 'calInsertView.wo';
-      }
+      plugins: [ 'dayGrid' ],
+      defaultView: 'dayGridMonth',
+      events: [
+    	  {
+    	      url: 'calDetailView.wo',
+    	      color: 'yellow',
+    	      textColor: 'black'
+    	    }
+      ]
     });
 
     calendar.render();

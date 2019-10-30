@@ -105,12 +105,16 @@ public class HumanResourceController {
 			}
 		}
 		
-		int result2 = hService.insertAtt(a);
+		if(file != null) {
+			
+			int result2 = hService.insertAtt(a);
+			System.out.println(result2);
+			
+		}
 		
 		System.out.println(result1);
-		System.out.println(result2);
 		
-		if (result1 > 0 && result2>0) {
+		if (result1 > 0) {
 			return "redirect:notice.wo";
 		} else {
 			return "common/500error";
@@ -301,8 +305,15 @@ public class HumanResourceController {
 
 		return "humanResource/mngEmpChart";
 	}
+	
+	// 인사/인사 관리/조직도 관리 -> 조직 관리 버튼
+	@RequestMapping("updateDeptForm.wo")
+	public String updateDeptForm() {
+		
+		return "humanResource/updateDeptForm";
+	}
 
-	// 인사/인사 관리/ 조직도 관리 -> 조직도 관리 버튼
+	// 인사/인사 관리/ 조직도 관리 -> 구성원 관리 버튼
 	@RequestMapping("updateEmpChart.wo")
 	public String updateEmpChart() {
 

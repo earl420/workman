@@ -12,6 +12,8 @@
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Dept" alias="Dept"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Notice" alias="Notice"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Department" alias="Department"/>
+	<typeAlias type="com.wework.workman.calendar.model.vo.Calendar" alias="Calendar"/>
+	<typeAlias type="com.wework.workman.calendar.model.vo.Attendance" alias="Attendance"/>
 	<typeAlias type="com.wework.workman.common.Attachment" alias="Attachment"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Employee" alias="Employee"/>
 	<typeAlias type="com.wework.workman.account.model.vo.AccountStatus" alias="AccountStatus"></typeAlias>
@@ -19,6 +21,7 @@
 	<typeAlias type="com.wework.workman.account.model.vo.Fixture" alias="Fixture"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.IncomeStatement" alias="IncomeStatement"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.IsState" alias="IsState"></typeAlias>
+	<typeAlias type="com.wework.workman.account.model.vo.NoticeFile" alias="NoticeFile"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.OsManage" alias="OsManage"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.Partner" alias="Partner"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.Product" alias="Product"></typeAlias>
@@ -50,6 +53,7 @@
 	<mapper resource="mapper/account-mapper.xml"></mapper>
 	<mapper resource="mapper/approval-mapper.xml"></mapper>
 	<mapper resource="mapper/chatting-mapper.xml"></mapper>
+	<mapper resource="mapper/calendar-mapper.xml"></mapper>
 	<mapper resource="mapper/humanResource-mapper.xml"></mapper>
 	<mapper resource="mapper/mypage-mapper.xml"></mapper>
 </mappers>

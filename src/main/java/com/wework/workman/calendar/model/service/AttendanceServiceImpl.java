@@ -12,16 +12,16 @@ public class AttendanceServiceImpl implements AttendanceService {
 	@Resource(name="attendanceDao")
 	private AttendanceDao aDao;
 	
-	@Override // 출근
+	@Override 
 	public int insertAttendance(Attendance a) {
 		
 		return aDao.insertAttendance(a);
 	}
-
-	@Override // 퇴근
-	public int insertOut(Attendance a) {
+	
+	@Override 
+	public int updateAttendance(Attendance a) {
 		
-		return aDao.insertOut(a);
+		return aDao.updateAttendance(a);
 	}
 
 }

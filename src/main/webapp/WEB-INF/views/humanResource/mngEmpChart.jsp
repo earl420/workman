@@ -62,7 +62,9 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-							<h5>조직도 관리</h5><br>	
+							<h5>조직도 관리</h5><br>
+								<button type="button" class="btn mb-1 btn-rounded btn-warning"
+									onclick="location.href='updateDept.wo';">부서 추가, 수정, 삭제</button> &nbsp;
 								<button type="button" class="btn mb-1 btn-rounded btn-warning"
 									onclick="location.href='updateEmpChart.wo';">구성원 추가, 수정, 삭제</button>
 								<br>

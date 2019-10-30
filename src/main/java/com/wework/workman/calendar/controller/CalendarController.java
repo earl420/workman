@@ -1,7 +1,6 @@
 package com.wework.workman.calendar.controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,26 +51,23 @@ public class CalendarController {
 	
 	  // 일정등록
 	 @RequestMapping("calInsert.wo") 
-	  public String insertBoard(Calendar c, HttpServletRequest request, Model model) {
-	  
-		 System.out.println(c);
-		 
-		int result = cService.insertCalendar(c);
-		  
-		 if(result > 0) { 
-			 return "redirect:calDetail.wo"; 
-			 }
-		 else {
-			  model.addAttribute("msg", "일정등록 실패!!"); 
-			  return "common/404error"; 
-		 }
+	public String insertCalendar(Calendar c, Model model) {
+		 int result = cService.insertCalendar(c);
+			model.addAttribute("result", result);
+		 return "calendar/calendarInsert";
+		/*
+		 * int result = cService.insertCalendar(c);
+		 * 
+		 * if(result > 0) { return "calendar/calendarInsertView"; } else {
+		 * model.addAttribute("msg", "일정등록 실패!!"); return "common/404error"; }
+		 */
 		 
 	  }
 	
 
 	// 수정하기
 	@RequestMapping("calUpdate.wo")
-	public String updateCalendar(int empNum, HttpServletRequest request) {
+	public String updateCalendar(int empNum) {
 		
 		int result = cService.updateCalendar(empNum);
 		
@@ -84,7 +80,7 @@ public class CalendarController {
 	
 	// 삭제하기
 	@RequestMapping("calDelete.wo")
-	public String CalendarDelete(int empNum, HttpServletRequest request) {
+	public String CalendarDelete(int empNum) {
 		
 		int result = cService.deleteCalendar(empNum);
 		

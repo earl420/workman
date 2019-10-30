@@ -1,7 +1,9 @@
 ! function(e) {
     "use strict";
     var t = function() {
-        this.$body = e("body"), this.$modal = e("#event-modal"), this.$event = "#external-events div.external-event", this.$calendar = e("#calendar"), this.$saveCategoryBtn = e(".save-category"), this.$categoryForm = e("#add-category form"), this.$extEvents = e("#external-events"), this.$calendarObj = null
+        this.$body = e("body"), this.$modal = e("#event-modal"), this.$event = "#external-events div.external-event", 
+        this.$calendar = e("#calendar"), this.$saveCategoryBtn = e(".save-category"), this.$categoryForm = e("#add-category form"), 
+        this.$extEvents = e("#external-events"), this.$calendarObj = null
     };
     t.prototype.onDrop = function(t, n) {
         var a = t.data("eventObject"),
@@ -10,7 +12,7 @@
         i.start = n, o && (i.className = [o]), this.$calendar.fullCalendar("renderEvent", i, !0), e("#drop-remove").is(":checked") && t.remove()
     }, t.prototype.onEventClick = function(t, n, a) {
         var o = this,
-            i = e("<form></form>");
+            i = e("<form></form>");            
         i.append("<label>수정할 내용을 입력하세요</label>"), i.append("<div class='input-group'><input class='form-control' type=text value='" + t.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> 저장</button></span></div>"), o.$modal.modal({
             backdrop: "static"
         }), o.$modal.find(".delete-event").show().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(i).end().find(".delete-event").unbind("click").on("click", function() {
@@ -26,7 +28,7 @@
             backdrop: "static"
         });
         var i = e("<form></form>");
-        i.append("<div class='row'></div>"), i.find(".row").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>상세내용</label><input class='form-control' placeholder='내용을 입력하세요' type='text' name='title'/></div></div>").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Type</label><select class='form-control' name='category'></select></div></div>").find("select[name='category']").append("<option value='bg-danger'>전체일정</option>").append("<option value='bg-success'>부서일정</option>").append("<option value='bg-pink'>개인일정</option>").append("<option value='bg-warning'>보고서</option>"), o.$modal.find(".delete-event").hide().end().find(".save-event").show().end().find(".modal-body").empty().prepend(i).end().find(".save-event").unbind("click").on("click", function() {
+        i.append("<div class='row'></div>"), i.find(".row").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>상세내용</label><input class='form-control' placeholder='내용을 입력하세요' type='text' name='title'/></div></div>").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Type</label><select class='form-control' name='category'></select></div></div>").find("select[name='category']").append("<option value='bg-danger'>전체일정</option>").append("<option value='bg-success'>부서일정</option>").append("<option value='bg-pink'>개인일정</option>"), o.$modal.find(".delete-event").hide().end().find(".save-event").show().end().find(".modal-body").empty().prepend(i).end().find(".save-event").unbind("click").on("click", function() {
             i.submit()
         }), o.$modal.find("form").on("submit", function() {
             var e = i.find("input[name='title']").val(),
@@ -35,7 +37,7 @@
                 title: e,
                 start: t,
                 end: n,
-                allDay: !1,
+                /*allDay: !1,*/
                 className: a
             }, !0), o.$modal.modal("hide")) : alert("내용을 작성하세요"), !1
         }), o.$calendarObj.fullCalendar("unselect")
@@ -70,8 +72,8 @@
             }],*/
             o = this;
         o.$calendarObj = o.$calendar.fullCalendar({
-            slotDuration: "00:15:00",
-           /* minTime: "08:00:00",
+        	/*slotDuration: "00:15:00",
+            minTime: "08:00:00",
             maxTime: "19:00:00",*/
             defaultView: "month",
             handleWindowResize: !0,

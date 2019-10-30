@@ -15,6 +15,7 @@ import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
+import com.wework.workman.account.model.vo.NoticeFile;
 import com.wework.workman.account.model.vo.OsManage;
 import com.wework.workman.account.model.vo.Partner;
 import com.wework.workman.account.model.vo.Product;
@@ -34,7 +35,7 @@ public class AccountDao {
 	public ArrayList<AcNotice> noticeList(PageInfo pi) {
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.noticeList",rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.noticeList",null,rb);
 	}
 
 	public AcNotice noticeDetail(String aNo) {
@@ -81,7 +82,7 @@ public class AccountDao {
 		
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.saleList",rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.saleList",null,rb);
 	}
 
 	public int insertSale(SaleManage sm) {
@@ -96,7 +97,7 @@ public class AccountDao {
 	public ArrayList<OsManage> osList(PageInfo pi) {
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.osList",rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.osList",null,rb);
 	}
 
 	public int getFixtureListCount() {
@@ -106,7 +107,7 @@ public class AccountDao {
 	public ArrayList<Fixture> fixtureList(PageInfo pi) {
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.fixtureList",rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.fixtureList",null,rb);
 	}
 
 	public int getSalaryListCount() {
@@ -116,7 +117,7 @@ public class AccountDao {
 	public ArrayList<SalaryManage> salaryList(PageInfo pi) {
 		int offset =(pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("accountMapper.salaryList",rb);
+		return (ArrayList)sqlSession.selectList("accountMapper.salaryList",null,rb);
 	}
 
 	public ArrayList<SalaryManage> salaryDetail(String empNum) {
@@ -127,9 +128,7 @@ public class AccountDao {
 		return sqlSession.selectOne("accountMapper.checkSalary");
 	}
 
-	public int insertSalary() {
-		return sqlSession.insert("accountMapper.insertIncome");
-	}
+	
 	//Num -> Name으로 해줄것
 	public ArrayList<Partner> getPartner(String partnerNum) {
 		return (ArrayList)sqlSession.selectList("accountMapper.getPartner",partnerNum);
@@ -195,6 +194,30 @@ public class AccountDao {
 
 	public AvgSalary avgSalary(SalaryManage salaryManage) {
 		return sqlSession.selectOne("accountMapper.avgSalary", salaryManage);
+	}
+
+	public int checkSal() {
+		return sqlSession.selectOne("accountMapper.checkSal");
+	}
+
+	public int insertSal() {
+		return sqlSession.insert("accountMapper.insertSal");
+	}
+
+	public int checkYearSal() {
+		return sqlSession.selectOne("accountMapper.checkYearSal");
+	}
+
+	public int insertYearSalary() {
+		return sqlSession.insert("accountMapper.insertYearSalary");
+	}
+
+	public int insertFile(NoticeFile nf) {
+		return sqlSession.insert("accountMapper.insertFile", nf);
+	}
+
+	public NoticeFile noticeFile(String acDetail) {
+		return sqlSession.selectOne("accountMapper.noticeFile",acDetail);
 	}
 
 

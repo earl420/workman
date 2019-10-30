@@ -73,5 +73,5 @@ $.ajax({
 	
 })
 function paging(page){
-	location.href="acnoticeList.wo?page="+page;
+	location.href="salelist.wo?page="+page;
 }

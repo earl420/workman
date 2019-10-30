@@ -4,8 +4,8 @@ import com.wework.workman.calendar.model.vo.Attendance;
 
 public interface AttendanceService {
 	
-	int insertAttendance(Attendance a); // 출근
+	int insertAttendance(Attendance a);
 	
-	int insertOut(Attendance a); // 퇴근
+	int updateAttendance(Attendance a);
 
 }
