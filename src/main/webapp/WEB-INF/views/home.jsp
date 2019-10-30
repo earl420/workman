@@ -297,14 +297,16 @@
 				 position: 'bottom',
 				 type: 'success',
 				 title: '${login}',
-				 text: '반갑습니다.',
+				 /* text: '반갑습니다.', */
 				  width: 600,
 				  height: 100,
 				  padding: '3em',
 				  /* background: '#fff url(/images/trees.png)', */
 				  backdrop: `
-				    rgba(0,0,123,0.4)
-				    url("resources/icons/login.gif")
+				    /* rgba(0,0,123,0.4) */
+				    rgba(247,107,20,0.4)
+				    /* url("resources/icons/login.gif") */
+				    url("resources/icons/logo1.png")
 				    center top
 				    no-repeat
 				  `
