@@ -111,6 +111,7 @@ public class MypageController {
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
 			  System.out.println(m);
 			  model.addAttribute("loginMan", loginMan);
+			  System.out.println(loginMan);
 			  return "redirect:home.wo";
 		  
 		  }else {
