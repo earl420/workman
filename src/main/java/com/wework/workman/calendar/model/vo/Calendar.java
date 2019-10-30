@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Calendar {
 	
-	private int empNum;
+	private String empNum;
 	private int deptNum;
 	private String description;
 	private Date start;
@@ -18,7 +18,8 @@ public class Calendar {
 	}
 
 
-	public Calendar(int empNum, int deptNum, String description, Date start, Date end, String ctype, String userName) {
+	public Calendar(String empNum, int deptNum, String description, Date start, Date end, String ctype,
+			String userName) {
 		super();
 		this.empNum = empNum;
 		this.deptNum = deptNum;
@@ -28,16 +29,14 @@ public class Calendar {
 		this.ctype = ctype;
 		this.userName = userName;
 	}
-	
-	
 
 
-	public int getEmpNum() {
+	public String getEmpNum() {
 		return empNum;
 	}
 
 
-	public void setEmpNum(int empNum) {
+	public void setEmpNum(String empNum) {
 		this.empNum = empNum;
 	}
 
@@ -108,7 +107,7 @@ public class Calendar {
 				+ start + ", end=" + end + ", ctype=" + ctype + ", userName=" + userName + "]";
 	}
 
-	
+
 	
 
 }
