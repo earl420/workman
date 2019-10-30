@@ -116,30 +116,32 @@
   	String strTime = sdf2.format(time);
   	/* 현재시간 value값으로 박으려고 */
  %>
-	 <div class="hidiv" id="hi">
+	 <div class="hidiv" id="hi2">
 	 	<br>
 	    <h3 id="hih2">출/퇴근</h3>
-	    <button class="btn mb-1 btn-rounded btn-success" type="button" id="hibtn" onclick="location.href='attend.wo'">출근</button>
-	    <input type="hidden" name="empNum" value="${ loginMan.num }">
-        <input type="hidden" name="att_date" value="<%= strToday %>">
-        <input type="hidden" name="time_on" value="<%= strTime %>">
-        <input type="hidden" name="time_off" value="null">
+	    <button class="btn mb-1 btn-rounded btn-success" type="button" id="hibtn" >출근</button>
+	    <form action="attend.wo" method="post" id="form1">	    
+		    <input type="hidden" name="empNum" value="${ loginMan.num }">
+	        <input type="hidden" name="att_date" value="<%= strToday %>">
+	        <input type="hidden" name="time_on" value="<%= strTime %>">
+	        <input type="hidden" name="time_off" value="null">
+	      </form>
 	</div>
 
- 	<%-- <div class="hidiv" id="bye">
+ 	<div class="hidiv" id="bye2">
 	 	<br>
 	    <h3 id="hih2">출/퇴근</h3>
-	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="byebtn" onclick="location.href='attend.wo'">퇴근</button>
+	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="byebtn">퇴근</button>
 		<input type="hidden" name="empNum" value="${ loginMan.num }">
         <input type="hidden" name="att_date" value="<%= strToday %>">
         <input type="hidden" name="time_on" value="null">
         <input type="hidden" name="time_off" value="<%= strTime %>">
-	</div> --%>
+	</div>
 
  <script>
  	/* 출퇴근 버튼 스크립트 */
  		$(function(){
- 			$("#bye").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
+ 			$("#bye2").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
  		});
  	
  		// 출근 버튼 누르면 알림창 뜨기
@@ -147,8 +149,11 @@
  			 var d = new Date();
  			 var time = d.getHours() + '시' + d.getMinutes() + '분';
  			alert(time + ' 출근.');
- 			$("#bye").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
- 			$("#hi").hide(); /* 출근버튼은 안보이게 */
+ 			$("#bye2").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
+ 			$("#hi2").hide(); /* 출근버튼은 안보이게 */
+ 			
+ 			$("#form1").submit();
+ 			//location.href='attend.wo';
  		});
  	
  		// 퇴근 버튼 누르면 알림창 뜨기
@@ -156,7 +161,9 @@
  			var d = new Date();
 			var time = d.getHours() + '시' + d.getMinutes() + '분';
  			alert(time + ' 퇴근.');
- 			$("#bye").hide(); /* 퇴근버튼은 안보이게 */
+ 			$("#bye2").hide(); /* 퇴근버튼은 안보이게 */
+ 			
+ 			location.href='attend.wo';
  		});
  </script>
  

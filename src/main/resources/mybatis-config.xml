@@ -34,6 +34,7 @@
 	<mapper resource="mapper/account-mapper.xml"></mapper>
 	<mapper resource="mapper/approval-mapper.xml"></mapper>
 	<mapper resource="mapper/chatting-mapper.xml"></mapper>
+	<mapper resource="mapper/calendar-mapper.xml"></mapper>
 	<mapper resource="mapper/humanResource-mapper.xml"></mapper>
 	<mapper resource="mapper/mypage-mapper.xml"></mapper>
 </mappers>
