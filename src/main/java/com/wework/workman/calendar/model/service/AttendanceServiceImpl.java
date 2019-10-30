@@ -17,5 +17,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 		
 		return aDao.insertAttendance(a);
 	}
+	
+	@Override 
+	public int updateAttendance(Attendance a) {
+		
+		return aDao.updateAttendance(a);
+	}
 
 }

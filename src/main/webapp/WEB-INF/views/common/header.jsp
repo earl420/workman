@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.Date, java.text.SimpleDateFormat"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -11,7 +11,26 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--&nbsp;Custom Stylesheet -->
     <link href="resources/css/style.css" rel="stylesheet">
-
+<style>
+   .btn-warning{
+        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
+        color: white;
+        width:100px;
+    }
+    
+    .btn-success{
+        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
+        color: white;
+        width:100px;
+    }
+	.header-right{
+	display:inline;
+	}
+	.hi3{
+		float:left;
+		padding-top:20px;
+	}
+</style>
 </head>
 
 <body>
@@ -41,16 +60,85 @@
             Header start
         ***********************************-->
         <div class="header">    
+        
             <div class="header-content clearfix" style="border-bottom: 1px solid gray;">
+ 
                 
                 <div class="nav-control">
                     <div class="hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
-                <div class="header-left">
-                    
-                </div>
+                
+                
+          <div class="header-left">
+					
+					 <%
+					  	Date today = new Date();
+					  	SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+					  	String strToday = sdf.format(today);
+					  	/* 오늘날짜 value값으로 박으려고 */
+					  	
+					  	Date time = new Date();
+					  	SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss");
+					  	String strTime = sdf2.format(time);
+					  	/* 현재시간 value값으로 박으려고 */
+					 %>          
+ 
+				<div class="hi3">
+					
+					
+					<form action="attend.wo" method="post" id="form1">
+						<input type="hidden" name="empNum" value="${ loginMan.num }">
+						<input type="hidden" name="att_date" value="<%=strToday%>">
+						<input type="hidden" name="time_on" value="<%=strTime%>">
+						<input type="hidden" name="time_off" value="<%=strTime%>">
+						<input type="hidden" name="flag" value="${flag }" id="flag">
+						<c:if test="${flag eq '출'}">
+					<button class="btn mb-1 btn-rounded btn-success" type="submit" id="hi">출근</button>
+					</c:if>
+					
+					<c:if test="${flag eq '퇴'}">
+					<button class="btn mb-1 btn-rounded btn-warning" type="submit" id="bye">퇴근</button>
+					</c:if>
+					</form>
+				</div>
+				
+				<script>
+					console.log('${flag}');
+						/* 출퇴근 버튼 스크립트 */
+				 		$(function(){
+				 			$(".btn-warning").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
+				 		});
+						 	
+				 		// 출근 버튼 누르면 알림창 뜨기
+				 		 $(".btn-success").on("click", function(){
+				 			 var d = new Date();
+				 			 var time = d.getHours() + '시' + d.getMinutes() + '분';
+				 			alert(time + ' 출근.');
+				 			$(".btn-warning").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
+				 			$(".btn-success").hide(); /* 출근버튼은 안보이게 */
+				 			
+				 			$("#flag").val("출");
+				 			
+				 			return true;
+				 		});
+				 	
+				 		// 퇴근 버튼 누르면 알림창 뜨기
+				 		$(".btn-warning").on("click", function(){
+				 			var d = new Date();
+							var time = d.getHours() + '시' + d.getMinutes() + '분';
+				 			alert(time + ' 퇴근.');
+				 			$(".btn-warning").hide(); /* 퇴근버튼은 안보이게 */
+				 		
+				 			$("#flag").val("퇴");
+				 			
+				 			return true;
+				 		});
+				 		
+				 </script>
+			</div>
+                   
                 <div class="header-right">
 					
                     <ul class="clearfix">
@@ -161,21 +249,22 @@
                                                     <span class="notification-text">After two days</span> 
                                                 </div>
                                             </a>
+                                            
                                         </li>
                                     </ul>
                                     
                                 </div>
+                                
                             </div>
+                                        
                         </li>
                         <li class="icons dropdown d-none d-md-flex">
                             <a href="javascript:void(0)" class="log-user"  data-toggle="dropdown">
-                                <span>출근</span>  <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
                             </a>
                             <div class="drop-down dropdown-language animated fadeIn  dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <li><a href="attend.wo" id="hi"><span>출근</span></a></li>
-                                        <li><a href="out.wo" id="bye">퇴근</a></li>
                                         <li><a href="logout.wo">로그아웃</a></li>
                                     </ul>
                                 </div>

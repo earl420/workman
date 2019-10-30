@@ -13,32 +13,40 @@
 	</resultMap>
 
 	<insert id="insertCalendar" parameterType="Calendar">
-		insert into calendar
-		values(#{emp_num}, #{dept_num}, #{sch_emp_start}, #{sch_emp_end}, #{register_emp_name}, #{sch_content})
+		insert into schedule_emp
+		values(#{empNum}, #{deptNum}, #{start}, #{end}, #{userName}, #{description}, #{ctype})
 	</insert>
 	
 	<update id="updateCalendar" parameterType="string">
-		update calendar
-		set 
+		update schedule_emp
+		set sch_content=#{description}, emp_num=#{empNum}, sch_emp_start=#{start}, 
+			sch_emp_end=#{end}, register_emp_num=#{userName}, ctype=#{ctype}
 		where emp_num=#{empNum}
 	</update>
 	
 	<select id="calendarDetail" parameterType="string" resultMap="calendarResultSet">
 		select *
-		from calendar
+		from schedule_emp
 		where emp_num=#{empNum}
 	</select>
 	
 	<delete id="deleteCalendar" parameterType="string">
-		delete from calendar
+		delete from schedule_emp
 		where emp_num=#{empNum}
 	</delete>
 	
 	
-	<!-- 출근/퇴근-->
+	<!-- 출근-->
 	<insert id="Attendance" parameterType="Attendance">
 		insert into attendance
-		values(#{empNum}, #{att_date}, #{time_on}, #{time_off})
+		values(#{empNum}, #{att_date}, #{time_on}, null)
 	</insert>
+	
+	<!-- 퇴근 -->
+	<update id="updateAttendance" parameterType="Attendance">
+		update attendance
+		set time_off = sysdate
+		where empNum = #{empNum}
+	</update>
 	
 </mapper>
