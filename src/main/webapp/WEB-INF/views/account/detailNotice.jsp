@@ -74,7 +74,7 @@
 									<c:choose>
 										<c:when test="${notice.noticeAccType eq 2 }"><a href="${downexcel }">excel다운로드</a></c:when>
 										<c:when test="${notice.noticeAccType eq 3}"><a href="${downexcel }">excel다운로드</a></c:when>
-										<c:otherwise><a href="경로+저장된파일명" download="다운로드될 파일명">filedownload</a></c:otherwise>
+										<c:otherwise><a href="resources/${file.path }/${file.rename}" download="${file.originalName }">${file.originalName }</a></c:otherwise>
 									</c:choose>
 									
 								</div>

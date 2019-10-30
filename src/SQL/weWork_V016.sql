@@ -2109,9 +2109,9 @@ insert into sales values (null,'PRODUCT2019000001','19/02/02', '20190001',19, 'P
 insert into sales values (null,'PRODUCT2019000001','19/05/31', '20190001',13, 'PARTNER2019000003', 1300000000);
 insert into sales values (null,'PRODUCT2019000001','19/08/31', '20190001',14, 'PARTNER2019000003', 1400000000);
 insert into product values (null, 'ºñ½Ñ°Å', 100000000);
-
+insert into salary (select emp_num, extract(year from sysdate), emp_salary from employee);
 insert into salary values('20190001',2018, 24000000);
-insert into salary values('20190001',2019, 24000000);
+
 
 -- MODAL ºä Ãß°¡
 CREATE OR REPLACE VIEW MODAL AS
