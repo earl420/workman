@@ -5,6 +5,7 @@
 <html lang="ko">
 <head>
 <title>workman</title>
+
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
 	
@@ -12,7 +13,7 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script src='main.js'></script>
 
 
@@ -169,16 +170,59 @@
 	<!-- /main-wrapper -->
 	<script>
 	   $(function(){
-		   if(${!empty msg}){
-			   swal("${msg}");
+		   if(${!empty success}){
+			   swal.fire({
+				type: 'success',
+				title : '${success}',
+				confirmButtonText: '확인'
+			   });
+		   }
+	   });
+	   $(function(){
+		   if(${!empty error}){
+			   swal.fire({
+				type: 'error',
+				title : '${error}',
+				confirmButtonText: '확인'
+			   });
 		   }
 	   });
 	   
-	   /* $(function(){
-		   if(${!empty loginMan}){
-			   swal("${loginMan.name}${loginMan.gradeName}님 로그인 되었습니다.");
+	   
+	   
+	   $(function(){
+		   if(${!empty login}){
+			  /*  Swal.fire({
+				   type: 'success',
+				   title: '${login}',
+				   text: '반갑습니다.',
+				   padding: '3em',
+				   background: 'white',
+				   backdrop: `
+				     rgba(0,0,123,0.4)
+				     url("resources/icons/login.gif")
+				     center 
+				     no-repeat'
+				   confirmButtonText: '확인',
+				   animation: false,
+				   customClass: {
+				     popup: 'animated heartBeat'
+				   }
+				 }); */
+				 Swal.fire({
+				 position: 'center',
+				 type: 'success',
+				 title: '${login}',
+				 text: '반갑습니다.',
+				  width: 500,
+				  height: 50,
+				  padding: '3em',
+				  /* background-color: '#ffffff', /*url(/images/trees.png)', */
+				  backdrop: `rgba(0,0,123,0.4) center top no-repeat `
+				});
 		   }
-	   }); */
+	   })
+	   
 	</script>
 
 

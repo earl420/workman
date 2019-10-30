@@ -1,5 +1,6 @@
 package com.wework.workman.account.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +29,7 @@ import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
+import com.wework.workman.account.model.vo.NoticeFile;
 import com.wework.workman.account.model.vo.OsManage;
 import com.wework.workman.account.model.vo.Partner;
 import com.wework.workman.account.model.vo.Product;
@@ -65,8 +69,11 @@ public class AccountController {
 			@RequestParam(value="noticeType", required =false) int noticeAccType,
 			@RequestParam(value="insertDate", required = false) String insertDate,
 			@RequestParam(value="ir1", required=false) String ir1,
-			HttpSession session) {
+			@RequestParam(value="file", required = false) MultipartFile file,
+			HttpSession session, HttpServletRequest request) {
 		Mypage mp=(Mypage)session.getAttribute("loginMan");
+		
+		
 		
 		String empNum=mp.getNum();
 		int deptNum=mp.getDeftNum();
@@ -119,6 +126,22 @@ public class AccountController {
 			}
 			
 		}
+		String renameFileName = null;
+		NoticeFile nf = new NoticeFile();
+		if (!file.getOriginalFilename().equals("")) {//첨부파일이 넘어온경우
+			//서버에 파일등록(폴더에 저장)
+			//내가 저장하고자하는 파일, request 전달하고 실제로 저장된 파일명 돌려주는 saveFile
+			renameFileName=saveFile(file,request);
+			if(renameFileName !=null) {//파일이 잘저장된경우				
+				nf.setOriginalName(file.getOriginalFilename());
+				nf.setRename(renameFileName);
+				nf.setPath("nupload");
+				System.out.println("check" +nf);
+				int a = aService.insertFile(nf);
+			}
+		}
+		
+		
 		if(result<1) {
 			return "common/errorPage";
 		}
@@ -127,8 +150,10 @@ public class AccountController {
 	@RequestMapping("acDetail.wo")
 	public String aNoticeDetail(@RequestParam(name = "noticeNum", required = false, defaultValue = "") String acDetail, Model model) {
 		AcNotice notice = aService.noticeDetail(acDetail);
-		
+		NoticeFile file = aService.noticeFile(acDetail);
 		model.addAttribute("notice", notice);
+		model.addAttribute("file",file);
+		System.out.println("1111"+file);
 		//파일도 넣는처리할것 
 		return "account/detailNotice";
 	}
@@ -205,6 +230,7 @@ public class AccountController {
 		int listCount = aService.getSalaryListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<SalaryManage> list = aService.salaryList(pi);
+		System.out.println(list.size());
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		return "account/salaryList";
@@ -439,6 +465,50 @@ public class AccountController {
 		model.addAttribute("title", title);
 		return "account/downExcel";
 	}
+	
+	
+	
+	
+	public void deleteFile(String renameFileName, HttpServletRequest request) {
+		String root =request.getSession().getServletContext().getRealPath("resources")+"\\nupload\\"+renameFileName;
+		File file = new File(root);
+		if(file.exists()) {
+			file.delete();
+		}
+	}
+	
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
+		//파일이 저장될 경로 설정
+		String root= request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root+"\\nupload";
+		
+		File folder = new File(savePath);// 저장될 폴더
+		if (!folder.exists()) {
+			folder.mkdir();// 폴더가 없으면 폴더 생성해라
+		}
+		String originalFileName= file.getOriginalFilename();//원본명
+		//파일명 수정작업 --> 년월일 시분초.확장자
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))
+				+ originalFileName.substring(originalFileName.lastIndexOf("."));
+		
+		//실제 저장될 경로 savePAth + 저장하고자 하는 파일명 renameFileName
+		String renamePath = savePath + "\\"+renameFileName; //resources\bupload\20191004
+		try {
+			
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(renameFileName);
+		return renameFileName;
+	}
+	
+	
+	
+	
 }
 
 
