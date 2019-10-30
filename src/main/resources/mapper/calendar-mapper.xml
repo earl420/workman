@@ -6,19 +6,21 @@
 
     <resultMap id="calendarResultSet" type="Calendar">
 		<id property="empNum" column="emp_num"/>
+		<result property="deptNum" column="dept_num"/>
 		<result property="description" column="sch_content"/>
 		<result property="start" column="sch_emp_start"/>
 		<result property="end" column="sch_emp_end"/>
 		<result property="userName" column="register_emp_num"/>
+		<result property="ctype" column="ctype"/>
 	</resultMap>
 
 	<insert id="insertCalendar" parameterType="Calendar">
-		insert into schedule_emp
+		insert into schedule
 		values(#{empNum}, #{deptNum}, #{start}, #{end}, #{userName}, #{description}, #{ctype})
 	</insert>
 	
 	<update id="updateCalendar" parameterType="string">
-		update schedule_emp
+		update schedule
 		set sch_content=#{description}, emp_num=#{empNum}, sch_emp_start=#{start}, 
 			sch_emp_end=#{end}, register_emp_num=#{userName}, ctype=#{ctype}
 		where emp_num=#{empNum}
@@ -26,12 +28,12 @@
 	
 	<select id="calendarDetail" parameterType="string" resultMap="calendarResultSet">
 		select *
-		from schedule_emp
+		from schedule
 		where emp_num=#{empNum}
 	</select>
 	
 	<delete id="deleteCalendar" parameterType="string">
-		delete from schedule_emp
+		delete from schedule
 		where emp_num=#{empNum}
 	</delete>
 	

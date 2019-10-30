@@ -21,6 +21,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+
+
 <style>
        .outdiv{
             width:70%;
@@ -83,7 +85,8 @@
             </div>
           </div>
         </div>
-        
+       
+
         <div class="inlinediv" style="width: 25%;">
            <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -109,7 +112,7 @@
 			  	String strTime = sdf2.format(time);
 			  	/* 현재시간 value값으로 박으려고 */
             %>
-            <input type="date" id="start" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="startDay" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             <input type="time" id="startTime" value="<%= strTime %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
@@ -140,7 +143,7 @@
 				</div>
 			</div> 
 		</div>
-	
+
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 </body>
