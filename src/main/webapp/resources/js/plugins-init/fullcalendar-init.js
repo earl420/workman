@@ -1,7 +1,9 @@
 ! function(e) {
     "use strict";
     var t = function() {
-        this.$body = e("body"), this.$modal = e("#event-modal"), this.$event = "#external-events div.external-event", this.$calendar = e("#calendar"), this.$saveCategoryBtn = e(".save-category"), this.$categoryForm = e("#add-category form"), this.$extEvents = e("#external-events"), this.$calendarObj = null
+        this.$body = e("body"), this.$modal = e("#event-modal"), this.$event = "#external-events div.external-event", 
+        this.$calendar = e("#calendar"), this.$saveCategoryBtn = e(".save-category"), this.$categoryForm = e("#add-category form"), 
+        this.$extEvents = e("#external-events"), this.$calendarObj = null
     };
     t.prototype.onDrop = function(t, n) {
         var a = t.data("eventObject"),
@@ -11,7 +13,7 @@
     }, t.prototype.onEventClick = function(t, n, a) {
         var o = this,
             i = e("<form></form>");
-        i.append("<label>Change event name</label>"), i.append("<div class='input-group'><input class='form-control' type=text value='" + t.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>"), o.$modal.modal({
+        i.append("<label>수정할 내용을 입력하세요</label>"), i.append("<div class='input-group'><input class='form-control' type=text value='" + t.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> 저장</button></span></div>"), o.$modal.modal({
             backdrop: "static"
         }), o.$modal.find(".delete-event").show().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(i).end().find(".delete-event").unbind("click").on("click", function() {
             o.$calendarObj.fullCalendar("removeEvents", function(e) {
@@ -26,7 +28,7 @@
             backdrop: "static"
         });
         var i = e("<form></form>");
-        i.append("<div class='row'></div>"), i.find(".row").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Event Name</label><input class='form-control' placeholder='Insert Event Name' type='text' name='title'/></div></div>").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Category</label><select class='form-control' name='category'></select></div></div>").find("select[name='category']").append("<option value='bg-danger'>Danger</option>").append("<option value='bg-success'>Success</option>").append("<option value='bg-dark'>Dark</option>").append("<option value='bg-primary'>Primary</option>").append("<option value='bg-pink'>Pink</option>").append("<option value='bg-info'>Info</option>").append("<option value='bg-warning'>Warning</option></div></div>"), o.$modal.find(".delete-event").hide().end().find(".save-event").show().end().find(".modal-body").empty().prepend(i).end().find(".save-event").unbind("click").on("click", function() {
+        i.append("<div class='row'></div>"), i.find(".row").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>상세내용</label><input class='form-control' placeholder='내용을 입력하세요' type='text' name='title'/></div></div>").append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Type</label><select class='form-control' name='category'></select></div></div>").find("select[name='category']").append("<option value='bg-danger'>전체일정</option>").append("<option value='bg-success'>부서일정</option>").append("<option value='bg-pink'>개인일정</option>"), o.$modal.find(".delete-event").hide().end().find(".save-event").show().end().find(".modal-body").empty().prepend(i).end().find(".save-event").unbind("click").on("click", function() {
             i.submit()
         }), o.$modal.find("form").on("submit", function() {
             var e = i.find("input[name='title']").val(),
@@ -37,7 +39,7 @@
                 end: n,
                 allDay: !1,
                 className: a
-            }, !0), o.$modal.modal("hide")) : alert("You have to give a title to your event"), !1
+            }, !0), o.$modal.modal("hide")) : alert("내용을 작성하세요"), !1
         }), o.$calendarObj.fullCalendar("unselect")
     }, t.prototype.enableDrag = function() {
         e(this.$event).each(function() {
@@ -54,7 +56,7 @@
         this.enableDrag();
         var t = new Date,
             n = (t.getDate(), t.getMonth(), t.getFullYear(), new Date(e.now())),
-            a = [{
+         /*   a = [{
                 title: "Hey!",
                 start: new Date(e.now() + 158e6),
                 className: "bg-dark"
@@ -67,21 +69,21 @@
                 title: "Buy a Theme",
                 start: new Date(e.now() + 338e6),
                 className: "bg-primary"
-            }],
+            }],*/
             o = this;
         o.$calendarObj = o.$calendar.fullCalendar({
             slotDuration: "00:15:00",
-            minTime: "08:00:00",
-            maxTime: "19:00:00",
+           /* minTime: "08:00:00",
+            maxTime: "19:00:00",*/
             defaultView: "month",
             handleWindowResize: !0,
             height: e(window).height() - 200,
             header: {
-                left: "prev,next today",
+                left: "today",
                 center: "title",
-                right: "month,agendaWeek,agendaDay"
+                right: "prev,next"
             },
-            events: a,
+            /*events: a,*/
             editable: !0,
             droppable: !0,
             eventLimit: !0,

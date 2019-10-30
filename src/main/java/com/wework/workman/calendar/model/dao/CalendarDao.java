@@ -11,22 +11,22 @@ public class CalendarDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	// ÀÏÁ¤µî·Ï
+	// ì¼ì •ë“±ë¡
 	public int insertCalendar(Calendar c) {
 		return sqlSession.insert("calendar-mapper.insertCalendar", c);
 	}
 	
-	// ÀÏÁ¤¼öÁ¤
+	// ì¼ì •ìˆ˜ì •
 	public int updateCalendar(int empNum) {
 		return sqlSession.update("calendar-mapper.updateCalendar", empNum);
 	}
 	
-	// ÀÏÁ¤»ó¼¼º¸±â
+	// ìƒì„¸ë³´ê¸°
 	public Calendar calendarDetail(int empNum) {
 		return sqlSession.selectOne("calendar-mapper.calendarDetail", empNum);
 	}
 	
-	// ÀÏÁ¤»èÁ¦
+	// ì¼ì •ì‚­ì œ
 	public int deleteCalendar(int empNum) {
 		return sqlSession.update("calendar-mapper.deleteCalendar", empNum);
 	}

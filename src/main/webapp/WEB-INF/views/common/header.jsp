@@ -52,7 +52,13 @@
                     
                 </div>
                 <div class="header-right">
+					
                     <ul class="clearfix">
+                    	
+                    	<li class="icons dropdown"><c:out value="${ loginMan.name }"/> <c:out value="${ loginMan.gradeName }"/></li>
+                    	<li class="icons dropdown"><c:out value="${ loginMan.deptName }"/></li>
+                    
+                    
                         <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                 <i class="mdi mdi-email-outline"></i>
                                 <span class="badge gradient-1 badge-pill badge-primary">3</span>
@@ -163,13 +169,14 @@
                         </li>
                         <li class="icons dropdown d-none d-md-flex">
                             <a href="javascript:void(0)" class="log-user"  data-toggle="dropdown">
-                                <span>English</span>  <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+                                <span>출근</span>  <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
                             </a>
                             <div class="drop-down dropdown-language animated fadeIn  dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <li><a href="javascript:void()">English</a></li>
-                                        <li><a href="javascript:void()">Dutch</a></li>
+                                        <li><a href="attend.wo" id="hi"><span>출근</span></a></li>
+                                        <li><a href="out.wo" id="bye">퇴근</a></li>
+                                        <li><a href="logout.wo">로그아웃</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -183,7 +190,7 @@
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                            <a href="empInfo.wo"><i class="icon-user"></i> <span>Profile</span></a>
                                         </li>
                                         <li>
                                             <a href="email-inbox.html"><i class="icon-envelope-open"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill badge-primary">3</div></a>
@@ -395,7 +402,19 @@
     <script src="resources/js/settings.js"></script>
     <script src="resources/js/gleek.js"></script>
     <script src="resources/js/styleSwitcher.js"></script>
-
+	
+ 	<script>
+ 		/* 출퇴근 버튼 스크립트 */
+ 		// 출근 버튼 누르면 알림창 뜨기
+ 		$("#hi").on("click", function(){
+ 			alert('출근 확인되었습니다.');
+ 		});
+ 	
+ 		// 퇴근 버튼 누르면 알림창 뜨기
+ 		$("#bye").on("click", function(){
+ 			alert('퇴근 확인되었습니다.');
+ 		});
+ 	</script>
     
 
 </body>

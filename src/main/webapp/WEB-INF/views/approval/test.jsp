@@ -77,12 +77,12 @@
 																		<c:forEach items="${ mlist }" var="m">
 																			<c:if test="${d.deptName eq m.deptName }">
 																				<li class="select">
-																					<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
-																				</li>
+																					<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' value="${m.empNum}" >${m.empName}${m.gradeName}</button>
+																				</li> 
 																			</c:if>
 																			<c:if test="${d.deptName eq '전체부서' }">
 																				<li class="select">
-																					<button type='button' class='btn mb-1 btn-rounded btn-outline-primary' >${m.empName}${m.gradeName}</button>
+																					<button type='button' class='btn mb-1 btn-rounded btn-outline-primary'  value="${m.empNum}" >${m.empName}${m.gradeName}</button>
 																				</li>	
 																			</c:if>
 																		</c:forEach>
@@ -136,23 +136,23 @@
 			$(".select").find("button").on("click" ,function() {
 			var emp1 = $(this);
 			if(empList.length >= 0 && empList.length < 4){
-				 empList.push(emp1.text());
+				 empList.push(emp1.val());
 				 emp1.attr("disabled",true);
 					 var $ul = $(".member ul");
 					var $li = $("<li class='alert'>");
-					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp1.text());
+					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp1.text()).val(emp1.val());
 					
 						$li.append($button);
 						$ul.append($li);
 				 
-			}
+			} 
 			else {
 				alert("더이상 추가할수 없습니다.");
 				
-			}
+			}console.log(empList);
 
 					$(".alert").find("button").on("click" ,function() {
-						var emp2 = $(this).text();
+						var emp2 = $(this).val();
 						 
 						 for(i=0; i<empList.length; i++){
 							 if(empList[i] == emp2){
@@ -178,8 +178,8 @@
 					 var $ul = $("#memberArray ul");
 					 $ul.html("");
 					 $.each(data,function(index,value) {
-						var $li = $("<li class='alert'>");
-						var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(value);
+						var $li = $("<li>");
+						var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(value.empName + value.gradeName).val(value.empNum);
 						$li.append($button);
 						$ul.append($li);
 					 });

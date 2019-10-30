@@ -5,7 +5,8 @@
 <mapper namespace="humanMapper">
 	
 	 <resultMap id="modalResultSet" type="Modal">
-		<id property="empName" column="EMP_NAME"/>
+		<id property="empNum" column="EMP_NUM"/>
+		<result property="empName" column="EMP_NAME"/>
 		<result property="gradeName" column="GRADE_NAME"/>
 		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
@@ -85,10 +86,19 @@
 		SELECT *
 		FROM DEPT
 	</select>
+	
 	<select id="selectModalEmpList" resultMap="modalResultSet">
-	 select *
-	 from modal
-	 </select>
+	 	select *
+	 	from modal
+	</select>
+	
+	<select id="selectModalList"  parameterType="string"  resultMap="modalResultSet">
+		select * 
+		from modal
+		where emp_num = #{string}
+	
+	</select>
+	 
 	<select id="selectHRnList" resultMap="HRnListResultSet">
 		select *
 		from notice
