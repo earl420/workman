@@ -61,8 +61,8 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empInfo.wo")
-	public String empInfoView(Model model) {
-		Mypage m = (Mypage)model.addAttribute("loginMan");
+	public String empInfoView(HttpSession session) {
+		Mypage m = (Mypage)session.getAttribute("loginMan");
 
 		return "myPage/empInfo";
 	}
