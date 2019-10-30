@@ -105,13 +105,13 @@ public class MypageController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
-	public String loginEmp(Mypage m, Model model, HttpSession session){
+	public String loginEmp(Mypage m, Model model){
 		  
 		  Mypage loginMan = mService.loginMan(m);
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
-			  System.out.println(m);
 			  model.addAttribute("loginMan", loginMan);
-			  return "redirect:home.wo";
+			  model.addAttribute("login", "로그인 되었습니다.");
+			  return "home";
 		  
 		  }else {
 			  model.addAttribute("msg", "사번 또는 비밀번호를 확인해주세요.");

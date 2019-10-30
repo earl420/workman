@@ -5,6 +5,7 @@
 <html lang="ko">
 <head>
 <title>workman</title>
+
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
 	
@@ -251,11 +252,12 @@
 		   }
 	   });
 	   
-	   /* $(function(){
-		   if(${!empty loginMan}){
-			   swal("${loginMan.name}${loginMan.gradeName}님 로그인 되었습니다.");
+	   $(function(){
+		   if(${!empty login}){
+			   swal("${login}");
 		   }
-	   }); */
+	   });
+	   
 	</script>
 
 
