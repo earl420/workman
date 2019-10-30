@@ -17,19 +17,19 @@
 		values(#{emp_num}, #{dept_num}, #{sch_emp_start}, #{sch_emp_end}, #{register_emp_name}, #{sch_content})
 	</insert>
 	
-	<update id="updateCalendar" parameterType="_int">
+	<update id="updateCalendar" parameterType="string">
 		update calendar
 		set 
 		where emp_num=#{empNum}
 	</update>
 	
-	<select id="calendarDetail" parameterType="_int" resultMap="CalendarResultSet">
+	<select id="calendarDetail" parameterType="string" resultMap="calendarResultSet">
 		select *
 		from calendar
 		where emp_num=#{empNum}
 	</select>
 	
-	<delete id="deleteCalendar" parameterType="_int">
+	<delete id="deleteCalendar" parameterType="string">
 		delete from calendar
 		where emp_num=#{empNum}
 	</delete>

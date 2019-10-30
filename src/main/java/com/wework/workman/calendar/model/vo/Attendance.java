@@ -1,10 +1,9 @@
 package com.wework.workman.calendar.model.vo;
 
-import java.util.Date;
 
 public class Attendance {
 	
-	private int empNum;
+	private String empNum;
 	private String att_date;
 	private String time_on;
 	private String time_off;
@@ -15,7 +14,7 @@ public class Attendance {
 	}
 
 
-	public Attendance(int empNum, String att_date, String time_on, String time_off) {
+	public Attendance(String empNum, String att_date, String time_on, String time_off) {
 		super();
 		this.empNum = empNum;
 		this.att_date = att_date;
@@ -24,12 +23,12 @@ public class Attendance {
 	}
 
 
-	public int getEmpNum() {
+	public String getEmpNum() {
 		return empNum;
 	}
 
 
-	public void setEmpNum(int empNum) {
+	public void setEmpNum(String empNum) {
 		this.empNum = empNum;
 	}
 
@@ -71,10 +70,6 @@ public class Attendance {
 	}
 
 
-	
-	
-	
-	
 	
 
 }

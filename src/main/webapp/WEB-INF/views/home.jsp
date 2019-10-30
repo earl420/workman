@@ -109,7 +109,7 @@
  <div class="outdiv">
  <%
   	Date today = new Date();
-  	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+  	SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
   	String strToday = sdf.format(today);
   	/* 오늘날짜 value값으로 박으려고 */
   	
