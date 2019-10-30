@@ -354,7 +354,7 @@
 		    </form>
 		    
 		    <div id="formFooter">
-			      <p class="underlineHover" style="cursor:pointer" onclick="loginPage.wo">처음으로</p>
+			      <a class="underlineHover" style="cursor:pointer" href="loginPage.wo">처음으로</a>
 		   	</div>
 
 		</div>

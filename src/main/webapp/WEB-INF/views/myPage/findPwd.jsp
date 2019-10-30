@@ -347,7 +347,7 @@
 		    </form>
 	    
 			<div id="formFooter">
-			      <p class="underlineHover" style="cursor:pointer" onclick="history.back(-1);">뒤로가기</p>
+			      <a class="underlineHover" style="cursor:pointer" href="loginPage.wo">뒤로가기</a>
 		   	</div>
 
 		</div>
