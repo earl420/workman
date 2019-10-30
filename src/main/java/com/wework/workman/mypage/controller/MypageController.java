@@ -61,11 +61,13 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empInfo.wo")
-	public String empInfoView(HttpSession session) {
-		Mypage m = (Mypage)session.getAttribute("loginMan");
+	public String empInfoView(Model model) {
+		Mypage m = (Mypage)model.addAttribute("loginMan");
 
 		return "myPage/empInfo";
 	}
+	
+	
 
 	/**
 	 * 비밀번호 확인 페이지
