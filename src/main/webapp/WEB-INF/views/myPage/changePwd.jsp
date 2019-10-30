@@ -48,7 +48,7 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h5>비밀번호 확인</h5>
+								<h5>비밀번호 변경</h5>
 								<h5 align="center">비밀번호 변경 시 계정보안을 위해 로그아웃 됩니다.</h5>
 								<br>
 								<div class="form-validation">
@@ -99,7 +99,11 @@
 			$(pwd).on('blur', function(){
 				
 				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}$/.test(pwd.value)){            
-					swal('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
+				    swal.fire({
+				    	type: 'error',
+						title : '숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.',
+						confirmButtonText: '확인'
+				    });
 			        pwd.value="";
 			    }
 			});
@@ -107,12 +111,35 @@
 			$(pwd2).on('blur', function(){
 				
 				if(pwd.value != pwd2.value){
-					swal.fire("비밀번호가 일치하지 않습니다.");
+				    swal.fire({
+				    	type: 'error',
+						title : '비밀번호가 일치하지 않습니다.',
+						confirmButtonText: '확인'
+				    });
 					pwd.value="";
 					pwd2.value="";
 				}
 			});
 		});
+		
+		$(function(){
+			   if(${!empty success}){
+				   swal.fire({
+					type: 'warning',
+					title : '${success}',
+					confirmButtonText: '확인'
+				   });
+			   }
+		   });
+		   $(function(){
+			   if(${!empty error}){
+				   swal.fire({
+					type: 'error',
+					title : '${error}',
+					confirmButtonText: '확인'
+				   });
+			   }
+		   });
 		
 		
 	</script>

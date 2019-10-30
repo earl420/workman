@@ -254,16 +254,63 @@
 	<!-- /main-wrapper -->
 	<script>
 	   $(function(){
-		   if(${!empty msg}){
-			   swal.fire("${msg}");
+		   if(${!empty success}){
+			   swal.fire({
+				type: 'success',
+				title : '${success}',
+				confirmButtonText: '확인'
+			   });
+		   }
+	   });
+	   $(function(){
+		   if(${!empty error}){
+			   swal.fire({
+				type: 'error',
+				title : '${error}',
+				confirmButtonText: '확인'
+			   });
 		   }
 	   });
 	   
+	   
+	   
 	   $(function(){
 		   if(${!empty login}){
-			   swal.fire("${login}");
+			  /*  Swal.fire({
+				   type: 'success',
+				   title: '${login}',
+				   text: '반갑습니다.',
+				   padding: '3em',
+				   background: 'white',
+				   backdrop: `
+				     rgba(0,0,123,0.4)
+				     url("resources/icons/login.gif")
+				     center 
+				     no-repeat'
+				   confirmButtonText: '확인',
+				   animation: false,
+				   customClass: {
+				     popup: 'animated heartBeat'
+				   }
+				 }); */
+				 Swal.fire({
+				 position: 'bottom',
+				 type: 'success',
+				 title: '${login}',
+				 text: '반갑습니다.',
+				  width: 600,
+				  height: 100,
+				  padding: '3em',
+				  /* background: '#fff url(/images/trees.png)', */
+				  backdrop: `
+				    rgba(0,0,123,0.4)
+				    url("resources/icons/login.gif")
+				    center top
+				    no-repeat
+				  `
+				});
 		   }
-	   });
+	   })
 	   
 	</script>
 

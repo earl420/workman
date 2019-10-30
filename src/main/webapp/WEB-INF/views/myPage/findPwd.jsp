@@ -354,11 +354,24 @@
 	</div>
 	
 	<script type="text/javascript">
-		$(function(){
-		   if(${!empty msg}){
-			   swal.fire('${msg}');
+	$(function(){
+		   if(${!empty success}){
+			   swal.fire({
+				type: 'success',
+				title : '${success}',
+				confirmButtonText: '확인'
+			   });
 		   }
-		});
+	   });
+	   $(function(){
+		   if(${!empty error}){
+			   swal.fire({
+				type: 'error',
+				title : '${error}',
+				confirmButtonText: '확인'
+			   });
+		   }
+	   });
 	</script>
 	
 </body>

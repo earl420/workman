@@ -361,10 +361,22 @@
 		</div>
 	</div>
 	<script>
+	$(function(){
+		   if(${!empty success}){
+			   swal.fire({
+				type: 'success',
+				title : '${success}',
+				confirmButtonText: '확인'
+			   });
+		   }
+	   });
 	   $(function(){
-		   if(${!empty msg}){
-			   swal.fire("${msg}");
-			   
+		   if(${!empty error}){
+			   swal.fire({
+				type: 'error',
+				title : '${error}',
+				confirmButtonText: '확인'
+			   });
 		   }
 	   });
 

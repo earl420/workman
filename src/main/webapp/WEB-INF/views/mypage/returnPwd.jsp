@@ -354,7 +354,7 @@
 		    </form>
 		    
 		    <div id="formFooter">
-			      <p class="underlineHover" style="cursor:pointer" onclick="history.go(-2);">처음으로</p>
+			      <p class="underlineHover" style="cursor:pointer" onclick="loginPage.wo">처음으로</p>
 		   	</div>
 
 		</div>
