@@ -61,11 +61,13 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empInfo.wo")
-	public String empInfoView(HttpSession session) {
-		Mypage m = (Mypage)session.getAttribute("loginMan");
+	public String empInfoView(Model model) {
+		Mypage m = (Mypage)model.addAttribute("loginMan");
 
 		return "myPage/empInfo";
 	}
+	
+	
 
 	/**
 	 * 비밀번호 확인 페이지
@@ -105,16 +107,16 @@ public class MypageController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "login.wo", method = RequestMethod.POST) 
-	public String loginEmp(Mypage m, Model model, HttpSession session){
+	public String loginEmp(Mypage m, Model model){
 		  
 		  Mypage loginMan = mService.loginMan(m);
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
-			  System.out.println(m);
 			  model.addAttribute("loginMan", loginMan);
-			  return "redirect:home.wo";
+			  model.addAttribute("login", "로그인 되었습니다.");
+			  return "home";
 		  
 		  }else {
-			  model.addAttribute("msg", "사번 또는 비밀번호를 확인해주세요.");
+			  model.addAttribute("error", "사번 또는 비밀번호를 확인해주세요.");
 			  return "myPage/login";
 			  
 
@@ -181,7 +183,7 @@ public class MypageController {
 		if(result > 0) {
 			Mypage loginMan = mService.loginMan(mp);
 			model.addAttribute("loginMan",loginMan);
-			model.addAttribute("msg", "정보가 수정 되었습니다.");
+			model.addAttribute("success", "정보가 수정 되었습니다.");
 			return "home";
 		}else {
 			
@@ -202,10 +204,11 @@ public class MypageController {
 		
 		if(pwd != null && pwd.equals(mp.getPwd())) { 
 			Mypage loginMan = mService.loginMan(mp);
+			model.addAttribute("success", "새로운 비밀번호를 설정해주세요");
 			model.addAttribute("loginMan", loginMan);
 			return "myPage/changePwd";
 		}else {
-			model.addAttribute("msg", "비밀번호가 맞지 않습니다.");
+			model.addAttribute("error", "비밀번호가 맞지 않습니다.");
 			return "myPage/confirmPwd";
 			  	
 		}
@@ -225,7 +228,7 @@ public class MypageController {
 		m.setPwd(pwd);
 		int result = mService.pwdUpdate(m);		
 		if(result > 0) {
-			model.addAttribute("msg", "비밀번호가 변경 되었습니다.");
+			model.addAttribute("success", "비밀번호가 변경 되었습니다.");
 			return "myPage/login";
 		}else {
 			
@@ -250,7 +253,7 @@ public class MypageController {
 			model.addAttribute("returnPwd", returnPwd);
 			return "myPage/returnPwd";
 		}else {
-			model.addAttribute("msg", "사원정보가 맞지 않습니다.");
+			model.addAttribute("error", "사원정보가 맞지 않습니다.");
 			return "myPage/findPwd";
 			
 		}
@@ -269,7 +272,7 @@ public class MypageController {
 		System.out.println(m);
 		int result = mService.returnPwd(m);
 		if(result > 0) {
-			model.addAttribute("msg", "비밀번호가 변경 되었습니다.");
+			model.addAttribute("success", "비밀번호가 변경 되었습니다.");
 			return "myPage/login";
 		}else {
 			

@@ -11,7 +11,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
@@ -361,10 +361,22 @@
 		</div>
 	</div>
 	<script>
+	$(function(){
+		   if(${!empty success}){
+			   swal.fire({
+				type: 'success',
+				title : '${success}',
+				confirmButtonText: '확인'
+			   });
+		   }
+	   });
 	   $(function(){
-		   if(${!empty msg}){
-			   swal("${msg}");
-			   
+		   if(${!empty error}){
+			   swal.fire({
+				type: 'error',
+				title : '${error}',
+				confirmButtonText: '확인'
+			   });
 		   }
 	   });
 
