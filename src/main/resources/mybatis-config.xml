@@ -21,6 +21,7 @@
 	<typeAlias type="com.wework.workman.account.model.vo.Fixture" alias="Fixture"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.IncomeStatement" alias="IncomeStatement"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.IsState" alias="IsState"></typeAlias>
+	<typeAlias type="com.wework.workman.account.model.vo.NoticeFile" alias="NoticeFile"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.OsManage" alias="OsManage"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.Partner" alias="Partner"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.Product" alias="Product"></typeAlias>

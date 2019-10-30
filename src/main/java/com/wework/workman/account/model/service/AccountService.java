@@ -9,6 +9,7 @@ import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
+import com.wework.workman.account.model.vo.NoticeFile;
 import com.wework.workman.account.model.vo.OsManage;
 import com.wework.workman.account.model.vo.Partner;
 import com.wework.workman.account.model.vo.Product;
@@ -56,8 +57,6 @@ public interface AccountService {
 
 	int checkSalary();
 
-	int insertSalary();
-
 	ArrayList<Partner> getPartner(String partnerNum);
 
 	ArrayList<Product> getProduct(String productCode);
@@ -69,6 +68,18 @@ public interface AccountService {
 	ArrayList<Partner> partnerList();
 
 	AvgSalary avgSalary(SalaryManage salaryManage);
+
+	int checkSal();
+
+	int insertSal();
+
+	int checkYearSal();
+
+	int insertYearSalary();
+
+	int insertFile(NoticeFile nf);
+
+	NoticeFile noticeFile(String acDetail);
 
 	
 }

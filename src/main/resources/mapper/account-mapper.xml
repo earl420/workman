@@ -15,6 +15,11 @@
 		<result column="notice_status" property="noticeStatus" />
 		<result column="notice_acc_type" property="noticeAccType" />
 	</resultMap>
+	<resultMap id="noticeFiles" type="NoticeFile">
+		<result column="ATT_ORIGIN_NAME" property="originalName"></result>
+		<result column="ATT_RENAME" property="rename"></result>
+		<result column="ATT_PATH" property="path"></result>
+	</resultMap>
 	<resultMap id="empSalary" type="SalaryManage">
 		<id column="EMP_NUM" property="empNum"></id>
 		<id column="SAL_YEAR" property="salYear"></id>
@@ -345,7 +350,6 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 
 <select id="salaryList" resultMap="empSalary">
 
-	<![CDATA[
 	select EMP_NUM,SAL_YEAR,DEPT_NUM,DEPT_NAME,EMP_NAME,GRADE_NAME, round(SALARY/12) AS "MONSALARY",SALARY,
 decode((select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num), null, 0,round((salary -(select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num))/(select salary from salary where sal_year =( extract(year from sysdate)-1) and emp_num=emp_num)*100))
  as "INCREASERATE"
@@ -354,8 +358,6 @@ from salary
 		join dept using(dept_num)
 		join grade using(grade_num)
 		where sal_year in extract(year from sysdate)
-		
-	]]>
 </select>
 
 <select id="salaryDetail" resultMap="empSalary" parameterType="string">
@@ -383,4 +385,28 @@ from salary
 	
 </select>
 
+
+<select id="checkSal" resultType="_int">
+	select count(*) from journalizing 
+	where extract(month from journ_date)= extract(month from sysdate) 
+	and debt='급여'
+</select>
+<insert id="insertSal">
+	insert into journalizing values (JOURN_NUM_SEQ.nextval, sysdate, '급여', 
+	(select round(sum(SALARY)/12) from salary where sal_year=extract(year from sysdate)),
+	 '현금',(select round(sum(SALARY)/12) from salary where sal_year=extract(year from sysdate)),null)
+</insert>
+<select id="checkYearSal" resultType="_int">
+	select count(*) from salary where sal_year = extract(year from sysdate)
+</select>
+<insert id="insertYearSalary">
+	insert into salary (select emp_num, extract(year from sysdate), emp_salary from employee)
+</insert>
+<insert id="insertFile" parameterType="NoticeFile">
+	insert into attachment values (null, (select notice_num from(select notice_num from notice order by notice_num desc) where rownum=1),
+	#{originalName},#{path},#{rename})
+</insert>
+<select id="noticeFile" parameterType="string" resultMap="noticeFiles">
+	select * from attachment where DOC_NUM like '%'||#{acDetail}
+</select>
 </mapper>

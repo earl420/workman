@@ -159,7 +159,7 @@
 									<div class="form-group row" id="insertFile" style="padding-left: 30px;">
 										<label class="col-lg-1 col-form-label" for="file"></label>
 										<div class="col-lg-8" align="left">
-											<input multiple="multiple" type="file" id="file" name="file"
+											<input type="file" id="file" name="file"
 												value="파일">
 										</div>
 									</div>

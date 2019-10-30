@@ -6,5 +6,5 @@ $(function(){
 	
 })
 function paging(page){
-	location.href="acnoticeList.wo?page="+page;
+	location.href="oslist.wo?page="+page;
 }
