@@ -96,7 +96,7 @@
 		var pwd2 = document.getElementById("pwd2");
 	
 		$(function(){
-			$(pwd).on('focusout', function(){
+			$(pwd).on('change', function(){
 				
 				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}$/.test(pwd.value)){            
 					swal('숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.');
@@ -104,7 +104,7 @@
 			    }
 			});
 			
-			$(pwd2).on('focusout', function(){
+			$(pwd2).on('change', function(){
 				
 				if(pwd.value != pwd2.value){
 					swal("비밀번호가 일치하지 않습니다.");
