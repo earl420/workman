@@ -12,7 +12,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src='main.js'></script>
+
 
 <style>
     .outdiv{
@@ -249,14 +251,20 @@
 		<c:import url="common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
-	
-	<script type="text/javascript">
-		$(function(){
+	<script>
+	   $(function(){
 		   if(${!empty msg}){
-			   alert('${msg}');
+			   swal("${msg}");
 		   }
-		});
+	   });
+	   
+	   /* $(function(){
+		   if(${!empty loginMan}){
+			   swal("${loginMan.name}${loginMan.gradeName}님 로그인 되었습니다.");
+		   }
+	   }); */
 	</script>
+
 
 </body>
 </html>

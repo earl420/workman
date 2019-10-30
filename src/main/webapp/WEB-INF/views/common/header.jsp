@@ -403,18 +403,7 @@
     <script src="resources/js/gleek.js"></script>
     <script src="resources/js/styleSwitcher.js"></script>
 	
- 	<script>
- 		/* 출퇴근 버튼 스크립트 */
- 		// 출근 버튼 누르면 알림창 뜨기
- 		$("#hi").on("click", function(){
- 			alert('출근 확인되었습니다.');
- 		});
  	
- 		// 퇴근 버튼 누르면 알림창 뜨기
- 		$("#bye").on("click", function(){
- 			alert('퇴근 확인되었습니다.');
- 		});
- 	</script>
     
 
 </body>

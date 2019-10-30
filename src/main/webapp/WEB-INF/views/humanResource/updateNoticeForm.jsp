@@ -77,11 +77,17 @@
 														<textarea cols="50" rows="7" name="noticeContent">${ n.noticeContent }"</textarea>
 														<hr>
 														<h6 class="p-t-15">
-															<i class="fa fa-download mb-2"></i> Attachments <span>(3)</span>
+															<i class="fa fa-download mb-2"></i> Attachments <span><input
+																type="file" name="uploadFile"></span>
 														</h6>
 														<div class="row m-b-30">
 															<div class="col-auto">
-																<a href="#" class="text-muted">My-Photo.png</a>
+																<label class="btn mb-1 btn-rounded btn-primary"
+																	for="file-input"> <span class="btn-icon-left"><i
+																		class="fa fa-upload color-success" aria-hidden="true"></i>
+																</span>Upload
+																<input id="file-input" type="file" multiple style="display:none;">
+																</label> <a href="#" class="text-muted">My-Photo.png</a>
 															</div>
 															<div class="col-auto">
 																<a href="#" class="text-muted">My-File.docx</a>
@@ -95,12 +101,12 @@
 													<span class="float-right">
 														<button type="button"
 															class="btn mb-1 btn-rounded btn-warning"
-															onclick="location.href='notice.wo';">취소</button>
-														<c:url
+															onclick="location.href='notice.wo';">취소</button> <c:url
 															var="updateNotice" value="updateNotice.wo">
 															<c:param name="n" value="${ n }" />
 														</c:url>
-														<button type="submit" class="btn mb-1 btn-rounded btn-dark">저장하기</button>
+														<button type="submit"
+															class="btn mb-1 btn-rounded btn-dark">저장하기</button>
 													</span>
 												</form>
 											</div>
