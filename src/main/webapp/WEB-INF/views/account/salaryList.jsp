@@ -39,8 +39,8 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="fixturelist.wo">총무회계</a></li>
-						<li class="breadcrumb-item active"><a href="fixturelist.wo">사내물품관리</a></li>
+						<li class="breadcrumb-item"><a href="salarylist.wo">총무회계</a></li>
+						<li class="breadcrumb-item active"><a href="salarylist.wo">월급관리</a></li>
 					</ol>
 				</div>
 			</div>
@@ -107,12 +107,12 @@
 												</table>
 											</div>
 										</div>
-										<div align="right" style="padding-right: 50px; padding-top: 10px;">
+										<!-- <div align="right" style="padding-right: 50px; padding-top: 10px;">
 											<button type="button" onclick="location.href='expenseWrite.wo'" class="btn mb-1 btn-outline-warning"  id="insertSale"
 											 style="border-radius: 5px; width:10em;">
 												<strong>등록</strong>
 											</button>
-										</div>
+										</div> -->
 										
 										<div class="row">
 											<div class="col-sm-12 col-md-5">

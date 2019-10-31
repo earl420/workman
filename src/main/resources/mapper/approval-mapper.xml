@@ -17,6 +17,16 @@
 		<result property="confirmDate4" column="CONFIRM_DATE4"/>
 	</resultMap>
 	
+	<!-- 참조라인  -->
+	 <resultMap id="referenceResultSet" type="Reference">
+		<id property="docNum" column="DOC_NUM"/>
+		<result property="empNum1" column="EMP_NUM1"/>
+		<result property="empNum2" column="EMP_NUM2"/>
+		<result property="empNum3" column="EMP_NUM3"/>
+		<result property="empNum4" column="EMP_NUM4"/>
+	</resultMap>
+	
+	
 	<!-- 결제 정렬 -->
 	<resultMap id="conflrmSortResultSet" type="ConflrmSort">
 		<id property="pNum" column="PNUM"/>
@@ -62,6 +72,36 @@
 		<result property="approvalNum" column="APPROVAL_NUM"/>
 		<result property="confirmNum" column="CONFIRM_NUM"/>
 	</resultMap>
+	
+	<!-- 품의서 -->
+	<resultMap id="requestNumResultSet" type="Request">
+		<id property="requestNum" column="REQUEST_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="empNum" column="EMP_NUM"/>
+		<result property="requestTitle" column="REQUEST_TITLE"/>
+		<result property="requestContent" column="REQUEST_CONTENT"/>
+		<result property="requestDate" column="REQUEST_DATE"/>
+		<result property="requestStatus" column="REQUEST_STATUS"/>
+		<result property="requestComplete" column="REQUEST_COMPLETE"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+	</resultMap>
+	
+	<!-- 품의서 정렬 -->
+	<resultMap id="requestSortResultSet" type="RequestSort">
+		<id property="pNum" column="PNUM"/>
+		<result property="rNum" column="RNUM"/>
+		<result property="requestNum" column="REQUEST_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="empNum" column="EMP_NUM"/>
+		<result property="requestTitle" column="REQUEST_TITLE"/>
+		<result property="requestContent" column="REQUEST_CONTENT"/>
+		<result property="requestDate" column="REQUEST_DATE"/>
+		<result property="requestStatus" column="REQUEST_STATUS"/>
+		<result property="requestComplete" column="REQUEST_COMPLETE"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+	</resultMap>
 
 	<insert id="insertConflrm" parameterType="Conflrm">
 		 insert into CONFIRM values( CONFIRM_NUM_SEQ.nextval ,#{confirmEmp1},#{confirmEmp2},#{confirmEmp3},#{confirmEmp4},default,default,default,default)	
@@ -79,12 +119,42 @@
 		select * from draftSort where PNUM=1
 	</select>
 	
+	<insert id="insertReference" parameterType="Reference">
+		insert into Reference values(#{docNum},#{empNum1},#{empNum2},#{empNum3},#{empNum4})
+	</insert>
+	
 	<insert id="insertAttachment" parameterType="Attachment">
 		insert into Attachment values( ATT_NUM_SEQ.nextval ,#{docNum},#{attOriginalName},#{attPath},#{attRename})	
 	</insert>
 	
-	<select id="selectdraftDetail" parameterType="string" resultMap="draftNumResultSet">
+	<select id="selectDraft" parameterType="string" resultMap="draftNumResultSet">
 		select * from DOC_DRAFT where DRAFT_NUM = #{string}
+	</select>
+	
+	<select id="selectConflrm" parameterType="string" resultMap="conflrmResultSet">
+		select * from CONFIRM where CONFIRM_NUM = #{string}
+	</select>
+	
+	<select id="selectReference" parameterType="string" resultMap="referenceResultSet">
+		select * from reference where DRAFT_NUM = #{string}
+	</select>
+	
+	<select id="selectAttachment" parameterType="string" resultMap="attachmentResultSet">
+		select * from Attachment where docNum = #{string}
+	</select>	
+	
+	
+	
+	<insert id="insertRequest" parameterType="Request">
+		 insert into DOC_REQUEST values( REQUEST_NUM_SEQ.nextval ,#{deptNum},#{empNum},#{requestTitle},#{requestContent},SYSDATE,default,default,default,#{confirmNum})	
+	</insert>
+	
+	<select id="requestSort" resultMap="requestSortResultSet">
+		select * from requestSort where PNUM=1
+	</select>
+	
+	<select id="selectrequestDetail" parameterType="string" resultMap="requestNumResultSet">
+		select * from DOC_REQUEST where REQUEST_NUM = #{string}
 	</select>
 	
 	

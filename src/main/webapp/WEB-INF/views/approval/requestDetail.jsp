@@ -33,8 +33,8 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">결제문서등록</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">기안서작성</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">결제문서</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">품의서</a></li>
 					</ol>
 				</div>
 			</div>

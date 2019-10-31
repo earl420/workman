@@ -39,6 +39,8 @@
 	<typeAlias type="com.wework.workman.approval.model.vo.Request" alias="Request"/>
 	<!-- 결제자 -->
 	<typeAlias type="com.wework.workman.common.Conflrm" alias="Conflrm"/>
+	<!-- 참조자 -->
+	<typeAlias type="com.wework.workman.common.Reference" alias="Reference"/>
 	
 	<!-- 문서정렬  -->
 	<typeAlias type="com.wework.workman.common.ConflrmSort" alias="ConflrmSort"/>
