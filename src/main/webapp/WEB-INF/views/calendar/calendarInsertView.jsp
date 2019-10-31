@@ -21,6 +21,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+
+<link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />
+
+
+  <link href='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.css' rel='stylesheet' />
+
+  <link href='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.css' rel='stylesheet' />
+
+
+<script src='resources/js/demo-to-codepen.js'></script>
+
+<script src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js'></script>
+
+
+
+
+  <script src='https://unpkg.com/@fullcalendar/interaction@4.3.0/main.min.js'></script>
+
+  <script src='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.js'></script>
+
+  <script src='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.js'></script>
 <style>
        .outdiv{
             width:70%;
@@ -134,17 +155,11 @@
 
         <div class="butdiv">
             <button class="btn mb-1 btn-outline-warning" type="button" onclick="location.href='calDetailView.wo';">취소</button>
-            <button class="btn mb-1 btn-secondary save-event" type="submit" id="subBtn">등록</button>
+            <button class="btn mb-1 btn-secondary save-event" type="submit" id="save-event">등록</button>
         </div>
         <br>
     </form>	
-    
-<!--     <script>
-    $("#subBtn").on("click", function(){
 
-    </script> -->
-    
-    
 				</div>
 			</div> 
 		</div>

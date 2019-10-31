@@ -16,7 +16,7 @@
 
 	<insert id="insertCalendar" parameterType="Calendar">
 		insert into schedule
-		values(#{empNum}, #{deptNum}, #{start}, #{end}, #{userName}, #{description}, #{ctype})
+		values(#{empNum}, #{deptNum}, #{start}, #{end}, #{empNum}, #{description}, #{ctype})
 	</insert>
 	
 	<update id="updateCalendar" parameterType="string">
@@ -36,6 +36,12 @@
 		delete from schedule
 		where emp_num=#{empNum}
 	</delete>
+	
+	<select id="selectCalendar" parameterType="_int" resultMap="calendarResultSet">
+		select *
+		from schedule
+		where dept_Num=#{deptNum}
+	</select>
 	
 	
 	<!-- 출근-->

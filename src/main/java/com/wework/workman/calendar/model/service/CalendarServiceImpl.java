@@ -1,5 +1,7 @@
 package com.wework.workman.calendar.model.service;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -19,21 +21,27 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override // 일정수정
-	public int updateCalendar(int emp_num) {
+	public int updateCalendar(String empNum) {
 	
-		return cDao.updateCalendar(emp_num);
+		return cDao.updateCalendar(empNum);
 	}
 
 	@Override // 상세보기
-	public Calendar calendarDetail(int emp_num) {
+	public Calendar calendarDetail(String empNum) {
 		
-		return cDao.calendarDetail(emp_num);
+		return cDao.calendarDetail(empNum);
 	}
 
 	@Override // 삭제
-	public int deleteCalendar(int emp_num) {
+	public int deleteCalendar(String empNum) {
 		
-		return cDao.deleteCalendar(emp_num);
+		return cDao.deleteCalendar(empNum);
+	}
+
+	@Override
+	public ArrayList<Calendar> selectList(int deptNum) {
+		
+		return cDao.selectList(deptNum);
 	}
 
 }
