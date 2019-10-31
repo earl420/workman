@@ -9,6 +9,7 @@ import com.wework.workman.approval.model.vo.DraftSort;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.Conflrm;
 import com.wework.workman.common.ConflrmSort;
+import com.wework.workman.common.Reference;
 
 @Service("draftService")
 public class DraftServiceImpl implements DraftService{
@@ -31,9 +32,30 @@ public class DraftServiceImpl implements DraftService{
 		return dDao.insertAttachment(a);
 	}
 
+
 	@Override
-	public Draft selectdraftDetail(String draftNum) {
-		return dDao.selectdraftDetail(draftNum);
+	public int insertReference(Reference r) {
+		return dDao.insertReference(r);
+	}
+
+	@Override
+	public Draft selectDraft(String draftNum) {
+		return dDao.selectDraft(draftNum);
+	}
+	
+	@Override
+	public Conflrm selectConflrm(String confirmNum) {
+		return dDao.selectConflrm(confirmNum);
+	}
+
+	@Override
+	public Reference selectReference(String draftNum) {
+		return dDao.selectReference(draftNum);
+	}
+
+	@Override
+	public Attachment selectAttachment(String draftNum) {
+		return dDao.selectAttachment(draftNum);
 	}
 	
 	

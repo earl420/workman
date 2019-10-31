@@ -36,6 +36,15 @@ public class HomeController {
 		
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
+		int check = aService.checkSal();
+		if(check<1) {
+			int insertSal = aService.insertSal();
+		}
+		int check2 = aService.checkYearSal();
+		if(check2<1) {
+			int insertYearSal = aService.insertYearSalary();
+			
+		}
 		session.setAttribute("loginUser", "22");
 		model.addAttribute("flag","출");
 		Date date = new Date();
