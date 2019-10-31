@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link href="resources/account/css/aNotice.css" rel="stylesheet">
+ <link href="resources/account/css/salaryList.css" rel="stylesheet">
 </head>
 <body>
 		<!--*******************
@@ -37,47 +37,35 @@
 				
 				
 				<div class="table-responsive" style="text-align: center;">
-					<h3 style="padding-top: 40px; padding-bottom: 10px;">회계 공지사항</h3>
-					<table class="table table-bordered verticle-middle" id="acList" style="border: 1px solid black;">
+					<h3 style="padding-top: 40px; padding-bottom: 10px;">월급관리</h3>
+					<table class="table table-bordered verticle-middle" id="acList" style="border: 1px solid black; padding-left: 10px; padding-right:10px;">
 						<thead>
 							<tr>
-								<th width="10%">공지 번호</th>
-								<th width="50%">제목</th>
-								<th width="25%">게시자</th>
-								<th width="25%">등록일</th>
+								<th width="10%">직원번호</th>
+								<th width="15%">부서</th>
+								<th width="15%">이름</th>
+								<th width="10%">직책</th>
+								<th width="10%">월급</th>
+								<th width="15%">연봉</th>
+								<th width="15%">작년대비인상률</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:choose>
-								<c:when test="${empty list }">
-									<tr>
-										<td colspan="4">
-											등록된 공지사항이 없습니다.
-										</td>
-									</tr>
-								</c:when>
-								<c:otherwise>
-									<c:forEach var="i" items="${list }">
-										<tr>
-											<td>${i.noticeNum }</td>
-											<td>${i.noticeTitle }</td>
-											<td>${i.empName }</td>
-											<td>${i.noticeDate }</td>
-										</tr>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-							
-						
-							
+							<c:forEach var="i" items="${list }">
+								<tr>
+									<td>${i.empNum }</td>
+									<td>${i.deptName }</td>
+									<td>${i.empName }</td>
+									<td>${i.gradeName }</td>
+									<td>${i.monSalary }</td>
+									<td>${i.yearSalary }</td>
+									<td>${i.increaseRate }%</td>
+								</tr>
+							</c:forEach>							
 						</tbody>
 					</table>
-				</div>
-				<div align="right" style="padding-right: 50px; padding-top: 10px;">
-					<button type="button" class="btn mb-1 btn-outline-warning" 
-					onclick="location.href='aninsertpage.wo'" style="border-radius: 5px; width:10em;">
-						<strong>등록</strong>
-					</button>
+					
+						
 				</div>
 				<div align="center" style="padding-top: 20px;" >
 					<div class="pages" onclick="paging(${1});">&lt;&lt;</div>
@@ -95,6 +83,7 @@
 					<div class="pages" onclick="paging(${i+1});">&gt;</div>
 					<div class="pages" onclick="paging(${pi.maxPage});">&gt;&gt;</div>
 				</div>
+				
 			</div>
 			<!-- /.container -->
 			
@@ -103,11 +92,13 @@
 		<!--**********************************
             Content body end
         ***********************************-->
+        <div style="float: left; padding-left: 30%;">
 		<c:import url="../common/footer.jsp"></c:import>	
+        </div>
 	</div>
 	<!--**********************************
         Main wrapper end
     ***********************************-->
-	 <script src="resources/account/js/aNotice.js"></script>
+	 <script src="resources/account/js/salaryList.js"></script>
 </body>
 </html>
