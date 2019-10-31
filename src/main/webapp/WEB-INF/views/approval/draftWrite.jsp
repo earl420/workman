@@ -55,8 +55,8 @@
                                            		<div class="bootstrap-modal1">
                                            			<!-- Button trigger modal1 -->
                                             		<button type="button" class="btn mb-1 btn-rounded btn-success"
-														data-toggle="modal" data-target="#exampleModalCenter1">
-													<span class="btn-icon-left"> <i	class="fa fa-share-alt color-secondary"></i>
+														data-toggle="modal" data-target="#exampleModalCenter1" style="width: 138px;">
+													<span class="btn-icon-left"><i class="fa fa-share-alt color-secondary"></i>
 													</span>결제자선택
 													</button>
                                             	</div>
@@ -126,12 +126,12 @@
                                         	<div class="bootstrap-modal2">
                                         	<!-- Button trigger modal2 -->
                                             		<button type="button" class="btn mb-1 btn-rounded btn-secondary"
-														data-toggle="modal" data-target="#exampleModalCenter2">
+														data-toggle="modal" data-target="#exampleModalCenter2"  style="width: 138px;">
 													<span class="btn-icon-left"> <i	class="fa fa-share-alt color-secondary"></i>
 													</span>참조자선택
 													</button>
                                         	</div>
-                                     <!-- Modal -->
+                                     		<!-- Modal -->
 												<div class="modal fade" id="exampleModalCenter2" style="display: none;" aria-hidden="true">
 													<div class="modal-dialog modal-dialog-centered"role="document">
 														<div class="modal-content" style="width: 500px;">
@@ -222,7 +222,7 @@
 										</tr>
 										<tr>
                                         	<td colspan="7" align="center">
-                                        		<button type="submit" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;등록 &nbsp;</button> &nbsp;&nbsp;
+                                        		<button type="submit" id="saveBtn" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;등록 &nbsp;</button> &nbsp;&nbsp;
                                         		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;취소&nbsp;</button> &nbsp;&nbsp;
                                         		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">임시저장</button>
                                         	</td>
@@ -266,7 +266,6 @@
   var empList = new Array();
   var empList2 = new Array();
 	$(function(){
-		
 		$(".applicantSelect").find("button").on("click" ,function() {
 		var emp1 = $(this);
 		console.log(emp1.val());
@@ -394,6 +393,21 @@
 			}
 			
 		})
+		
+	$(function(){
+		$('#saveBtn').on('click', function(elClickedObj) {
+			// 에디터의 내용이 textarea에 적용된다.
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+
+			// 에디터의 내용에 대한 값 검증은 이곳에서
+			console.log(document.getElementById("ir1").value);
+			
+			try {
+				elClickedObj.form.submit();
+			} catch (e) {
+			}
+		});
+	})
 </script>
 
 </body>

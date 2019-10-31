@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +25,7 @@ import com.wework.workman.approval.model.service.DraftService;
 import com.wework.workman.approval.model.vo.Draft;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.Conflrm;
+import com.wework.workman.common.Reference;
 import com.wework.workman.humanResource.model.service.HumanResourceService;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Modal;
@@ -87,12 +87,18 @@ public class DraftController {
 	@RequestMapping("draftDetail.wo")
 	public String draftDetail(String draftNum) {
 		
-		Draft d = dService.selectdraftDetail(draftNum);
+		Draft d = dService.selectDraft(draftNum);
+		Conflrm c = dService.selectConflrm(d.getConfirmNum());
+		Reference r = dService.selectReference(draftNum);
+		Attachment a = dService.selectAttachment(draftNum);
 		System.out.println(d);
+		System.out.println(c);
+		System.out.println(r);
+		System.out.println(a);
 		return "approval/draftDetail";
 	}
 	
-	/** 기안서 디테일 화면
+	/** 기안서 등록
 	 * @return
 	 */
 	@RequestMapping("insertDraft.wo")
@@ -124,18 +130,42 @@ public class DraftController {
 			c.setConfirmEmp4(applicant[3]);
 			break;
 		}
-		System.out.println(c);
 		
 		// 승인자 추가
-		/*
-		 * for(int i =0; i<applicant.length; i++) { System.out.println("referrer : " +
-		 * referrer[i]); // 승인자 }
-		 */
-		// 적성자 추가
+		Reference r = new Reference();
+		if(!referrer.equals(null)) {
+			switch (referrer.length) {
+				case 1:
+					r.setEmpNum1(referrer[0]);
+					break;
+				case 2:
+					r.setEmpNum1(referrer[0]);
+					r.setEmpNum1(referrer[1]);
+					break;
+				case 3:
+					r.setEmpNum1(referrer[0]);
+					r.setEmpNum1(referrer[1]);
+					r.setEmpNum1(referrer[2]);
+					break;
+
+				case 4:
+					r.setEmpNum1(referrer[0]);
+					r.setEmpNum1(referrer[1]);
+					r.setEmpNum1(referrer[2]);
+					r.setEmpNum1(referrer[3]);
+					break;
+				}		
+		}
+		
 		d.setDeptNum(((Mypage)session.getAttribute("loginMan")).getDeftNum());
 		d.setEmpNum(((Mypage)session.getAttribute("loginMan")).getNum());
 		
 		String draftNum = dService.insertDraft(d,c);
+		if(!r.getEmpNum1().equals("null")) {
+			r.setDocNum(draftNum);
+			int result = dService.insertReference(r);
+		}
+		
 		Attachment a = new Attachment();
 			if(!file.getOriginalFilename().equals("")) { // 첨부파일이 넘어온 경우
 			
