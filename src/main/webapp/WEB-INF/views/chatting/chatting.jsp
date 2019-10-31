@@ -11,6 +11,8 @@
 	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <link href="resources/css/style.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>  -->
 <meta charset="UTF-8">
 <title>workman</title>
 
@@ -175,10 +177,7 @@ img {
 
 <body>
 	<!-- style="overflow:hidden" -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 	<!-- 	<!--******************* -->
 	<!--         Preloader start -->
 	<!--     ********************-->
@@ -222,14 +221,14 @@ img {
 										<input type="hidden" value="test">
 										<h5>
 
-											<i class="fas fa-cog setSpan"
-												id="dropdownMenuButton" data-toggle="dropdown"
-												aria-haspopup="true" aria-expanded="false"></i>
-<!-- 											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
-<!-- 												<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a> -->
-<!-- 												<a class="dropdown-item" onclick="addUser();">대화상대 초대</a> <a -->
-<!-- 													class="dropdown-item" onclick="exitRoom();">채팅방 나가기</a> -->
-<!-- 											</div> -->
+											<i class="fas fa-cog setSpan " id="dropdownMenuButton"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false"></i>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a>
+												<a class="dropdown-item" onclick="addUser();">대화상대 초대</a> <a
+													class="dropdown-item" onclick="exitRoom();">채팅방 나가기</a>
+											</div>
 											Sunil Rajput <span class="chat_date">Dec 25</span>
 
 										</h5>
@@ -256,17 +255,81 @@ img {
 
 								</div>
 
-								<div class="newChattingDiv bootstrap-modal">
-									<button onclick="newChat();" class="btn btn-light"
-										data-toggle="modal" data-target="#exampleModalCenter"
+								<div class="newChattingDiv bootstrap-modal1">
+									<button class="btn btn-light"
+										data-toggle="modal" data-target="#exampleModalCenter1"
 										id="select">
 										<i class="fas fa-comment-dots"></i>
 									</button>
-
-									<!-- Modal -->
-
+									
+									<div class="modal fade" id="exampleModalCenter1"
+										style="display: none;" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered"
+											role="document">
+											<div class="modal-content" style="width: 500px;">
+												<div class="modal-header">
+													<h5 class="modal-title">직원선택</h5>
+													<button type="button" class="close" data-dismiss="modal">
+														<span>×</span>
+													</button>
+												</div>
+												<div class="col-md-12">
+													<div class="modal-body">
+														<div class="row">
+															<ul class="nav nav-pills mb-3">
+																<c:forEach items="${ dlist }" var="d">
+																	<li class="nav-item"><a class="nav-link"
+																		data-toggle="tab" aria-expanded="true"
+																		href="#${d.deptName}">${d.deptName}</a></li>
+																</c:forEach>
+															</ul>
+														</div>
+														<div class="tab-content br-n pn">
+															<c:forEach items="${ dlist }" var="d">
+																<div class='tab-pane' id="${d.deptName}">
+																	<ul class="nav nav-pills mb-3">
+																		<c:forEach items="${ mlist }" var="m">
+																			<c:if test="${d.deptName eq m.deptName }">
+																				<li class="applicantSelect">
+																					<button type='button'
+																						class='btn mb-1 btn-rounded btn-outline-primary'
+																						value="${m.empNum}">${m.empName}${m.gradeName}</button>
+																				</li>
+																			</c:if>
+																			<c:if test="${d.deptName eq '전체부서' }">
+																				<li class="applicantSelect">
+																					<button type='button'
+																						class='btn mb-1 btn-rounded btn-outline-primary'
+																						value="${m.empNum}">${m.empName}${m.gradeName}</button>
+																				</li>
+																			</c:if>
+																		</c:forEach>
+																	</ul>
+																</div>
+															</c:forEach>
+														</div>
+														<div class="applicantMember box_from">
+															<ul>
+															</ul>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal" onclick="modalReset();">취소</button>
+															<button type="button" class="btn btn-primary"
+																onclick="newChat();" data-dismiss="modal">완료</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="applicant box_from">
+										<ul>
+										</ul>
+									</div>
 
 								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -301,10 +364,7 @@ img {
 						<div class="card">
 							<div class="card-body">
 								<div class="card-title">memo..etc?</div>
-								<div class="slimScrollDiv">
-
-
-								</div>
+								<div class="slimScrollDiv"></div>
 							</div>
 						</div>
 					</div>
@@ -331,7 +391,7 @@ img {
 		var userName = $("#loginName").val();//!!!!!!!!!!!!!!!1확인
 		var actiRoomId = $("#actiRoomId").val();//!!!!!!!!!!!!!확인
 		var writer;
-		var empList = new Array();
+		var empList = new Array();//모달
 		
 		$(function() {
 			connect();
@@ -387,6 +447,10 @@ img {
 			;
 			// 		$("#testTa").append(msg);
 		}
+		function newChat(){
+			console.log(empList);
+			wbSocket.send("newChat:"+empList);
+		}
 
 		//handler
 		function onMessage(evt) {
@@ -433,7 +497,7 @@ img {
 			// 			<div class="chat_list active_chat" id="RoomId">
 			// 				<input type="hidden" value="test">
 			// 				<h5>
-			// 					<i class="fas fa-cog setSpan dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+			// 					<i class="fas fa-cog setSpan " id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
 
 			// 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 			// 						<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a> 
@@ -472,9 +536,6 @@ img {
 		}
 		//		------------초기설정 끝
 
-		function newChat() {
-
-		}
 
 		//roomSetBtn
 		$("#chatListScroll").on("click", ".setSpan", function() {
@@ -499,16 +560,11 @@ img {
 		
 		
 		
-		//////////////////////////////////////////////////
+		////////////////////////Modal//////////////////////////
 		  
-  var empList = new Array();
-  var empList2 = new Array();
-	$(function(){
-		
-		$(".applicantSelect").find("button").on("click" ,function() {
+	$(".applicantSelect").find("button").on("click" ,function() {
 		var emp1 = $(this);
-		console.log(emp1.val());
-		if(empList.length >= 0 && empList.length < 4){
+		if(empList.length >= 0){
 			 empList.push(emp1.val());
 			 emp1.attr("disabled",true);
 				 var $ul = $(".applicantMember ul");
@@ -523,59 +579,22 @@ img {
 			alert("더이상 추가할수 없습니다.");
 			
 		}
-
-				$(".applicantList").find("button").on("click" ,function() {
-					var emp2 = $(this).val();
-					 
-					 for(i=0; i<empList.length; i++){
-						 if(empList[i] == emp2){
-							 empList.splice(i,1);
-							 emp1.attr("disabled",false);
-							 $(this).attr("data-dismiss",'alert'); 
-							 
-						 }
+			$(".applicantList").find("button").on("click" ,function() {
+				var emp2 = $(this).val();
+				 
+				 for(i=0; i<empList.length; i++){
+					 if(empList[i] == emp2){
+						 empList.splice(i,1);
+						 emp1.attr("disabled",false);
+						 $(this).attr("data-dismiss",'alert'); 
 					 }
-				});
+				 }
+			});
 		});
-	});
-	
-	function modalSubmit1(){
-		 
-		$.ajax({
-			 url: "submitEmpList1.wo",
-			 dataType : "json",
-			 method : 'POST',
-			 data: {"empList" : empList},
-			 success : function(data) {
-				 console.log(empList);
-				
-				 var $ul = $(".applicant ul");
-				 $ul.html("");
-				 $.each(data,function(index,value) {
-					var $li = $("<li>");
-					var $input = $("<input type='hidden' name='applicant'>").val(value.empNum);
-					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-success'>").text(value.empName + value.gradeName).val(value.empNum);
-					$li.append($button);
-					$li.append($input);
-					$ul.append($li);
-				 });
-			 },error : function() {
-				 console.log("ajax 통신실패");
-			 }
-		 });
+	function modalReset(){
+		empList = new Array();
 	}
-	
 
-		$(function(){
-			console.log("${empName}");
-			if("${empName}" !=null|| "${empName}"!=""){
-				$('#ir1').val("${empName}"+" "+"${empNum}");
-			}
-			
-		})
-		
-		
-			
-	</script>
+</script>
 </body>
 </html>

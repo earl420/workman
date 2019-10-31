@@ -52,11 +52,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			String roomId=spMsg[1];
 			msgHistory(session,roomId,userId);
 			
-		}else if(preMsg.equals("newRoom")){//룸생성
-			//newRoom.:[userId....]
-			String newRoomId= roomCreate(userId);
+		}else if(preMsg.equals("newChat")){//룸생성
+			//newChat:empList
+			System.out.println("newChat:"+spMsg);
+//			String newRoomId= roomCreate(userId);
 			//add 유저를 jsp단에서 요청할지 java단에서 요청할지 생각해볼것.//자바단 조지자
-			addUsers(newRoomId);
+//			addUsers(newRoomId);
 			
 		}else if(preMsg.equals("exitRoom")) {//룸나가기
 			//exitRoom:roomId
