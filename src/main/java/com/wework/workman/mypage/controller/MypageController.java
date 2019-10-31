@@ -80,16 +80,6 @@ public class MypageController {
 	}
 
 	/**
-	 * 사원번호 찾기 페이지
-	 * 
-	 * @return
-	 */
-	@RequestMapping("findNoPage.wo")
-	public String findNoPage() {
-		return "myPage/findNo";
-	}
-
-	/**
 	 * 비밀번호 찾기 페이지
 	 * 
 	 * @return
@@ -251,7 +241,7 @@ public class MypageController {
 		Mypage returnPwd = mService.findPwd(m);
 		if(returnPwd != null) {
 			model.addAttribute("returnPwd", returnPwd);
-			return "myPage/returnPwd";
+			return "redirect:returnPwd.wo";
 		}else {
 			model.addAttribute("error", "사원정보가 맞지 않습니다.");
 			return "myPage/findPwd";

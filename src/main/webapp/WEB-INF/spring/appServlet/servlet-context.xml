@@ -9,6 +9,8 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+
+
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -34,6 +36,19 @@
 	
 	</websocket:handlers>
 	
+	<!-- interceptor -->
+    <interceptors>
+    	<interceptor>
+    		<mapping path="/*"/>
+    		<!-- <exclude-mapping path="/"/> -->
+    		<exclude-mapping path="/loginPage.wo"/>
+    		<exclude-mapping path="/login.wo"/>
+    		<exclude-mapping path="/findPwdPage.wo"/>
+    		<exclude-mapping path="/returnPwd.wo"/>
+    		<exclude-mapping path="/logout.wo"/>
+			<beans:bean id="loginInterceptor" class="com.wework.workman.interceptor.LoginInterceptor"/>    		
+    	</interceptor>
+    </interceptors>
 
 	
 </beans:beans>
