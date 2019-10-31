@@ -1,24 +1,32 @@
 package com.wework.workman.chatting.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.wework.workman.chatting.model.vo.LoginTemp;
+import com.wework.workman.humanResource.model.service.HumanResourceService;
+import com.wework.workman.humanResource.model.vo.Dept;
+import com.wework.workman.humanResource.model.vo.Modal;
 
 
 @Controller("chattingController")
 public class ChattingController {
 //	@Resource(name="chattingService")
 //	private ChattingService cService;
-
-	public static int initialChattingDB = 0;
+	@Resource(name="humanResourceService")
+	private HumanResourceService hService;
+	
+//	public static int initialChattingDB = 0;
 
 	@RequestMapping(value = "/chatting.wo", method = RequestMethod.GET)
 	public String chattingMain(Model m,HttpSession session) throws IOException, InterruptedException, ExecutionException {
@@ -35,10 +43,44 @@ public class ChattingController {
 //		Mypage mp = (Mypage)session.getAttribute("loginMan");
 //		m.addAttribute(mp);
 		
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		ArrayList<Modal> mlist = hService.selectModalEmpList();
+		
+		m.addAttribute("dlist",dlist);
+		m.addAttribute("mlist",mlist);
+		System.out.println(dlist);
+		System.out.println(mlist);
+//		m.addObject("dlist",dlist);
+//		m.addObject("mlist",mlist);
+		
+		
 		return "chatting/chatting";
 	}
 	
+	
+	@RequestMapping("chatting.wo")
+	public ModelAndView test(ModelAndView mv ) {
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		ArrayList<Modal> mlist = hService.selectModalEmpList();
+		
+		LoginTemp loginUser = new LoginTemp();
+		loginUser.setLoginId("empId");
+		loginUser.setLoginName("empName");
+		mv.addObject("loginUser", loginUser);
+		
+		mv.addObject("dlist",dlist);
+		mv.addObject("mlist",mlist);
+		System.out.println(mlist);
+		System.out.println(dlist);
+		mv.setViewName("approval/test");
+		return mv;
+	}
 
+	
+	
+	
+	
+	
 	public static void firebase() throws IOException, InterruptedException, ExecutionException {
 		// powershell환경변수
 

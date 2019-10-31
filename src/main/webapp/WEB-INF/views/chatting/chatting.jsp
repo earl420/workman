@@ -2,13 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-<title>workman</title>
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+<link
+	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
+<link href="resources/css/style.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>workman</title>
 
 <style>
 .main-wrapper {
@@ -87,7 +91,8 @@
 	margin-left: 10px;
 	margin-right: 100px;
 }
-.msgNotice{
+
+.msgNotice {
 	background-color: #ecf0f1;
 	max-width: 100%;
 	height: auto;
@@ -151,6 +156,20 @@ img {
 .setSpan {
 	float: left;
 }
+
+/* Modal */
+.tab-content div ul li {
+	display: inline-table;
+}
+
+.box_from ul li {
+	display: inline-table;
+	padding: 0px;
+}
+
+.box_from ul li button {
+	padding: 7px 15px;
+}
 </style>
 </head>
 
@@ -180,8 +199,8 @@ img {
     ***********************************-->
 	<div id="main-wrapper">
 		<c:import url="../common/header.jsp"></c:import>
-<%-- 		<input type="hidden" value=${loginMan.num } id="loginId"> --%>
-<%-- 		<input type="hidden" value=${loginMan.name } id="loginName"> --%>
+		<%-- 		<input type="hidden" value=${loginMan.num } id="loginId"> --%>
+		<%-- 		<input type="hidden" value=${loginMan.name } id="loginName"> --%>
 		<input type="hidden" value=${loginUser.loginId } id="loginId">
 		<input type="hidden" value=${loginUser.loginName } id="loginName">
 		<input type="hidden" value="" id="actiRoomId">
@@ -198,20 +217,21 @@ img {
 							<div class="card-body">
 								<div class="card-title">ChatList</div>
 								<div class="slimScrollDiv" id="chatListScroll">
-									
+
 									<div class="chat_list active_chat" id="RoomId">
 										<input type="hidden" value="test">
 										<h5>
-										
-											<i class="fas fa-cog setSpan dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">채팅방이름변경</a> 
-												<a class="dropdown-item" href="#">Another action</a> 
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-											Sunil Rajput 
-											<span class="chat_date">Dec 25</span>
-											
+
+											<i class="fas fa-cog setSpan"
+												id="dropdownMenuButton" data-toggle="dropdown"
+												aria-haspopup="true" aria-expanded="false"></i>
+<!-- 											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
+<!-- 												<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a> -->
+<!-- 												<a class="dropdown-item" onclick="addUser();">대화상대 초대</a> <a -->
+<!-- 													class="dropdown-item" onclick="exitRoom();">채팅방 나가기</a> -->
+<!-- 											</div> -->
+											Sunil Rajput <span class="chat_date">Dec 25</span>
+
 										</h5>
 										<p>Test, which is a one roof.</p>
 									</div>
@@ -219,26 +239,32 @@ img {
 									<!-- dataToggleDiv -->
 
 									<div class="dropdown">
-										<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown
-											button
-										</button>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="#">Action</a> 
-											<a class="dropdown-item" href="#">Another action</a> 
-											<a class="dropdown-item" href="#">Something else here</a>
+										<button class="btn btn-secondary dropdown-toggle"
+											type="button" id="dropdownMenuButton" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">Dropdown
+											button</button>
+										<div class="dropdown-menu"
+											aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="#">Action</a> <a
+												class="dropdown-item" href="#">Another action</a> <a
+												class="dropdown-item" href="#">Something else here</a>
 										</div>
 									</div>
-									
-									
-									
-									
+
+
+
+
 								</div>
 
-								<div class="newChattingDiv">
-									<button onclick="newChat();" class="btn btn-light">
+								<div class="newChattingDiv bootstrap-modal">
+									<button onclick="newChat();" class="btn btn-light"
+										data-toggle="modal" data-target="#exampleModalCenter"
+										id="select">
 										<i class="fas fa-comment-dots"></i>
 									</button>
-									
+
+									<!-- Modal -->
+
 
 								</div>
 							</div>
@@ -258,7 +284,7 @@ img {
 										<input type="text" id="msgInput" onkeyDown="onKeyDown();"
 											class="form-control" placeholder="Type for..."
 											aria-label="msgInput" aria-describedby="sendBtn" disabled>
-										
+
 										<div class="input-group-append">
 											<button class="btn btn-outline-dark" id="sendBtn"
 												type="button">@Send</button>
@@ -275,7 +301,10 @@ img {
 						<div class="card">
 							<div class="card-body">
 								<div class="card-title">memo..etc?</div>
-								<div class="slimScrollDiv"></div>
+								<div class="slimScrollDiv">
+
+
+								</div>
 							</div>
 						</div>
 					</div>
@@ -302,11 +331,12 @@ img {
 		var userName = $("#loginName").val();//!!!!!!!!!!!!!!!1확인
 		var actiRoomId = $("#actiRoomId").val();//!!!!!!!!!!!!!확인
 		var writer;
-
+		var empList = new Array();
+		
 		$(function() {
 			connect();
 		});
-		
+
 		//webSocket 초기설정
 		function connect() {
 			wbSocket = new WebSocket("ws://localhost:8888/workman/chatting.ch");
@@ -316,9 +346,9 @@ img {
 		}
 
 		function onOpen(evt) {
-			writer ="msgNotice";
+			writer = "msgNotice";
 			appendMessage("연결성공");
-			
+
 			var openString = "onOpen:" + userId;
 			wbSocket.send(openString);//오픈시 룸리스트, 메세지 히스토리 받아오기.
 		}
@@ -329,8 +359,8 @@ img {
 
 		function send() {
 			var msg = $("#msgInput").val();
-			if(msg!=""){
-				wbSocket.send("msg:"+userId+":"+actiRoomId+":"+msg);
+			if (msg != "") {
+				wbSocket.send("msg:" + userId + ":" + actiRoomId + ":" + msg);
 			}
 			$("#msgInput").val("");
 		}
@@ -343,22 +373,21 @@ img {
 		$('#sendBtn').click(function() {//버튼클릭.
 			send();
 		});
-		
+
 		function appendMessage(msg) {
 			if (userId == writer) {
 				$("#chatBox").append("<li class='msgMe'>" + msg + "</li>");
-			} else if(writer == "notice"){
+			} else if (writer == "notice") {
 				$("#chatBox").append("<li class='msgNotice'>" + msg + "</li>");
-			}else{
+			} else {
 				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
 			}
 			$("#msgContent").scrollTop($("#msgContent")[0].scrollHeight);
 
-			
 			;
 			// 		$("#testTa").append(msg);
 		}
-		
+
 		//handler
 		function onMessage(evt) {
 			var data = evt.data;
@@ -379,89 +408,174 @@ img {
 				roomSetList(spData);
 			} else if (preMsg == "msgHistory") {
 				msgHistory(spData);
-			} else if (preMsg == "msg"){
+			} else if (preMsg == "msg") {
 				appendMessage(spData[3]);
-			}else{
+			} else {
 				console.log("??????");
 			}
 
-				
 		}
 
 		//--------초기설정----------
-		
+
 		//onOpen:userId
 		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 		//	<=msgHistory:sender:content:time:status
 		function roomSetList(spData) {
-			var setRoomId   = spData[1];
+			var setRoomId = spData[1];
 			var setRoomName = spData[2];
-			var setLastMan  = spData[3];
+			var setLastMan = spData[3];
 			var setLastWord = spData[4];
 			var setLastComm = spData[5];
 
-			var $divSc =$('#chatListScroll');
-			
+			var $divSc = $('#chatListScroll');
 
-// 			<div class="chat_list active_chat" id="RoomId">
-// 				<input type="hidden" value="test">
-// 				<h5>
-// 					<i class="fas fa-cog setSpan"></i> Sunil Rajput <span
-// 						class="chat_date">Dec 25</span>
-// 				</h5>
-// 				<p>Test, which is a one roof.</p>
-// 			</div>
-			
+			// 			<div class="chat_list active_chat" id="RoomId">
+			// 				<input type="hidden" value="test">
+			// 				<h5>
+			// 					<i class="fas fa-cog setSpan dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+
+			// 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			// 						<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a> 
+			// 						<a class="dropdown-item" onclick="addUser();">대화상대 초대</a> 
+			// 						<a class="dropdown-item" onclick="exitRoom();">채팅방 나가기</a>
+			// 					</div>
+
+			// 						Sunil Rajput 
+			// 					<span class="chat_date">Dec 25</span>
+			// 				</h5>
+			// 				<p>Test, which is a one roof.</p>
+			// 			</div>
+
 			var $div_chatList = $("<div class='chat_list' id='"+setRoomId+"'>");
-			var $hrId =$("<input type='hidden' value='"+setRoomId+"'>");
-			var $h5 = $("<h5>"+setRoomName+"<span class='chat_date'>"+setLastComm+"</span></h5>");
-			var $iSpan =$("<i class='fas fa-cog setSpan'></i>");
-			var $p = $("<p>"+setLastWord+"<p>");
-			
+			var $hrId = $("<input type='hidden' value='"+setRoomId+"'>");
+			var $h5 = $("<h5>" + setRoomName + "<span class='chat_date'>"
+					+ setLastComm + "</span></h5>");
+			var $iSpan = $("<i class='fas fa-cog setSpan'></i>");
+			var $p = $("<p>" + setLastWord + "<p>");
+
 			$divSc.append($div_chatList);
 			$div_chatList.append($hrId);
 			$div_chatList.append($h5);
 			$h5.append($iSpan);
+
 			$div_chatList.append($p);
-			
+
 			$("#actiRoomId").val(setRoomId);
-			actiRoomId= setRoomId;
+			actiRoomId = setRoomId;
 			// active_chat 맨위에꺼에 지정하고 룸번호날려..주나?
 		}
-		function msgHistory(spData){
+		function msgHistory(spData) {
 			writer = spData[1];
 			appendMessage(spData[2]);
 			$('#msgInput').removeAttr('disabled');
 		}
-//		------------초기설정 끝
+		//		------------초기설정 끝
 
-		function newChat(){
-	
+		function newChat() {
+
 		}
-		
+
 		//roomSetBtn
-		$("#chatListScroll").on("click", ".setSpan", function(){
-// 			alert("i");
+		$("#chatListScroll").on("click", ".setSpan", function() {
+			// 			alert("i");
 			var hrId = $(this).parent().parent().children().eq(0).val();
 			console.log(hrId);
-			
-		});
-		
-		//roomChange
-		$("#chatListScroll").on("click",".chat_list",function(){
-			var rCng =$(this).children().eq(0).val();
-// 			rCng:roomId
-			
-			
-			
-			$('#'+actiRoomId).removeClass('active_chat');
-			actiRoomId= rCng;
-			$('#actiRoomId').val(rCng);
-			$('#'+actiRoomId).addClass('active_chat');
-			wbSocket.send("rCng:"+actiRoomId);
-			$('#chatBox').empty();
+
 		});
 
+		//roomChange
+		$("#chatListScroll").on("click", ".chat_list", function() {
+			var rCng = $(this).children().eq(0).val();
+			// 			rCng:roomId
+
+			$('#' + actiRoomId).removeClass('active_chat');
+			actiRoomId = rCng;
+			$('#actiRoomId').val(rCng);
+			$('#' + actiRoomId).addClass('active_chat');
+			wbSocket.send("rCng:" + actiRoomId);
+			$('#chatBox').empty();
+		});
+		
+		
+		
+		//////////////////////////////////////////////////
+		  
+  var empList = new Array();
+  var empList2 = new Array();
+	$(function(){
+		
+		$(".applicantSelect").find("button").on("click" ,function() {
+		var emp1 = $(this);
+		console.log(emp1.val());
+		if(empList.length >= 0 && empList.length < 4){
+			 empList.push(emp1.val());
+			 emp1.attr("disabled",true);
+				 var $ul = $(".applicantMember ul");
+				var $li = $("<li class='applicantList alert'>");
+				var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(emp1.text()).val(emp1.val());
+				
+					$li.append($button);
+					$ul.append($li);
+			 
+		}
+		else {
+			alert("더이상 추가할수 없습니다.");
+			
+		}
+
+				$(".applicantList").find("button").on("click" ,function() {
+					var emp2 = $(this).val();
+					 
+					 for(i=0; i<empList.length; i++){
+						 if(empList[i] == emp2){
+							 empList.splice(i,1);
+							 emp1.attr("disabled",false);
+							 $(this).attr("data-dismiss",'alert'); 
+							 
+						 }
+					 }
+				});
+		});
+	});
+	
+	function modalSubmit1(){
+		 
+		$.ajax({
+			 url: "submitEmpList1.wo",
+			 dataType : "json",
+			 method : 'POST',
+			 data: {"empList" : empList},
+			 success : function(data) {
+				 console.log(empList);
+				
+				 var $ul = $(".applicant ul");
+				 $ul.html("");
+				 $.each(data,function(index,value) {
+					var $li = $("<li>");
+					var $input = $("<input type='hidden' name='applicant'>").val(value.empNum);
+					var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-success'>").text(value.empName + value.gradeName).val(value.empNum);
+					$li.append($button);
+					$li.append($input);
+					$ul.append($li);
+				 });
+			 },error : function() {
+				 console.log("ajax 통신실패");
+			 }
+		 });
+	}
+	
+
+		$(function(){
+			console.log("${empName}");
+			if("${empName}" !=null|| "${empName}"!=""){
+				$('#ir1').val("${empName}"+" "+"${empNum}");
+			}
+			
+		})
+		
+		
+			
 	</script>
 </body>
 </html>
