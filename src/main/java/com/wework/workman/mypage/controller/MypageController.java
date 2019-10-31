@@ -241,7 +241,7 @@ public class MypageController {
 		Mypage returnPwd = mService.findPwd(m);
 		if(returnPwd != null) {
 			model.addAttribute("returnPwd", returnPwd);
-			return "redirect:returnPwd.wo";
+			return "myPage/returnPwd";
 		}else {
 			model.addAttribute("error", "사원정보가 맞지 않습니다.");
 			return "myPage/findPwd";

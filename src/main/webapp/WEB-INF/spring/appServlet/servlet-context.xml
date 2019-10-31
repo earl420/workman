@@ -44,6 +44,7 @@
     		<exclude-mapping path="/loginPage.wo"/>
     		<exclude-mapping path="/login.wo"/>
     		<exclude-mapping path="/findPwdPage.wo"/>
+    		<exclude-mapping path="/findPwd.wo"/>
     		<exclude-mapping path="/returnPwd.wo"/>
     		<exclude-mapping path="/logout.wo"/>
 			<beans:bean id="loginInterceptor" class="com.wework.workman.interceptor.LoginInterceptor"/>    		
