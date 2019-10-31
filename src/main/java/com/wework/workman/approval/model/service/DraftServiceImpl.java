@@ -34,8 +34,8 @@ public class DraftServiceImpl implements DraftService{
 
 
 	@Override
-	public int insertReference(Reference r) {
-		return dDao.insertReference(r);
+	public int insertReference(Reference rf) {
+		return dDao.insertReference(rf);
 	}
 
 	@Override

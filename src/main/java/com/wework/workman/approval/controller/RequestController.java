@@ -25,6 +25,7 @@ import com.wework.workman.approval.model.service.RequestService;
 import com.wework.workman.approval.model.vo.Request;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.Conflrm;
+import com.wework.workman.common.Reference;
 import com.wework.workman.humanResource.model.service.HumanResourceService;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Modal;
@@ -84,11 +85,23 @@ public class RequestController {
 	 * @return
 	 */
 	@RequestMapping("requestDetail.wo")
-	public String requestDetail(String requestNum ) {
+	public ModelAndView requestDetail(String requestNum, ModelAndView mv) {
 		
-		Request r = rService.selectrequestDetail(requestNum);
+		Request r = rService.selectRequest(requestNum);
+		Conflrm c = rService.selectConflrm(r.getConfirmNum());
+		Reference rf = rService.selectReference(requestNum);
+		Attachment a = rService.selectAttachment(requestNum);
 		System.out.println(r);
-		return "approval/requestDetail";
+		System.out.println(c);
+		System.out.println(rf);
+		System.out.println(a);
+		
+		mv.addObject("r",r);
+		mv.addObject("c",c);
+		mv.addObject("rf",rf);
+		mv.addObject("a",a);
+		mv.setViewName("approval/requestDetail");
+		return mv;
 	}
 	
 	@RequestMapping("insertRequest.wo")
@@ -128,6 +141,36 @@ public class RequestController {
 				r.setEmpNum(((Mypage)session.getAttribute("loginMan")).getNum());
 				
 				String requestNum = rService.insertRequest(r,c);
+				
+				// 승인자 추가
+				Reference rf = new Reference();
+				System.out.println("===================================");
+				System.out.println(referrer);
+				if(referrer != null) {
+					switch (referrer.length) {
+						case 1:
+							rf.setEmpNum1(referrer[0]);
+							break;
+						case 2:
+							rf.setEmpNum1(referrer[0]);
+							rf.setEmpNum1(referrer[1]);
+							break;
+						case 3:
+							rf.setEmpNum1(referrer[0]);
+							rf.setEmpNum1(referrer[1]);
+							rf.setEmpNum1(referrer[2]);
+							break;
+
+						case 4:
+							rf.setEmpNum1(referrer[0]);
+							rf.setEmpNum1(referrer[1]);
+							rf.setEmpNum1(referrer[2]);
+							rf.setEmpNum1(referrer[3]);
+							break;
+						}
+					rf.setDocNum(requestNum);
+					int result = rService.insertReference(rf);
+				}
 				
 				Attachment a = new Attachment();
 				if(!file.getOriginalFilename().equals("")) { // 첨부파일이 넘어온 경우

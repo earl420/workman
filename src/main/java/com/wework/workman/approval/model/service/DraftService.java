@@ -12,7 +12,7 @@ public interface DraftService {
 	
 	// 참조자 등록
 	
-	int insertReference(Reference r);
+	int insertReference(Reference rf);
 	
 	// 파일 등록
 	int insertFile(Attachment a);

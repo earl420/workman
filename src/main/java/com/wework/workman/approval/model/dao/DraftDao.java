@@ -36,8 +36,8 @@ public class DraftDao {
 		return sqlSession.insert("approvalMapper.insertAttachment", a);
 	}
 
-	public int insertReference(Reference r) {
-		return sqlSession.insert("approvalMapper.insertReference" , r);
+	public int insertReference(Reference rf) {
+		return sqlSession.insert("approvalMapper.insertReference" , rf);
 	}
 	
 	// 디테일 불러오기

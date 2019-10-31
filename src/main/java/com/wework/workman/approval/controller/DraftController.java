@@ -85,17 +85,24 @@ public class DraftController {
 	 * @return
 	 */
 	@RequestMapping("draftDetail.wo")
-	public String draftDetail(String draftNum) {
+	public ModelAndView draftDetail(String draftNum, ModelAndView mv) {
 		
 		Draft d = dService.selectDraft(draftNum);
 		Conflrm c = dService.selectConflrm(d.getConfirmNum());
-		Reference r = dService.selectReference(draftNum);
+		Reference rf = dService.selectReference(draftNum);
 		Attachment a = dService.selectAttachment(draftNum);
+		
 		System.out.println(d);
 		System.out.println(c);
-		System.out.println(r);
+		System.out.println(rf);
 		System.out.println(a);
-		return "approval/draftDetail";
+		
+		mv.addObject("d",d);
+		mv.addObject("c",c);
+		mv.addObject("rf",rf);
+		mv.addObject("a",a);
+		mv.setViewName("approval/draftDetail");
+		return mv;
 	}
 	
 	/** 기안서 등록
@@ -131,39 +138,40 @@ public class DraftController {
 			break;
 		}
 		
-		// 승인자 추가
-		Reference r = new Reference();
-		if(!referrer.equals(null)) {
-			switch (referrer.length) {
-				case 1:
-					r.setEmpNum1(referrer[0]);
-					break;
-				case 2:
-					r.setEmpNum1(referrer[0]);
-					r.setEmpNum1(referrer[1]);
-					break;
-				case 3:
-					r.setEmpNum1(referrer[0]);
-					r.setEmpNum1(referrer[1]);
-					r.setEmpNum1(referrer[2]);
-					break;
-
-				case 4:
-					r.setEmpNum1(referrer[0]);
-					r.setEmpNum1(referrer[1]);
-					r.setEmpNum1(referrer[2]);
-					r.setEmpNum1(referrer[3]);
-					break;
-				}		
-		}
-		
 		d.setDeptNum(((Mypage)session.getAttribute("loginMan")).getDeftNum());
 		d.setEmpNum(((Mypage)session.getAttribute("loginMan")).getNum());
 		
 		String draftNum = dService.insertDraft(d,c);
-		if(!r.getEmpNum1().equals("null")) {
-			r.setDocNum(draftNum);
-			int result = dService.insertReference(r);
+		System.out.println(draftNum);
+		
+		// 승인자 추가
+		Reference rf = new Reference();
+		System.out.println("===================================");
+		System.out.println(referrer);
+		if(referrer != null) {
+			switch (referrer.length) {
+				case 1:
+					rf.setEmpNum1(referrer[0]);
+					break;
+				case 2:
+					rf.setEmpNum1(referrer[0]);
+					rf.setEmpNum1(referrer[1]);
+					break;
+				case 3:
+					rf.setEmpNum1(referrer[0]);
+					rf.setEmpNum1(referrer[1]);
+					rf.setEmpNum1(referrer[2]);
+					break;
+
+				case 4:
+					rf.setEmpNum1(referrer[0]);
+					rf.setEmpNum1(referrer[1]);
+					rf.setEmpNum1(referrer[2]);
+					rf.setEmpNum1(referrer[3]);
+					break;
+				}
+			rf.setDocNum(draftNum);
+			int result = dService.insertReference(rf);
 		}
 		
 		Attachment a = new Attachment();

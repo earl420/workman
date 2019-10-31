@@ -9,6 +9,7 @@ import com.wework.workman.approval.model.vo.RequestSort;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.Conflrm;
 import com.wework.workman.common.ConflrmSort;
+import com.wework.workman.common.Reference;
 
 @Repository("requestDao")
 public class RequestDao {
@@ -32,7 +33,23 @@ public class RequestDao {
 		return sqlSession.insert("approvalMapper.insertAttachment", a);
 	}
 
-	public Request selectrequestDetail(String requestNum) {
-		return sqlSession.selectOne("approvalMapper.selectrequestDetail", requestNum);
+	public int insertReference(Reference rf) {
+		return sqlSession.insert("approvalMapper.insertReference", rf);
+	}
+
+	public Request selectRequest(String requestNum) {
+		return sqlSession.selectOne("approvalMapper.selectRequest", requestNum);
+	}
+
+	public Conflrm selectConflrm(String confirmNum) {
+		return sqlSession.selectOne("approvalMapper.selectConflrm",confirmNum);
+	}
+
+	public Reference selectReference(String requestNum) {
+		return sqlSession.selectOne("approvalMapper.selectReference", requestNum);
+	}
+
+	public Attachment selectAttachment(String requestNum) {
+		return sqlSession.selectOne("approvalMapper.selectAttachment", requestNum);
 	}
 }

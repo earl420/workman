@@ -44,7 +44,7 @@
 	</resultMap>
 	
 	<!-- 기안서 -->
-	<resultMap id="draftNumResultSet" type="Draft">
+	<resultMap id="draftResultSet" type="Draft">
 		<id property="draftNum" column="DRAFT_NUM"/>
 		<result property="deptNum" column="DEPT_NUM"/>
 		<result property="empNum" column="EMP_NUM"/>
@@ -74,7 +74,7 @@
 	</resultMap>
 	
 	<!-- 품의서 -->
-	<resultMap id="requestNumResultSet" type="Request">
+	<resultMap id="requestResultSet" type="Request">
 		<id property="requestNum" column="REQUEST_NUM"/>
 		<result property="deptNum" column="DEPT_NUM"/>
 		<result property="empNum" column="EMP_NUM"/>
@@ -102,6 +102,36 @@
 		<result property="approvalNum" column="APPROVAL_NUM"/>
 		<result property="confirmNum" column="CONFIRM_NUM"/>
 	</resultMap>
+	
+	<!-- 휴가 -->
+	<resultMap id="holidayResultSet" type="Holiday">
+		<id property="holiNum" column="HOLI_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="empNum" column="EMP_NUM"/>
+		<result property="holiType" column="HOLI_TYPE"/>
+		<result property="holiApply" column="HOLI_APPLY"/>
+		<result property="holidayStart" column="HOLIDAY_START"/>
+		<result property="holidayEnd" column="HOLIDAY_END"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+		<result property="holidayStatus" column="HOLIDAY_STATUS"/>
+	</resultMap>
+	
+	<!-- 휴가 문서 정렬 -->
+	<resultMap id="holidaySortResultSet" type="HolidaySort">
+		<id property="pNum" column="PNUM"/>
+		<result property="rNum" column="RNUM"/>
+		<result property="holiNum" column="HOLI_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="empNum" column="EMP_NUM"/>
+		<result property="holiType" column="HOLI_TYPE"/>
+		<result property="holiApply" column="HOLI_APPLY"/>
+		<result property="holidayStart" column="HOLIDAY_START"/>
+		<result property="holidayEnd" column="HOLIDAY_END"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+		<result property="holidayStatus" column="HOLIDAY_STATUS"/>
+	</resultMap>
 
 	<insert id="insertConflrm" parameterType="Conflrm">
 		 insert into CONFIRM values( CONFIRM_NUM_SEQ.nextval ,#{confirmEmp1},#{confirmEmp2},#{confirmEmp3},#{confirmEmp4},default,default,default,default)	
@@ -127,7 +157,7 @@
 		insert into Attachment values( ATT_NUM_SEQ.nextval ,#{docNum},#{attOriginalName},#{attPath},#{attRename})	
 	</insert>
 	
-	<select id="selectDraft" parameterType="string" resultMap="draftNumResultSet">
+	<select id="selectDraft" parameterType="string" resultMap="draftResultSet">
 		select * from DOC_DRAFT where DRAFT_NUM = #{string}
 	</select>
 	
@@ -136,11 +166,11 @@
 	</select>
 	
 	<select id="selectReference" parameterType="string" resultMap="referenceResultSet">
-		select * from reference where DRAFT_NUM = #{string}
+		select * from reference where DOC_NUM = #{string}
 	</select>
 	
 	<select id="selectAttachment" parameterType="string" resultMap="attachmentResultSet">
-		select * from Attachment where docNum = #{string}
+		select * from Attachment where DOC_NUM = #{string}
 	</select>	
 	
 	
@@ -153,9 +183,25 @@
 		select * from requestSort where PNUM=1
 	</select>
 	
-	<select id="selectrequestDetail" parameterType="string" resultMap="requestNumResultSet">
+	<select id="selectRequest" parameterType="string" resultMap="requestResultSet">
 		select * from DOC_REQUEST where REQUEST_NUM = #{string}
 	</select>
+	
+	<insert id="insertHoliday" parameterType="Holiday">
+		 insert into DOC_HOLIDAY values( HOLI_NUM_SEQ.nextval ,#{deptNum},#{empNum},#{holiType},SYSDATE,#{holidayStart},#{holidayEnd},default,#{confirmNum},'Y')	
+	</insert>
+	
+	<select id="holidaySort" resultMap="holidaySortResultSet">
+		select * from holidaySort where PNUM=1
+	</select>
+	
+	<select id="selectHoliday" parameterType="string" resultMap="holidayResultSet">
+		select * from DOC_HOLIDAY where HOLI_NUM = #{string}
+	</select>
+	
+	
+	
+	
 	
 	
 
