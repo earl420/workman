@@ -77,7 +77,23 @@ document.addEventListener('DOMContentLoaded', function() {
         //alert('selected ' + info.startStr + ' to ' + info.endStr);
         location.href= 'calInsertView.wo';
       }
-    });
+          /* 	, eventSources: [{
+             	  events: function(info, successCallback, failureCallback) {
+             		   $.ajax({
+             			   url:'calInsertView.wo',
+             			   type:'post',
+             			   dataType:'json',
+             			   data:{
+             				   start: info.startStr,
+             			       end: info.endStr
+             			   },
+             			   success: function(data){
+             				   successCallback(data);
+             			   }
+             		   });
+             		  }
+               }]*/
+          }); 
 
     calendar.render();
   });

@@ -7,5 +7,12 @@
 	
 	<!-- 빈으로 등록을 해야만 autowired로 쓸수있다. -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	
+	
+
+
+	
+
+
 
 </beans>

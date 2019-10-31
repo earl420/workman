@@ -21,8 +21,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-
-
 <style>
        .outdiv{
             width:70%;
@@ -136,14 +134,21 @@
 
         <div class="butdiv">
             <button class="btn mb-1 btn-outline-warning" type="button" onclick="location.href='calDetailView.wo';">취소</button>
-            <button class="btn mb-1 btn-secondary" type="submit">등록</button>
+            <button class="btn mb-1 btn-secondary save-event" type="submit" id="subBtn">등록</button>
         </div>
         <br>
     </form>	
+    
+<!--     <script>
+    $("#subBtn").on("click", function(){
+
+    </script> -->
+    
+    
 				</div>
 			</div> 
 		</div>
-
+		
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 </body>

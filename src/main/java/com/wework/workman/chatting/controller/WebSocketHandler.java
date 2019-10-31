@@ -94,6 +94,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 //		msg:userId:RoomId:msgCont
 		String[] spData = message.getPayload().split(":",3);
 		String rId= spData[3];
+		System.out.println(spData.toString());
 		for(String key : userRoom.keySet()) {
 			String value = userRoom.get(key);
 			if(value == rId) {
@@ -137,8 +138,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			String lastComm=i.getLastComm().toString();
 			String roomSetList="roomSetList:"+rId +":"+rName+":"+ lastWord+":"+lastMan+":"+lastComm;
 			TextMessage tx = new TextMessage(roomSetList);
-			
-			
 			msgSend(session,tx,uId);
 			roomId = i.getRoomId();
 			

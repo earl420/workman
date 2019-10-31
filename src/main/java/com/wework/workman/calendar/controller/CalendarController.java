@@ -42,7 +42,7 @@ public class CalendarController {
 	  
 	
 	  // 일정등록 뷰
-	  @RequestMapping("calInsertView.wo") 
+	  @RequestMapping("calInsertViewNew.wo") 
 	  public String calendarInsertView() {
 	  
 	  return "calendar/calendarInsertView"; }
@@ -54,7 +54,7 @@ public class CalendarController {
 	public String insertCalendar(Calendar c, Model model) {
 		 int result = cService.insertCalendar(c);
 			model.addAttribute("result", result);
-		 return "calendar/calendarInsert";
+		 return "calendar/calendarDetailViewNew";
 		/*
 		 * int result = cService.insertCalendar(c);
 		 * 

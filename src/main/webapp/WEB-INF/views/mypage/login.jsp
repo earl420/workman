@@ -17,7 +17,7 @@
 	href="resources/icons/logo1.png">
 
 <meta charset="UTF-8">
-<title>WEworks</title>
+<title>로그인</title>
 <style>
 	html {
 	  background-color: #56baed;

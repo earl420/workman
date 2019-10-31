@@ -80,16 +80,6 @@ public class MypageController {
 	}
 
 	/**
-	 * 사원번호 찾기 페이지
-	 * 
-	 * @return
-	 */
-	@RequestMapping("findNoPage.wo")
-	public String findNoPage() {
-		return "myPage/findNo";
-	}
-
-	/**
 	 * 비밀번호 찾기 페이지
 	 * 
 	 * @return
