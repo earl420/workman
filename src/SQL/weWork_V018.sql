@@ -1591,6 +1591,52 @@ JOIN GRADE USING(GRADE_NUM)
 JOIN DEPT USING(DEPT_NUM)
 ORDER BY DEPT_NUM, GRADE_NUM desc;
 
+-- 결재자 문서 순서정렬 뷰
+create or replace view ConflrmSort as
+select ROWNUM PNUM, B.* from
+(
+SELECT ROWNUM RNUM, A.* 
+FROM (SELECT CONFIRM_NUM FROM CONFIRM ) A
+ORDER BY 1 DESC
+)B;
+
+-- 기안 문서 순서정렬 뷰
+create or replace view DRAFTSort as
+select ROWNUM PNUM, B.* from
+(
+SELECT ROWNUM RNUM, A.* 
+FROM (SELECT * FROM DOC_DRAFT ) A
+ORDER BY 1 DESC
+)B;
+
+-- 지출 문서 순서정렬 뷰
+create or replace view EXPENSESort as
+select ROWNUM PNUM, B.* from
+(
+SELECT ROWNUM RNUM, A.* 
+FROM (SELECT * FROM DOC_EXPENSE ) A
+ORDER BY 1 DESC
+)B;
+
+-- 휴가 문서 순서정렬 뷰
+create or replace view HOLIDAYSort as
+select ROWNUM PNUM, B.* from
+(
+SELECT ROWNUM RNUM, A.* 
+FROM (SELECT * FROM DOC_HOLIDAY ) A
+ORDER BY 1 DESC
+)B;
+
+-- 품의 문서 순서정렬 뷰
+create or replace view REQUESTSort as
+select ROWNUM PNUM, B.* from
+(
+SELECT ROWNUM RNUM, A.* 
+FROM (SELECT * FROM DOC_REQUEST ) A
+ORDER BY 1 DESC
+)B;
+
+
 commit;
 
 --DATA
@@ -2161,4 +2207,6 @@ insert into product values (null, '비싼거', 100000000);
 insert into salary (select emp_num, extract(year from sysdate), emp_salary from employee);
 insert into salary values('20190001',2018, 24000000);
 
-commit;
+
+
+

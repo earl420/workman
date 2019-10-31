@@ -83,7 +83,8 @@
             </div>
           </div>
         </div>
-        
+       
+
         <div class="inlinediv" style="width: 25%;">
            <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -109,7 +110,7 @@
 			  	String strTime = sdf2.format(time);
 			  	/* 현재시간 value값으로 박으려고 */
             %>
-            <input type="date" id="start" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="startDay" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             <input type="time" id="startTime" value="<%= strTime %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
@@ -133,14 +134,21 @@
 
         <div class="butdiv">
             <button class="btn mb-1 btn-outline-warning" type="button" onclick="location.href='calDetailView.wo';">취소</button>
-            <button class="btn mb-1 btn-secondary" type="submit">등록</button>
+            <button class="btn mb-1 btn-secondary save-event" type="submit" id="subBtn">등록</button>
         </div>
         <br>
     </form>	
+    
+<!--     <script>
+    $("#subBtn").on("click", function(){
+
+    </script> -->
+    
+    
 				</div>
 			</div> 
 		</div>
-	
+		
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 </body>

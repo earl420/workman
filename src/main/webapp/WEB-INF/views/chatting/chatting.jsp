@@ -199,12 +199,47 @@ img {
 								<div class="card-title">ChatList</div>
 								<div class="slimScrollDiv" id="chatListScroll">
 									
+									<div class="chat_list active_chat" id="RoomId">
+										<input type="hidden" value="test">
+										<h5>
+										
+											<i class="fas fa-cog setSpan dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" href="#">채팅방이름변경</a> 
+												<a class="dropdown-item" href="#">Another action</a> 
+												<a class="dropdown-item" href="#">Something else here</a>
+											</div>
+											Sunil Rajput 
+											<span class="chat_date">Dec 25</span>
+											
+										</h5>
+										<p>Test, which is a one roof.</p>
+									</div>
+
+									<!-- dataToggleDiv -->
+
+									<div class="dropdown">
+										<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown
+											button
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="#">Action</a> 
+											<a class="dropdown-item" href="#">Another action</a> 
+											<a class="dropdown-item" href="#">Something else here</a>
+										</div>
+									</div>
+									
+									
+									
+									
 								</div>
 
 								<div class="newChattingDiv">
 									<button onclick="newChat();" class="btn btn-light">
 										<i class="fas fa-comment-dots"></i>
 									</button>
+									
+
 								</div>
 							</div>
 						</div>
@@ -222,7 +257,8 @@ img {
 									<div class="input-group mb-3 msgInputDiv">
 										<input type="text" id="msgInput" onkeyDown="onKeyDown();"
 											class="form-control" placeholder="Type for..."
-											aria-label="msgInput" aria-describedby="sendBtn">
+											aria-label="msgInput" aria-describedby="sendBtn" disabled>
+										
 										<div class="input-group-append">
 											<button class="btn btn-outline-dark" id="sendBtn"
 												type="button">@Send</button>
@@ -293,8 +329,9 @@ img {
 
 		function send() {
 			var msg = $("#msgInput").val();
-			wbSocket.send("msg:"+userId+":"+actiRoomId+":"+msg);
-			
+			if(msg!=""){
+				wbSocket.send("msg:"+userId+":"+actiRoomId+":"+msg);
+			}
 			$("#msgInput").val("");
 		}
 		function onKeyDown() {
@@ -327,7 +364,6 @@ img {
 			var data = evt.data;
 			var spData = data.split(":");
 			var preMsg = spData[0];
-
 			//onOpen:userId
 			//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 			//	<=msgHistory:sender:content:time:status
@@ -382,14 +418,11 @@ img {
 			var $iSpan =$("<i class='fas fa-cog setSpan'></i>");
 			var $p = $("<p>"+setLastWord+"<p>");
 			
-			
-			
 			$divSc.append($div_chatList);
 			$div_chatList.append($hrId);
 			$div_chatList.append($h5);
 			$h5.append($iSpan);
 			$div_chatList.append($p);
-			
 			
 			$("#actiRoomId").val(setRoomId);
 			actiRoomId= setRoomId;
@@ -398,6 +431,7 @@ img {
 		function msgHistory(spData){
 			writer = spData[1];
 			appendMessage(spData[2]);
+			$('#msgInput').removeAttr('disabled');
 		}
 //		------------초기설정 끝
 
@@ -405,9 +439,9 @@ img {
 	
 		}
 		
-		//roomSetB
+		//roomSetBtn
 		$("#chatListScroll").on("click", ".setSpan", function(){
-			alert("i");
+// 			alert("i");
 			var hrId = $(this).parent().parent().children().eq(0).val();
 			console.log(hrId);
 			
@@ -416,8 +450,7 @@ img {
 		//roomChange
 		$("#chatListScroll").on("click",".chat_list",function(){
 			var rCng =$(this).children().eq(0).val();
-			
-// 			console.log("rCng : "+rCng);
+// 			rCng:roomId
 			
 			
 			
@@ -427,8 +460,6 @@ img {
 			$('#'+actiRoomId).addClass('active_chat');
 			wbSocket.send("rCng:"+actiRoomId);
 			$('#chatBox').empty();
-// 			rCng:roomId
-// 			console.log("#actiRoomId : "+$('#actiRoomId').val());
 		});
 
 	</script>

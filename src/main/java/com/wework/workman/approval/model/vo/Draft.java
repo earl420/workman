@@ -10,7 +10,7 @@ public class Draft {
 	private String draftTitle;			// 기안제목
 	private String draftContent;		// 기안내용
 	private Date draftDate;				// 기안일시
-	private String draftStatus;			// 상태      Y :등록시 대기 , N:반려,  P:진행 , C:완료  
+	private String draftStatus;			// 상태      Y :등록시 대기 , N:반려,  P:진행 , C:완료 
 	private Date draftComplete;			// 완료일시
 	private String approvalNum;			// 승인번호
 	private String confirmNum;			// 결제번호

@@ -4,4 +4,89 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="approvalMapper">
 
+	<!-- 결제라인 -->
+	 <resultMap id="conflrmResultSet" type="Conflrm">
+		<id property="confirmNum" column="CONFIRM_NUM"/>
+		<result property="confirmEmp1" column="CONFIRM_EMP1"/>
+		<result property="confirmEmp2" column="CONFIRM_EMP2"/>
+		<result property="confirmEmp3" column="CONFIRM_EMP3"/>
+		<result property="confirmEmp4" column="CONFIRM_EMP4"/>
+		<result property="confirmDate1" column="CONFIRM_DATE1"/>
+		<result property="confirmDate2" column="CONFIRM_DATE2"/>
+		<result property="confirmDate3" column="CONFIRM_DATE3"/>
+		<result property="confirmDate4" column="CONFIRM_DATE4"/>
+	</resultMap>
+	
+	<!-- 결제 정렬 -->
+	<resultMap id="conflrmSortResultSet" type="ConflrmSort">
+		<id property="pNum" column="PNUM"/>
+		<result property="rNum" column="RNUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+	</resultMap>
+	
+	<!-- 파일 -->
+	<resultMap id="attachmentResultSet" type="Attachment">
+		<id property="attNum" column="ATT_NUM"/>
+		<result property="docNum" column="DOC_NUM"/>
+		<result property="attOriginalName" column="ATT_ORIGIN_NAME"/>
+		<result property="attPath" column="ATT_PATH"/>
+		<result property="attRename" column="ATT_RENAME"/>
+	</resultMap>
+	
+	<!-- 기안서 -->
+	<resultMap id="draftNumResultSet" type="Draft">
+		<id property="draftNum" column="DRAFT_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="empNum" column="EMP_NUM"/>
+		<result property="draftTitle" column="DRAFT_TITLE"/>
+		<result property="draftContent" column="DRAFT_CONTENT"/>
+		<result property="draftDate" column="DRAFT_DATE"/>
+		<result property="draftStatus" column="DRAFT_STATUS"/>
+		<result property="draftComplete" column="DRAFT_COMPLETE"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+	</resultMap>
+	
+	<!-- 기안서  정렬 -->
+	<resultMap id="draftSortResultSet" type="DraftSort">
+		<id property="pNum" column="PNUM"/>
+		<result property="rNum" column="RNUM"/>
+		<result property="draftNum" column="DRAFT_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="empNum" column="EMP_NUM"/>
+		<result property="draftTitle" column="DRAFT_TITLE"/>
+		<result property="draftContent" column="DRAFT_CONTENT"/>
+		<result property="draftDate" column="DRAFT_DATE"/>
+		<result property="draftStatus" column="DRAFT_STATUS"/>
+		<result property="draftComplete" column="DRAFT_COMPLETE"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+	</resultMap>
+
+	<insert id="insertConflrm" parameterType="Conflrm">
+		 insert into CONFIRM values( CONFIRM_NUM_SEQ.nextval ,#{confirmEmp1},#{confirmEmp2},#{confirmEmp3},#{confirmEmp4},default,default,default,default)	
+	</insert>
+	
+	<select id="conflrmSort" resultMap="conflrmSortResultSet">
+		select * from ConflrmSort where PNUM=1
+	</select>
+	
+	<insert id="insertDraft" parameterType="Draft">
+		 insert into DOC_DRAFT values( DRAFT_NUM_SEQ.nextval ,#{deptNum},#{empNum},#{draftTitle},#{draftContent},SYSDATE,default,default,default,#{confirmNum})	
+	</insert>
+	
+	<select id="draftSort" resultMap="draftSortResultSet">
+		select * from draftSort where PNUM=1
+	</select>
+	
+	<insert id="insertAttachment" parameterType="Attachment">
+		insert into Attachment values( ATT_NUM_SEQ.nextval ,#{docNum},#{attOriginalName},#{attPath},#{attRename})	
+	</insert>
+	
+	<select id="selectdraftDetail" parameterType="string" resultMap="draftNumResultSet">
+		select * from DOC_DRAFT where DRAFT_NUM = #{string}
+	</select>
+	
+	
+
 </mapper>

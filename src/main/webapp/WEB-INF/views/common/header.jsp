@@ -6,7 +6,6 @@
 <html lang="ko">
 
 <head>
-    
     <script src="https://kit.fontawesome.com/ee2dc8e60a.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--&nbsp;Custom Stylesheet -->
@@ -105,7 +104,6 @@
 				</div>
 				
 				<script>
-					console.log('${flag}');
 						/* 출퇴근 버튼 스크립트 */
 				 		$(function(){
 				 			$(".btn-warning").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
