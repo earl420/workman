@@ -62,9 +62,7 @@ public class MypageController {
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		
 		int empCount = mService.empCount();
-		
 		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
-		
 		ArrayList<EmpList> list = mService.empList(pi);
 		for (int i = 0; i < list.size(); i++) {
 			String eNum = list.get(i).getNum().substring(6);
@@ -76,20 +74,6 @@ public class MypageController {
 		
 		return mv;
 	}
-	
-	@RequestMapping("empView.wo")
-	public ModelAndView(ModelAndView mv,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
-		
-		int empCount = mService.empCount();
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
-		
-		
-		
-		
-	}
-	
 	
 
 	/**

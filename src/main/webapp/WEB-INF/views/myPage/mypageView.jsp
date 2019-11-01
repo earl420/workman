@@ -156,7 +156,7 @@
 																id="DataTables_Table_0_previous">Previous</li>
 														</c:if>
 														<c:if test="${ pi.currentPage ne 1 }">
-															<c:url value="empView.wo" var="before">
+															<c:url value="mypageView.wo" var="before">
 																<c:param name="currentPage"
 																	value="${ pi.currentPage - 1 }" />
 															</c:url>
@@ -175,7 +175,7 @@
 																	data-dt-idx="1" tabindex="0" class="page-link">${ p }</a></li>
 															</c:if>
 															<c:if test="${ p ne pi.currentPage }">
-																<c:url value="empView.wo" var="page">
+																<c:url value="mypageView.wo" var="page">
 																	<c:param name="currentPage" value="${ p }" />
 																</c:url>
 																<li class="paginate_button page-item "><a
@@ -191,7 +191,7 @@
 																id="DataTables_Table_0_next">Next</li>
 														</c:if>
 														<c:if test="${ pi.currentPage ne pi.maxPage }">
-															<c:url value="empView.wo" var="next">
+															<c:url value="mypageView.wo" var="next">
 																<c:param name="currentPage"
 																	value="${ pi.currentPage + 1 }" />
 															</c:url>
