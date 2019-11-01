@@ -226,7 +226,11 @@ public class AccountController {
 	@RequestMapping("salarylist.wo")
 	public String salaryList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
 			Model model) {
-		
+		int check2 = aService.checkYearSal();
+		if(check2<1) {
+			int insertYearSal = aService.insertYearSalary();
+			
+		}
 		int listCount = aService.getSalaryListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<SalaryManage> list = aService.salaryList(pi);

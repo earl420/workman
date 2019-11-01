@@ -81,4 +81,13 @@ public interface HumanResourceService {
 	
 	// 부서 이름으로 직원 불러오기
 	ArrayList<Employee> elistByName(String deptName);
+	
+	
+	
+	
+	//연차 갯수 업데이트 되었나확인
+	int checkHolidayCount();
+	
+	//연차 갯수 업데이트 
+	int updateHolidayCount();
 }
