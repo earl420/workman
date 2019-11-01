@@ -45,7 +45,7 @@
 					<div class="card">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h4>기안서</h4>
+                                    <h4>지출결의서</h4>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table">

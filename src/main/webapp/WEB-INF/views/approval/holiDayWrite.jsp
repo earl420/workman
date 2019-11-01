@@ -198,8 +198,8 @@
 												<div class="dataform">
 													<div id="date-range" class="input-daterange" align="center" > 
 														<label>날짜선택</label> <br>
-                                                		<input type="text" class="form-control" name="start"  style="display:inline-table; width:200px;"> <span class="input-group-addon bg-info b-0 text-white">~</span>
-                                                		<input type="text" class="form-control" name="end" style="display:inline-table; width:200px;">
+                                                		<input type="text" class="form-control" name="daterangepicker_start"  style="display:inline-table; width:200px;"> <span class="input-group-addon bg-info b-0 text-white">~</span>
+                                                		<input type="text" class="form-control" name="daterangepicker_end" style="display:inline-table; width:200px;">
                                             		</div>
 													<div align="center"> 
 														<label>휴가종류</label><br>
