@@ -16,10 +16,9 @@ public class ChattingDao {
 	private SqlSessionTemplate sqlSession;
 	
 	
-//	private SqlSessionTemplate test = new SqlSessionTemplate(null, null, null);
 	
+	//userId에대한 채팅방 리스트, 채팅방들의 마지막전송일시,전송자, 메세지내용
 	public ArrayList<Room>getRoomList(String userId){
-		
 		List<String> list = (List)sqlSession.selectList("chattingMapper.userRoomList",userId);
 		
 		ArrayList<Room> setList = new ArrayList<>();

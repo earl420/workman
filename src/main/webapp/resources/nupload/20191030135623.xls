@@ -1,0 +1,106 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	
+		
+			<table>
+				<thead>
+					<tr>
+						<td colspan="4">19/02/03 재무상태표</td>
+					</tr>
+					<tr>
+						<td width="25%">계정과목</td>
+						<td width="25%">금액</td>
+						<td width="25%">계정과목</td>
+						<td width="25%">금액</td>
+					</tr>
+				</thead>
+				<tbody>
+					
+						<tr>
+							<td>현금</td>
+							<td>438900000</td>
+							<td>장기차입금</td>
+							<td>100000000</td>
+						</tr>
+					
+						<tr>
+							<td>소모품</td>
+							<td>1000000</td>
+							<td>자본금</td>
+							<td>100000000</td>
+						</tr>
+					
+						<tr>
+							<td>건물</td>
+							<td>100000000</td>
+							<td>이익잉여금</td>
+							<td>164900000</td>
+						</tr>
+					
+						<tr>
+							<td>차량운반구</td>
+							<td>10000000</td>
+							<td>매출</td>
+							<td>190000000</td>
+						</tr>
+					
+						<tr>
+							<td>소프트웨어</td>
+							<td>1000000</td>
+							<td></td>
+							<td>0</td>
+						</tr>
+					
+						<tr>
+							<td>급여</td>
+							<td>4000000</td>
+							<td></td>
+							<td>0</td>
+						</tr>
+					
+						<tr>
+							<td>소모품비</td>
+							<td>0</td>
+							<td></td>
+							<td>0</td>
+						</tr>
+					
+						<tr>
+							<td>무형자산상각비</td>
+							<td>0</td>
+							<td></td>
+							<td>0</td>
+						</tr>
+					
+						<tr>
+							<td>세금</td>
+							<td>0</td>
+							<td></td>
+							<td>0</td>
+						</tr>
+					
+						<tr>
+							<td>차변합계  </td>
+							<td>554900000</td>
+							<td>대변 합계  </td>
+							<td>554900000</td>
+						</tr>
+					
+				</tbody>
+			</table>
+		
+
+		
+	
+</body>
+</html>

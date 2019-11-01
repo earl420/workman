@@ -5,14 +5,17 @@
 <html lang="ko">
 <head>
 <title>workman</title>
+
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
 	
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-<script src='main.js'></script>
+<!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<!-- <script src='main.js'></script> -->
+
 
 <style>
     .outdiv{
@@ -50,18 +53,6 @@
    		padding-left:40px;
         padding-top: 90px;
     }
-    #hibtn{
-        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
-        color: white;
-        width:50%;
-    }
-    
-    #byebtn{
-        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
-        color: white;
-        width:50%;
-    }
-    
      #h2{
         font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
         color: white;
@@ -71,17 +62,6 @@
         font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
         font-weight: bold;
         color: white;
-    }
-    .hidiv{
-        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
-        width: 25%;
-        text-align: center;
-        position: relative;
-        left:70% ;
-        bottom: 3.5%;
-        background:rgb(224, 224, 235);
-        border-radius: 10px;
-        padding-bottom:1%;
     }
 </style>
 </head>
@@ -105,61 +85,7 @@
 			<div class="content-fluid" style="height: 100px">
 
  <div class="outdiv">
- <%
-  	Date today = new Date();
-  	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-  	String strToday = sdf.format(today);
-  	/* 오늘날짜 value값으로 박으려고 */
-  	
-  	Date time = new Date();
-  	SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
-  	String strTime = sdf2.format(time);
-  	/* 현재시간 value값으로 박으려고 */
- %>
-	 <div class="hidiv" id="hi">
-	 	<br>
-	    <h3 id="hih2">출/퇴근</h3>
-	    <button class="btn mb-1 btn-rounded btn-success" type="button" id="hibtn" onclick="location.href='attend.wo'">출근</button>
-	    <input type="hidden" name="empNum" value="${ loginMan.num }">
-        <input type="hidden" name="att_date" value="<%= strToday %>">
-        <input type="hidden" name="time_on" value="<%= strTime %>">
-        <input type="hidden" name="time_off" value="null">
-	</div>
 
- 	<%-- <div class="hidiv" id="bye">
-	 	<br>
-	    <h3 id="hih2">출/퇴근</h3>
-	    <button class="btn mb-1 btn-rounded btn-warning" type="button" id="byebtn" onclick="location.href='attend.wo'">퇴근</button>
-		<input type="hidden" name="empNum" value="${ loginMan.num }">
-        <input type="hidden" name="att_date" value="<%= strToday %>">
-        <input type="hidden" name="time_on" value="null">
-        <input type="hidden" name="time_off" value="<%= strTime %>">
-	</div> --%>
-
- <script>
- 	/* 출퇴근 버튼 스크립트 */
- 		$(function(){
- 			$("#bye").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
- 		});
- 	
- 		// 출근 버튼 누르면 알림창 뜨기
- 		 $("#hibtn").on("click", function(){
- 			 var d = new Date();
- 			 var time = d.getHours() + '시' + d.getMinutes() + '분';
- 			alert(time + ' 출근.');
- 			$("#bye").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
- 			$("#hi").hide(); /* 출근버튼은 안보이게 */
- 		});
- 	
- 		// 퇴근 버튼 누르면 알림창 뜨기
- 		$("#byebtn").on("click", function(){
- 			var d = new Date();
-			var time = d.getHours() + '시' + d.getMinutes() + '분';
- 			alert(time + ' 퇴근.');
- 			$("#bye").hide(); /* 퇴근버튼은 안보이게 */
- 		});
- </script>
- 
 		<div class="topdiv">
             <div class="indiv" id="div1" style="background: rgb(133, 133, 173)">
                 <div class="paddiv">
@@ -242,14 +168,63 @@
 		<c:import url="common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
-	
-	<script type="text/javascript">
-		$(function(){
-		   if(${!empty msg}){
-			   alert('${msg}');
+	<script>
+	   $(function(){
+		   if(${!empty success}){
+			   swal.fire({
+				type: 'success',
+				title : '${success}',
+				confirmButtonText: '확인'
+			   });
 		   }
-		});
+	   });
+	   $(function(){
+		   if(${!empty error}){
+			   swal.fire({
+				type: 'error',
+				title : '${error}',
+				confirmButtonText: '확인'
+			   });
+		   }
+	   });
+	   
+	   
+	   
+	   $(function(){
+		   if(${!empty login}){
+			  /*  Swal.fire({
+				   type: 'success',
+				   title: '${login}',
+				   text: '반갑습니다.',
+				   padding: '3em',
+				   background: 'white',
+				   backdrop: `
+				     rgba(0,0,123,0.4)
+				     url("resources/icons/login.gif")
+				     center 
+				     no-repeat'
+				   confirmButtonText: '확인',
+				   animation: false,
+				   customClass: {
+				     popup: 'animated heartBeat'
+				   }
+				 }); */
+				 Swal.fire({
+				 position: 'center',
+				 type: 'success',
+				 title: '${login}',
+				 text: '반갑습니다.',
+				  width: 500,
+				  height: 50,
+				  padding: '3em',
+				  /* background-color: '#ffffff', /*url(/images/trees.png)', */
+				  backdrop: `rgba(0,0,123,0.4) center top no-repeat `
+				});
+		   }
+	   })
+	   
 	</script>
+
 
 </body>
 </html>

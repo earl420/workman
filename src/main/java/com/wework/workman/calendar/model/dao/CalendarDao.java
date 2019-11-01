@@ -1,5 +1,7 @@
 package com.wework.workman.calendar.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,22 +15,27 @@ public class CalendarDao {
 	
 	// 일정등록
 	public int insertCalendar(Calendar c) {
-		return sqlSession.insert("calendar-mapper.insertCalendar", c);
+		return sqlSession.insert("calendarMapper.insertCalendar", c);
 	}
 	
 	// 일정수정
-	public int updateCalendar(int empNum) {
-		return sqlSession.update("calendar-mapper.updateCalendar", empNum);
+	public int updateCalendar(String empNum) {
+		return sqlSession.update("calendarMapper.updateCalendar", empNum);
 	}
 	
 	// 상세보기
-	public Calendar calendarDetail(int empNum) {
-		return sqlSession.selectOne("calendar-mapper.calendarDetail", empNum);
+	public Calendar calendarDetail(String empNum) {
+		return sqlSession.selectOne("calendarMapper.calendarDetail", empNum);
 	}
 	
 	// 일정삭제
-	public int deleteCalendar(int empNum) {
-		return sqlSession.update("calendar-mapper.deleteCalendar", empNum);
+	public int deleteCalendar(String empNum) {
+		return sqlSession.update("calendarMapper.deleteCalendar", empNum);
+	}
+	
+	
+	public ArrayList<Calendar> selectList(int deptNum) {
+		return (ArrayList)sqlSession.selectList("calendarMapper.selectCalendar", deptNum);
 	}
 }
 

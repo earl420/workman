@@ -11,12 +11,13 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
 
 <meta charset="UTF-8">
-<title>WEworks</title>
+<title>로그인</title>
 <style>
 	html {
 	  background-color: #56baed;
@@ -359,30 +360,26 @@
 
 		</div>
 	</div>
-<script>
-//아이디저장. 테스트 해봄.
-   $(function(){
-	   if(${!empty msg}){
-		   alert('${msg}');
-	   }
-   });
+	<script>
+	$(function(){
+		   if(${!empty success}){
+			   swal.fire({
+				type: 'success',
+				title : '${success}',
+				confirmButtonText: '확인'
+			   });
+		   }
+	   });
+	   $(function(){
+		   if(${!empty error}){
+			   swal.fire({
+				type: 'error',
+				title : '${error}',
+				confirmButtonText: '확인'
+			   });
+		   }
+	   });
 
-	/*
-   $(function(){
-	   
-   	   $.cookie('key',$('#num').val(),{expires:7});
-       $.removeCookie('key');
-       var key =$.cookie("key");
-       key = 'test';
-       if(key==null){
-           console.log('널값!');         
-       }else{
-       	   $('#num').val(key);
-           $('#remember').attr("checked",true);
-       };
-       
-   });
-   */
-</script>
+	</script>
 </body>
 </html>

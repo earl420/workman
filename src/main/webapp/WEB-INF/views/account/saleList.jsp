@@ -1,21 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
- <link href="resources/account/css/saleList.css" rel="stylesheet">
- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>wework</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16"
+	href="images/favicon.png">
+<!-- Custom Stylesheet -->
+<link
+	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
+<link href="resources/css/style.css" rel="stylesheet">
 
 </head>
 <body>
-		<!--*******************
-        Preloader start
-    ********************-->
+	<!-- preloader -->
 	<div id="preloader">
 		<div class="loader">
 			<svg class="circular" viewBox="25 25 50 50"> <circle
@@ -23,97 +27,173 @@
 					stroke-miterlimit="10" /> </svg>
 		</div>
 	</div>
-	<!--*******************
-        Preloader end
-    ********************-->
+	<!-- /preloader -->
 
 
-	<!--**********************************
-        Main wrapper start
-    ***********************************-->
-	<div id="main-wrapper" style="background: white;">
+	<!-- main-wrapper -->
+	<div id="main-wrapper" style="">
 		<c:import url="../common/header.jsp"></c:import>
-		<!--**********************************
-            Content body start
-        ***********************************-->
-		<div class="content-body">
-			<div class="content-fluid" style="height: 100px; padding-left: 100px; padding-right: 100px;" align="center">
-				
-				
-				<div class="table-responsive" style="text-align: center;">
-					<h3 style="padding-top: 40px; padding-bottom: 10px;">판매관리</h3>
-					<table class="table table-bordered verticle-middle" id="acList" style="border: 1px solid black; padding-left: 10px; padding-right:10px;">
-						<thead>
-							<tr>
-								<th width="10%">판매번호</th>
-								<th width="30%">판매 제품</th>
-								<th width="15%">거래처</th>
-								<th width="10%">판매사원</th>
-								<th width="10%">판매금액</th>
-								<th width="15%">판매일시</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="i" items="${list }">
-								<tr>
-									<td>${i.salesNum }</td>
-									<td>${i.productName } 
-									<input type="hidden" name="productCode" id="productCode" value="productCode" />
-									</td>
-									<td>${i.partnerName }
-									<input type="hidden" name="partnerNum" id="partnerNum" value="partnerNum" /></td>
-									<td>${i.empName }</td>
-									<td>${i.productPrice*i.salesAmount }</td>
-									<td>${i.salesDate }</td>
-								</tr>
-							</c:forEach>
-							
-						</tbody>
-					</table>
-					
-						
-				</div>
-				<div align="right" style="padding-right: 50px; padding-top: 10px;">
-					<button type="button" class="btn mb-1 btn-outline-warning"  id="insertSale"
-					 style="border-radius: 5px; width:10em;">
-						<strong>판매등록</strong>
-					</button>
-				</div>
-				<div align="center" style="padding-top: 20px;" >
-					<div class="pages" onclick="paging(${1});">&lt;&lt;</div>
-					<c:choose>
-						<c:when test="${pi.currentPage eq 1 }">
-							<div class="pages" onclick="paging(1);">&lt;</div>
-						</c:when>
-						<c:otherwise>
-							<div class="pages" onclick="paging(${pi.currentPage-1});">&lt;</div>
-						</c:otherwise>
-					</c:choose>
-					<c:forEach var="i" begin="1" end="${pi.endPage }">
-						<div class="pages" onclick="paging(this.innerText);">${ i }</div>
-					</c:forEach>
-					<div class="pages" onclick="paging(${i+1});">&gt;</div>
-					<div class="pages" onclick="paging(${pi.maxPage});">&gt;&gt;</div>
+		<!-- content-body -->
+		<div class="content-body" style="min-height: 889px;">
+
+			<div class="row page-titles mx-0">
+				<div class="col p-md-0">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="salelist.wo">총무회계</a></li>
+						<li class="breadcrumb-item active"><a href="salelist.wo">인사관리</a></li>
+					</ol>
 				</div>
 			</div>
-			<!-- /.container -->
-			
+			<!-- row -->
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">판매관리</h4>
+								<div class="table-responsive">
+									<div id="DataTables_Table_0_wrapper"
+										class="dataTables_wrapper container-fluid dt-bootstrap4">
+										<div class="row">
+											<%-- <div class="col-sm-12 col-md-6">총 게시글 갯수 : ${ pi.listCount }
+											</div> --%>
+											<div class="col-sm-12 col-md-6">
+												<!-- <div id="DataTables_Table_0_filter"
+													class="dataTables_filter">
+													<label>Search:<input type="search"
+														class="form-control form-control-sm" placeholder="게시물 검색"
+														aria-controls="DataTables_Table_0"></label>
+												</div> -->
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12">
+												<table
+													class="table table-striped table-bordered zero-configuration dataTable"
+													id="DataTables_Table_0" role="grid"
+													aria-describedby="DataTables_Table_0_info">
+													<thead>
+														<tr role="row">
+															<th style="width: 10%; text-align: center;">판매번호</th>
+															<th rowspan="1" colspan="1"
+																style="width: 30%; text-align: center;">판매제품</th>
+															<th rowspan="1" colspan="1"
+																style="width: 15%; text-align: center;">거래처</th>
+															<th rowspan="1" colspan="1"
+																style="width: 10%; text-align: center;">판매사원</th>
+															<th rowspan="1" colspan="1"
+																style="width: 10%; text-align: center;">판매금액</th>
+															<th rowspan="1" colspan="1"
+																style="width: 15%; text-align: center;">판매일시</th>
+																
+														</tr>
+													</thead>
+
+													<tbody>
+														<c:forEach items="${ list }" var="i">
+															<tr role="row" class="odd">
+																<td class="sorting_1">${ i.salesNum }</td>
+																<td>${ i.productName }
+																<input type="hidden" name="productCode" id="productCode" value="productCode" />
+																</td>
+																<td>${ i.partnerName }
+																<input type="hidden" name="partnerNum" id="partnerNum" value="partnerNum" />
+																</td>
+																<td>${ i.empName }</td>
+																<td>${ i.productPrice * i.salesAmount }</td>
+																<td>${ i.salesDate }</td>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div align="right" style="padding-right: 50px; padding-top: 10px;">
+											<button type="button" class="btn mb-1 btn-outline-warning"  id="insertSale"
+											 style="border-radius: 5px; width:10em;">
+												<strong>판매등록</strong>
+											</button>
+										</div>
+										
+										<div class="row">
+											<div class="col-sm-12 col-md-5">
+											</div>
+											<div class="col-sm-12 col-md-7">
+												<div class="dataTables_paginate paging_simple_numbers"
+													id="DataTables_Table_0_paginate">
+													<ul class="pagination">
+
+														<!-- 이전 -->
+														<c:if test="${ pi.currentPage eq 1 }">
+															<li class="paginate_button page-item previous disabled"
+																id="DataTables_Table_0_previous">Previous</li>
+														</c:if>
+														<c:if test="${ pi.currentPage ne 1 }">
+															<c:url value="hrNotice.wo" var="before">
+																<c:param name="currentPage"
+																	value="${ pi.currentPage - 1 }" />
+															</c:url>
+															<li class="paginate_button page-item previous"
+																id="DataTables_Table_0_previous"><a
+																href="${ before }" aria-controls="DataTables_Table_0"
+																data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+														</c:if>
+
+														<!-- 번호들 -->
+														<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }"
+															var="p">
+															<c:if test="${ p eq pi.currentPage }">
+																<li class="paginate_button page-item active"><a
+																	href="#" aria-controls="DataTables_Table_0"
+																	data-dt-idx="1" tabindex="0" class="page-link">${ p }</a></li>
+															</c:if>
+															<c:if test="${ p ne pi.currentPage }">
+																<c:url value="hrNotice.wo" var="page">
+																	<c:param name="currentPage" value="${ p }" />
+																</c:url>
+																<li class="paginate_button page-item "><a
+																	href="${ page }" aria-controls="DataTables_Table_0"
+																	data-dt-idx="${ page }" tabindex="0" class="page-link">${ p }</a></li>
+															</c:if>
+														</c:forEach>
+
+
+														<!-- 다음 -->
+														<c:if test="${ pi.currentPage eq pi.maxPage }">
+															<li class="paginate_button page-item next disabled"
+																id="DataTables_Table_0_next">Next</li>
+														</c:if>
+														<c:if test="${ pi.currentPage ne pi.maxPage }">
+															<c:url value="hrNotice.wo" var="next">
+																<c:param name="currentPage"
+																	value="${ pi.currentPage + 1 }" />
+															</c:url>
+															<li class="paginate_button page-item next"
+																id="DataTables_Table_0_next"><a href="${ next }"
+																aria-controls="DataTables_Table_0"
+																data-dt-idx="${ page }" tabindex="0" class="page-link">Next</a>
+														</c:if>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- #/ container -->
 		</div>
-		<!--**********************************
-            Content body end
-        ***********************************-->
-        <div style="float: left; padding-left: 30%;">
-		<c:import url="../common/footer.jsp"></c:import>	
-        </div>
+		<!-- /content-body -->
+		<!-- footer -->
+		<c:import url="../common/footer.jsp"></c:import>
+		<!-- /footer -->
 	</div>
-	<!--**********************************
-        Main wrapper end
-    ***********************************-->
-    
-    
-    
-    <div class="modal fade" id="myModal">
+		
+	   <div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -164,9 +244,14 @@
     </div>
   </div>
 </div>
-
-
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	
+	
+	
+	
+	<!-- /main-wrapper -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	 <script src="resources/account/js/saleList.js"></script>
+	
 </body>
 </html>

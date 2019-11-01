@@ -21,6 +21,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+
+<link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />
+
+
+  <link href='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.css' rel='stylesheet' />
+
+  <link href='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.css' rel='stylesheet' />
+
+
+<script src='resources/js/demo-to-codepen.js'></script>
+
+<script src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js'></script>
+
+
+
+
+  <script src='https://unpkg.com/@fullcalendar/interaction@4.3.0/main.min.js'></script>
+
+  <script src='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.js'></script>
+
+  <script src='https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.js'></script>
 <style>
        .outdiv{
             width:70%;
@@ -83,7 +104,8 @@
             </div>
           </div>
         </div>
-        
+       
+
         <div class="inlinediv" style="width: 25%;">
            <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -109,7 +131,7 @@
 			  	String strTime = sdf2.format(time);
 			  	/* 현재시간 value값으로 박으려고 */
             %>
-            <input type="date" id="start" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="date" id="startDay" name="start" value="<%= strToday %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             <input type="time" id="startTime" value="<%= strTime %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
@@ -133,14 +155,15 @@
 
         <div class="butdiv">
             <button class="btn mb-1 btn-outline-warning" type="button" onclick="location.href='calDetailView.wo';">취소</button>
-            <button class="btn mb-1 btn-secondary" type="submit">등록</button>
+            <button class="btn mb-1 btn-secondary save-event" type="submit" id="save-event">등록</button>
         </div>
         <br>
     </form>	
+
 				</div>
 			</div> 
 		</div>
-	
+		
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 </body>

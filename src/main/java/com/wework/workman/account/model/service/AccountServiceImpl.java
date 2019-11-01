@@ -21,6 +21,7 @@ import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
+import com.wework.workman.account.model.vo.NoticeFile;
 import com.wework.workman.account.model.vo.OsManage;
 import com.wework.workman.account.model.vo.Partner;
 import com.wework.workman.account.model.vo.Product;
@@ -145,11 +146,6 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public int insertSalary() {
-		return aDao.insertSalary();
-	}
-
-	@Override
 	public ArrayList<Partner> getPartner(String partnerNum) {
 		return aDao.getPartner(partnerNum);
 	}
@@ -218,6 +214,36 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public AvgSalary avgSalary(SalaryManage salaryManage) {
 		return aDao.avgSalary(salaryManage);
+	}
+
+	@Override
+	public int checkSal() {
+		return aDao.checkSal();
+	}
+
+	@Override
+	public int insertSal() {
+		return aDao.insertSal();
+	}
+
+	@Override
+	public int checkYearSal() {
+		return aDao.checkYearSal();
+	}
+
+	@Override
+	public int insertYearSalary() {
+		return aDao.insertYearSalary();
+	}
+
+	@Override
+	public int insertFile(NoticeFile nf) {
+		return aDao.insertFile(nf);
+	}
+
+	@Override
+	public NoticeFile noticeFile(String acDetail) {
+		return aDao.noticeFile(acDetail);
 	}
 
 	

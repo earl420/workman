@@ -12,7 +12,7 @@
         i.start = n, o && (i.className = [o]), this.$calendar.fullCalendar("renderEvent", i, !0), e("#drop-remove").is(":checked") && t.remove()
     }, t.prototype.onEventClick = function(t, n, a) {
         var o = this,
-            i = e("<form></form>");
+            i = e("<form></form>");            
         i.append("<label>수정할 내용을 입력하세요</label>"), i.append("<div class='input-group'><input class='form-control' type=text value='" + t.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> 저장</button></span></div>"), o.$modal.modal({
             backdrop: "static"
         }), o.$modal.find(".delete-event").show().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(i).end().find(".delete-event").unbind("click").on("click", function() {
@@ -37,7 +37,7 @@
                 title: e,
                 start: t,
                 end: n,
-                allDay: !1,
+                /*allDay: !1,*/
                 className: a
             }, !0), o.$modal.modal("hide")) : alert("내용을 작성하세요"), !1
         }), o.$calendarObj.fullCalendar("unselect")
@@ -72,8 +72,8 @@
             }],*/
             o = this;
         o.$calendarObj = o.$calendar.fullCalendar({
-            slotDuration: "00:15:00",
-           /* minTime: "08:00:00",
+        	/*slotDuration: "00:15:00",
+            minTime: "08:00:00",
             maxTime: "19:00:00",*/
             defaultView: "month",
             handleWindowResize: !0,

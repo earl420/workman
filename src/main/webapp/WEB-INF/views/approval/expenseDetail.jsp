@@ -33,8 +33,8 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">결제문서등록</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">기안서작성</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">결제문서</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">지출결의서</a></li>
 					</ol>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 					<div class="card">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h4>기안서</h4>
+                                    <h4>지출결의서</h4>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table">
