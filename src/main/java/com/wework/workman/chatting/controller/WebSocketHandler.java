@@ -55,6 +55,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			Room r = cService.getRoom(newRoomId);
 			String roomSetList = "roomSetList:"+r.getRoomId()+":"+r.getRoomName()+":"+ r.getLastWord()+":"+r.getLastMan()+":"+r.getLastComm();
 			TextMessage tx = new TextMessage(roomSetList);
+			msgSend(session,tx,userId);
 		}else if(preMsg.equals("exitRoom")) {//룸나가기
 			//exitRoom:roomId
 		}else if(preMsg.equals("addUsers")) {//유저 추가
@@ -90,14 +91,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	//sendHandler
 	public void msgSendHandler(WebSocketSession session, TextMessage message,String uId) throws IOException{
 //		msg:userId:RoomId:msgCont
-		String[] spData = message.getPayload().split(":",3);
-		String rId= spData[3];
-		System.out.println(spData.toString());
+		String[] spData = message.getPayload().split(":",4);
+		String rId= spData[2];
 		for(String key : userRoom.keySet()) {
 			String value = userRoom.get(key);
-			if(value == rId) {
+			if(value.equals(rId)) {
 				//저걸 그대로 보내니까 문제가 생기는거아냐. 다시 확인해
-				TextMessage tx = new TextMessage("msg:"+spData[1]+spData[3]);
+				TextMessage tx = new TextMessage("msg:"+spData[1]+":"+spData[3]);
 				msgSend(session,tx,uId);
 			}else {
 				//모든사용자에게 알람을 보내고 jsp단에서 처리
@@ -127,20 +127,21 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public String getRoomList(WebSocketSession session,String uId) throws IOException  {
 		String roomId="";
 		ArrayList<Room> roomList= cService.getRoomList(uId);
-		for(Room i : roomList) {
-			
-			String rId=i.getRoomId();
-			String rName =i.getRoomName();
-			String lastWord=i.getLastWord();
-			String lastMan=i.getLastMan();
-			String lastComm=i.getLastComm().toString();
-			String roomSetList="roomSetList:"+rId +":"+rName+":"+ lastWord+":"+lastMan+":"+lastComm;
-			TextMessage tx = new TextMessage(roomSetList);
-			msgSend(session,tx,uId);
-			roomId = i.getRoomId();
-			
-		}
+		System.out.println(roomList);
 		
+		if(!roomList.isEmpty() && !roomList.toString().equals("[null]")) {
+			for(Room i : roomList) {
+				String rId=i.getRoomId();
+				String rName =i.getRoomName();
+				String lastWord=i.getLastWord();
+				String lastMan=i.getLastMan();
+				String lastComm=i.getLastComm().toString();
+				String roomSetList="roomSetList:"+rId +":"+rName+":"+ lastWord+":"+lastMan+":"+lastComm;
+				TextMessage tx = new TextMessage(roomSetList);
+				msgSend(session,tx,uId);
+				roomId = i.getRoomId();
+			}	
+		}
 		return roomId;
 	}
 	//초기세팅 : 마지막 룸 지난메세지 전송
@@ -169,7 +170,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String newRoomId = cService.newChat(uId);
 		addUsers(newRoomId,usersArr);
 		String cont = uId+"님이 "+users+"님을 초대하였습니다.";
-		TextMessage tx = new TextMessage("msg:"+systemId+newRoomId+cont);
+		TextMessage tx = new TextMessage("msg:"+systemId+":"+newRoomId+":"+cont);
 		msgDb(tx);
 		
 		
@@ -187,9 +188,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			cService.addUser(roomId,uId);
 		}
 		//메세지 추가하기.
-	}
-	public void addUsers(String roomId, String uId) {
-		
 	}
 //	msg:userId:RoomId:msgCont
 	public void msgDb(TextMessage message) {
