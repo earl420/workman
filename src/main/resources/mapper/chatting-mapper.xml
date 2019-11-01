@@ -27,18 +27,22 @@
 		WHERE EMP_NAME='SYSTEM'
 	</select>
 	
-
-	<select id="getRoomList" parameterType="string" resultType="string">
-		SELECT CHAT_ROOM
-		FROM CHAT_JOIN
-		WHERE CHAT_USER=#{userId}
-	</select>
-	<select id="getRoom" parameterType="string" resultMap="RoomRS">
+<select id="getRoom" parameterType="string" resultMap="RoomRS">
 		SELECT CHAT_ROOM,CHAT_NAME,MSG_CONT,CHAT_USER,MSG_DATE
 		FROM CHAT_MSG
 		JOIN CHAT_ROOM USING(CHAT_ROOM)
 		WHERE CHAT_ROOM=#{roomId}
 	</select>
+	
+	
+	
+	<!-- userId로 룸리스트 -->
+	<select id="getRoomList" parameterType="string" resultType="string">
+		SELECT CHAT_ROOM
+		FROM CHAT_JOIN
+		WHERE CHAT_USER=#{userId}
+	</select>
+	
 	
 	<!-- 룸별 마지막 메세지 -->
 	<select id="initialLastChat" parameterType="string" resultMap="RoomRS">
@@ -69,7 +73,11 @@
 	</insert>
 	
 	<select id ="selectNewChat" resultType="string">
-		SELECT CHAT_ROOM FROM CHAT_ROOM WHERE ROWNUM = 1 ORDER BY CHAT_CREATE DESC
+		SELECT CHAT_ROOM,ROWNUM
+		FROM (SELECT CHAT_ROOM
+		        FROM CHAT_ROOM
+		        ORDER BY CHAT_CREATE DESC)
+		WHERE ROWNUM=1
 	</select>
 	
 	<insert id="insertUser" parameterType="hashmap">
