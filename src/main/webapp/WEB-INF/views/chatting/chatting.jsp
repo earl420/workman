@@ -450,6 +450,7 @@ img {
 		function newChat(){
 			console.log(empList);
 			wbSocket.send("newChat:"+empList);
+			empList = new Array();
 		}
 
 		//handler

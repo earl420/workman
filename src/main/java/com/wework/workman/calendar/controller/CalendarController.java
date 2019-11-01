@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
 import com.wework.workman.calendar.model.service.CalendarService;
 import com.wework.workman.calendar.model.vo.Calendar;
@@ -28,15 +31,31 @@ public class CalendarController {
 	
 	// 캘린더
 	@RequestMapping("calDetailView.wo") 
-	public String calendarDetailView() { 
-		
+	public String calendarDetailView(/* Model model, HttpSession session */) { 
+		/*
+		 * int deptNum= ((Mypage)session.getAttribute("loginMan")).getDeftNum();
+		 * 
+		 * ArrayList<Calendar> calendarList = cService.selectList(deptNum);
+		 * 
+		 * JSONArray jArr = new JSONArray(); for (int i = 0; i < calendarList.size();
+		 * i++) { JSONObject obj =new JSONObject(); // obj.put("_id", i+1);
+		 * obj.put("title", calendarList.get(i).getDescription());
+		 * obj.put("description", calendarList.get(i).getDescription());
+		 * obj.put("start", calendarList.get(i).getStart()); // obj.put("end",
+		 * calendarList.get(i).getEnd()); jArr.add(obj);
+		 * 
+		 * 
+		 * }
+		 * 
+		 * model.addAttribute("list",jArr);
+		 */
 		
 		return "calendar/calendarDetailViewNew"; 
 	}
 	
 	@ResponseBody
 	@RequestMapping("calDetailView2.wo") 
-	public String calDetail(HttpServletResponse response, HttpSession session) throws JsonIOException, IOException {
+	public void calDetail(HttpServletResponse response, HttpSession session) throws JsonIOException, IOException {
 		
  		int deptNum= ((Mypage)session.getAttribute("loginMan")).getDeftNum();
  		
@@ -56,8 +75,6 @@ public class CalendarController {
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(calendarList, response.getWriter());
-		
-		return "calendar/calendarDetailViewNew"; 
 	}
 	  
 	  
@@ -92,8 +109,7 @@ public class CalendarController {
 		 int result = cService.insertCalendar(c);
 			model.addAttribute("result", result);
 			
-		 //return "calendar/calendarDetailViewNew";
-			return "redirect:calInsert.wo";
+		 return "calendar/calendarDetailViewNew";
 		 
 		/*
 		 * int result = cService.insertCalendar(c);

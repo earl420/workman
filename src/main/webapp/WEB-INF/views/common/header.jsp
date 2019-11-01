@@ -7,35 +7,29 @@
 <html lang="ko">
 
 <head>
-<script src="https://kit.fontawesome.com/ee2dc8e60a.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!--&nbsp;Custom Stylesheet -->
-<link href="resources/css/style.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ee2dc8e60a.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--&nbsp;Custom Stylesheet -->
+     <link href="resources/css/style.css" rel="stylesheet">
 <style>
-#bye {
-	font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica",
-		"Arial", "AppleSDGothicNeo", sans-serif;
-	color: white;
-	width: 100px;
-}
-
-#hi {
-	font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica",
-		"Arial", "AppleSDGothicNeo", sans-serif;
-	color: white;
-	width: 100px;
-}
-
-#header-right {
-	display: inline;
-}
-
-#hi3 {
-	float: left;
-	padding-top: 20px;
-}
+   #bye{
+        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
+        color: white;
+        width:100px;
+    }
+    
+    #hi{
+        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
+        color: white;
+        width:100px;
+    }
+	#header-right{
+	display:inline;
+	}
+	#hi3{
+		float:left;
+		padding-top:20px;
+	}
 </style>
 </head>
 
