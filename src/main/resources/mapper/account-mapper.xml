@@ -29,7 +29,6 @@
 		<result column="GRADE_NAME" property="gradeName"></result>
 		<result column="MONSALARY" property="monSalary"></result>
 		<result column="SALARY" property="yearSalary"></result>
-		<result column="INCREASERATE" property="increaseRate"></result>
 	</resultMap>
 	<resultMap id="as" type="AccountStatus">
 		<result column="DEPT" property="deptside"></result>
@@ -350,9 +349,7 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 
 <select id="salaryList" resultMap="empSalary">
 
-	select EMP_NUM,SAL_YEAR,DEPT_NUM,DEPT_NAME,EMP_NAME,GRADE_NAME, round(SALARY/12) AS "MONSALARY",SALARY,
-decode((select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num), null, 0,round((salary -(select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num))/(select salary from salary where sal_year =( extract(year from sysdate)-1) and emp_num=emp_num)*100))
- as "INCREASERATE"
+	select EMP_NUM,SAL_YEAR,DEPT_NUM,DEPT_NAME,EMP_NAME,GRADE_NAME, round(SALARY/12) AS "MONSALARY",SALARY
 from salary
 		join employee using(emp_num)
 		join dept using(dept_num)
@@ -409,4 +406,15 @@ from salary
 <select id="noticeFile" parameterType="string" resultMap="noticeFiles">
 	select * from attachment where DOC_NUM like '%'||#{acDetail}
 </select>
+<select id="getIncreaseRate" parameterType="string" resultType="_int">
+	select decode(count(*), 0, 0, sum(salary)) from salary where emp_num=#{li} and sal_year = (extract(year from sysdate)-1)	
+</select>
+
+<select id="checkHolidayCount" resultType="_int">
+	select count(*) from holiday_count where HOLIDAY_YEAR = extract(year from sysdate)
+</select>
+
+<insert id="updateHolidayCount">
+	insert into holiday_count (select emp_num, 12, 12, extract(year from sysdate) from employee)
+</insert>
 </mapper>

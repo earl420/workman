@@ -132,7 +132,21 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public ArrayList<SalaryManage> salaryList(PageInfo pi) {
-		return aDao.salaryList(pi);
+		ArrayList<SalaryManage> list = aDao.salaryList(pi);
+		ArrayList<String> li = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			String eNum =list.get(i).getEmpNum();
+			int a =aDao.getIncreaseRate(eNum);
+			double b;
+			if(a==0) {
+				b=0;
+			}else {
+				b = Math.round((list.get(i).getYearSalary()- a)/(double)a);
+			}
+			
+			list.get(i).setIncreaseRate(b);
+		}
+		return list;
 	}
 
 	@Override
@@ -195,7 +209,6 @@ public class AccountServiceImpl implements AccountService{
 //		else {
 //			transactionManager.rollback(status);
 //		}
-		System.out.println(result);
 		return result;
 		
 		

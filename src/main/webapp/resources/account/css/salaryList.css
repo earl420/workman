@@ -22,7 +22,7 @@ th, td{
 	background: lightgray;
 	cursor: pointer;
 }
-.table tbody tr:hover{
+tr:hover{
 	color:white;
 	background: orange;
 	cursor:pointer;

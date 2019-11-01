@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wework.workman.account.model.service.AccountService;
+import com.wework.workman.humanResource.model.service.HumanResourceService;
 
 /**
  * Handles requests for the application home page.
@@ -27,7 +28,8 @@ public class HomeController {
 	
 	@Resource(name = "accountService")
 	private AccountService aService;
-	
+	@Resource(name = "humanResourceService")
+	private HumanResourceService hService;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -40,11 +42,11 @@ public class HomeController {
 		if(check<1) {
 			int insertSal = aService.insertSal();
 		}
-		int check2 = aService.checkYearSal();
-		if(check2<1) {
-			int insertYearSal = aService.insertYearSalary();
-			
+		int check2 = hService.checkHolidayCount();
+		if(check<1) {
+			int updateHoliday = hService.updateHolidayCount();
 		}
+		
 		session.setAttribute("loginUser", "22");
 		model.addAttribute("flag","출");
 		Date date = new Date();
