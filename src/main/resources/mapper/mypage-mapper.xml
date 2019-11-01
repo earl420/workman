@@ -28,6 +28,18 @@
 		<result property="holidayYear" column="HOLIDAY_YEAR"/>
 	</resultMap>
 	
+	<resultMap type="EmpList" id="listResultSet">
+		<id property="num" column="EMP_NUM"/>
+		<result property="name" column="EMP_NAME"/>
+		<result property="email" column="EMP_EMAIL"/>
+		<result property="phone" column="EMP_PHONE"/>
+		<result property="gradeNum" column="GRADE_NUM"/>
+		<result property="deftNum" column="DEPT_NUM"/>
+		<result property="status" column="EMP_STATUS"/>
+		<result property="gradeName" column="GRADE_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+	
 	<resultMap type="Mypage" id="findPwd">
 		<id property="num" column="EMP_NUM"/>
 		<result property="name" column="EMP_NAME"/>
@@ -63,5 +75,24 @@
 		from employee
 		where emp_num=#{num} and emp_name=#{name} and emp_status='Y'
 	</select>
+	
+	<!-- 총 직원 수 -->
+	<select id="empCount" resultType="_int">
+		select count(*)
+		from employee
+		where emp_status='Y'
+	</select>
+	
+	<!-- 총 직원 목록 -->
+	<select id="empList" resultMap="listResultSet">
+		select *
+		from employee
+		join grade using(grade_num)
+		join dept using(dept_num)
+		where emp_status='Y'
+		order by emp_name
+	</select>
+	
+	
 	
 </mapper>

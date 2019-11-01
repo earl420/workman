@@ -1,9 +1,14 @@
 package com.wework.workman.mypage.model.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.wework.workman.common.PageInfo;
+import com.wework.workman.mypage.model.vo.EmpList;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 //@Repository("mypageDao")
@@ -60,4 +65,26 @@ public class MypageDao {
 	public int returnPwd(Mypage m) {
 		return sqlSession.update("mypageMapper.pwdUpdate", m);
 	}
+
+
+	/**
+	 * 총 직원 수
+	 * @return
+	 */
+	public int empCount() {
+		return sqlSession.selectOne("mypageMapper.empCount");
+	}
+
+
+	/**
+	 * 총 직원 목록
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<EmpList> empList(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.empList", null, rowBounds);
+	}
+
 }

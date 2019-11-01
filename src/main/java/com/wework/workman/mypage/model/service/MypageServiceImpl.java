@@ -1,12 +1,16 @@
 package com.wework.workman.mypage.model.service;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wework.workman.common.PageInfo;
 //import com.wework.workman.hunamResource.model.vo.HumanResource;
 import com.wework.workman.mypage.model.dao.MypageDao;
+import com.wework.workman.mypage.model.vo.EmpList;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 //@Service("mypageService")
@@ -61,6 +65,26 @@ public class MypageServiceImpl implements MypageService{
 	public int returnPwd(Mypage m) {
 		return mDao.returnPwd(m);
 	}
+
+	
+	/**
+	 * 총 직원 수
+	 */
+	@Override
+	public int empCount() {
+		return mDao.empCount();
+	}
+
+
+	/**
+	 * 총 직원 리스트
+	 */
+	@Override
+	public ArrayList<EmpList> empList(PageInfo pi) {
+		return mDao.empList(pi);
+	}
+
+
 
 	
 }

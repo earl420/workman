@@ -2,10 +2,12 @@ package com.wework.workman.mypage.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.print.attribute.PrintRequestAttribute;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.wework.workman.account.model.vo.AcNotice;
+import com.wework.workman.common.PageInfo;
+import com.wework.workman.common.Pagination;
 import com.wework.workman.mypage.model.service.MypageService;
+import com.wework.workman.mypage.model.vo.EmpList;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 @SessionAttributes("loginMan")
@@ -51,9 +58,39 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("mypageView.wo")
-	public String myPageView() {
-		return "myPage/mypageView";
+	public ModelAndView myPageView(ModelAndView mv,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		
+		int empCount = mService.empCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
+		
+		ArrayList<EmpList> list = mService.empList(pi);
+		for (int i = 0; i < list.size(); i++) {
+			String eNum = list.get(i).getNum().substring(6);
+			list.get(i).setNum(eNum);
+		}
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
+		
+		
+		return mv;
 	}
+	
+	@RequestMapping("empView.wo")
+	public ModelAndView(ModelAndView mv,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		
+		int empCount = mService.empCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
+		
+		
+		
+		
+	}
+	
+	
 
 	/**
 	 * 정보 수정 페이지
@@ -271,6 +308,8 @@ public class MypageController {
 		
 		
 	}
+	
+	
 		
 	
 	
