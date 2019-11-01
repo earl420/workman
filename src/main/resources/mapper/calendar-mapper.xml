@@ -10,7 +10,7 @@
 		<result property="description" column="sch_content"/>
 		<result property="start" column="sch_emp_start"/>
 		<result property="end" column="sch_emp_end"/>
-		<result property="userName" column="register_emp_num"/>
+		<result property="empNum" column="register_emp_num"/>
 		<result property="ctype" column="ctype"/>
 	</resultMap>
 
@@ -22,7 +22,7 @@
 	<update id="updateCalendar" parameterType="string">
 		update schedule
 		set sch_content=#{description}, emp_num=#{empNum}, sch_emp_start=#{start}, 
-			sch_emp_end=#{end}, register_emp_num=#{userName}, ctype=#{ctype}
+			sch_emp_end=#{end}, register_emp_num=#{empNum}, ctype=#{ctype}
 		where emp_num=#{empNum}
 	</update>
 	
@@ -40,7 +40,7 @@
 	<select id="selectCalendar" parameterType="_int" resultMap="calendarResultSet">
 		select *
 		from schedule
-		where dept_Num=#{deptNum}
+		where dept_num=#{deptNum}
 	</select>
 	
 	
