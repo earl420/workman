@@ -18,7 +18,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.wework.workman.calendar.model.service.CalendarService;
 import com.wework.workman.calendar.model.vo.Calendar;
-import com.wework.workman.calendar.model.vo.FullCalendar;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 @Controller("calendarController")
@@ -37,19 +36,28 @@ public class CalendarController {
 	
 	@ResponseBody
 	@RequestMapping("calDetailView2.wo") 
-	public void calDetail(HttpServletResponse response, HttpSession session) throws JsonIOException, IOException {
+	public String calDetail(HttpServletResponse response, HttpSession session) throws JsonIOException, IOException {
+		
  		int deptNum= ((Mypage)session.getAttribute("loginMan")).getDeftNum();
+ 		
 		ArrayList<Calendar> calendarList = cService.selectList(deptNum);
-		ArrayList<FullCalendar> list = new ArrayList<FullCalendar>();
-		for (int i = 0; i < calendarList.size(); i++) {
-			list.add(new FullCalendar((i+1)+"", calendarList.get(i).getDescription(), calendarList.get(i).getDescription(), 
-					calendarList.get(i).getStart(), calendarList.get(i).getEnd(), calendarList.get(i).getCtype(), "red", "white", true));
-		}
+		
+		//System.out.println(calendarList);
+		
+		/*
+		 * ArrayList<FullCalendar> list = new ArrayList<FullCalendar>(); for (int i = 0;
+		 * i < calendarList.size(); i++) { list.add(new FullCalendar((i+1)+"",
+		 * calendarList.get(i).getDescription(), calendarList.get(i).getDescription(),
+		 * calendarList.get(i).getStart(), calendarList.get(i).getEnd(),
+		 * calendarList.get(i).getCtype(), "red", "white", true)); }
+		 */
 		
 		response.setContentType("application/json; charset=utf-8");
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		gson.toJson(list, response.getWriter());
+		gson.toJson(calendarList, response.getWriter());
+		
+		return "calendar/calendarDetailViewNew"; 
 	}
 	  
 	  
@@ -74,10 +82,9 @@ public class CalendarController {
 	  @RequestMapping("calInsertView.wo") 
 	  public String calendarInsertView() {
 	  
-	  return "calendar/calendarInsertView"; }
+	  return "calendar/calendarInsertView"; 
+	  }
 	 
-	 
-	
 	  // 일정등록
 	 @RequestMapping("calInsert.wo") 
 	public String insertCalendar(Calendar c, Model model) {
@@ -85,7 +92,8 @@ public class CalendarController {
 		 int result = cService.insertCalendar(c);
 			model.addAttribute("result", result);
 			
-		 return "calendar/calendarDetailViewNew";
+		 //return "calendar/calendarDetailViewNew";
+			return "redirect:calInsert.wo";
 		 
 		/*
 		 * int result = cService.insertCalendar(c);
