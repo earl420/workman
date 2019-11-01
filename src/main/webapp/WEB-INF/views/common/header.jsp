@@ -9,23 +9,23 @@
     <script src="https://kit.fontawesome.com/ee2dc8e60a.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--&nbsp;Custom Stylesheet -->
-    <link href="resources/css/style.css" rel="stylesheet">
+     <link href="resources/css/style.css" rel="stylesheet">
 <style>
-   .btn-warning{
+   #bye{
         font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
         color: white;
         width:100px;
     }
     
-    .btn-success{
+    #hi{
         font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
         color: white;
         width:100px;
     }
-	.header-right{
+	#header-right{
 	display:inline;
 	}
-	.hi3{
+	#hi3{
 		float:left;
 		padding-top:20px;
 	}
@@ -106,16 +106,16 @@
 				<script>
 						/* 출퇴근 버튼 스크립트 */
 				 		$(function(){
-				 			$(".btn-warning").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
+				 			$("#bye").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
 				 		});
 						 	
 				 		// 출근 버튼 누르면 알림창 뜨기
-				 		 $(".btn-success").on("click", function(){
+				 		 $("#hi").on("click", function(){
 				 			 var d = new Date();
 				 			 var time = d.getHours() + '시' + d.getMinutes() + '분';
 				 			alert(time + ' 출근.');
-				 			$(".btn-warning").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
-				 			$(".btn-success").hide(); /* 출근버튼은 안보이게 */
+				 			$("#bye").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
+				 			$("#hi").hide(); /* 출근버튼은 안보이게 */
 				 			
 				 			$("#flag").val("출");
 				 			
@@ -123,11 +123,11 @@
 				 		});
 				 	
 				 		// 퇴근 버튼 누르면 알림창 뜨기
-				 		$(".btn-warning").on("click", function(){
+				 		$("#bye").on("click", function(){
 				 			var d = new Date();
 							var time = d.getHours() + '시' + d.getMinutes() + '분';
 				 			alert(time + ' 퇴근.');
-				 			$(".btn-warning").hide(); /* 퇴근버튼은 안보이게 */
+				 			$("#bye").hide(); /* 퇴근버튼은 안보이게 */
 				 		
 				 			$("#flag").val("퇴");
 				 			
