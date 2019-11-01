@@ -6,11 +6,13 @@ import com.wework.workman.chatting.model.vo.Message;
 import com.wework.workman.chatting.model.vo.Room;
 
 public interface ChattingService {
+	String sysId();
+	Room getRoom(String roomId);
 	ArrayList<Room> getRoomList(String userId);
 	ArrayList<Message> roomChange(String roomId);
-	int roomCreate(String[] userIdList);
+	String newChat(String userId);
 	int roomExit(String userId,String roomId);
-	int addUser(String[] userIdList);
+	int addUser(String roomId, String userId);
 	ArrayList<Message>msgHistory(String roomId);
 	int msgDb(Message msg);
 }
