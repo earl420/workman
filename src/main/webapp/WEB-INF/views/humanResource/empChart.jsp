@@ -77,9 +77,6 @@
 								<div class="table-responsive">
 
 									<table class="table">
-										<colgroup>
-											<col>
-										</colgroup>
 										<tbody class="org">
 											<c:forEach items="${ list }" var="d">
 												<tr class="level-1">

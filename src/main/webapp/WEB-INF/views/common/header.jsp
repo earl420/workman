@@ -339,7 +339,6 @@
                         		<ul>
                         			<li><a href="mngEmpChart.wo">-&nbsp;조직관리</a>
                         			<li><a href="mngUser.wo">-&nbsp;사용자관리</a>
-                        			<li><a href="manager.wo">-&nbsp;인사관리자</a>
                         		</ul>
                             </li>
                             <li>

@@ -66,25 +66,68 @@
 									<input type="search" class="form-control" placeholder="이름 검색"
 										aria-label="Search Dashboard">
 								</div>
-								<br>
-								<br> 소속 직원 수 : <br>
-								<br>
+								<br> <br> 
+								<div class="form-group row">
+									<div class="col-lg-1">
+										<div class="bootstrap-modal">
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModalCenter1">부서
+												검색</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModalCenter1"
+												aria-hidden="true" style="display: none;">
+												<div class="modal-dialog modal-dialog-centered"
+													role="document">
+													<div class="modal-content" style="width: 500px;">
+														<div class="modal-header">
+															<h5 class="modal-title">부서 검색</h5>
+															<button type="button" class="close" data-dismiss="modal">
+																<span>×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="row">
+																<ul class="nav nav-pills mb-3">
+																	<c:forEach items="${ dlist }" var="d">
+																		<li class="nav-item"><a class="nav-link"
+																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																	</c:forEach>
+																</ul>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">취소</button>
+															<button type="button" class="btn btn-primary"
+																onclick="modalSubmit1();" data-dismiss="modal">완료</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<input type="text" class="form-control" id="a">
+									</div>
+								</div>
+								<div id="count">소속 직원 수 : </div>
 								<table class="table header-border">
 									<thead>
 										<tr style="background: #f9f9f9;">
-											<th scope="col" style="width:100px;">이름</th>
-											<th scope="col" style="width:130px;">ID</th>
+											<th scope="col" style="width: 100px;">이름</th>
+											<th scope="col" style="width: 130px;">ID</th>
 											<th scope="col">휴대전화</th>
 											<th scope="col">소속</th>
 											<th scope="col">직위</th>
-											<th scope="col">입사일</th>	
+											<th scope="col">입사일</th>
 											<th scope="col">수정하기</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<th>1</th>
-											<td>Jacklyn</td>
+										<tr id="tr">
+											<td></td>
+											<td></td>
 											<td></td>
 											<td></td>
 											<td></td>
@@ -92,39 +135,7 @@
 											<td><input type="button" value="수정하기"
 												class="btn mb-1 btn-warning"
 												onclick="location.href='updateEmpForm.wo';"
-												style="height:20px; padding-top:0"></td>
-										</tr>
-										<tr>
-											<th>2</th>
-											<td>Nancy</td>
-											<td>J. Daniels</td>
-											<td>@daniels</td>
-											<td>@daniels</td>
-											<td>@daniels</td>
-										</tr>
-										<tr>
-											<th>3</th>
-											<td>Betty</td>
-											<td>R. Christensen</td>
-											<td>@betty</td>
-											<td>@betty</td>
-											<td>@betty</td>
-										</tr>
-										<tr>
-											<th>4</th>
-											<td>Lucinda</td>
-											<td>D. Sears</td>
-											<td>@lucinda</td>
-											<td>@lucinda</td>
-											<td>@lucinda</td>
-										</tr>
-										<tr>
-											<th>5</th>
-											<td>William</td>
-											<td>T. Marks</td>
-											<td>@william.marks</td>
-											<td>@william.marks</td>
-											<td>@william.marks</td>
+												style="height: 20px; padding-top: 0"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -139,6 +150,47 @@
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
+
+	<script type="text/javascript">
+		function modalSubmit1() {
+
+			$("#a").val($(".nav-item>.active").text());
+		}
+		
+		$(function(){
+			
+			var deptName = $("#a").val();
+			
+			$.ajax({
+				
+				url : "elistByName.wo",
+				data : {deptName : deptName},
+				dataType : "json",
+				success : function(data){
+					
+					var $tr = $("#tr");
+					$tr.html("");
+					
+					if(data.length > 0){
+						
+						$.each(data,
+								function(index, value){
+							
+							var $td = $('<td>' + value.empName + '</td><td>' + value.empNum + '</td><td>' + value.empPhone + '</td><td><input type="text" id="deptName" value="' + value.deptName + '"></td>"<td><input type="text" id="gradeName" value="' + value.gradeName + '"></td><td>' + value.enrollDate + '</td>');
+							
+							$tr.append($td);
+						});
+					}else{
+						
+						$tr.append('<td colspan="6">등록된 직원이 없습니다.</td>');
+					}
+				},
+				error : function(){
+					console.log("ajax 통신 실패");
+				}
+			});
+		});
+	</script>
 
 </body>
 <iframe id="google_esf" name="google_esf"

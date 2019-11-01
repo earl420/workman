@@ -8,20 +8,25 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.common.Pagination;
 import com.wework.workman.humanResource.model.service.HumanResourceService;
 import com.wework.workman.humanResource.model.vo.Department;
+import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
+import com.wework.workman.humanResource.model.vo.Grade;
 import com.wework.workman.humanResource.model.vo.Notice;
 
 @Controller
@@ -49,7 +54,7 @@ public class HumanResourceController {
 		return mv;
 
 	}
-	
+
 	// 전체 공지사항 상세보기 조회
 	@RequestMapping("nDetail.wo")
 	public ModelAndView nDetail(ModelAndView mv, String noticeNum) {
@@ -63,37 +68,36 @@ public class HumanResourceController {
 		}
 		return mv;
 	}
-	
+
 	// 공지글 수정 폼
 	@RequestMapping("updateNoticeForm.wo")
 	public ModelAndView updateNoticeForm(ModelAndView mv, String noticeNum) {
-		
-		
+
 		String num = noticeNum.substring(6);
-		
+
 		Notice n = hService.getnDetail(num);
-		
-		if(n != null) {
+
+		if (n != null) {
 			mv.addObject("n", n).setViewName("humanResource/updateNoticeForm");
-		}else {
+		} else {
 			mv.setViewName("common/500error");
 		}
 		return mv;
 	}
-	
+
 	// 공지글 수정
 	@RequestMapping("updateNotice.wo")
 	public String updateNotice(Notice n, Attachment a, HttpServletRequest request,
 			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
-		
+
 		int result1 = hService.updateNotice(n);
-		
+
 //		System.out.println(result1); // 1 잘나옴
-		
+
 		if (file != null && !file.getOriginalFilename().equals("")) {
-			
+
 			deleteFile(n.getNoticeNum(), request);
-			
+
 			String renameFileName = saveFile(file, request, a);
 
 			if (renameFileName != null) {
@@ -104,31 +108,31 @@ public class HumanResourceController {
 
 			}
 		}
-		
-		if(file != null) {
-			
+
+		if (file != null) {
+
 			int result2 = hService.insertAtt(a);
 			System.out.println(result2);
-			
+
 		}
-		
+
 		System.out.println(result1);
-		
+
 		if (result1 > 0) {
 			return "redirect:notice.wo";
 		} else {
 			return "common/500error";
 		}
 	}
-	
+
 	public void deleteFile(String noticeNum, HttpServletRequest request) {
-		
+
 		String root = request.getSession().getServletContext().getRealPath("resource");
 		String savePath = root + "/upload";
-		
+
 		File f = new File(savePath + "/" + noticeNum);
-		
-		if(f.exists()) {
+
+		if (f.exists()) {
 			f.delete();
 		}
 	}
@@ -138,7 +142,7 @@ public class HumanResourceController {
 	public ModelAndView ninsertForm(ModelAndView mv) {
 
 		ArrayList<Department> dlist = hService.getDeptList();
-		
+
 		if (!dlist.isEmpty()) {
 			mv.addObject("dlist", dlist).setViewName("humanResource/insertNotice");
 		} else {
@@ -301,16 +305,146 @@ public class HumanResourceController {
 
 	// 인사/인사 관리/조직도 관리
 	@RequestMapping("mngEmpChart.wo")
-	public String mngEmpChart() {
+	public ModelAndView mngEmpChart(ModelAndView mv) {
 
-		return "humanResource/mngEmpChart";
+		ArrayList<Department> list = hService.getDeptList();
+
+		ArrayList<Employee> count = hService.getEmpCount();
+		ArrayList<Employee> eList = hService.getEmp();
+
+		if (!list.isEmpty()) {
+			mv.addObject("list", list).addObject("eList", eList).addObject("count", count)
+					.setViewName("humanResource/mngEmpChart");
+		} else {
+			mv.setViewName("common/500error");
+		}
+
+		return mv;
+	}
+
+	// 인사/인사 관리/조직도 관리 -> 조직 추가
+	@RequestMapping("addDeptForm.wo")
+	public ModelAndView addDeptForm(ModelAndView mv) {
+
+		ArrayList<Dept> list = hService.selectModaDeptlList();
+
+		if (!list.isEmpty()) {
+			mv.addObject("list", list).setViewName("humanResource/addDeptForm");
+		} else {
+			mv.setViewName("common/500error");
+		}
+
+		return mv;
+
+	}
+
+	// 부서 불러오기
+	@RequestMapping("dlist.wo")
+	public void dlist(HttpServletResponse response) throws JsonIOException, IOException {
+
+		ArrayList<Dept> list = hService.selectModaDeptlList();
+
+		response.setContentType("application/json; charset=utf-8");
+
+		Gson gson = new Gson();
+		gson.toJson(list, response.getWriter());
+
 	}
 	
-	// 인사/인사 관리/조직도 관리 -> 조직 관리 버튼
-	@RequestMapping("updateDeptForm.wo")
-	public String updateDeptForm() {
+	// 직원리스트 불러오기 with 부서이름
+	@ResponseBody
+	@RequestMapping("elistByName.wo")
+	public String elistByName(HttpServletResponse response, String deptName) throws JsonIOException, IOException {
+
+		ArrayList<Employee> list = hService.elistByName(deptName);
+
+		response.setContentType("application/json; charset=utf-8");
+
+		Gson gson = new Gson();
+		gson.toJson(list, response.getWriter());
 		
-		return "humanResource/updateDeptForm";
+		if(!list.isEmpty()) {
+			return "success";
+		}else {
+			return "fail";
+		}
+
+	}
+
+	// 인사 /인사 관리/ 조직도 관리 -> 부서 추가
+	@ResponseBody
+	@RequestMapping("addDept.wo")
+	public String addDept(String deptName) {
+
+		int result = hService.addDept(deptName);
+
+		if (result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+
+	}
+
+	// 인사/인사 관리/조직도 관리 -> 조직 수정 폼
+	@RequestMapping("updateDeptForm.wo")
+	public ModelAndView updateDeptForm(ModelAndView mv) {
+
+		ArrayList<Dept> list = hService.selectModaDeptlList();
+
+		if (!list.isEmpty()) {
+			mv.addObject("list", list).setViewName("humanResource/updateDeptForm");
+		} else {
+			mv.setViewName("common/500error");
+		}
+
+		return mv;
+	}
+
+	// 인사/ 인사관리 / 조직도 관리 -> 부서 이름 수정
+	@RequestMapping("updateDept.wo")
+	public String updateDept(Dept d) {
+
+		System.out.println(d);
+
+		int result = hService.updateDept(d);
+
+		if (result > 0) {
+			return "redirect:empChart.wo";
+		} else {
+			return "commom/500error";
+		}
+	}
+
+	// 인사/ 인사관리 / 조직도 관리 -> 부서 삭제 폼
+	@RequestMapping("deleteDeptForm.wo")
+	public ModelAndView deleteDeptForm(ModelAndView mv) {
+
+		ArrayList<Dept> list = hService.selectModaDeptlList();
+
+		if (!list.isEmpty()) {
+			mv.addObject("list", list).setViewName("humanResource/deleteDeptForm");
+		} else {
+			mv.setViewName("common/500error");
+		}
+
+		return mv;
+	}
+
+	// 인사/ 인사관리 / 조직도 관리 -> 부서 삭제
+	@RequestMapping("deleteDept.wo")
+	public String deleteDept(HttpServletRequest request) {
+
+		int deptNum = Integer.parseInt((request.getParameter("deptNum")));
+
+		int result = hService.deleteDept(deptNum);
+		
+		if (result > 0) {
+			return "redirect:empChart.wo";
+		} else {
+			return "common/500error";
+		}
+
 	}
 
 	// 인사/인사 관리/ 조직도 관리 -> 구성원 관리 버튼
@@ -322,14 +456,30 @@ public class HumanResourceController {
 
 	// 직원등록화면
 	@RequestMapping("addEmpForm.wo")
-	public String addEmpForm() {
+	public ModelAndView addEmpForm(ModelAndView mv) {
+		
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		
+		ArrayList<Grade> glist = hService.selectModalGradeList();
 
-		return "humanResource/addEmpForm";
+		if (!dlist.isEmpty() && !glist.isEmpty()) {
+			mv.addObject("dlist", dlist).addObject("glist", glist).setViewName("humanResource/addEmpForm");
+		} else {
+			mv.setViewName("common/500error");
+		}
+
+		return mv;
 	}
 
 	// 직원 등록
-	@RequestMapping("addEmp.wo")
-	public String addEmp(Employee e) {
+	@RequestMapping("insertEmp.wo")
+	public String insertEmp(Employee e, Dept d, ModelAndView mv,
+							@RequestParam("address1") String address1,
+							@RequestParam("address2") String address2,
+							@RequestParam("deptName") String deptName,
+							@RequestParam("birth") String birth,
+							@RequestParam("gradeName") String gradeName,
+							@RequestParam("empSalary") String empSalary) {
 
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 //		int sysYear = Integer.parseInt(sdf.format(new Date(System.currentTimeMillis())));
@@ -342,8 +492,36 @@ public class HumanResourceController {
 //			
 //			
 //		}
-
-		return "humanResource/empList";
+		System.out.println(e);
+		
+		if(!address1.equals("")) {
+			e.setEmpAddress(address1 + " " + address2);
+		}
+		java.sql.Date empBirth = java.sql.Date.valueOf(birth);
+		e.setBirth(empBirth);
+		
+		// 부서 이름으로 부서 번호 가져오기
+		int deptNum = hService.getDeptNum(deptName);
+		System.out.println(deptNum);
+		
+		// 직급 이름으로 직급 번호 가져오기
+		int gradeNum = hService.getGradeNum(gradeName);
+		System.out.println(gradeNum);
+		
+		e.setDeptNum(deptNum);
+		e.setGradeNum(gradeNum);
+		e.setEmpSalary(Integer.parseInt(empSalary));
+		
+		
+		int result = hService.insertEmp(e);
+		
+		if(result > 0) {
+			
+			return "redirect:empChart.wo";
+			
+		}else {
+			return "common/500error";
+		}
 	}
 
 	// 직원정보 수정 화면
@@ -355,16 +533,16 @@ public class HumanResourceController {
 
 	// 인사/인사 관리/사용자 관리
 	@RequestMapping("mngUser.wo")
-	public String mngEmp() {
+	public ModelAndView mngEmp(ModelAndView mv) {
+		
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
 
-		return "humanResource/mngUser";
-	}
-
-	// 인사/인사 관리/인사자 관리
-	@RequestMapping("manager.wo")
-	public String manager() {
-
-		return "humanResource/manager";
+		if(!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).setViewName("humanResource/mngUser");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
 	}
 
 	// 인사/휴가근태 관리/휴가관리

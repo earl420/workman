@@ -49,33 +49,26 @@
 								<h5>직원 등록</h5>
 								<br>
 								<div class="form-validation">
-									<form class="form-valide" action="#" method="post"
+									<form class="form-valide" action="insertEmp.wo" method="get"
 										novalidate="novalidate">
+
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="val-username">이름
 												<span class="text-danger">*</span>
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id="val-username"
-													name="name" placeholder="이름을 입력하세요.">
+													name="empName" placeholder="이름을 입력하세요." required>
 											</div>
 										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-email">ID
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="id" placeholder="아이디를 입력하세요.">
-											</div>
-										</div>
+
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="val-password">비밀번호
 												<span class="text-danger">*</span>
 											</label>
 											<div class="col-lg-6">
 												<input type="password" class="form-control"
-													id="val-password" name="pwd" placeholder="비밀번호를 입력하세요.">
+													id="val-password" placeholder="비밀번호를 입력하세요." required>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -85,57 +78,48 @@
 											</label>
 											<div class="col-lg-6">
 												<input type="password" class="form-control"
-													id="val-confirm-password" name="conPwd">
+													id="val-confirm-password" name="empPwd" required>
 											</div>
 										</div>
+
 										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-username">사번
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="empNum" placeholder="사번을 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-username">입사일
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="enrollDate" placeholder="입사일을 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-currency">소속
+											<label class="col-lg-4 col-form-label" for="val-currency">부서
 												<span class="text-danger">*</span>
 											</label>
 											<div class="col-lg-1">
 												<div class="bootstrap-modal">
 													<!-- Button trigger modal -->
 													<button type="button" class="btn btn-primary"
-														data-toggle="modal" data-target="#basicModal">소속 검색</button>
+														data-toggle="modal" data-target="#exampleModalCenter1">부서
+														검색</button>
 													<!-- Modal -->
-													<div class="modal fade" id="basicModal" aria-hidden="true"
-														style="display: none;">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
+													<div class="modal fade" id="exampleModalCenter1"
+														aria-hidden="true" style="display: none;">
+														<div class="modal-dialog modal-dialog-centered"
+															role="document">
+															<div class="modal-content" style="width: 500px;">
 																<div class="modal-header">
-																	<h5 class="modal-title">소속 검색</h5>
+																	<h5 class="modal-title">부서 검색</h5>
 																	<button type="button" class="close"
 																		data-dismiss="modal">
 																		<span>×</span>
 																	</button>
 																</div>
 																<div class="modal-body">
-																		여기 소속 리스트
-																		
+																	<div class="row">
+																		<ul class="nav nav-pills mb-3">
+																			<c:forEach items="${ dlist }" var="d">
+																				<li class="nav-item"><a class="nav-link"
+																					data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																			</c:forEach>
+																		</ul>
+																	</div>
 																</div>
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save
-																		changes</button>
+																		data-dismiss="modal">취소</button>
+																	<button type="button" class="btn btn-primary"
+																		onclick="modalSubmit1();" data-dismiss="modal">완료</button>
 																</div>
 															</div>
 														</div>
@@ -143,25 +127,68 @@
 												</div>
 											</div>
 											<div class="col-lg-3">
-												<input type="text" class="form-control" id=""
-													name="dept" placeholder="검색 후 입력받은 소속 이름"></div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-website">직위
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="grade" placeholder="직위를 입력하세요.">
+												<input type="text" class="form-control" id="deptName"
+													name="deptName" required>
 											</div>
 										</div>
+
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="val-currency">직급
+												<span class="text-danger">*</span>
+											</label>
+											<div class="col-lg-1">
+												<div class="bootstrap-modal">
+													<!-- Button trigger modal -->
+													<button type="button" class="btn btn-primary"
+														data-toggle="modal" data-target="#exampleModalCenter2">직급
+														검색</button>
+													<!-- Modal -->
+													<div class="modal fade" id="exampleModalCenter2"
+														aria-hidden="true" style="display: none;">
+														<div class="modal-dialog modal-dialog-centered"
+															role="document">
+															<div class="modal-content" style="width: 500px;">
+																<div class="modal-header">
+																	<h5 class="modal-title">직급 검색</h5>
+																	<button type="button" class="close"
+																		data-dismiss="modal">
+																		<span>×</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<div class="row">
+																		<ul class="nav nav-pills mb-3">
+																			<c:forEach items="${ glist }" var="g">
+																				<li class="nav-item"><a class="nav-link"
+																					data-toggle="tab" aria-expanded="true" href="">${g.gradeName}</a></li>
+																			</c:forEach>
+																		</ul>
+																	</div>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">취소</button>
+																	<button type="button" class="btn btn-primary"
+																		onclick="modalSubmit2();" data-dismiss="modal">완료</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-3">
+												<input type="text" class="form-control" id="gradeName"
+													name="gradeName" required>
+											</div>
+										</div>
+
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="val-phoneus">이메일
 												<span class="text-danger">*</span>
 											</label>
 											<div class="col-lg-6">
-												<input type="email" class="form-control" id=""
-													name="email" placeholder="kkkk@kkkkk.com">
+												<input type="email" class="form-control" id="" name="email"
+													placeholder="kkkk@kkkkk.com" required>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -170,41 +197,42 @@
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id=""
-													name="phone" placeholder="010-2222-2222">
+													name="empPhone" placeholder="010-2222-2222" required>
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="val-number">성별
 											</label>
 											<div class="col-lg-6">
-												<input type="radio" id=""
-													name="gender" value="남">&nbsp;&nbsp;남 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="radio" id=""
-													name="gender" value="여">&nbsp;&nbsp;여
+												<input type="radio" id="" name="gender" value="남">&nbsp;&nbsp;남
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
+													id="" name="gender" value="여">&nbsp;&nbsp;여
 											</div>
 										</div>
 										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-range">생년월일
+											<label class="col-lg-4 col-form-label" for="birth">생년월일
 											</label>
 											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="birth" placeholder="생년월일 입력 형식 어케해?">
+												<input type="text" min="1960-01-01" max="1999-12-12"
+													class="form-control" id="birth" name="birth"
+													placeholder="YY/MM/DD 형식">
 											</div>
 										</div>
 										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-range">연봉
+											<label class="col-lg-4 col-form-label" for="val-range">연봉<span
+												class="text-danger">*</span>
 											</label>
 											<div class="col-lg-6">
 												<input type="text" class="form-control" id=""
-													name="salary" placeholder="연봉을 입력하세요.">
+													name="empSalary" placeholder="연봉을 입력하세요." required>
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="val-range">급여수령은행
 											</label>
 											<div class="col-lg-3">
-												<input type="text" class="form-control" id=""
-													name="bank" placeholder="급여를 수령할 은행명을 입력하세요.">
+												<input type="text" class="form-control" id="" name="empBank"
+													placeholder="급여를 수령할 은행명을 입력하세요.">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -212,24 +240,34 @@
 											</label>
 											<div class="col-lg-3">
 												<input type="text" class="form-control" id=""
-													name="account" placeholder="급여를 수령할 계좌번호를 입력하세요.">
+													name="empAccount" placeholder="급여를 수령할 계좌번호를 입력하세요.">
 											</div>
 										</div>
 										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-range">주소
+											<label class="col-lg-4 col-form-label" for="adress1">주소
 											</label>
 											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="address" placeholder="주소찾기 가져다 쓰기**">
+												<input type="text" class="form-control postcodify_address"
+													id="address1" name="address1">
 											</div>
 										</div>
-										
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="adress2">상세주소
+											</label>
+											<div class="col-lg-6">
+												<input type="text"
+													class="form-control postcodify_extra_info" id="adress2"
+													name="address2">
+											</div>
+										</div>
+
 										<div class="form-group row">
 											<div class="col-lg-8 ml-auto">
-												<button type="submit" class="btn btn-primary" style="float:right;">저장</button>
+												<button type="submit" class="btn btn-primary"
+													style="float: right;">등록</button>
 											</div>
 										</div>
-										
+
 									</form>
 								</div>
 							</div>
@@ -243,6 +281,23 @@
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
+
+	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".postcodify_address").postcodifyPopUp();
+		});
+
+		function modalSubmit1() {
+
+			$("#deptName").val($(".active").text());
+		}
+		
+		function modalSubmit2() {
+
+			$("#gradeName").val($(".active").text());
+		}
+	</script>
 
 </body>
 <iframe id="google_esf" name="google_esf"
