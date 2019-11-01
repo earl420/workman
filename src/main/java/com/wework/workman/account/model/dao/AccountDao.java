@@ -220,6 +220,18 @@ public class AccountDao {
 		return sqlSession.selectOne("accountMapper.noticeFile",acDetail);
 	}
 
+	public int getIncreaseRate(String li) {
+		return sqlSession.selectOne("accountMapper.getIncreaseRate", li);
+	}
+
+	public int checkHolidayCount() {
+		return sqlSession.selectOne("accountMapper.checkHolidayCount");
+	}
+
+	public int updateHolidayCount() {
+		return sqlSession.insert("accountMapper.updateHolidayCount");
+	}
+
 
 
 	

@@ -224,7 +224,6 @@
                                         	<td colspan="7" align="center">
                                         		<button type="submit" id="saveBtn" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;등록 &nbsp;</button> &nbsp;&nbsp;
                                         		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;취소&nbsp;</button> &nbsp;&nbsp;
-                                        		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">임시저장</button>
                                         	</td>
 										</tr>                                                                                 	
                                            

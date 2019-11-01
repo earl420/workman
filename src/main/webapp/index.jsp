@@ -9,6 +9,7 @@
 </head>
 <body>
 	
+	
 	<c:choose>
 		<c:when  test="${ empty sessionScope.loginMan }">
 			<jsp:forward page="loginPage.wo"></jsp:forward>

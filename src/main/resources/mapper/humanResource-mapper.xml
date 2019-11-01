@@ -16,6 +16,11 @@
 		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
 	
+	<resultMap type="Grade" id="gradeResultSet">
+		<id property="gradeNum" column="grade_num"/>
+		<result property="gradeName" column="grade_name"/>
+	</resultMap>
+	
 	<resultMap type="Notice" id="HRnListResultSet">
 		<id property="noticeNum" column="notice_num"/>
 		<result property="noticeDept" column="notice_dept"/>
@@ -87,6 +92,11 @@
 		FROM DEPT
 	</select>
 	
+	<select id="selectModalGradeList" resultMap="gradeResultSet">
+		select *
+		from grade
+	</select>
+	
 	<select id="selectModalEmpList" resultMap="modalResultSet">
 	 	select *
 	 	from modal
@@ -150,5 +160,45 @@
 		from employee
         where emp_status='Y'
 		group by dept_num
+	</select>
+	
+	<insert id="addDept" parameterType="string">
+		insert into dept
+		values(dept_num_seq.nextval, #{deptName})
+	</insert>
+	
+	<update id="updateDept" parameterType="Dept">
+		update dept
+		set dept_name = #{deptName}
+		where dept_num = #{deptNum}
+	</update>
+	
+	<delete id="deleteDept" parameterType="_int">
+		delete from dept
+		where dept_num = #{deptNum}
+	</delete>
+	
+	<select id="getDeptNum" parameterType="string" resultMap="deptResultSet">
+		select dept_num
+		from dept
+		where dept_name=#{deptName}
+	</select>
+	
+	<select id="getGradeNum" parameterType="string" resultMap="gradeResultSet">
+		select grade_num
+		from grade
+		where grade_name=#{gradeName}
+	</select>
+	
+	<insert id="inesrtEmp" parameterType="Employee">
+		insert into employee
+		values(emp_num_seq.nextval, #{empPwd}, #{empName}, #{email}, #{gender}, #{birth}, #{empPhone}, #{empAddress}, #{gradeNum}, #{deptNum}, #{empSalary}, sysdate, default, default, #{empAccount}, #{empBank})
+	</insert>
+	
+	<select id="elistByName" parameterType="string" resultMap="selectEmp">
+		select *
+		from employee
+		join dept using(dept_num)
+		where dept_name=#{deptName}
 	</select>
 </mapper>

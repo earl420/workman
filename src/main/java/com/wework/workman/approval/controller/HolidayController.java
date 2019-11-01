@@ -109,8 +109,8 @@ public class HolidayController {
 	
 	@RequestMapping("insertHoliday.wo")
 	public ModelAndView insertHoliday(Holiday h, ModelAndView mv, HttpServletRequest request, HttpSession session,
-									@RequestParam(name="start", required=false) String start,
-									@RequestParam(name="end", required=false) String end,
+									@RequestParam(name="daterangepicker_start", required=false) String start,
+									@RequestParam(name="daterangepicker_end", required=false) String end,
 									@RequestParam(name="file", required=false) MultipartFile file,
 									@RequestParam(name="applicant", required=false) String[] applicant,
 									@RequestParam(name="referrer", required=false) String[] referrer){

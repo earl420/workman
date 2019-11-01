@@ -10,6 +10,7 @@
 	<typeAlias type="com.wework.workman.mypage.model.vo.Mypage" alias="Mypage"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Modal" alias="Modal"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Dept" alias="Dept"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.Grade" alias="Grade"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Notice" alias="Notice"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Department" alias="Department"/>
 	<typeAlias type="com.wework.workman.calendar.model.vo.Calendar" alias="Calendar"/>

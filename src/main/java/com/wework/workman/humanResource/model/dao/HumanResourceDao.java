@@ -6,13 +6,13 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
 
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
+import com.wework.workman.humanResource.model.vo.Grade;
 import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.Notice;
 
@@ -34,17 +34,16 @@ public class HumanResourceDao {
 		return (ArrayList) sqlSession.selectList("humanMapper.selectnList", null, rowBounds);
 
 	}
-	
+
 	public Notice getnDetail(String noticeNum) {
 
 		return sqlSession.selectOne("humanMapper.selectNotice", noticeNum);
 	}
-	
+
 	public int updateNotice(Notice n) {
-		
+
 		return sqlSession.update("humanMapper.updateNotice", n);
 	}
-
 
 	public int gethListCount() {
 
@@ -89,21 +88,62 @@ public class HumanResourceDao {
 
 		return (ArrayList) sqlSession.selectList("humanMapper.selectEmpCount");
 	}
-	
-	// ModalDeptList 불러오기
-		public ArrayList<Dept> selectModaDeptlList() {
-			return (ArrayList)sqlSession.selectList("humanMapper.selectModaDeptlList");
-			}
-		// ModalEmpList 불러오기
-		public ArrayList<Modal> selectModalEmpList() {
-			return (ArrayList)sqlSession.selectList("humanMapper.selectModalEmpList");
-		}
 
-		public ArrayList<Modal> selectModalList(String[] empList) {
-			ArrayList<Modal> list = new ArrayList();
-			for(int i=0; i<empList.length; i++) {
-				list.add((Modal) sqlSession.selectOne("humanMapper.selectModalList", empList[i]));
-			}
-			return list;
+	// ModalDeptList 불러오기
+	public ArrayList<Dept> selectModaDeptlList() {
+		return (ArrayList) sqlSession.selectList("humanMapper.selectModaDeptlList");
+	}
+	
+	// ModalGradeList 불러오기
+	public ArrayList<Grade> selectModalGradeList(){
+		return (ArrayList)sqlSession.selectList("humanMapper.selectModalGradeList");
+	}
+
+	// ModalEmpList 불러오기
+	public ArrayList<Modal> selectModalEmpList() {
+		return (ArrayList) sqlSession.selectList("humanMapper.selectModalEmpList");
+	}
+
+	public ArrayList<Modal> selectModalList(String[] empList) {
+		ArrayList<Modal> list = new ArrayList();
+		for (int i = 0; i < empList.length; i++) {
+			list.add((Modal) sqlSession.selectOne("humanMapper.selectModalList", empList[i]));
 		}
+		return list;
+	}
+	
+	public int addDept(String deptName) {
+		
+		return sqlSession.insert("humanMapper.addDept", deptName);
+	}
+	
+	public int updateDept(Dept d) {
+		
+		return sqlSession.update("humanMapper.updateDept", d);
+	}
+	
+	public int deleteDept(int deptNum) {
+		
+		return sqlSession.delete("humanMapper.deleteDept", deptNum);
+	}
+	
+	public int insertEmp(Employee e) {
+		
+		return sqlSession.insert("humanMapper.insertEmp", e);
+	}
+	
+	public int getDeptNum(String deptName) {
+		
+		return sqlSession.selectOne("humanMapper.getDeptNum", deptName);
+	}
+	
+	public int getGradeNum(String gradeName) {
+		
+		return sqlSession.selectOne("humanMapper.getGradeNum", gradeName);
+	}
+	
+	public ArrayList<Employee> elistByName(String deptName){
+		
+		return (ArrayList)sqlSession.selectList("humanMapper.elistByName", deptName);
+	}
 }

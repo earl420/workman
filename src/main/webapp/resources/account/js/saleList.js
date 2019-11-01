@@ -75,3 +75,13 @@ $.ajax({
 function paging(page){
 	location.href="salelist.wo?page="+page;
 }
+function checkCount(){
+	var count =$('#saleCount').val();
+	if(count<1){
+		alert('판매갯수는 1개이상이어야 합니다');
+		return false;
+	}else{
+		return true;
+	}
+	
+}

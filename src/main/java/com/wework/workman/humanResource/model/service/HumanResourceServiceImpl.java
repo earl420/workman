@@ -3,15 +3,18 @@ package com.wework.workman.humanResource.model.service;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
+import com.wework.workman.account.model.dao.AccountDao;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.dao.HumanResourceDao;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
+import com.wework.workman.humanResource.model.vo.Grade;
 import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.Notice;
 
@@ -19,6 +22,8 @@ import com.wework.workman.humanResource.model.vo.Notice;
 public class HumanResourceServiceImpl implements HumanResourceService{
 	@Resource(name="humanResourceDao")
 	private HumanResourceDao hDao;
+	@Resource(name="accountDao")
+	private AccountDao aDao;
 	
 	@Override
 	public int getnListCount() {
@@ -98,6 +103,11 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	}
 	
 	@Override
+	public ArrayList<Grade> selectModalGradeList() {
+		return hDao.selectModalGradeList();
+	}
+	
+	@Override
 	public ArrayList<Modal> selectModalEmpList() {
 		return hDao.selectModalEmpList();
 	}
@@ -106,6 +116,60 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	public ArrayList<Modal> selectModalList(String[] empList) {
 		return hDao.selectModalList(empList);
 	}
+
+	@Override
+	public int addDept(String deptName) {
+		
+		return hDao.addDept(deptName);
+	}
+
+	@Override
+	public int updateDept(Dept d) {
+
+		return hDao.updateDept(d);
+	}
+
+	@Override
+	public int deleteDept(int deptNum) {
+		
+		return hDao.deleteDept(deptNum);
+	}
+
+	@Override
+	public int insertEmp(Employee e) {
+
+		return hDao.insertEmp(e);
+	}
+
+	@Override
+	public int getDeptNum(String deptName) {
+
+		return hDao.getDeptNum(deptName);
+	}
+
+	@Override
+	public int getGradeNum(String gradeName) {
+
+		return hDao.getGradeNum(gradeName);
+	}
+
+	@Override
+	public ArrayList<Employee> elistByName(String deptName) {
+
+		return hDao.elistByName(deptName);
+	}
+
+	@Override
+	public int checkHolidayCount() {
+		return aDao.checkHolidayCount();
+	}
+
+	@Override
+	public int updateHolidayCount() {
+		return aDao.updateHolidayCount();
+	}
+
+	
 
 	
 }

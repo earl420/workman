@@ -16,6 +16,7 @@
 	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <link href="resources/css/style.css" rel="stylesheet">
+<link href="resources/account/css/salaryList.css" rel="stylesheet">
 
 </head>
 <body>
@@ -70,7 +71,7 @@
 										<div class="row">
 											<div class="col-sm-12">
 												<table
-													class="table table-striped table-bordered zero-configuration dataTable"
+													class="table table-bordered zero-configuration dataTable"
 													id="DataTables_Table_0" role="grid"
 													aria-describedby="DataTables_Table_0_info">
 													<thead>
@@ -128,8 +129,8 @@
 																id="DataTables_Table_0_previous">Previous</li>
 														</c:if>
 														<c:if test="${ pi.currentPage ne 1 }">
-															<c:url value="hrNotice.wo" var="before">
-																<c:param name="currentPage"
+															<c:url value="salarylist.wo" var="before">
+																<c:param name="page"
 																	value="${ pi.currentPage - 1 }" />
 															</c:url>
 															<li class="paginate_button page-item previous"
@@ -147,8 +148,8 @@
 																	data-dt-idx="1" tabindex="0" class="page-link">${ p }</a></li>
 															</c:if>
 															<c:if test="${ p ne pi.currentPage }">
-																<c:url value="hrNotice.wo" var="page">
-																	<c:param name="currentPage" value="${ p }" />
+																<c:url value="salarylist.wo" var="page">
+																	<c:param name="page" value="${ p }" />
 																</c:url>
 																<li class="paginate_button page-item "><a
 																	href="${ page }" aria-controls="DataTables_Table_0"
@@ -163,8 +164,8 @@
 																id="DataTables_Table_0_next">Next</li>
 														</c:if>
 														<c:if test="${ pi.currentPage ne pi.maxPage }">
-															<c:url value="hrNotice.wo" var="next">
-																<c:param name="currentPage"
+															<c:url value="salarylist.wo" var="next">
+																<c:param name="page"
 																	value="${ pi.currentPage + 1 }" />
 															</c:url>
 															<li class="paginate_button page-item next"

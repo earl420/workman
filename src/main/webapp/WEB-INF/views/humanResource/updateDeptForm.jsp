@@ -12,9 +12,7 @@
 <link rel="icon" type="image/png" sizes="16x16"
 	href="images/favicon.png">
 <!-- Custom Stylesheet -->
-<link
-	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
-	rel="stylesheet">
+
 
 <style>
 .level-2 {
@@ -62,42 +60,20 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h5>부서 추가/수정/삭제</h5>
-								<br>
+								<h5 class="card-title">부서 수정</h5>
 								<form action="updateDept.wo" method="post">
-									<button type="submit" class="btn mb-1 btn-rounded btn-warning">저장</button>
-									<br> <br>
-									<div class="table-responsive">
-										<table class="table">
-											<colgroup>
-												<col>
-											</colgroup>
-											<tbody class="org">
-											<c:forEach items="${ list }" var="d"></c:forEach>
-												<tr class="level-1">
-													<th scope="row" style="width: 300px;">${ d.deptName }</th>
-													
-													<c:forEach items="${ eList }" var="e" varStatus="status">
-														<c:if test="${ e.deptNum eq d.deptNum }">
-															<td><input type="text" value="${ e.empName } "></td>
-														</c:if>
-													</c:forEach>
-													
-												</tr>
-
-												<tr class="level-2">
-													<th scope="row"><span class="level-2">마케팅사업부
-															(4)</span></th>
-													<td><input type="text" value="강연재, "></td>
-												</tr>
-
-												<tr class="level-3">
-													<th scope="row"><span class="level-3">영업팀 (2)</span></th>
-													<td><input type="text" value="강정학, "></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
+								<br>
+								<button type="submit" class="btn mb-1 btn-rounded btn-warning">저장</button>
+								<br> <br>
+								<div class="table-responsive">
+									수정하고자 하는 부서 선택 : <select name="deptNum">
+										<c:forEach items="${ list }" var="d">
+											<option value="${ d.deptNum }">${ d.deptName }</option>
+										</c:forEach>
+									</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									수정명 : <input type="text" name="deptName">
+								</div>
 								</form>
 							</div>
 						</div>
@@ -111,24 +87,8 @@
 	</div>
 	<!-- /main-wrapper -->
 	<script>
-		jQuery(document).ready(function() {
-
-			/* Custom jQuery for the example */
-
-			$('#list-html').text($('#org').html());
-
-			$("#org").bind("DOMSubtreeModified", function() {
-				$('#list-html').text('');
-
-				$('#list-html').text($('#org').html());
-
-				prettyPrint();
-			});
-		});
+		
 	</script>
 
 </body>
-<iframe id="google_esf" name="google_esf"
-	src="https://googleads.g.doubleclick.net/pagead/html/r20191003/r20190131/zrt_lookup.html#"
-	data-ad-client="ca-pub-2783044520727903" style="display: none;"></iframe>
 </html>
