@@ -2127,7 +2127,7 @@ insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
 
 insert into notice values(null, 305,'2018 4/4 손익계산서','분기 2018 4/4', '20190001','19/01/01', '19/01/01','Y',3);
 insert into notice values(null, 305,'2018 손익계산서','년 2018','20190001', '19/01/01', '19/01/01','Y',3);
-insert into notice values(null, 305,'2019 1/4 손익계산서','분기 2019 1/4', '19/01/01', '19/01/01','Y',3);
+insert into notice values(null, 305,'2019 1/4 손익계산서','분기 2019 1/4', '20190001','19/01/01', '19/01/01','Y',3);
 insert into notice values(null, 305,'2019 2/4 손익계산서','분기 2019 2/4', '20190001','19/01/01', '19/01/01','Y',3);
 insert into notice values(null, 305,'2019-09-18 재무상태표', ' 2019 09/18', '20190001','19/01/01', '19/01/01','Y',2);
 
