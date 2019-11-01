@@ -340,6 +340,11 @@
 		<div id="formContent">
 	    	<!-- Tabs Titles -->
 	
+			<div class="fadeIn first">
+	      		<img src="resources/icons/logo1.png" id="icon" alt="User Icon" />
+	    	</div>
+	
+	
 		    <form  action="findPwd.wo" method="post">
 	        	<input type="number" id="num" name="num" placeholder="사원번호" required>
 	        	<input type="text" name="name" placeholder="이름" required><br>
