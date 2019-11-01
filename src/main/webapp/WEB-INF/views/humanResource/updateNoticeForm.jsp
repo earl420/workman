@@ -70,7 +70,7 @@
 																	value="${ n.noticeNum }"> <span
 																	class="float-right">${ n.noticeDate }</span> <input
 																	type="text" name="noticeTitle"
-																	value="${ n.noticeTitle }" class="m-0 text-primary">
+																	value="${ n.noticeTitle }" class="m-0 text-primary" style="width:500px;">
 																<small class="text-muted">작성자 : ${ n.empName }</small>
 															</div>
 														</div>
