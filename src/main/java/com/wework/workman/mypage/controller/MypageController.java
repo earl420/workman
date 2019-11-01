@@ -75,6 +75,38 @@ public class MypageController {
 		return mv;
 	}
 	
+	/**
+	 * 직원 검색
+	 * @param mv
+	 * @param emp
+	 * @param currentPage
+	 * @return
+	 */
+	@RequestMapping("empSearch.wo")
+	public ModelAndView empSearch(ModelAndView mv, String emp,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		
+		EmpList searchEmp = new EmpList();
+		int empCount = mService.searchCount(emp);
+		
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
+		
+		
+		ArrayList<EmpList> list = mService.empSearch(emp, pi);
+		for (int i = 0; i < list.size(); i++) {
+			String eNum = list.get(i).getNum().substring(6);
+			list.get(i).setNum(eNum);
+		}
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
+		
+		
+		return mv;
+		
+		
+	}
+	
 
 	/**
 	 * 정보 수정 페이지

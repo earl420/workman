@@ -101,9 +101,14 @@
 											<div class="col-sm-12 col-md-6">
 												<div id="DataTables_Table_0_filter"
 													class="dataTables_filter">
-													<label>Search:<input type="search"
-														class="form-control form-control-sm" placeholder="직원  찾기"
-														aria-controls="DataTables_Table_0"></label>
+													<form action="empSearch.wo" method="post">
+														<label>직원 검색:
+															<input type="search" name="emp"
+															class="form-control form-control-sm" placeholder="직원명"
+															aria-controls="DataTables_Table_0">
+															<button type="submit" class="btn mb-1">검색</button>
+														</label>
+													</form>
 												</div>
 											</div>
 										</div>
