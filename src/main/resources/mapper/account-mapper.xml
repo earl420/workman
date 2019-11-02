@@ -270,7 +270,7 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 </insert>
 
 <insert id="insertIncome8" parameterType="IsState">
-	   insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/09/30',
+	   insert into journalizing values(JOURN_NUM_SEQ.nextval,#{endDate},
 ('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))),
 ('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))), null )
   
