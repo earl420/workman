@@ -5,7 +5,7 @@
 <mapper namespace="chattingMapper">
 	
 	
-	<resultMap id="roomSetListRS" type="Room">
+	<resultMap id="RoomRS" type="Room">
 		<id property="roomId" column="CHAT_ROOM" />
 		<result property ="roomName" column="CHAT_NAME"/>
 		<result property="lastMan" column="CHAT_USER" />
@@ -20,16 +20,32 @@
 		<result property="msgTime" column="MSG_DATE"/>
 		<result property="status" column="MSG_STAT"/>
 	</resultMap>
-
-
-	<select id="userRoomList" parameterType="string" resultType="string">
+	
+	<select id="sysId" resultType="string">
+		SELECT EMP_NUM
+		FROM EMPLOYEE
+		WHERE EMP_NAME='SYSTEM'
+	</select>
+	
+<select id="getRoom" parameterType="string" resultMap="RoomRS">
+		SELECT CHAT_ROOM,CHAT_NAME,MSG_CONT,CHAT_USER,MSG_DATE
+		FROM CHAT_MSG
+		JOIN CHAT_ROOM USING(CHAT_ROOM)
+		WHERE CHAT_ROOM=#{roomId}
+	</select>
+	
+	
+	
+	<!-- userId로 룸리스트 -->
+	<select id="getRoomList" parameterType="string" resultType="string">
 		SELECT CHAT_ROOM
 		FROM CHAT_JOIN
 		WHERE CHAT_USER=#{userId}
 	</select>
 	
+	
 	<!-- 룸별 마지막 메세지 -->
-	<select id="initialLastChat" parameterType="string" resultMap="roomSetListRS">
+	<select id="initialLastChat" parameterType="string" resultMap="RoomRS">
 		select chat_room,chat_name,msg_cont,chat_user,msg_date
 		from(select rownum rnum,a.*
 		        from (select chat_room,chat_name,msg_cont,chat_user,msg_date
@@ -49,6 +65,23 @@
 	
 	<insert id="msgDb" parameterType="Message">
 		INSERT INTO CHAT_MSG VALUES(NULL,#{roomId},#{sender},#{msgCont},SYSDATE,'Y')
+	</insert>
+	
+	
+	<insert id = "insertNewChat" parameterType="String">
+		INSERT INTO CHAT_ROOM VALUES(NULL,#{userId},SYSDATE)
+	</insert>
+	
+	<select id ="selectNewChat" resultType="string">
+		SELECT CHAT_ROOM,ROWNUM
+		FROM (SELECT CHAT_ROOM
+		        FROM CHAT_ROOM
+		        ORDER BY CHAT_CREATE DESC)
+		WHERE ROWNUM=1
+	</select>
+	
+	<insert id="insertUser" parameterType="hashmap">
+		INSERT INTO CHAT_JOIN VALUES(#{roomId},#{userId},SYSDATE)
 	</insert>
 	
 

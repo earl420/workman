@@ -18,14 +18,25 @@ public class ChattingServiceImpl implements ChattingService{
 //	private ChattingDao cDao;
 	@Autowired
 	private ChattingDao cDao;
+	
+	@Override
+	public String sysId() {
+		// TODO Auto-generated method stub
+		return cDao.sysId();
+	}
 
 
 	@Override
 	public  ArrayList<Room>getRoomList(String userId) {
 		// TODO Auto-generated method stub
-		
 		return cDao.getRoomList(userId);
 	}
+	@Override
+	public Room getRoom(String roomId) {
+		// TODO Auto-generated method stub
+		return cDao.getRoom(roomId);
+	}
+	
 	@Override
 	public ArrayList<Message> msgHistory(String roomId) {
 		// TODO Auto-generated method stub
@@ -38,11 +49,6 @@ public class ChattingServiceImpl implements ChattingService{
 		return null;
 	}
 
-	@Override
-	public int roomCreate(String[] userIdList) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public int roomExit(String userId, String roomId) {
@@ -51,15 +57,22 @@ public class ChattingServiceImpl implements ChattingService{
 	}
 
 	@Override
-	public int addUser(String[] userIdList) {
+	public int addUser(String roomId, String userId) {
 		// TODO Auto-generated method stub
-		return 0;
+		return cDao.addUser(roomId, userId);
 	}
 	@Override
 	public int msgDb(Message msg) {
 		return cDao.msgDb(msg);
 	}
+	@Override
+	public String newChat(String userId) {
+		
+		return cDao.newChat(userId);
+	}
 
+
+	
 	
 
 	

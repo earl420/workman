@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
+import com.wework.workman.account.model.dao.AccountDao;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.dao.HumanResourceDao;
@@ -21,6 +22,8 @@ import com.wework.workman.humanResource.model.vo.Notice;
 public class HumanResourceServiceImpl implements HumanResourceService{
 	@Resource(name="humanResourceDao")
 	private HumanResourceDao hDao;
+	@Resource(name="accountDao")
+	private AccountDao aDao;
 	
 	@Override
 	public int getnListCount() {
@@ -160,6 +163,13 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	public int updateEmp(Employee e) {
 
 		return hDao.updateEmp(e);
+	public int checkHolidayCount() {
+		return aDao.checkHolidayCount();
+	}
+
+	@Override
+	public int updateHolidayCount() {
+		return aDao.updateHolidayCount();
 	}
 
 	
