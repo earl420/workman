@@ -156,6 +156,12 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 		return hDao.elistByName(deptName);
 	}
 
+	@Override
+	public int updateEmp(Employee e) {
+
+		return hDao.updateEmp(e);
+	}
+
 	
 
 	

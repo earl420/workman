@@ -352,22 +352,16 @@ public class HumanResourceController {
 	}
 	
 	// 직원리스트 불러오기 with 부서이름
-	@ResponseBody
 	@RequestMapping("elistByName.wo")
-	public String elistByName(HttpServletResponse response, String deptName) throws JsonIOException, IOException {
-
+	public void elistByName(HttpServletResponse response, String deptName) throws JsonIOException, IOException {
+		
+		System.out.println(deptName);
 		ArrayList<Employee> list = hService.elistByName(deptName);
 
 		response.setContentType("application/json; charset=utf-8");
 
 		Gson gson = new Gson();
 		gson.toJson(list, response.getWriter());
-		
-		if(!list.isEmpty()) {
-			return "success";
-		}else {
-			return "fail";
-		}
 
 	}
 
@@ -536,13 +530,33 @@ public class HumanResourceController {
 	public ModelAndView mngEmp(ModelAndView mv) {
 		
 		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		
+		ArrayList<Grade> glist = hService.selectModalGradeList();
 
 		if(!dlist.isEmpty()) {
-			mv.addObject("dlist", dlist).setViewName("humanResource/mngUser");
+			mv.addObject("dlist", dlist).addObject("glsit", glist).setViewName("humanResource/mngUser");
 		}else {
 			mv.setViewName("common/500error");
 		}
 		return mv;
+	}
+	
+	// 인사/인사관리/ 사용자 관리 -> 수정하기 버튼 클릭 시(직급, 부서 수정)
+	@ResponseBody
+	@RequestMapping("updateEmp.wo")
+	public String updateEmp(Employee e) {
+		
+		e.setDeptNum(hService.getDeptNum(e.getDeptName()));
+		e.setGradeNum(hService.getGradeNum(e.getGradeName()));
+		
+		int result = hService.updateEmp(e);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "error";
+		}
+		
 	}
 
 	// 인사/휴가근태 관리/휴가관리
