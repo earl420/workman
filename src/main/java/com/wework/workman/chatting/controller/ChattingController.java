@@ -77,8 +77,8 @@ public class ChattingController {
 		
 		mv.addObject("dlist",dlist);
 		mv.addObject("mlist",mlist);
-		System.out.println(mlist);
-		System.out.println(dlist);
+//		System.out.println(mlist);
+//		System.out.println(dlist);
 		mv.setViewName("chatting/chatting");
 		return mv;
 	}

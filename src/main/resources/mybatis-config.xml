@@ -30,6 +30,7 @@
 	<typeAlias type="com.wework.workman.account.model.vo.SalaryManage" alias="SalaryManage"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.SaleManage" alias="SaleManage"></typeAlias>
 	<typeAlias type="com.wework.workman.account.model.vo.AvgSalary" alias="AvgSalary"></typeAlias>
+	<typeAlias type="com.wework.workman.mypage.model.vo.EmpList" alias="EmpList"/>
 	<!-- chatting -->
 	<typeAlias type="com.wework.workman.chatting.model.vo.Room" alias= "Room"/>
 	<typeAlias type="com.wework.workman.chatting.model.vo.Message" alias ="Message"/>
