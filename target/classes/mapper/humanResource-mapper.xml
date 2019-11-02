@@ -42,7 +42,7 @@
 	</resultMap>
 	
 	<resultMap type="Employee" id="selectEmp">
-		<id property="empNum" column="emp_Name"/>
+		<id property="empNum" column="emp_Num"/>
 		<result property="empPwd" column="emp_pwd"/>
 		<result property="empName" column="EMP_NAME"/>
 		<result property="email" column="EMP_EMAIL"/>
@@ -178,13 +178,13 @@
 		where dept_num = #{deptNum}
 	</delete>
 	
-	<select id="getDeptNum" parameterType="string" resultMap="deptResultSet">
+	<select id="getDeptNum" parameterType="string" resultType="_int">
 		select dept_num
 		from dept
 		where dept_name=#{deptName}
 	</select>
 	
-	<select id="getGradeNum" parameterType="string" resultMap="gradeResultSet">
+	<select id="getGradeNum" parameterType="string" resultType="_int">
 		select grade_num
 		from grade
 		where grade_name=#{gradeName}
@@ -199,6 +199,13 @@
 		select *
 		from employee
 		join dept using(dept_num)
+		join grade using(grade_num)
 		where dept_name=#{deptName}
 	</select>
+	
+	<update id="updateEmp" parameterType="Employee">
+		update employee
+		set dept_num=#{deptNum}, grade_num=#{gradeNum}
+		where  emp_num = #{empNum}
+	</update>
 </mapper>

@@ -146,4 +146,9 @@ public class HumanResourceDao {
 		
 		return (ArrayList)sqlSession.selectList("humanMapper.elistByName", deptName);
 	}
+	
+	public int updateEmp(Employee e) {
+		
+		return (int)sqlSession.update("humanMapper.updateEmp", e);
+	}
 }
