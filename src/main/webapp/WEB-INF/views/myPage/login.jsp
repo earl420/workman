@@ -369,7 +369,10 @@
 		</div>
 		<div style=" width:600px; height:200px; line-height:200px; color:#666;font-size:80px; text-align:center;" id="clock"></div>
 	</div>
+
+
 	<script>
+		
 	$(function(){
 		   if(${!empty success}){
 			   swal.fire({

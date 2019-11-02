@@ -69,8 +69,8 @@
 	<!-- preloader -->
 	<div id="preloader">
 		<div class="loader">
-			<svg class="circular" viewBox="25 25 50 50"> <circle
-					class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
+			<svg class="circular" viewBox="25 25 50 50"> 
+			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
 					stroke-miterlimit="10" /> </svg>
 		</div>
 	</div>
@@ -154,7 +154,7 @@
             </div>
         </div>
 	</div>
-
+	
 			</div>
 			<!-- row -->
 			<div class="content-fluid"></div>
@@ -168,7 +168,10 @@
 		<c:import url="common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
+	
+	
 	<script>
+
 	   $(function(){
 		   if(${!empty success}){
 			   swal.fire({

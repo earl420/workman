@@ -14,7 +14,7 @@ public class AttendanceController {
 	@Resource(name="attendanceService")
 	private AttendanceService aService;
 	
-	// 출퇴근
+	/*// 출퇴근
 	@RequestMapping("attend.wo")
 	public String Attendance(Attendance a, Model model, String flag) {
 		System.out.println(a);
@@ -37,6 +37,25 @@ public class AttendanceController {
 			  return "common/404error"; 
 		 }
 		
-	}
+	}*/
 
+	
+	// 출근
+	@RequestMapping("attend.wo")
+	public String Attendance(Attendance a, Model model) {
+		
+		int result = aService.insertAttendance(a);
+		model.addAttribute("result", result);
+		
+		 return "home";
+	
+	}
+	
+	// 퇴근
+		@RequestMapping("out.wo")
+		public String AttOut(Attendance a, Model model) {
+			int result = aService.updateAttendance(a);
+			model.addAttribute("result", result);
+			return "home";
+		}
 }
