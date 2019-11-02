@@ -2076,6 +2076,10 @@ insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/05/31',
 ('현금'),130000000,
 ('매출'),130000000, null );
 
+insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/07/31',
+('현금'),140000000,
+('매출'),140000000, null );
+
 insert into notice values(null, 305,'2018 4/4 손익계산서','분기 2018 4/4', '20190001','19/01/01', '19/01/01','Y',3);
 insert into notice values(null, 305,'2018 손익계산서','년 2018','20190001', '19/01/01', '19/01/01','Y',3);
 
