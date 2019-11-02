@@ -259,5 +259,17 @@ public class AccountServiceImpl implements AccountService{
 		return aDao.noticeFile(acDetail);
 	}
 
+	@Override
+	public int updateYearSalary(SalaryManage sm) {
+		int r1=aDao.updateEmpSalary(sm);
+		int r2=aDao.updateYearSalary(sm);
+		
+		int result=0;
+		if(r1>0&& r2>0) {
+			result=1;
+		}
+		return result;
+	}
+
 	
 }

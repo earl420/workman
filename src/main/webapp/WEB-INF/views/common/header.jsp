@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"
 	import="java.util.Date, java.text.SimpleDateFormat"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -287,6 +287,8 @@
 								<li><a href="test.wo">-&nbsp;테스트</a></li>
 							</ul></li>
 					</ul></li>
+				<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 302 || loginMan.deftNum eq 304 || loginMan.deftNum eq 305 }">
+				
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-calculator"></i><span
 						class="nav-text">총무/회계</span>
@@ -298,6 +300,8 @@
 						<li><a href="fixturelist.wo">-&nbsp;사내물품 관리</a></li>
 						<li><a href="salarylist.wo">-&nbsp;월급 관리</a></li>
 					</ul></li>
+				</c:if>
+				<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 301 }">
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-users"></i><span
 						class="nav-text">인사</span>
@@ -344,6 +348,7 @@
 								<li><a href="mngAtt.wo">-&nbsp;직원 근태 조회</a>
 							</ul></li>
 					</ul></li>
+				</c:if>	
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-calendar-alt"></i><span
 						class="nav-text">일정</span>
