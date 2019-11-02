@@ -363,7 +363,7 @@
 						class="nav-text">마이 페이지</span>
 				</a>
 					<ul aria-expanded="false">
-						<li><a href="mypageView.wo">-&nbsp;마이 페이지</a></li>
+						<li><a href="mypageView.wo">-&nbsp;직원정보</a></li>
 						<li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
 						<li><a href="confirmPwdPage.wo">-&nbsp;비밀번호 변경</a></li>
 					</ul></li>

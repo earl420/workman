@@ -251,8 +251,8 @@
 	
 	
 	
-		$(function(){
-			$('#emp').on('keypress', function(){
+		/* $(function(){
+			$('#emp').on('keyup', function(){
 				
 				var emp = $(this).val();
 				
@@ -260,8 +260,9 @@
 					url:"empSearch.wo",
 					data:{id:emp},
 					type:"post",
+					data:params,
 					success: function(data){
-						$('#list').text(data);
+						
 					},
 					error: function(){
 						swal.fire({
@@ -276,7 +277,7 @@
 			});
 			
 			
-		});
+		}); */
 		
 	
 	
