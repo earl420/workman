@@ -27,9 +27,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	private Map<String,String> userSessionId = new ConcurrentHashMap<>();
 	//userId,roomId - 접속중인user:actiRoomId
 	private Map<String,String> userRoom = new ConcurrentHashMap<>();
+	//userId, userName : 접속중인  user들의 이름
+	private Map<String,String> userName = new ConcurrentHashMap<>();
+	
 	String userId;
 	String systemId;
-	
+
 	// msgHandler
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException, InterruptedException, ExecutionException {
@@ -42,7 +45,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			userSessionId.put(userId,session.getId());//id랑 session을 sessionId로 매칭
 			String roomId=getRoomList(session,userId);//룸리스트 전달
 			msgHistory(session,roomId,userId);//마지막 룸의 메세지 리스트들 전송
-			
+			String uName =cService.getName(userId);
+			userName.put(userId,uName);//userId로 이름받아와서 넣기
 		}else if(preMsg.equals("rCng")){//룸 변경
 			//rCng:roomId;
 			//룸변경 등 상관없이 보낸메세지는 무조건 jsp단에서 active class 에append
@@ -75,12 +79,26 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			throws IOException, InterruptedException, ExecutionException {
 		allUsers.put(session.getId(), session);
 		systemId = cService.sysId();
+		
 	}
 
 	// onClose
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-		allUsers.remove(session.getId());
+		String sId=session.getId();
+//		String u ="";
+//		for(String i:allUsers.keySet()) {
+//			if(i.equals(sId)) {
+//				u=userSessionId.get(i);	
+//			}
+//		}
+//		System.out.println(u);
+		allUsers.remove(sId);
+//		userSessionId.remove(u);
+//		userRoom.remove(u);
+//		userName.remove(u);
+		
+		
 	}
 	
 	@Override
@@ -127,7 +145,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public String getRoomList(WebSocketSession session,String uId) throws IOException  {
 		String roomId="";
 		ArrayList<Room> roomList= cService.getRoomList(uId);
-		System.out.println(roomList);
 		
 		if(!roomList.isEmpty() && !roomList.toString().equals("[null]")) {
 			for(Room i : roomList) {
