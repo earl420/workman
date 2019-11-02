@@ -387,8 +387,8 @@
 
 		$(function(){
 			console.log("${empName}");
-			if("${empName}" !=null|| "${empName}"!=""){
-				$('#ir1').val("${empName}"+" "+"${empNum}");
+			if("${msg}" !=null|| "${msg}"!=""){
+				$('#ir1').val("${msg}");
 			}
 			
 		})

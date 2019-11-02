@@ -1972,46 +1972,96 @@ insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/11/02',
 ('매출'),200000000, null );
 
 
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('소모품비'),0,
-('소모품'),0, null );
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,'18/12/31','소모품비',
+	(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) from fixture 
+join payment on(fixture_payment=pay_num)
+WHERE EXTRACT(MONTH FROM fixture_buy)
+BETWEEN TO_NUMBER(SUBSTR('18/10/01',4,2)) AND TO_NUMBER(SUBSTR('18/12/31',4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)),
+	'소모품',(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) from fixture 
+	join payment on(fixture_payment=pay_num)
+	WHERE EXTRACT(MONTH FROM fixture_buy) 
+	BETWEEN TO_NUMBER(SUBSTR('18/10/01',4,2)) AND TO_NUMBER(SUBSTR('18/12/31',4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)), null);
+
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,'18/12/31',('무형자산상각비'),
+	(select decode(sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START)))) 
+    from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR('18/10/01',4,2)) AND TO_NUMBER(SUBSTR('18/12/31',4,2)) and sysdate< add_months(license_end,3)),
+('소프트웨어'),
+(select decode( sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START)))) 
+from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR('18/10/01',4,2)) AND TO_NUMBER(SUBSTR('18/12/31',4,2)) and sysdate< add_months(license_end,3)), null);
 
 
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('무형자산상각비'),0,
-('소프트웨어'),0, null );
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,'18/12/31','매출',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='급여' 
+	and journ_date between '18/10/01' and '18/12/31'),
+	'급여',
+(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='급여' 
+	and journ_date between '18/10/01' and '18/12/31')
+, null);
+
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,'18/12/31','매출',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='소모품비' 
+	and journ_date between '18/10/01' and '18/12/31'),
+	'소모품비',
+(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='소모품비' 
+	and journ_date between '18/10/01' and '18/12/31')
+, null);
 
 
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('매출'),6000000,
-('급여'),6000000, null );
+insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,'18/12/31','매출',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='무형자산상각비' 
+	and journ_date between '18/10/01' and '18/12/31'),
+	'무형자산상각비',
+(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	where debt='무형자산상각비' 
+	and journ_date between '18/10/01' and '18/12/31')
+, null);
 
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('매출'),0,
-('소모품비'),0, null );
+insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,'18/12/31','세금',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between '18/10/01' and '18/12/31')-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between '18/10/01' and '18/12/31'))*0.15 from dual),
+	'현금',
+(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between '18/10/01' and '18/12/31')-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between '18/10/01' and '18/12/31'))*0.15 from dual)
+, null);
 
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('매출'),0,
-('무형자산상각비'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('세금'),((select sum(credit_price) from journalizing where credit='매출')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '18/10/01' and '18/12/31'))*0.15,
-('현금'),((select sum(credit_price) from journalizing where credit='매출')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '18/10/01' and '18/12/31'))*0.15, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('매출'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '18/10/01' and '18/12/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '18/10/01' and '18/12/31'))*0.15,
-('세금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '18/10/01' and '18/12/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '18/10/01' and '18/12/31'))*0.15, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금')),
-('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금')), null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
-('매출'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '18/10/01' and '18/12/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '18/10/01' and '18/12/31')),
-('이익잉여금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '18/10/01' and '18/12/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '18/10/01' and '18/12/31')), null );
+insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,'18/12/31','매출',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' and journ_date between '18/10/01' and '18/12/31')
+	,'세금',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' and journ_date between '18/10/01' and '18/12/31')
+	, null);
+    
+    
+    	   insert into journalizing values(JOURN_NUM_SEQ.nextval,'18/12/31',
+('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months('18/10/01',-3) and add_months('18/12/31',-3))),
+('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months('18/10/01',-3) and add_months('18/12/31',-3))), null );
 
 
+	insert into journalizing
+	values 
+	(JOURN_NUM_SEQ.nextval,'18/12/31','매출',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between '18/10/01' and '18/12/31')-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between '18/10/01' and '18/12/31')) from dual),
+	'이익잉여금',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between '18/10/01' and '18/12/31')-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between '18/10/01' and '18/12/31')) from dual)
+	, null);
 
+    
 
 
 
@@ -2021,105 +2071,18 @@ insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/02/02',
 ('현금'),190000000,
 ('매출'),190000000, null );
 
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('소모품비'),0,
-('소모품'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('감가상각비'),0,
-('소모품비'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('무형자산상각비'),0,
-('소프트웨어'),0, null );
-
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('매출'),6000000,
-('급여'),6000000, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('매출'),0,
-('소모품비'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('매출'),0,
-('무형자산상각비'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('세금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/01/01' and '19/03/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/01/01' and '19/03/31'))*0.15,
-('현금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/01/01' and '19/03/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/01/01' and '19/03/31'))*0.15, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('매출'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/01/01' and '19/03/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/01/01' and '19/03/31'))*0.15,
-('세금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/01/01' and '19/03/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/01/01' and '19/03/31'))*0.15, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금')),
-('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금')), null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/03/31',
-('매출'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/01/01' and '19/03/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/01/01' and '19/03/31')),
-('이익잉여금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/01/01' and '19/03/31')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/01/01' and '19/03/31')), null );
-
-
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/08/31',
-('현금'),140000000,
-('매출'),140000000, null );
-
 ---------------------------------19 2/4분기
 insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/05/31',
 ('현금'),130000000,
 ('매출'),130000000, null );
 
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('소모품비'),0,
-('소모품'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('감가상각비'),0,
-('소모품비'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('무형자산상각비'),0,
-('소프트웨어'),0, null );
-
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('매출'),6000000,
-('급여'),6000000, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('매출'),0,
-('소모품비'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('매출'),0,
-('무형자산상각비'),0, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('세금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/04/01' and '19/06/30')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/04/01' and '19/06/30'))*0.15,
-('현금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/04/01' and '19/06/30')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/04/01' and '19/06/30'))*0.15, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('매출'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/04/01' and '19/06/30')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/04/01' and '19/06/30'))*0.15,
-('세금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/04/01' and '19/06/30')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/04/01' and '19/06/30'))*0.15, null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금')),
-('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금')), null );
-
-insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/06/30',
-('매출'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/04/01' and '19/06/30')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/04/01' and '19/06/30')),
-('이익잉여금'),((select sum(credit_price) from journalizing where credit='매출' and JOURN_DATE between '19/04/03' and '19/06/30')-(select sum(debt_price) from journalizing where debt='매출' and JOURN_DATE between '19/04/01' and '19/06/30')), null );
+insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/07/31',
+('현금'),140000000,
+('매출'),140000000, null );
 
 insert into notice values(null, 305,'2018 4/4 손익계산서','분기 2018 4/4', '20190001','19/01/01', '19/01/01','Y',3);
 insert into notice values(null, 305,'2018 손익계산서','년 2018','20190001', '19/01/01', '19/01/01','Y',3);
-insert into notice values(null, 305,'2019 1/4 손익계산서','분기 2019 1/4', '20190001','19/01/01', '19/01/01','Y',3);
-insert into notice values(null, 305,'2019 2/4 손익계산서','분기 2019 2/4', '20190001','19/01/01', '19/01/01','Y',3);
-insert into notice values(null, 305,'2019-09-18 재무상태표', ' 2019 09/18', '20190001','19/01/01', '19/01/01','Y',2);
+
 
 insert into partner values(null, 'MS Korea','010-1111-1111','02-111-1111', '서울시 어딘가','111-1111-1111','홍길동');
 insert into partner values(null, 'Alpha문고','010-1111-1112','02-111-1112', '서울시 어딘가','111-1111-1112','이몽룡');

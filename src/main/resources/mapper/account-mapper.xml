@@ -263,14 +263,14 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 	insert into journalizing
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),
-	'세금',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual)
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' and journ_date between #{startDate} and #{endDate})
+	,'세금',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' and journ_date between #{startDate} and #{endDate})
 	, null)
 </insert>
 
 <insert id="insertIncome8" parameterType="IsState">
-	   insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/09/30',
+	   insert into journalizing values(JOURN_NUM_SEQ.nextval,#{endDate},
 ('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))),
 ('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))), null )
   
@@ -280,9 +280,9 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 	insert into journalizing
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate})) from dual),
 	'이익잉여금',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual)
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate})) from dual)
 	, null)
 </insert>
 
@@ -417,4 +417,11 @@ from salary
 <insert id="updateHolidayCount">
 	insert into holiday_count (select emp_num, 12, 12, extract(year from sysdate) from employee)
 </insert>
+
+<update id="updateYearSalary" parameterType="SalaryManage">
+update salary set salary=#{yearSalary} where sal_year = extract(year from sysdate) and emp_num=#{empNum}
+</update>
+<update id="updateEmpSalary" parameterType="SalaryManage">
+	update employee set emp_salary = #{yearSalary} where emp_num=#{empNum}
+</update>
 </mapper>

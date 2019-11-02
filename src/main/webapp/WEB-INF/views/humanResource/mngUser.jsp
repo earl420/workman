@@ -66,7 +66,7 @@
 									<input type="search" class="form-control" placeholder="이름 검색"
 										aria-label="Search Dashboard">
 								</div>
-								<br> <br> 
+								<br> <br>
 								<div class="form-group row">
 									<div class="col-lg-1">
 										<div class="bootstrap-modal">
@@ -99,7 +99,7 @@
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary"
 																data-dismiss="modal">취소</button>
-															<button type="button" class="btn btn-primary"
+															<button type="button" class="btn btn-primary" id="btn"
 																onclick="modalSubmit1();" data-dismiss="modal">완료</button>
 														</div>
 													</div>
@@ -111,7 +111,11 @@
 										<input type="text" class="form-control" id="a">
 									</div>
 								</div>
-								<div id="count">소속 직원 수 : </div>
+								<div id="count">소속 직원 수 : <label id="count"></label></div>
+								<div>
+									현존 부서 : ${ dlist } <br>
+									현존 직급 : ${ glist } <br>
+								</div>
 								<table class="table header-border">
 									<thead>
 										<tr style="background: #f9f9f9;">
@@ -124,19 +128,8 @@
 											<th scope="col">수정하기</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr id="tr">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><input type="button" value="수정하기"
-												class="btn mb-1 btn-warning"
-												onclick="location.href='updateEmpForm.wo';"
-												style="height: 20px; padding-top: 0"></td>
-										</tr>
+									<tbody id="tbody">
+
 									</tbody>
 								</table>
 							</div>
@@ -157,7 +150,38 @@
 			$("#a").val($(".nav-item>.active").text());
 		}
 		
-		$(function(){
+		$("#btn").on("click", function(){
+			
+			elistByName();
+			
+		});
+		
+		//$('#updateBtn').on("click", function(){
+		$("#tbody").on("click", ".updateBtn", function(){
+			var empNum = $(this).parent().parent().children().eq(1).text();
+			var updateDeptName = $(this).parent().parent().children().eq(3).children().val();
+			var updateGradeName = $(this).parent().parent().children().eq(4).children().val();
+			
+			$.ajax({
+				url : "updateEmp.wo",
+				data : {empNum : empNum, deptName : updateDeptName, gradeName : updateGradeName},
+				success:function(data){
+					
+					if(data=="success"){
+					alert("부서/직급 수정 성공");
+					elistByName();
+					}else{
+						alert("부서/직급 수정 실패");
+					}
+					
+				},
+				error:function(){
+					alert("ajax 통신실패");
+				}
+			});
+		});
+		
+		function elistByName(){
 			
 			var deptName = $("#a").val();
 			
@@ -168,28 +192,29 @@
 				dataType : "json",
 				success : function(data){
 					
-					var $tr = $("#tr");
-					$tr.html("");
+					console.log(data);
+					var $tbody = $("#tbody");
+					$tbody.html("");
 					
 					if(data.length > 0){
 						
-						$.each(data,
-								function(index, value){
+						$("#count").text(data.length);
+						$.each(data,function(index, value){
 							
-							var $td = $('<td>' + value.empName + '</td><td>' + value.empNum + '</td><td>' + value.empPhone + '</td><td><input type="text" id="deptName" value="' + value.deptName + '"></td>"<td><input type="text" id="gradeName" value="' + value.gradeName + '"></td><td>' + value.enrollDate + '</td>');
+							var $td = $('<tr><td>' + value.empName + '</td><td id="empNum">' + value.empNum + '</td><td>' + value.empPhone + '</td><td><input type="text" id="deptName" value="' + value.deptName + '"></td>"<td><input type="text" id="gradeName" value="' + value.gradeName + '"></td><td>' + value.enrollDate + '</td><td><input type="button" value="수정하기" class="btn mb-1 btn-warning updateBtn" style="height: 20px; padding-top: 0"></td></tr>');
 							
-							$tr.append($td);
+							$tbody.append($td);
 						});
 					}else{
 						
-						$tr.append('<td colspan="6">등록된 직원이 없습니다.</td>');
+						$tbody.append('<td colspan="6">등록된 직원이 없습니다.</td>');
 					}
 				},
 				error : function(){
 					console.log("ajax 통신 실패");
 				}
 			});
-		});
+		}
 	</script>
 
 </body>

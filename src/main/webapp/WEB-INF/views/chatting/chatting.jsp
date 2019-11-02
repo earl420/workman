@@ -95,7 +95,7 @@
 }
 
 .msgNotice {
-	background-color: #ecf0f1;
+	background-color: #8C8C8C;
 	max-width: 100%;
 	height: auto;
 	clear: both;
@@ -406,8 +406,8 @@ img {
 		}
 
 		function onOpen(evt) {
-			writer = "msgNotice";
-			appendMessage("연결성공");
+			writer = "notice";
+// 			appendMessage("연결성공");
 
 			var openString = "onOpen:" + userId;
 			wbSocket.send(openString);//오픈시 룸리스트, 메세지 히스토리 받아오기.
@@ -434,21 +434,8 @@ img {
 			send();
 		});
 
-		function appendMessage(msg) {
-			if (userId == writer) {
-				$("#chatBox").append("<li class='msgMe'>" + msg + "</li>");
-			} else if (writer == "notice") {
-				$("#chatBox").append("<li class='msgNotice'>" + msg + "</li>");
-			} else {
-				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
-			}
-			$("#msgContent").scrollTop($("#msgContent")[0].scrollHeight);
 
-			;
-			// 		$("#testTa").append(msg);
-		}
 		function newChat(){
-			console.log(empList);
 			wbSocket.send("newChat:"+empList);
 			empList = new Array();
 		}
@@ -457,30 +444,47 @@ img {
 		function onMessage(evt) {
 			var data = evt.data;
 			var spData = data.split(":");
+			
 			var preMsg = spData[0];
 			//onOpen:userId
 			//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
 			//	<=msgHistory:sender:content:time:status
-
+			//msg:userId:msgContent
 			//rCng:roomId;
 			//	<=msgHistory:sender:content:time:status
 			//newRoom:[userid..]
 			//exitRoom:roomId
 			//addUser:roomId:[userId]
-			//msg:userId:msgContent
-
+			
+			
+			console.log("onMessage - "+data);
 			if (preMsg == "roomSetList") {
 				roomSetList(spData);
 			} else if (preMsg == "msgHistory") {
-				msgHistory(spData);
+				writer = spData[1];
+				msgHistory(spData[2]);
 			} else if (preMsg == "msg") {
-				appendMessage(spData[3]);
+				writer = spData[1];
+				var mCont = data.spilt(":",2);
+				appendMessage(mCont[2]);
 			} else {
-				console.log("??????");
+				console.log(data);
 			}
-
 		}
 
+		function appendMessage(msg) {
+			if (userId == writer) {
+				$("#chatBox").append("<li class='msgMe'>" + msg + "</li>");
+			} else if (writer == "20190003") {
+				$("#chatBox").append("<li class='msgNotice'>" + msg + "</li>");
+			} else {
+				console.log("otherTest");
+				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
+			}
+			$("#msgContent").scrollTop($("#msgContent")[0].scrollHeight);
+			// 		$("#testTa").append(msg);
+		}
+		
 		//--------초기설정----------
 
 		//onOpen:userId
@@ -530,11 +534,11 @@ img {
 			actiRoomId = setRoomId;
 			// active_chat 맨위에꺼에 지정하고 룸번호날려..주나?
 		}
-		function msgHistory(spData) {
-			writer = spData[1];
-			appendMessage(spData[2]);
+		function msgHistory(data) {
+			appendMessage(data);
 			$('#msgInput').removeAttr('disabled');
 		}
+
 		//		------------초기설정 끝
 
 
@@ -550,7 +554,6 @@ img {
 		$("#chatListScroll").on("click", ".chat_list", function() {
 			var rCng = $(this).children().eq(0).val();
 			// 			rCng:roomId
-
 			$('#' + actiRoomId).removeClass('active_chat');
 			actiRoomId = rCng;
 			$('#actiRoomId').val(rCng);

@@ -28,6 +28,7 @@
 	body {
 	  font-family: "Poppins", sans-serif;
 	  height: 100vh;
+	  overflow: hidden;
 	}
 	
 	a {
@@ -365,9 +366,9 @@
 	    <div id="formFooter">
 	      <a class="underlineHover" href="findPwdPage.wo">비밀번호 찾기</a>
     	</div>
-
+			
 		</div>
-		<div style=" width:600px; height:200px; line-height:200px; color:#666;font-size:80px; text-align:center;" id="clock"></div>
+		<div style=" width:600px; height:200px; line-height:100px; color:#666;font-size:80px; text-align:center;" id="clock"></div>
 	</div>
 
 

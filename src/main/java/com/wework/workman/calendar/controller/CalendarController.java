@@ -31,24 +31,39 @@ public class CalendarController {
 	
 	// 캘린더
 	@RequestMapping("calDetailView.wo") 
-	public String calendarDetailView(/* Model model, HttpSession session */) { 
-		/*
-		 * int deptNum= ((Mypage)session.getAttribute("loginMan")).getDeftNum();
-		 * 
-		 * ArrayList<Calendar> calendarList = cService.selectList(deptNum);
-		 * 
-		 * JSONArray jArr = new JSONArray(); for (int i = 0; i < calendarList.size();
-		 * i++) { JSONObject obj =new JSONObject(); // obj.put("_id", i+1);
-		 * obj.put("title", calendarList.get(i).getDescription());
-		 * obj.put("description", calendarList.get(i).getDescription());
-		 * obj.put("start", calendarList.get(i).getStart()); // obj.put("end",
-		 * calendarList.get(i).getEnd()); jArr.add(obj);
-		 * 
-		 * 
-		 * }
-		 * 
-		 * model.addAttribute("list",jArr);
-		 */
+	public String calendarDetailView(Model model, HttpSession session ) { 
+		
+		  int deptNum= ((Mypage)session.getAttribute("loginMan")).getDeftNum();
+		  
+		  ArrayList<Calendar> calendarList = cService.selectList(deptNum);
+		  
+		  JSONArray jArr = new JSONArray(); 
+		  for (int i = 0; i < calendarList.size();i++) { 
+			  JSONObject obj =new JSONObject(); // obj.put("_id", i+1);
+			  obj.put("title", calendarList.get(i).getDescription());
+			  obj.put("description", calendarList.get(i).getDescription());
+			   String start = calendarList.get(i).getStart().toString();
+			  obj.put("start", start);
+			  String end = calendarList.get(i).getEnd().toString();
+			  obj.put("end",end);
+			  if (calendarList.get(i).getCtype().equals("전체")) {
+				  obj.put("color","red");
+				  obj.put("textColor", "white");
+			  }else if(calendarList.get(i).getCtype().equals("부서")) {
+				  obj.put("color","green");
+				  obj.put("textColor", "white");
+			  }else {
+				  obj.put("color","blue");
+				  obj.put("textColor", "white");
+			  }
+			  
+			  jArr.add(obj);
+		 
+		  
+		  }
+		  
+		  model.addAttribute("list",jArr);
+		 
 		
 		return "calendar/calendarDetailViewNew"; 
 	}
@@ -109,7 +124,7 @@ public class CalendarController {
 		 int result = cService.insertCalendar(c);
 			model.addAttribute("result", result);
 			
-		 return "calendar/calendarDetailViewNew";
+		 return "redirect:calDetailView.wo";
 		 
 		/*
 		 * int result = cService.insertCalendar(c);
