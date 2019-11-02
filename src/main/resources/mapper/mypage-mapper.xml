@@ -97,7 +97,7 @@
 	<select id="searchCount" resultType="_int">
 		select count(*)
 		from employee
-		where emp_name=#{emp} and emp_status='Y'
+		where emp_name like '%'||#{emp}||'%' and emp_status='Y'
 	</select>
 	
 	<select id="empSearch" resultMap="listResultSet">
@@ -105,7 +105,7 @@
 		from employee
 		join grade using(grade_num)
 		join dept using(dept_num)
-		where emp_name=#{emp} and emp_status='Y'
+		where emp_name like '%'||#{emp}||'%' and emp_status='Y'
 		order by emp_name
 	</select>
 	
