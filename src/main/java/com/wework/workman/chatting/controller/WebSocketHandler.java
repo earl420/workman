@@ -2,7 +2,6 @@ package com.wework.workman.chatting.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -22,18 +21,19 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	@Autowired
 	private ChattingService cService;
 	
-//	@Resource(name="ChattingService")
-//	private ChattingService cService;
-	
 	//sessionId, session
 	private Map<String, WebSocketSession> allUsers = new ConcurrentHashMap<>();
 	//userId,sessionId
 	private Map<String,String> userSessionId = new ConcurrentHashMap<>();
 	//userId,roomId - 접속중인user:actiRoomId
 	private Map<String,String> userRoom = new ConcurrentHashMap<>();
-	String userId;
+	//userId, userName : 접속중인  user들의 이름
+	private Map<String,String> userName = new ConcurrentHashMap<>();
 	
-	// handler
+	String userId;
+	String systemId;
+
+	// msgHandler
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException, InterruptedException, ExecutionException {
 		String[] spMsg=message.getPayload().split(":");
@@ -45,7 +45,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			userSessionId.put(userId,session.getId());//id랑 session을 sessionId로 매칭
 			String roomId=getRoomList(session,userId);//룸리스트 전달
 			msgHistory(session,roomId,userId);//마지막 룸의 메세지 리스트들 전송
-			
+			String uName =cService.getName(userId);
+			userName.put(userId,uName);//userId로 이름받아와서 넣기
 		}else if(preMsg.equals("rCng")){//룸 변경
 			//rCng:roomId;
 			//룸변경 등 상관없이 보낸메세지는 무조건 jsp단에서 active class 에append
@@ -54,18 +55,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			
 		}else if(preMsg.equals("newChat")){//룸생성
 			//newChat:empList
-			System.out.println("newChat:"+spMsg);
-//			String newRoomId= roomCreate(userId);
-			//add 유저를 jsp단에서 요청할지 java단에서 요청할지 생각해볼것.//자바단 조지자
-//			addUsers(newRoomId);
-			
+			String newRoomId= newChat(userId,spMsg[1]);
+			Room r = cService.getRoom(newRoomId);
+			String roomSetList = "roomSetList:"+r.getRoomId()+":"+r.getRoomName()+":"+ r.getLastWord()+":"+r.getLastMan()+":"+r.getLastComm();
+			TextMessage tx = new TextMessage(roomSetList);
+			msgSend(session,tx,userId);
 		}else if(preMsg.equals("exitRoom")) {//룸나가기
 			//exitRoom:roomId
 		}else if(preMsg.equals("addUsers")) {//유저 추가
-//			addUsers(roomId);
+//			addUser(roomId);
 		}else if(preMsg.equals("msg")){
 //			msg:userId:RoomId:msgCont
-			msgDb(message,userId);
+			msgDb(message);
 			msgSendHandler(session,message,userId);
 		}else {
 		}
@@ -77,12 +78,27 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session)
 			throws IOException, InterruptedException, ExecutionException {
 		allUsers.put(session.getId(), session);
+		systemId = cService.sysId();
+		
 	}
 
 	// onClose
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-		allUsers.remove(session.getId());
+		String sId=session.getId();
+//		String u ="";
+//		for(String i:allUsers.keySet()) {
+//			if(i.equals(sId)) {
+//				u=userSessionId.get(i);	
+//			}
+//		}
+//		System.out.println(u);
+		allUsers.remove(sId);
+//		userSessionId.remove(u);
+//		userRoom.remove(u);
+//		userName.remove(u);
+		
+		
 	}
 	
 	@Override
@@ -93,14 +109,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	//sendHandler
 	public void msgSendHandler(WebSocketSession session, TextMessage message,String uId) throws IOException{
 //		msg:userId:RoomId:msgCont
-		String[] spData = message.getPayload().split(":",3);
-		String rId= spData[3];
-		System.out.println(spData.toString());
+		String[] spData = message.getPayload().split(":",4);
+		String rId= spData[2];
 		for(String key : userRoom.keySet()) {
 			String value = userRoom.get(key);
-			if(value == rId) {
+			if(value.equals(rId)) {
 				//저걸 그대로 보내니까 문제가 생기는거아냐. 다시 확인해
-				TextMessage tx = new TextMessage("msg:"+spData[1]+spData[3]);
+				TextMessage tx = new TextMessage("msg:"+spData[1]+":"+spData[3]);
 				msgSend(session,tx,uId);
 			}else {
 				//모든사용자에게 알람을 보내고 jsp단에서 처리
@@ -130,20 +145,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public String getRoomList(WebSocketSession session,String uId) throws IOException  {
 		String roomId="";
 		ArrayList<Room> roomList= cService.getRoomList(uId);
-		for(Room i : roomList) {
-			
-			String rId=i.getRoomId();
-			String rName =i.getRoomName();
-			String lastWord=i.getLastWord();
-			String lastMan=i.getLastMan();
-			String lastComm=i.getLastComm().toString();
-			String roomSetList="roomSetList:"+rId +":"+rName+":"+ lastWord+":"+lastMan+":"+lastComm;
-			TextMessage tx = new TextMessage(roomSetList);
-			msgSend(session,tx,uId);
-			roomId = i.getRoomId();
-			
-		}
 		
+		if(!roomList.isEmpty() && !roomList.toString().equals("[null]")) {
+			for(Room i : roomList) {
+				String rId=i.getRoomId();
+				String rName =i.getRoomName();
+				String lastWord=i.getLastWord();
+				String lastMan=i.getLastMan();
+				String lastComm=i.getLastComm().toString();
+				String roomSetList="roomSetList:"+rId +":"+rName+":"+ lastWord+":"+lastMan+":"+lastComm;
+				TextMessage tx = new TextMessage(roomSetList);
+				msgSend(session,tx,uId);
+				roomId = i.getRoomId();
+			}	
+		}
 		return roomId;
 	}
 	//초기세팅 : 마지막 룸 지난메세지 전송
@@ -167,23 +182,37 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		}
 	}
 
-	public String roomCreate(String uId) {
+	public String newChat(String uId,String users) {
+		String[] usersArr =users.split(",");
+		String newRoomId = cService.newChat(uId);
+		addUsers(newRoomId,usersArr);
+		String cont = uId+"님이 "+users+"님을 초대하였습니다.";
+		TextMessage tx = new TextMessage("msg:"+systemId+":"+newRoomId+":"+cont);
+		msgDb(tx);
 		
-		return null;//생성된roomId반환
+		
+		
+		
+		return newRoomId;//생성된roomId반환
 	}
 
 	public void exitRoom() {
 	}
 	
-	public void addUsers(String roomId) {
-		
+	public void addUsers(String roomId,String[] uIds) {
+		for(int i=0; i<uIds.length;i++) {
+			String uId =uIds[i];
+			cService.addUser(roomId,uId);
+		}
+		//메세지 추가하기.
 	}
-	public void msgDb(TextMessage message,String uId) {
+//	msg:userId:RoomId:msgCont
+	public void msgDb(TextMessage message) {
 		Message msg = new Message();
 		String[] msgArr = message.getPayload().split(":");
-		String msgCont = msgArr[3];
-		uId = msgArr[1];
+		String uId = msgArr[1];
 		String roomId = msgArr[2];
+		String msgCont = msgArr[3];
 		msg.setSender(uId);
 		msg.setRoomId(roomId);
 		msg.setMsgCont(msgCont);

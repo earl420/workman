@@ -17,6 +17,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.wework.workman.account.model.dao.AccountDao;
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
@@ -132,7 +133,21 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public ArrayList<SalaryManage> salaryList(PageInfo pi) {
-		return aDao.salaryList(pi);
+		ArrayList<SalaryManage> list = aDao.salaryList(pi);
+		ArrayList<String> li = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			String eNum =list.get(i).getEmpNum();
+			int a =aDao.getIncreaseRate(eNum);
+			double b;
+			if(a==0) {
+				b=0;
+			}else {
+				b = Math.round((list.get(i).getYearSalary()- a)/(double)a);
+			}
+			
+			list.get(i).setIncreaseRate(b);
+		}
+		return list;
 	}
 
 	@Override
@@ -195,7 +210,6 @@ public class AccountServiceImpl implements AccountService{
 //		else {
 //			transactionManager.rollback(status);
 //		}
-		System.out.println(result);
 		return result;
 		
 		
@@ -247,8 +261,30 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public Partner selectPartner(String partnerNum) {
-		return aDao.selectPartner(partnerNum);
+	public int updateYearSalary(SalaryManage sm) {
+		int r1=aDao.updateEmpSalary(sm);
+		int r2=aDao.updateYearSalary(sm);
+		
+		int result=0;
+		if(r1>0&& r2>0) {
+			result=1;
+		}
+		return result;
+	}
+
+	@Override
+	public int checkAtten(Attendance2 a) {
+		return aDao.checkAtten(a);
+	}
+
+	@Override
+	public int goWork(Attendance2 a) {
+		return aDao.goWork(a);
+	}
+
+	@Override
+	public int outWork(Attendance2 a) {
+		return aDao.outWork(a);
 	}
 
 	

@@ -26,11 +26,11 @@ public class CalendarServiceImpl implements CalendarService {
 		return cDao.updateCalendar(empNum);
 	}
 
-	@Override // 상세보기
-	public Calendar calendarDetail(String empNum) {
-		
-		return cDao.calendarDetail(empNum);
-	}
+	/*
+	 * @Override // 상세보기 public Calendar calendarDetail(String empNum) {
+	 * 
+	 * return cDao.calendarDetail(empNum); }
+	 */
 
 	@Override // 삭제
 	public int deleteCalendar(String empNum) {
@@ -38,7 +38,7 @@ public class CalendarServiceImpl implements CalendarService {
 		return cDao.deleteCalendar(empNum);
 	}
 
-	@Override
+	@Override // 상세 조회
 	public ArrayList<Calendar> selectList(int deptNum) {
 		
 		return cDao.selectList(deptNum);

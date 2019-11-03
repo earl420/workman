@@ -29,7 +29,6 @@
 		<result column="GRADE_NAME" property="gradeName"></result>
 		<result column="MONSALARY" property="monSalary"></result>
 		<result column="SALARY" property="yearSalary"></result>
-		<result column="INCREASERATE" property="increaseRate"></result>
 	</resultMap>
 	<resultMap id="as" type="AccountStatus">
 		<result column="DEPT" property="deptside"></result>
@@ -121,14 +120,11 @@
 		<![CDATA[
 		SELECT A1.ACCOUNTNAME as "DEPT", A1.ACOUNTSUM as
 		"ACCOUNT1" , A2.ACCOUNTNAME AS "CREDIT",A2.ACCOUNTSUM2 AS "ACCOUNT2"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM, ROWNUM AS "RN"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM, ROWNUM AS "RN"
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM
 		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
 		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
-		"ACOUNTSUM"
-		from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
+		"ACOUNTSUM" from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
 		j1.debt_price from journalizing j1
 		where j1.journ_date<=#{noticeContent})
 		group by debt)
@@ -141,8 +137,7 @@
 		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A1
 		LEFT OUTER JOIN
 		(SELECT ACCOUNTNAME,ACCOUNTSUM2,ROWNUM AS "RN"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM*(-1) AS ACCOUNTSUM2
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM*(-1) AS ACCOUNTSUM2
 		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
 		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
 		"ACOUNTSUM"
@@ -155,10 +150,8 @@
 		where j1.journ_date<=#{noticeContent})
 		group by credit) on(debt =credit))
 		JOIN ACCOUNT ON(ACCOUNTNAME= ACCOUNT_NAME)
-		WHERE ACCOUNT_ALI LIKE('3%')OR ACCOUNT_ALI LIKE'4%' OR ACCOUNT_ALI LIKE
-		'5%'
-		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A2 ON(A1.RN = A2.RN)
-		ORDER BY A1.RN
+		WHERE ACCOUNT_ALI LIKE('3%')OR ACCOUNT_ALI LIKE'4%' OR ACCOUNT_ALI LIKE '5%'
+		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A2 ON(A1.RN = A2.RN) ORDER BY A1.RN
 		]]>
 
 	</select>
@@ -269,14 +262,14 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 	insert into journalizing
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),
-	'세금',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual)
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' and journ_date between #{startDate} and #{endDate})
+	,'세금',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' and journ_date between #{startDate} and #{endDate})
 	, null)
 </insert>
 
 <insert id="insertIncome8" parameterType="IsState">
-	   insert into journalizing values(JOURN_NUM_SEQ.nextval,'19/09/30',
+	   insert into journalizing values(JOURN_NUM_SEQ.nextval,#{endDate},
 ('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))),
 ('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))), null )
   
@@ -286,15 +279,15 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 	insert into journalizing
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate})) from dual),
 	'이익잉여금',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual)
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate})) from dual)
 	, null)
 </insert>
 
 <insert id="aNoticeInsert" parameterType="AcNotice">
 	insert into notice 
-	values (null,#{noticeDept}, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, 'Y', #{noticeAccType} )
+	values (null,305, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, 'Y', #{noticeAccType} )
 </insert>
 
 <select id="getSaleListCount" resultType="_int">
@@ -355,9 +348,7 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 
 <select id="salaryList" resultMap="empSalary">
 
-	select EMP_NUM,SAL_YEAR,DEPT_NUM,DEPT_NAME,EMP_NAME,GRADE_NAME, round(SALARY/12) AS "MONSALARY",SALARY,
-decode((select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num), null, 0,round((salary -(select salary from salary where sal_year =( extract(year from sysdate)-1 ) and emp_num=emp_num))/(select salary from salary where sal_year =( extract(year from sysdate)-1) and emp_num=emp_num)*100))
- as "INCREASERATE"
+	select EMP_NUM,SAL_YEAR,DEPT_NUM,DEPT_NAME,EMP_NAME,GRADE_NAME, round(SALARY/12) AS "MONSALARY",SALARY
 from salary
 		join employee using(emp_num)
 		join dept using(dept_num)
@@ -417,4 +408,35 @@ from salary
 <select id="selectPartner" parameterType="string" resultMap="partner">
 	select * from partner where PARTNER_NUM = #{"partnerNum"}
 </select>
+<select id="getIncreaseRate" parameterType="string" resultType="_int">
+	select decode(count(*), 0, 0, sum(salary)) from salary where emp_num=#{li} and sal_year = (extract(year from sysdate)-1)	
+</select>
+
+<select id="checkHolidayCount" resultType="_int">
+	select count(*) from holiday_count where HOLIDAY_YEAR = extract(year from sysdate)
+</select>
+
+<insert id="updateHolidayCount">
+	insert into holiday_count (select emp_num, 12, 12, extract(year from sysdate) from employee)
+</insert>
+
+<update id="updateYearSalary" parameterType="SalaryManage">
+update salary set salary=#{yearSalary} where sal_year = extract(year from sysdate) and emp_num=#{empNum}
+</update>
+<update id="updateEmpSalary" parameterType="SalaryManage">
+	update employee set emp_salary = #{yearSalary} where emp_num=#{empNum}
+</update>
+
+<select id="checkAtten" resultType="_int" parameterType="Attendance2">
+	select count(*) from attendance where emp_num=#{empNum} and att_date=#{today}
+</select>
+
+<insert id="goWork" parameterType="Attendance2">
+	insert into attendance values (#{empNum},#{today},#{time},null)
+</insert>
+
+<update id="outWork" parameterType="Attendance2">
+	update attendance set time_off = #{time} where emp_num=#{empNum} and att_date=#{today}
+</update>
+
 </mapper>

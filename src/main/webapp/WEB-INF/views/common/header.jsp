@@ -2,44 +2,31 @@
 	pageEncoding="UTF-8"
 	import="java.util.Date, java.text.SimpleDateFormat"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-<script src="https://kit.fontawesome.com/ee2dc8e60a.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!--&nbsp;Custom Stylesheet -->
-<link href="resources/css/style.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ee2dc8e60a.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- <link href="resources/plugins/toastr/css/toastr.min.css" rel="stylesheet"> -->
+	
+    <!--&nbsp;Custom Stylesheet -->
+     <link href="resources/css/style.css" rel="stylesheet">
 <style>
-#bye {
-	font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica",
-		"Arial", "AppleSDGothicNeo", sans-serif;
-	color: white;
-	width: 100px;
-}
-
-#hi {
-	font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica",
-		"Arial", "AppleSDGothicNeo", sans-serif;
-	color: white;
-	width: 100px;
-}
-
-#header-right {
-	display: inline;
-}
-
-#hi3 {
-	float: left;
-	padding-top: 20px;
-}
+	#header-right{
+		display:inline;
+	}
+	#p1{
+        color: navy;
+        /* border:1px solid black; */
+        margin-top:30px;
+	}
 </style>
 </head>
 
-<body>
+<body onload="printClock()">
+
 
 	<c:set var="contextPath"></c:set>
 
@@ -66,9 +53,8 @@
             Header start
         ***********************************-->
 	<div class="header">
-
-		<div class="header-content clearfix"
-			style="border-bottom: 1px solid gray;">
+ 
+		<div class="header-content clearfix" style="border-bottom: 1px solid gray;">
 
 
 			<div class="nav-control">
@@ -87,63 +73,23 @@
 					/* 오늘날짜 value값으로 박으려고 */
 
 					Date time = new Date();
-					SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss");
+					SimpleDateFormat sdf2 = new SimpleDateFormat("kk:mm:s");
 					String strTime = sdf2.format(time);
 					/* 현재시간 value값으로 박으려고 */
 				%>
 
-				<div class="hi3">
+					
+				<button class="btn mb-1 btn-rounded btn-success" 
+				type="button" id="hi" style="color: white; width:100px; margin-top:20px" onclick="location.href='gowork.wo'">출근</button>
+				
+				<button class="btn mb-1 btn-rounded btn-warning" 
+				type="button" id="bye" style="color: white; width:100px; margin-top:20px" onclick="location.href='outwork.wo'">퇴근</button>		
+				
+		
+		 	
 
-
-					<form action="attend.wo" method="post" id="form1">
-						<input type="hidden" name="empNum" value="${ loginMan.num }">
-						<input type="hidden" name="att_date" value="<%=strToday%>">
-						<input type="hidden" name="time_on" value="<%=strTime%>">
-						<input type="hidden" name="time_off" value="<%=strTime%>">
-						<input type="hidden" name="flag" value="${flag }" id="flag">
-						<c:if test="${flag eq '출'}">
-							<button class="btn mb-1 btn-rounded btn-success" type="submit"
-								id="hi">출근</button>
-						</c:if>
-
-						<c:if test="${flag eq '퇴'}">
-							<button class="btn mb-1 btn-rounded btn-warning" type="submit"
-								id="bye">퇴근</button>
-						</c:if>
-					</form>
-				</div>
-
-				<script>
-					/* 출퇴근 버튼 스크립트 */
-					$(function() {
-						$("#bye").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
-					});
-
-					// 출근 버튼 누르면 알림창 뜨기
-					$("#hi").on("click", function() {
-						var d = new Date();
-						var time = d.getHours() + '시' + d.getMinutes() + '분';
-						alert(time + ' 출근.');
-						$("#bye").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
-						$("#hi").hide(); /* 출근버튼은 안보이게 */
-
-						$("#flag").val("출");
-
-						return true;
-					});
-
-					// 퇴근 버튼 누르면 알림창 뜨기
-					$("#bye").on("click", function() {
-						var d = new Date();
-						var time = d.getHours() + '시' + d.getMinutes() + '분';
-						alert(time + ' 퇴근.');
-						$("#bye").hide(); /* 퇴근버튼은 안보이게 */
-
-						$("#flag").val("퇴");
-
-						return true;
-					});
-				</script>
+					
+				 
 			</div>
 
 			<div class="header-right">
@@ -154,64 +100,10 @@
 						<c:out value="${ loginMan.gradeName }" /></li>
 					<li class="icons dropdown"><c:out
 							value="${ loginMan.deptName }" /></li>
-
-
-					<li class="icons dropdown"><a href="javascript:void(0)"
-						data-toggle="dropdown"> <i class="mdi mdi-email-outline"></i>
-							<span class="badge gradient-1 badge-pill badge-primary">3</span>
-					</a>
-						<div class="drop-down animated fadeIn dropdown-menu">
-							<div
-								class="dropdown-content-heading d-flex justify-content-between">
-								<span class="">3 New Messages</span>
-
-							</div>
-							<div class="dropdown-content-body">
-								<ul>
-									<li class="notification-unread"><a
-										href="javascript:void()"> <img
-											class="float-left mr-3 avatar-img"
-											src="resources/images/avatar/1.jpg" alt="">
-											<div class="notification-content">
-												<div class="notification-heading">Saiful Islam</div>
-												<div class="notification-timestamp">08 Hours ago</div>
-												<div class="notification-text">Hi Teddy, Just wanted
-													to let you ...</div>
-											</div>
-									</a></li>
-									<li class="notification-unread"><a
-										href="javascript:void()"> <img
-											class="float-left mr-3 avatar-img"
-											src="resources/images/avatar/2.jpg" alt="">
-											<div class="notification-content">
-												<div class="notification-heading">Adam Smith</div>
-												<div class="notification-timestamp">08 Hours ago</div>
-												<div class="notification-text">Can you do me a favour?</div>
-											</div>
-									</a></li>
-									<li><a href="javascript:void()"> <img
-											class="float-left mr-3 avatar-img"
-											src="resources/images/avatar/3.jpg" alt="">
-											<div class="notification-content">
-												<div class="notification-heading">Barak Obama</div>
-												<div class="notification-timestamp">08 Hours ago</div>
-												<div class="notification-text">Hi Teddy, Just wanted
-													to let you ...</div>
-											</div>
-									</a></li>
-									<li><a href="javascript:void()"> <img
-											class="float-left mr-3 avatar-img"
-											src="resources/images/avatar/4.jpg" alt="">
-											<div class="notification-content">
-												<div class="notification-heading">Hilari Clinton</div>
-												<div class="notification-timestamp">08 Hours ago</div>
-												<div class="notification-text">Hello</div>
-											</div>
-									</a></li>
-								</ul>
-
-							</div>
-						</div></li>
+					<li class="icons dropdown" id="clock" style= "font-size:30px;">
+				
+					<div style=" width:200px; height:50px; line-height:50px; color:#666;font-size:10px; text-align:right;" id="clock" ></div>
+				
 					<li class="icons dropdown"><a href="javascript:void(0)"
 						data-toggle="dropdown"> <i class="mdi mdi-bell-outline"></i> <span
 							class="badge badge-pill gradient-2 badge-primary">3</span>
@@ -267,38 +159,17 @@
 						href="javascript:void(0)" class="log-user" data-toggle="dropdown">
 							<i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
 					</a>
-						<div
+						<div 
 							class="drop-down dropdown-language animated fadeIn  dropdown-menu">
 							<div class="dropdown-content-body">
 								<ul>
 									<li><a href="logout.wo">로그아웃</a></li>
 								</ul>
 							</div>
+							
 						</div></li>
-					<li class="icons dropdown">
-						<div class="user-img c-pointer position-relative"
-							data-toggle="dropdown">
-							<span class="activity active"></span>
-							<!--  <img src="views/common/images/user/1.png" height="40" width="40" alt=""> -->
-						</div>
-						<div class="drop-down dropdown-profile   dropdown-menu">
-							<div class="dropdown-content-body">
-								<ul>
-									<li><a href="empInfo.wo"><i class="icon-user"></i> <span>Profile</span></a>
-									</li>
-									<li><a href="email-inbox.html"><i
-											class="icon-envelope-open"></i> <span>Inbox</span>
-											<div class="badge gradient-3 badge-pill badge-primary">3</div></a>
-									</li>
-
-									<hr class="my-2">
-									<li><a href="page-lock.html"><i class="icon-lock"></i>
-											<span>Lock Screen</span></a></li>
-									<li><a href="logout.wo"><i class="icon-key"></i> <span>Logout</span></a></li>
-								</ul>
-							</div>
-						</div>
-					</li>
+						
+						
 				</ul>
 			</div>
 		</div>
@@ -358,6 +229,8 @@
 								<li><a href="test.wo">-&nbsp;테스트</a></li>
 							</ul></li>
 					</ul></li>
+				<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 302 || loginMan.deftNum eq 304 || loginMan.deftNum eq 305 }">
+				
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-calculator"></i><span
 						class="nav-text">총무/회계</span>
@@ -369,6 +242,8 @@
 						<li><a href="fixturelist.wo">-&nbsp;사내물품 관리</a></li>
 						<li><a href="salarylist.wo">-&nbsp;월급 관리</a></li>
 					</ul></li>
+				</c:if>
+				<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 301 }">
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-users"></i><span
 						class="nav-text">인사</span>
@@ -415,6 +290,7 @@
 								<li><a href="mngAtt.wo">-&nbsp;직원 근태 조회</a>
 							</ul></li>
 					</ul></li>
+				</c:if>	
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-calendar-alt"></i><span
 						class="nav-text">일정</span>
@@ -429,7 +305,7 @@
 						class="nav-text">마이 페이지</span>
 				</a>
 					<ul aria-expanded="false">
-						<li><a href="mypageView.wo">-&nbsp;마이 페이지</a></li>
+						<li><a href="mypageView.wo">-&nbsp;직원정보</a></li>
 						<li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
 						<li><a href="confirmPwdPage.wo">-&nbsp;비밀번호 변경</a></li>
 					</ul></li>
@@ -458,9 +334,51 @@
 	<script src="resources/js/custom.min.js"></script>
 	<script src="resources/js/settings.js"></script>
 	<script src="resources/js/gleek.js"></script>
-	<script src="resources/js/styleSwitcher.js"></script>
-
-
+	<script src="resources/js/styleSwitcher.js"></script><!-- 
+	<script src="resources/plugins/toastr/js/toastr.min.js"></script>
+	<script src="resources/plugins/toastr/js/toastrSR.init.js"></script> -->
+	<script src="resources/account/js/header.js"></script>
+	<script type="text/javascript">
+		function printClock() {
+	
+		    var clock = document.getElementById("clock");            // 출력할 장소 선택
+		    var currentDate = new Date();                                     // 현재시간
+		    var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
+		    var amPm = '오전'; // 초기값 AM
+		    var currentHours = addZeros(currentDate.getHours(),2);
+		    var currentMinute = addZeros(currentDate.getMinutes() ,2);
+		    var currentSeconds =  addZeros(currentDate.getSeconds(),2);
+		    
+		    if(currentHours >= 12){ // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
+		        amPm = '오후';
+		        currentHours = addZeros(currentHours - 12,2);
+		    }
+	
+	
+		    if(currentSeconds >= 50){// 50초 이상일 때 색을 변환해 준다.
+		        currentSeconds = '<span style="color:#de1951;">'+currentSeconds+'</span>'
+		    }
+	
+		    clock.innerHTML = amPm + "  " +  currentHours+":"+currentMinute+":"+currentSeconds +" <span style='font-size:50px;'>"; //날짜를 출력해 줌
+		    setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
+		}
+	
+	
+	
+		function addZeros(num, digit) { // 자릿수 맞춰주기
+	
+		    var zero = '';
+		    num = num.toString();
+		    if (num.length < digit) {
+		        for (i = 0; i < digit - num.length; i++) {
+		            zero += '0';
+		        }
+		    }
+		    
+		    return zero + num;
+		    }
+	
+	</script>
 
 
 </body>

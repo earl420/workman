@@ -2,13 +2,16 @@ package com.wework.workman.mypage.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.print.attribute.PrintRequestAttribute;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.wework.workman.account.model.vo.AcNotice;
+import com.wework.workman.common.PageInfo;
+import com.wework.workman.common.Pagination;
 import com.wework.workman.mypage.model.service.MypageService;
+import com.wework.workman.mypage.model.vo.EmpList;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 @SessionAttributes("loginMan")
@@ -51,9 +59,54 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("mypageView.wo")
-	public String myPageView() {
-		return "myPage/mypageView";
+	public ModelAndView myPageView(ModelAndView mv,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		int empCount = mService.empCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
+		ArrayList<EmpList> list = mService.empList(pi);
+		for (int i = 0; i < list.size(); i++) {
+			String eNum = list.get(i).getNum().substring(6);
+			list.get(i).setNum(eNum);
+		}
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
+		
+		
+		return mv;
 	}
+	
+	/**
+	 * 직원 검색
+	 * @param mv
+	 * @param emp
+	 * @param currentPage
+	 * @return
+	 */
+	@RequestMapping("empSearch.wo")
+	public ModelAndView empSearch(ModelAndView mv, String emp,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+		
+		EmpList searchEmp = new EmpList();
+		int empCount = mService.searchCount(emp);
+		
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
+		
+		
+		ArrayList<EmpList> list = mService.empSearch(emp, pi);
+		for (int i = 0; i < list.size(); i++) {
+			String eNum = list.get(i).getNum().substring(6);
+			list.get(i).setNum(eNum);
+		}
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
+		
+		
+		return mv;
+		
+		
+	}
+	
 
 	/**
 	 * 정보 수정 페이지
@@ -100,6 +153,7 @@ public class MypageController {
 	public String loginEmp(Mypage m, Model model){
 		  
 		  Mypage loginMan = mService.loginMan(m);
+		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
 			  model.addAttribute("loginMan", loginMan);
 			  model.addAttribute("login", "로그인 되었습니다.");
@@ -163,6 +217,7 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empUpdate.wo")
+	@DateTimeFormat(pattern="yyyy/MM/ dd")
 	public String empUpdate(Mypage m, Model model,
 							@RequestParam("address1") String address1,
 							@RequestParam("address2") String address2) {
@@ -271,6 +326,8 @@ public class MypageController {
 		
 		
 	}
+	
+	
 		
 	
 	

@@ -66,7 +66,7 @@
 									<input type="search" class="form-control" placeholder="이름 검색"
 										aria-label="Search Dashboard">
 								</div>
-								<br> <br> 
+								<br> <br>
 								<div class="form-group row">
 									<div class="col-lg-1">
 										<div class="bootstrap-modal">
@@ -92,6 +92,7 @@
 																	<c:forEach items="${ dlist }" var="d">
 																		<li class="nav-item"><a class="nav-link"
 																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																		<input type="hidden" id="dd" name="dd" value="${ d.deptName }">
 																	</c:forEach>
 																</ul>
 															</div>
@@ -99,7 +100,7 @@
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary"
 																data-dismiss="modal">취소</button>
-															<button type="button" class="btn btn-primary"
+															<button type="button" class="btn btn-primary" id="btn"
 																onclick="modalSubmit1();" data-dismiss="modal">완료</button>
 														</div>
 													</div>
@@ -111,7 +112,8 @@
 										<input type="text" class="form-control" id="a">
 									</div>
 								</div>
-								<div id="count">소속 직원 수 : </div>
+								<div>소속 직원 수 : <label id="count"></label></div>
+								
 								<table class="table header-border">
 									<thead>
 										<tr style="background: #f9f9f9;">
@@ -124,19 +126,8 @@
 											<th scope="col">수정하기</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr id="tr">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><input type="button" value="수정하기"
-												class="btn mb-1 btn-warning"
-												onclick="location.href='updateEmpForm.wo';"
-												style="height: 20px; padding-top: 0"></td>
-										</tr>
+									<tbody id="tbody">
+
 									</tbody>
 								</table>
 							</div>
@@ -157,7 +148,38 @@
 			$("#a").val($(".nav-item>.active").text());
 		}
 		
-		$(function(){
+		$("#btn").on("click", function(){
+			
+			elistByName();
+			
+		});
+		
+		//$('#updateBtn').on("click", function(){
+		$("#tbody").on("click", ".updateBtn", function(){
+			var empNum = $(this).parent().parent().children().eq(1).text();
+			var updateDeptName = $(this).parent().parent().children().eq(3).children().val();
+			var updateGradeName = $(this).parent().parent().children().eq(4).children().val();
+			
+			$.ajax({
+				url : "updateEmp.wo",
+				data : {empNum : empNum, deptName : updateDeptName, gradeName : updateGradeName},
+				success:function(data){
+					
+					if(data=="success"){
+					alert("부서/직급 수정 성공");
+					elistByName();
+					}else{
+						alert("부서/직급 수정 실패");
+					}
+					
+				},
+				error:function(){
+					alert("ajax 통신실패");
+				}
+			});
+		});
+		
+		function elistByName(){
 			
 			var deptName = $("#a").val();
 			
@@ -168,28 +190,60 @@
 				dataType : "json",
 				success : function(data){
 					
-					var $tr = $("#tr");
-					$tr.html("");
+					console.log(data);
 					
-					if(data.length > 0){
-						
-						$.each(data,
-								function(index, value){
-							
-							var $td = $('<td>' + value.empName + '</td><td>' + value.empNum + '</td><td>' + value.empPhone + '</td><td><input type="text" id="deptName" value="' + value.deptName + '"></td>"<td><input type="text" id="gradeName" value="' + value.gradeName + '"></td><td>' + value.enrollDate + '</td>');
-							
-							$tr.append($td);
-						});
-					}else{
-						
-						$tr.append('<td colspan="6">등록된 직원이 없습니다.</td>');
-					}
+					getlist(data);
+					
 				},
 				error : function(){
 					console.log("ajax 통신 실패");
 				}
 			});
-		});
+		}
+		
+		function getlist(data){
+			
+			$.ajax({
+				url:"dlist.wo",
+				dataType : "json",
+				success: function(dlist){
+					console.log(dlist);
+					console.log(data);
+					
+					var $tbody = $("#tbody");
+					$tbody.html("");
+					
+					if(data.length > 0){
+						
+						$("#count").text(data.length);
+						$.each(data,function(index, value){
+							
+							var $tr = $('<tr>');
+							var $td = $('<td>' + value.empName + '</td><td id="empNum">' + value.empNum + '</td><td>' + value.empPhone + '</td>');
+							var $td1 = $('<td>');
+							var $select = $('<select id="select" name="deptName">');
+							
+							
+							$.each(dlist, function(index, v){
+								
+								var $td2 = $('<option value="'+ v.deptName +'">'+ v.deptName +'</option></select></td>');
+	/* 							var $td3 = $('</select></td>"<td><input type="text" id="gradeName" value="' + value.gradeName + '"></td><td>' + value.enrollDate + '</td><td><input type="button" value="수정하기" class="btn mb-1 btn-warning updateBtn" style="height: 20px; padding-top: 0"></td></tr>');
+	 */							
+								$tbody.append($tr).append($td).append($select.append($td2));
+							});
+						});
+					}else{
+						
+						$tbody.append('<td colspan="6">등록된 직원이 없습니다.</td>');
+					}
+				},
+				error : function(){
+					console.log("ajax 통신실패2");
+				}
+				
+			});
+			
+		}
 	</script>
 
 </body>

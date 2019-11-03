@@ -104,13 +104,10 @@
 								</tbody>
 							</table>
 						</div>
-						<c:url var="updateSalary" value="draftWrite.wo" >
-							<c:param name="empNum" value="${list.get(0).empNum }" />
-							<c:param name="empName" value="${list.get(0).empName }" />
-						</c:url>
+						
 						<div class="row" style="padding-left: 48%; padding-top: 70px;">
 							<button class="btn mb-1 btn-rounded btn-outline-warning"
-							onclick="location.href='${updateSalary}';">연봉수정하기</button>
+							id="updateSalary">연봉수정하기</button>
 						</div>
 					</div>
 				</div>
@@ -126,7 +123,38 @@
     ***********************************-->
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 	
-
-
+	<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h4></h4>
+      </div>
+      <div class="modal-body">
+      	<form method="post" id="modalForm" action="updateyearsalary.wo">
+       		<table class="table" id="updateSale">
+       			<tr>
+       				<th>이름</th>
+       				<td>
+       				<input type="text" name="empName" readonly="readonly" value="${list.get(0).empName }"  />
+       				</td>
+       			</tr>
+       			<tr>
+       				<th>연봉</th>
+       				<td><input type="number" id="salary" name="salary" value="${list.get(0).yearSalary }"  />
+       					<input type="hidden" name="empNum" value="${list.get(0).empNum }"/>	
+       				</td>
+       			</tr>
+       			
+       		</table>
+       		<button type="submit" onclick="return checkCount();" id="modalBtn" class="btn mb-1 btn-rounded btn-outline-warning">
+       			연봉수정
+       		</button>
+       		</form>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+<script src="resources/account/js/salDetail.js"></script>
 </body>
 </html>

@@ -277,17 +277,19 @@ public class HumanResourceController {
 
 	// 인사/인사정보/직원목록
 	@RequestMapping("empList.wo")
-	public String empListMain() {
+	public ModelAndView empListMain(ModelAndView mv) {
+		
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		
+		ArrayList<Employee> elist = hService.getEmp();
 
-		return "humanResource/empList";
+		if(!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).addObject("elist", elist).setViewName("humanResource/empList");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
 	}
-
-	// 인사/휴가근태/휴가신청
-//	@RequestMapping("addHoliday.wo")
-//	public String addHoliday() {
-//
-//		return "humanResource/addHolidayForm";
-//	}
 
 	// 인사/휴가근태/휴가현황
 	@RequestMapping("showHoliday.wo")
@@ -350,24 +352,18 @@ public class HumanResourceController {
 		gson.toJson(list, response.getWriter());
 
 	}
-	
-	// 직원리스트 불러오기 with 부서이름
-	@ResponseBody
-	@RequestMapping("elistByName.wo")
-	public String elistByName(HttpServletResponse response, String deptName) throws JsonIOException, IOException {
 
+	// 직원리스트 불러오기 with 부서이름
+	@RequestMapping("elistByName.wo")
+	public void elistByName(HttpServletResponse response, String deptName) throws JsonIOException, IOException {
+
+		System.out.println(deptName);
 		ArrayList<Employee> list = hService.elistByName(deptName);
 
 		response.setContentType("application/json; charset=utf-8");
 
 		Gson gson = new Gson();
 		gson.toJson(list, response.getWriter());
-		
-		if(!list.isEmpty()) {
-			return "success";
-		}else {
-			return "fail";
-		}
 
 	}
 
@@ -438,7 +434,7 @@ public class HumanResourceController {
 		int deptNum = Integer.parseInt((request.getParameter("deptNum")));
 
 		int result = hService.deleteDept(deptNum);
-		
+
 		if (result > 0) {
 			return "redirect:empChart.wo";
 		} else {
@@ -457,9 +453,9 @@ public class HumanResourceController {
 	// 직원등록화면
 	@RequestMapping("addEmpForm.wo")
 	public ModelAndView addEmpForm(ModelAndView mv) {
-		
+
 		ArrayList<Dept> dlist = hService.selectModaDeptlList();
-		
+
 		ArrayList<Grade> glist = hService.selectModalGradeList();
 
 		if (!dlist.isEmpty() && !glist.isEmpty()) {
@@ -473,13 +469,10 @@ public class HumanResourceController {
 
 	// 직원 등록
 	@RequestMapping("insertEmp.wo")
-	public String insertEmp(Employee e, Dept d, ModelAndView mv,
-							@RequestParam("address1") String address1,
-							@RequestParam("address2") String address2,
-							@RequestParam("deptName") String deptName,
-							@RequestParam("birth") String birth,
-							@RequestParam("gradeName") String gradeName,
-							@RequestParam("empSalary") String empSalary) {
+	public String insertEmp(Employee e, Dept d, ModelAndView mv, @RequestParam("address1") String address1,
+			@RequestParam("address2") String address2, @RequestParam("deptName") String deptName,
+			@RequestParam("birth") String birth, @RequestParam("gradeName") String gradeName,
+			@RequestParam("empSalary") String empSalary) {
 
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 //		int sysYear = Integer.parseInt(sdf.format(new Date(System.currentTimeMillis())));
@@ -493,35 +486,62 @@ public class HumanResourceController {
 //			
 //		}
 		System.out.println(e);
-		
-		if(!address1.equals("")) {
+
+		if (!address1.equals("")) {
 			e.setEmpAddress(address1 + " " + address2);
 		}
 		java.sql.Date empBirth = java.sql.Date.valueOf(birth);
 		e.setBirth(empBirth);
-		
+
 		// 부서 이름으로 부서 번호 가져오기
 		int deptNum = hService.getDeptNum(deptName);
 		System.out.println(deptNum);
-		
+
 		// 직급 이름으로 직급 번호 가져오기
 		int gradeNum = hService.getGradeNum(gradeName);
 		System.out.println(gradeNum);
-		
+
 		e.setDeptNum(deptNum);
 		e.setGradeNum(gradeNum);
 		e.setEmpSalary(Integer.parseInt(empSalary));
-		
-		
+
 		int result = hService.insertEmp(e);
-		
-		if(result > 0) {
-			
+
+		if (result > 0) {
+
 			return "redirect:empChart.wo";
-			
-		}else {
+
+		} else {
 			return "common/500error";
 		}
+	}
+
+	// 인사/인사 관리/사용자 관리
+	@RequestMapping("mngUser.wo")
+	public ModelAndView mngEmp(ModelAndView mv, HttpServletResponse response) throws JsonIOException, IOException {
+
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		
+		ArrayList<Dept> list = hService.selectModaDeptlList();
+
+		response.setContentType("application/json; charset=utf-8");
+
+		Gson gson = new Gson();
+		gson.toJson(list, response.getWriter());
+		
+		ArrayList<Grade> glist = hService.selectModalGradeList();
+
+		response.setContentType("application/json; charset=utf-8");
+
+		Gson gson1 = new Gson();
+		gson1.toJson(glist, response.getWriter());
+
+		if (!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).setViewName("humanResource/mngUser");
+		} else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
 	}
 
 	// 직원정보 수정 화면
@@ -531,18 +551,22 @@ public class HumanResourceController {
 		return "humanResource/updateEmpForm";
 	}
 
-	// 인사/인사 관리/사용자 관리
-	@RequestMapping("mngUser.wo")
-	public ModelAndView mngEmp(ModelAndView mv) {
-		
-		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+	// 인사/인사관리/ 사용자 관리 -> 수정하기 버튼 클릭 시(직급, 부서 수정)
+	@ResponseBody
+	@RequestMapping("updateEmp.wo")
+	public String updateEmp(Employee e) {
 
-		if(!dlist.isEmpty()) {
-			mv.addObject("dlist", dlist).setViewName("humanResource/mngUser");
-		}else {
-			mv.setViewName("common/500error");
+		e.setDeptNum(hService.getDeptNum(e.getDeptName()));
+		e.setGradeNum(hService.getGradeNum(e.getGradeName()));
+
+		int result = hService.updateEmp(e);
+
+		if (result > 0) {
+			return "success";
+		} else {
+			return "error";
 		}
-		return mv;
+
 	}
 
 	// 인사/휴가근태 관리/휴가관리
@@ -554,9 +578,16 @@ public class HumanResourceController {
 
 	// 인사/휴가근태 관리/근태관리
 	@RequestMapping("mngAtt.wo")
-	public String mngAtt() {
+	public ModelAndView mngAtt(ModelAndView mv) {
+		
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
 
-		return "humanResource/mngAtt";
+		if(!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).setViewName("humanResource/mngAtt");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
 	}
 
 	// ----------------------------------------

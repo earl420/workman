@@ -148,8 +148,7 @@
 
 							<div class="form-group row" style="padding-top: 50px;">
 								<div class="col-lg-7" align="right">
-									<button type="button" class="btn mb-1 btn-outline-warning"
-										onclick="location.href='acupdate.wo'">수정하기</button>
+									
 									<button type="button" class="btn mb-1 btn-outline-warning"
 										id="listBtn" onclick="javascript:history.back();">목록으로</button>
 								</div>

@@ -81,4 +81,15 @@ public interface HumanResourceService {
 	
 	// 부서 이름으로 직원 불러오기
 	ArrayList<Employee> elistByName(String deptName);
+	
+	// 인사/인사관리/ 사용자 관리 -> 수정하기 버튼 클릭 시(직급, 부서 수정)
+	int updateEmp(Employee e);
+	
+	
+	
+	//연차 갯수 업데이트 되었나확인
+	int checkHolidayCount();
+	
+	//연차 갯수 업데이트 
+	int updateHolidayCount();
 }

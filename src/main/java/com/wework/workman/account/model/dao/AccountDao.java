@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
@@ -224,6 +225,39 @@ public class AccountDao {
 		return sqlSession.selectOne("accountMapper.selectPartner",partnerNum);
 	}
 
+	public int getIncreaseRate(String li) {
+		return sqlSession.selectOne("accountMapper.getIncreaseRate", li);
+	}
+
+	public int checkHolidayCount() {
+		return sqlSession.selectOne("accountMapper.checkHolidayCount");
+	}
+
+	public int updateHolidayCount() {
+		return sqlSession.insert("accountMapper.updateHolidayCount");
+	}
+
+	public int updateYearSalary(SalaryManage sm) {
+		return sqlSession.update("accountMapper.updateYearSalary", sm);
+	}
+
+	public int updateEmpSalary(SalaryManage sm) {
+		return sqlSession.update("accountMapper.updateEmpSalary", sm);
+	}
+
+	public int checkAtten(Attendance2 a) {
+		return sqlSession.selectOne("accountMapper.checkAtten", a);
+	}
+
+	public int goWork(Attendance2 a) {
+		return sqlSession.insert("accountMapper.goWork", a);
+	}
+
+	public int outWork(Attendance2 a) {
+		return sqlSession.update("accountMapper.outWork", a);
+	}
+	
+	
 
 
 	

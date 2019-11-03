@@ -44,15 +44,15 @@ public class DraftController {
 	 */
 	@RequestMapping("draftWrite.wo")
 	public ModelAndView draftWrite(@RequestParam(value = "empNum", required = false) String empNum,
-			@RequestParam(value = "empName", required = false)String empName, ModelAndView mv) {
+			@RequestParam(value = "empName", required = false)String empName,
+			@RequestParam(value="salary", required = false) int salary,ModelAndView mv) {
 		
 		ArrayList<Dept> dlist = hService.selectModaDeptlList();
 		ArrayList<Modal> mlist = hService.selectModalEmpList();
-		
+		String msg =empNum+" "+empName+"님의 연봉이 " +salary+"원으로 수정되었습니다.";
 		mv.addObject("mlist",mlist);
 		mv.addObject("dlist",dlist);
-		mv.addObject("empNum", empNum);
-		mv.addObject("empName", empName);
+		mv.addObject("msg", msg);
 		mv.setViewName("approval/draftWrite");
 		return mv;
 	}
