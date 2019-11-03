@@ -97,7 +97,7 @@
 					
 		
 		 	<script>
-		 	$("#hi").one("click", function(){
+		 	$("#hi").on("click", function(){
 					var d = new Date();
 					var time = d.getHours() + '시' + d.getMinutes() + '분';
 		 			alert(time + ' 출근.');  
@@ -111,7 +111,7 @@
 				 });
 				
 				 
-					$("#bye").one("click", function(){
+					$("#bye").on("click", function(){
 						var d = new Date();
 						var time = d.getHours() + '시' + d.getMinutes() + '분';
 			 			alert(time + ' 퇴근.');
