@@ -216,7 +216,7 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empUpdate.wo")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	public String empUpdate(Mypage m, Model model,
 							@RequestParam("address1") String address1,
 							@RequestParam("address2") String address2) {

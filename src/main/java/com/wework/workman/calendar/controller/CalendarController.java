@@ -1,10 +1,9 @@
 package com.wework.workman.calendar.controller;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -12,13 +11,6 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonIOException;
 import com.wework.workman.calendar.model.service.CalendarService;
 import com.wework.workman.calendar.model.vo.Calendar;
 import com.wework.workman.mypage.model.vo.Mypage;
