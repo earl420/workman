@@ -78,6 +78,16 @@
 													name="enrollDate" value="${ loginMan.enrollDate }" readonly>
 											</div>
 										</div>
+										
+										<div class="form-group row">
+											<label class="col-lg-4 col-form-label" for="birth">생년월일
+											</label>
+											<div class="col-lg-6">
+												<input type="date" min="1960-01-01" max="1999-12-12" class="form-control" id="birth"
+													name="birth" value="${ loginMan.birth }" readonly>
+											</div>
+										</div>
+										
 										<div class="form-group row">
 											<label class="col-lg-4 col-form-label" for="dept">소속
 												<span class="text-danger"></span>
@@ -124,14 +134,7 @@
 													name="gender" value="여">&nbsp;&nbsp;여
 											</div>
 										</div> -->
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="birth">생년월일
-											</label>
-											<div class="col-lg-6">
-												<input type="date" min="1960-01-01" max="1999-12-12" class="form-control" id="birth"
-													name="birth" value="${ loginMan.birth }">
-											</div>
-										</div>
+										
 										
 										<%-- <c:if test="${ empty loginMan.address }">
 											<div class="form-group row">
