@@ -43,15 +43,23 @@
 
 											<option value="${ d.deptNum }">${ d.deptName }</option>
 										</c:forEach>
-									</select><br> 작성자 : <%-- ${ loginUser.empName } --%> <br> 내용 :
+									</select><br> 작성자 :
+									<%-- ${ loginUser.empName } --%>
+									<br> 내용 :
 									<textarea name="ir1" id="ir1" rows="15" cols="148">
 	                            		
 									</textarea>
-									<button type="button" class="btn mb-1 btn-rounded btn-success">
-										<span class="btn-icon-left"><i
-											class="fa fa-upload color-success"></i> </span>Upload
-									</button>
-									<br> 첨부파일 : <input type="file" name="uploadFile">
+									<label class="btn mb-1 btn-rounded btn-primary"
+										for="file-input"> <span class="btn-icon-left"><i
+											class="fa fa-upload color-success" aria-hidden="true"></i> </span>Upload
+									</label> <br> 
+									<input id="file-input" class="file" type="file"
+										name="file" style="display: none;">
+									<div class="files box_from">
+										<ul id="fileName">
+
+										</ul>
+									</div>
 									<div class="col-sm-12 col-md-12" align="right">
 
 										<button type="submit" class="btn mb-1 btn-rounded btn-warning">등록하기</button>
@@ -80,6 +88,20 @@
 			sSkinURI : "resources/se2/SmartEditor2Skin.html",
 			fCreator : "createSEditor2"
 		});
+		
+		var fileInput = document.getElementById('file-input');
+  		fileInput.addEventListener('change', function(event) {
+  			
+    		var input = event.target;
+      		var $ul = $(".files ul");
+      		 $ul.html("");
+			var $li = $("<li>");
+			 $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(input.files[0].name);
+				$li.append($button);
+				$ul.append($li);
+    		
+    		
+  }); /* 파일 추가  */
 	</script>
 </body>
 </html>

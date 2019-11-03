@@ -17,6 +17,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.wework.workman.account.model.dao.AccountDao;
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
@@ -269,6 +270,21 @@ public class AccountServiceImpl implements AccountService{
 			result=1;
 		}
 		return result;
+	}
+
+	@Override
+	public int checkAtten(Attendance2 a) {
+		return aDao.checkAtten(a);
+	}
+
+	@Override
+	public int goWork(Attendance2 a) {
+		return aDao.goWork(a);
+	}
+
+	@Override
+	public int outWork(Attendance2 a) {
+		return aDao.outWork(a);
 	}
 
 	

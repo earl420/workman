@@ -37,6 +37,7 @@
 	</websocket:handlers>
 	
 	<!-- interceptor -->
+	<!-- 로그인 안되면 url 차단 -->
     <interceptors>
     	<interceptor>
     		<mapping path="/*"/>

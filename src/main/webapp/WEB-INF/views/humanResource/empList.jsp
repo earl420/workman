@@ -61,158 +61,182 @@
 				</div>
 			</div>
 			<!-- row -->
-<!-- <div class="row">
-                                        <div class="col-xl-4 col-md-4 col-sm-3 mb-4 mb-sm-0">
-                                            <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action active show" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" aria-selected="true">Home</a> <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a> <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages" aria-selected="false">Messages</a> <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-8 col-md-8 col-sm-9">
-                                            <div class="tab-content" id="nav-tabContent">
-                                                <div class="tab-pane fade active show" id="list-home">
-                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
-                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
-                                                    enim eu nostrud do aliquip veniam minim.</p>
-                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
-                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
-                                                    enim eu nostrud do aliquip veniam minim.</p>
-                                                </div>
-                                                <div class="tab-pane fade" id="list-profile" role="tabpanel">
-                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
-                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
-                                                    enim eu nostrud do aliquip veniam minim.</p>
-                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
-                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
-                                                    enim eu nostrud do aliquip veniam minim.</p>
-                                                </div>
-                                                <div class="tab-pane fade" id="list-messages">
-                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
-                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
-                                                    enim eu nostrud do aliquip veniam minim.</p>
-                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
-                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
-                                                    enim eu nostrud do aliquip veniam minim.</p>
-                                                </div>
-                                                <div class="tab-pane fade" id="list-settings">
-                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
-                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
-                                                    enim eu nostrud do aliquip veniam minim.</p>
-                                                    <p>Velit aute mollit ipsum ad dolor consectetur nulla officia culpa adipisicing exercitation fugiat tempor. Voluptate deserunt sit sunt nisi aliqua fugiat proident ea ut. Mollit voluptate reprehenderit occaecat
-                                                    nisi ad non minim tempor sunt voluptate consectetur exercitation id ut nulla. Ea et fugiat aliquip nostrud sunt incididunt consectetur culpa aliquip eiusmod dolor. Anim ad Lorem aliqua in cupidatat nisi
-                                                    enim eu nostrud do aliquip veniam minim.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
 			<div class="container-fluid">
 				<div class="row">
-				
-					<div class="col-lg-2" style="border: 1px solid black">
-						<div class="sideDept1">부서1</div>
-						<div class="sideDept2">부서 1-1</div>
-						<div class="sideDept2">부서 1-2</div>
-						<div class="sideDept3">부서 1-2-1</div>
-						<div class="sideDept1">부서2</div>
-						<div class="sideDept2">부서 2-1</div>
-						<div class="sideDept1">부서3</div>
-						<div class="sideDept1">부서4</div>
-					</div>
-					<div class="col-lg-10">
-						<h3>부서1</h3>
-						<button type="button" class="btn mb-1 btn-flat btn-info"
-							data-toggle="modal" data-target="#basicModal"
-							style="margin-right: 20px;">
-							<label id="nameLabel">이름</label><br> 부서<br> 직위
-						</button>
-						<!-- modal -->
-						<div class="modal fade" id="basicModal" style="display: none;"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title">사원 정보</h5>
-										<button type="button" class="close" data-dismiss="modal">
-											<span>×</span>
-										</button>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">직원 목록</h4>
+								<br> <br>
+
+								<div class="form-group row">
+									<div class="col-lg-1">
+										<div class="bootstrap-modal">
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModalCenter1">부서
+												검색</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModalCenter1"
+												aria-hidden="true" style="display: none;">
+												<div class="modal-dialog modal-dialog-centered"
+													role="document">
+													<div class="modal-content" style="width: 500px;">
+														<div class="modal-header">
+															<h5 class="modal-title">부서 검색</h5>
+															<button type="button" class="close" data-dismiss="modal">
+																<span>×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="row">
+																<ul class="nav nav-pills mb-3">
+																	<c:forEach items="${ dlist }" var="d">
+																		<li class="nav-item"><a class="nav-link"
+																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																		<input type="hidden" id="dd" name="dd"
+																			value="${ d.deptName }">
+																	</c:forEach>
+																</ul>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">취소</button>
+															<button type="button" class="btn btn-primary" id="btn"
+																onclick="modalSubmit1();" data-dismiss="modal">완료</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="modal-body">
-										<table width="450px" height="300px">
-											<tr>
-												<td style="font-weight:bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;강연재</td>
-											</tr>
-											<tr>
-												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사장>마케팅사업부</td>
-											</tr>
-											<tr>
-												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이사</td>
-											</tr>
-											<tr>
-												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이메일</td>
-												<td>kos8148@naver.com</td>
-											</tr>
-											<tr>
-												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;휴대전화</td>
-												<td>010-2222-2222</td>
-											</tr>
-											<tr>
-												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㅇ</td>
-												<td>ㅇ</td>
-											</tr>
-											<tr>
-												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ㅇ</td>
-												<td>ㅇ</td>
-											</tr>
-										</table>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary" onclick="location.href='empList.wo';">Send Email</button>
+									<div class="col-lg-3">
+										<input type="text" class="form-control" id="a">
 									</div>
 								</div>
+								<div>
+									소속 직원 수 : <label id="count"></label>
+								</div>
+
+								<div id="here"></div>
+								<!-- modal -->
+								<c:forEach items="${ elist }" var="e" varStatus="status">
+									<c:if test="${ e.deptNum eq d.deptNum}">
+										<div class="modal fade" id="basicModal${ status.index }"
+											style="display: none;" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title">직원정보</h5>
+														<button type="button" class="close" data-dismiss="modal">
+															<span>×</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<table width="450px" height="300px">
+															<tbody>
+																<tr>
+																	<td><h5>&nbsp;&nbsp;&nbsp;&nbsp;${ e.empName }</h5></td>
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ e.gradeName }&gt;</td>
+																</tr>
+																<tr>
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;부서명</td>
+																	<td>${ e.deptName }</td>
+																</tr>
+																<tr>
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;입사일</td>
+																	<td>${ e.enrollDate }</td>
+																</tr>
+																<tr>
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이메일</td>
+																	<td>${ e.email }</td>
+																</tr>
+																<tr>
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전화번호</td>
+																	<td>${ e.empPhone }</td>
+																</tr>
+
+															</tbody>
+														</table>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Close</button>
+														<button type="button" class="btn btn-primary">Send
+															Message</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /modal -->
+									</c:if>
+								</c:forEach>
 							</div>
 						</div>
-						<!-- /modal -->
-						<button type="button" class="btn mb-1 btn-flat btn-info"
-							style="margin-right: 20px;">
-							<label id="nameLabel">이름</label><br> 부서<br> 직위
-						</button>
-						<button type="button" class="btn mb-1 btn-flat btn-info"
-							style="margin-right: 20px;">
-							<label id="nameLabel">이름</label><br> 부서<br> 직위
-						</button>
-						<button type="button" class="btn mb-1 btn-flat btn-info"
-							style="margin-right: 20px;">
-							<label id="nameLabel">이름</label><br> 부서<br> 직위
-						</button>
-						<button type="button" class="btn mb-1 btn-flat btn-info"
-							style="margin-right: 20px;">
-							<label id="nameLabel">이름</label><br> 부서<br> 직위
-						</button>
-						<button type="button" class="btn mb-1 btn-flat btn-info"
-							style="margin-right: 20px;">
-							<label id="nameLabel">이름</label><br> 부서<br> 직위
-						</button>
-						<button type="button" class="btn mb-1 btn-flat btn-info"
-							style="margin-right: 20px;">
-							<label id="nameLabel">이름</label><br> 부서<br> 직위
-						</button>
-						<button type="button" class="btn mb-1 btn-flat btn-info"
-							style="margin-right: 20px;">
-							<label id="nameLabel">이름</label><br> 부서<br> 직위
-						</button>
-
 					</div>
 				</div>
 			</div>
-			<!-- #/ container -->
 		</div>
-		<!-- /content-body -->
-		<c:import url="../common/footer.jsp"></c:import>
+		<!-- #/ container -->
 	</div>
+	<!-- /content-body -->
+	<c:import url="../common/footer.jsp"></c:import>
+
 	<!-- /main-wrapper -->
 
-	<script src="resources/plugins/nestable/js/jquery.nestable.js"></script>
-	<script src="resources/plugins/nestable/js/nestable.init.js"></script>
+	<script type="text/javascript">
+		function modalSubmit1() {
+
+			$("#a").val($(".nav-item>.active").text());
+		}
+
+		$("#btn")
+				.on(
+						"click",
+						function() {
+
+							var deptName = $("#a").val();
+
+							$
+									.ajax({
+										url : "elistByName.wo",
+										data : {
+											deptName : deptName
+										},
+										dataType : "json",
+										success : function(data) {
+											console.log(data);
+
+											var $here = $("#here");
+											$here.html("");
+
+											if (data.length > 0) {
+
+												$("#count").text(data.length);
+												$.each(data, function(index, value) {
+
+													var $button = $('<button type="button" class="btn mb-1 btn-flat btn-info" data-toggle="modal" data-target="#basicModal${ status.index }" style="margin-right: 20px; cursor:pointer;"><label id="nameLabel">'
+																	+ value.empName
+																	+ '</label><br> '
+																	+ value.deptName
+																	+ '<br> '
+																	+ value.gradeName
+																	+ '</button>');
+
+																	$(here).append($button);
+																});
+											} else {
+												$here.append("직원 리스트 불러오기 실패");
+											}
+										},
+										error : function() {
+											alert("ajax통신실패");
+										}
+									});
+						});
+	</script>
+
 
 
 </body>

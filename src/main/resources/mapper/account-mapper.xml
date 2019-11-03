@@ -424,4 +424,17 @@ update salary set salary=#{yearSalary} where sal_year = extract(year from sysdat
 <update id="updateEmpSalary" parameterType="SalaryManage">
 	update employee set emp_salary = #{yearSalary} where emp_num=#{empNum}
 </update>
+
+<select id="checkAtten" resultType="_int" parameterType="Attendance2">
+	select count(*) from attendance where emp_num=#{empNum} and att_date=#{today}
+</select>
+
+<insert id="goWork" parameterType="Attendance2">
+	insert into attendance values (#{empNum},#{today},#{time},null)
+</insert>
+
+<update id="outWork" parameterType="Attendance2">
+	update attendance set time_off = #{time} where emp_num=#{empNum} and att_date=#{today}
+</update>
+
 </mapper>
