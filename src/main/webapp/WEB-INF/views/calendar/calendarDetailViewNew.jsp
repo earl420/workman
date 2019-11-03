@@ -209,11 +209,7 @@ function calendarEvent(eventData){
 	 <c:import url="../common/header.jsp"></c:import>
 	
 <form action="calDetailView.wo" method="post" class="outdiv">
-<!--   <div id='external-events'>
-    <div class='fc-event' id="all">전체</div>
-    <div class='fc-event' id="dep">부서</div>
-    <div class='fc-event' id="pri">개인</div>
-   </div> -->
+
  
   <div id='calendar'></div>
 </form>

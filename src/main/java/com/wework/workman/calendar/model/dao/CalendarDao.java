@@ -23,10 +23,10 @@ public class CalendarDao {
 		return sqlSession.update("calendarMapper.updateCalendar", empNum);
 	}
 	
-	// 상세보기
-	public Calendar calendarDetail(String empNum) {
-		return sqlSession.selectOne("calendarMapper.calendarDetail", empNum);
-	}
+	/*
+	 * // 상세보기 public Calendar calendarDetail(String empNum) { return
+	 * sqlSession.selectOne("calendarMapper.calendarDetail", empNum); }
+	 */
 	
 	// 일정삭제
 	public int deleteCalendar(String empNum) {
@@ -34,6 +34,7 @@ public class CalendarDao {
 	}
 	
 	
+	// 상세조회
 	public ArrayList<Calendar> selectList(int deptNum) {
 		return (ArrayList)sqlSession.selectList("calendarMapper.selectCalendar", deptNum);
 	}

@@ -14,33 +14,39 @@
 		<result property="ctype" column="ctype"/>
 	</resultMap>
 
+	<!-- 일정등록 -->
 	<insert id="insertCalendar" parameterType="Calendar">
 		insert into schedule
 		values(#{empNum}, #{deptNum}, #{start}, #{end}, #{empNum}, #{description}, #{ctype})
 	</insert>
 	
+	<!-- 일정수정 -->
 	<update id="updateCalendar" parameterType="string">
 		update schedule
 		set sch_content=#{description}, emp_num=#{empNum}, sch_emp_start=#{start}, 
 			sch_emp_end=#{end}, register_emp_num=#{empNum}, ctype=#{ctype}
-		where empNum=#{empNum}
+		where emp_num=#{empNum}
 	</update>
 	
-	<select id="calendarDetail" parameterType="string" resultMap="calendarResultSet">
+	<!-- <select id="calendarDetail" parameterType="string" resultMap="calendarResultSet">
 		select *
 		from schedule
-		where empNum=#{empNum}
-	</select>
+		where emp_num=#{empNum}
+	</select> -->
 	
+	<!-- 일정삭제 -->
 	<delete id="deleteCalendar" parameterType="string">
 		delete from schedule
-		where empNum=#{empNum}
+		where emp_num=#{empNum}
 	</delete>
 	
+	<!-- 일정 조회 -->
 	<select id="selectCalendar" parameterType="_int" resultMap="calendarResultSet">
-		select *
-		from schedule
-		where deptNum=#{deptNum}
+		select * from schedule where emp_num =  #{empNum}
+		union
+		select * from schedule where dept_num = #{deptNum}
+		union
+		select * from schedule where dept_num = 999
 	</select>
 	
 	
