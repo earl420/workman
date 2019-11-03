@@ -7,17 +7,19 @@ public class Fixture {
 	private String fixtureType;
 	private String fixtureName;
 	private Date fixtureBuy;
-	private String deptNum;
+	private int deptNum;
 	private String deptName;
 	private String empNum;
 	private String empName;
 	private int endurance;
 	private int fixturePrice;
 	private int residualValue;//잔존가치
+	private int saleCount;
 	public Fixture() {
 	}
-	public Fixture(String fixtureNum, String fixtureType, String fixtureName, Date fixtureBuy, String deptNum,
-			String deptName, String empNum, String empName, int endurance, int fixturePrice, int residualValue) {
+	public Fixture(String fixtureNum, String fixtureType, String fixtureName, Date fixtureBuy, int deptNum,
+			String deptName, String empNum, String empName, int endurance, int fixturePrice, int residualValue,
+			int saleCount) {
 		super();
 		this.fixtureNum = fixtureNum;
 		this.fixtureType = fixtureType;
@@ -30,6 +32,7 @@ public class Fixture {
 		this.endurance = endurance;
 		this.fixturePrice = fixturePrice;
 		this.residualValue = residualValue;
+		this.saleCount = saleCount;
 	}
 	public String getFixtureNum() {
 		return fixtureNum;
@@ -55,10 +58,10 @@ public class Fixture {
 	public void setFixtureBuy(Date fixtureBuy) {
 		this.fixtureBuy = fixtureBuy;
 	}
-	public String getDeptNum() {
+	public int getDeptNum() {
 		return deptNum;
 	}
-	public void setDeptNum(String deptNum) {
+	public void setDeptNum(int deptNum) {
 		this.deptNum = deptNum;
 	}
 	public String getDeptName() {
@@ -97,13 +100,20 @@ public class Fixture {
 	public void setResidualValue(int residualValue) {
 		this.residualValue = residualValue;
 	}
+	public int getSaleCount() {
+		return saleCount;
+	}
+	public void setSaleCount(int saleCount) {
+		this.saleCount = saleCount;
+	}
 	@Override
 	public String toString() {
 		return "Fixture [fixtureNum=" + fixtureNum + ", fixtureType=" + fixtureType + ", fixtureName=" + fixtureName
 				+ ", fixtureBuy=" + fixtureBuy + ", deptNum=" + deptNum + ", deptName=" + deptName + ", empNum="
 				+ empNum + ", empName=" + empName + ", endurance=" + endurance + ", fixturePrice=" + fixturePrice
-				+ ", residualValue=" + residualValue + "]";
+				+ ", residualValue=" + residualValue + ", saleCount=" + saleCount + "]";
 	}
+	
 	
 	
 	

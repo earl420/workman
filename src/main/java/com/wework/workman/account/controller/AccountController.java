@@ -616,6 +616,58 @@ public class AccountController {
 		
 		return "redirect:home.wo";
 	}
+	@ResponseBody
+	@RequestMapping("deptFixInfo.wo")
+	public void deptFixInfo(HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Fixture> list = aService.deptFixInfo();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(list,response.getWriter());
+	}
+	@ResponseBody
+	@RequestMapping("deptEmpInfo.wo")
+	public void deptEmpInfo(@RequestParam(value = "deptNum", required = false) int deptNum,
+			HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<AcNotice> list = aService.deptEmpInfo(deptNum);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(list,response.getWriter());
+	}
+	
+	@RequestMapping("insertFixture.wo")
+	public String insertFixture(
+			@RequestParam(value = "product", required=false) String product,
+			@RequestParam(value = "productType", required=false) String productType,
+			@RequestParam(value = "partner", required=false) String partner,
+			@RequestParam(value = "deptNum", required=false) int deptNum,
+			@RequestParam(value = "saleCount", required=false) int saleCount,
+			@RequestParam(value = "salePrice", required=false) int salePrice,
+			@RequestParam(value = "endurance", required=false) int endurance,
+			@RequestParam(value = "empNum", required=false) String empNum,
+			Model model) {
+			
+		Fixture f = new Fixture();
+		f.setFixtureType(productType);
+		f.setFixtureName(product);
+		f.setDeptNum(deptNum);
+		f.setSaleCount(saleCount);
+		f.setFixturePrice(salePrice);
+		f.setEndurance(endurance);
+		f.setEmpNum(empNum);
+		//거래처 번호 deptName에 받아넘김
+		f.setDeptName(partner);
+		int result = aService.insertFixture(f);
+		if (result>0) {
+			
+			String msg = product+"를 " +salePrice +"에 구매하였음";
+			model.addAttribute("msg", msg);
+			model.addAttribute("partnerNum", partner);
+			return "redirect:expenseWrite.wo";
+		}else {
+			return "common/500error";
+		}
+	}
+	
 }
 
 

@@ -192,8 +192,8 @@
 		<c:import url="../common/footer.jsp"></c:import>
 		<!-- /footer -->
 	</div>
-		
-	   <div class="modal fade" id="myModal">
+
+<div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

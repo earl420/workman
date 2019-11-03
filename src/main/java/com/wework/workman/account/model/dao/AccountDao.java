@@ -261,6 +261,43 @@ public class AccountDao {
 	public ForGraph getGraph(ForGraph grap) {
 		return sqlSession.selectOne("accountMapper.getGraph", grap);
 	}
+
+	public ArrayList<Fixture> deptFixInfo() {
+		return (ArrayList)sqlSession.selectList("accountMapper.deptFixInfo");
+	}
+
+	public ArrayList<AcNotice> deptEmpInfo(int deptNum) {
+		return (ArrayList)sqlSession.selectList("accountMapper.deptEmpInfo",deptNum);
+	}
+
+	
+	/**
+	 * payment에 비품구매내역 insert
+	 * @param f
+	 * @return
+	 */
+	public int insertFixture1(Fixture f) {
+		return sqlSession.insert("accountMapper.insertFixture1", f);
+	}
+
+	/**
+	 * fixture에 비품구매내역 insert
+	 * @param f
+	 * @return
+	 */
+	public int insertFixture2(Fixture f) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("accountMapper.insertFixture2", f);
+	}
+
+	/**
+	 * 분개장에 대입
+	 * @param f
+	 * @return
+	 */
+	public int insertFixture3(Fixture f) {
+		return sqlSession.insert("accountMapper.insertFixture3", f);
+	}
 	
 	
 

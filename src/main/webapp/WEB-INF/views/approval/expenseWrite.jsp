@@ -438,7 +438,13 @@
 			}
 		});
 	})
-	
+	$(function(){
+			console.log("${empName}");
+			if("${msg}" !=null|| "${msg}"!=""){
+				$('#ir1').val("${msg}");
+			}
+			
+		})
 	$(function(){
 		
 		$("#select").on('click', function() {

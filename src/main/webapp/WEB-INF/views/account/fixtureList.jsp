@@ -111,7 +111,7 @@
 											</div>
 										</div>
 										<div align="right" style="padding-right: 50px; padding-top: 10px;">
-											<button type="button" onclick="location.href='expenseWrite.wo'" class="btn mb-1 btn-outline-warning"  id="insertSale"
+											<button type="button" class="btn mb-1 btn-outline-warning"  id="insertSale"
 											 style="border-radius: 5px; width:10em;">
 												<strong>등록</strong>
 											</button>
@@ -193,6 +193,82 @@
 		<c:import url="../common/footer.jsp"></c:import>
 		<!-- /footer -->
 	</div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h4></h4>
+      </div>
+      <div class="modal-body">
+      	<form method="post" id="modalForm" action="insertFixture.wo">
+       		<table class="table" id="updateSale">
+       			<tr>
+       				<th>구매 제품</th>
+       				<td>
+       					<input type="text" name="product" id="product" required="required" />
+       				</td>
+       			</tr>
+       			<tr>
+       				<th>제품 타입</th>
+       				<td>
+       					<input type="text" name="productType" id="productType" required="required" />
+       				</td>
+       			</tr>
+       			<tr>
+       				<th>거래처</th>
+       				<td><select name="partner" id="partner">
+       					
+       				</select></td>
+       			</tr>
+       			<tr>
+       				<th>사용부서</th>
+       				<td><select name="deptNum" id="deptNum">
+       					<option value="1">-----</option>
+       				</select></td>
+       			</tr>
+       			<tr>
+       				<th>사용자</th>
+       				<td><select name="deptUser" id="deptUser">
+       					
+       				</select></td>
+       			</tr>
+       			<tr>
+       				<th>구매갯수 </th>
+       				<td><input type="number" name="saleCount" id="saleCount" required="required" /></td>
+       			</tr>
+       			<tr>
+       				<th>구매가격 </th>
+       				<td><input type="number" name="salePrice" id="salePrice" required="required" /></td>
+       			</tr>
+       			<tr>
+       				<th>내구연한(년)</th>
+       				<td><input type="number" name="endurance" id="endurance" value="1" required="required" /></td>
+       			</tr>
+       			<tr>
+       				<th>구매자</th>
+       				<td>
+       				<input type="text" name="empName" id="empName" readonly="readonly" value="${loginMan.name }"/>
+       				<%-- <input type="text" readonly="readonly" value="${loginUser.loginMan }"/> --%>
+       				<input type="hidden" name="empNum" id="empNum"  value="${loginMan.num }"/>
+       				<%-- <input type="hidden" value="${loginUser.empNum }"/> --%>
+       				</td>
+       			</tr>
+       			
+       			<tr>
+       				<th>구매일시</th>
+       				<td><input type="text" readonly="readonly" id="today11" name="today11" /></td>
+       			</tr>
+       		</table>
+       		<button type="submit" onclick="return checkCount();" id="modalBtn" class="btn mb-1 btn-rounded btn-outline-warning">
+       			
+       		</button>
+       		</form>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
 		
 	<!-- /main-wrapper -->
 	<script src="resources/account/js/fixtureList.js"></script>
