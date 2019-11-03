@@ -48,6 +48,11 @@
 	<resultMap id="partner" type="Partner">
 		<id column="PARTNER_NUM" property="partnerNum"></id>
 		<result column="PARTNER_NAME" property="partnerName"></result>
+		<result column="PARTNER_PHONE" property="partnerPhone"></result>
+		<result column="PARTNER_FAX" property="partnerFax"></result>
+		<result column="PARTNER_ADDRESS" property="partnerAddress"></result>
+		<result column="BUSSINESS_NUM" property="bussinessNum"></result>
+		<result column="PARTNER_EMP" property="partnerEmp"></result>
 	</resultMap>
 	<resultMap id="sales" type="SaleManage">
 		<id column="SALES_NUM" property="salesNum"></id>
@@ -115,14 +120,11 @@
 		<![CDATA[
 		SELECT A1.ACCOUNTNAME as "DEPT", A1.ACOUNTSUM as
 		"ACCOUNT1" , A2.ACCOUNTNAME AS "CREDIT",A2.ACCOUNTSUM2 AS "ACCOUNT2"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM, ROWNUM AS "RN"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM, ROWNUM AS "RN"
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM
 		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
 		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
-		"ACOUNTSUM"
-		from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
+		"ACOUNTSUM" from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
 		j1.debt_price from journalizing j1
 		where j1.journ_date<=#{noticeContent})
 		group by debt)
@@ -135,8 +137,7 @@
 		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A1
 		LEFT OUTER JOIN
 		(SELECT ACCOUNTNAME,ACCOUNTSUM2,ROWNUM AS "RN"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM*(-1) AS ACCOUNTSUM2
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM*(-1) AS ACCOUNTSUM2
 		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
 		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
 		"ACOUNTSUM"
@@ -149,10 +150,8 @@
 		where j1.journ_date<=#{noticeContent})
 		group by credit) on(debt =credit))
 		JOIN ACCOUNT ON(ACCOUNTNAME= ACCOUNT_NAME)
-		WHERE ACCOUNT_ALI LIKE('3%')OR ACCOUNT_ALI LIKE'4%' OR ACCOUNT_ALI LIKE
-		'5%'
-		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A2 ON(A1.RN = A2.RN)
-		ORDER BY A1.RN
+		WHERE ACCOUNT_ALI LIKE('3%')OR ACCOUNT_ALI LIKE'4%' OR ACCOUNT_ALI LIKE '5%'
+		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A2 ON(A1.RN = A2.RN) ORDER BY A1.RN
 		]]>
 
 	</select>
@@ -288,7 +287,7 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 
 <insert id="aNoticeInsert" parameterType="AcNotice">
 	insert into notice 
-	values (null,#{noticeDept}, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, 'Y', #{noticeAccType} )
+	values (null,305, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, 'Y', #{noticeAccType} )
 </insert>
 
 <select id="getSaleListCount" resultType="_int">
@@ -405,6 +404,9 @@ from salary
 </insert>
 <select id="noticeFile" parameterType="string" resultMap="noticeFiles">
 	select * from attachment where DOC_NUM like '%'||#{acDetail}
+</select>
+<select id="selectPartner" parameterType="string" resultMap="partner">
+	select * from partner where PARTNER_NUM = #{"partnerNum"}
 </select>
 <select id="getIncreaseRate" parameterType="string" resultType="_int">
 	select decode(count(*), 0, 0, sum(salary)) from salary where emp_num=#{li} and sal_year = (extract(year from sysdate)-1)	

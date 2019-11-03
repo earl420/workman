@@ -55,5 +55,33 @@ public class RequestServiceImpl implements RequestService{
 	public Attachment selectAttachment(String requestNum) {
 		return rDao.selectAttachment(requestNum);
 	}
+	
+	@Override
+	public int updateConflrm1(String confirmNum, String docNum) {
+		return rDao.updateConflrm1(confirmNum,docNum);
+	}
 
+	@Override
+	public int updateConflrm2(String confirmNum) {
+		return rDao.updateConflrm2(confirmNum);
+	}
+
+	@Override
+	public int updateConflrm3(String confirmNum) {
+		return rDao.updateConflrm3(confirmNum);
+	}
+
+	@Override
+	public int updateConflrm4(String confirmNum) {
+		return rDao.updateConflrm4(confirmNum);
+	}
+
+	@Override
+	public int insertApproval(String requestNum) {
+		return rDao.insertApproval(requestNum);
+	}
+	
+	
 }
+
+
