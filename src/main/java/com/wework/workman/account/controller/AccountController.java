@@ -390,7 +390,7 @@ public class AccountController {
 			sum+= list.get(i).getAccount();
 		}
 		System.out.println(sum);
-		int EBIT=list.get(0).getAccount()-sum;
+		long EBIT=list.get(0).getAccount()-sum;
 		IncomeStatement is1 = new IncomeStatement();
 		is1.setAccountSubject("매출");
 		is1.setAccount(list.get(0).getAccount());
@@ -489,7 +489,7 @@ public class AccountController {
 			for (int i = 1; i < list.size(); i++) {
 				sum+= list.get(i).getAccount();
 			}
-			int EBIT=list.get(0).getAccount()-sum;
+			long EBIT=list.get(0).getAccount()-sum;
 			IncomeStatement is1 = new IncomeStatement();
 			is1.setAccountSubject("매출");
 			is1.setAccount(list.get(0).getAccount());
@@ -603,7 +603,7 @@ public class AccountController {
 		Attendance2 a = new Attendance2(empId, sdf2.format(d), sdf.format(d));
 		int result = aService.goWork(a);
 		
-		return "redirect:home.wo";
+		return "home";
 	}
 	@RequestMapping("outwork.wo")
 	public String outWork(HttpSession session) {
@@ -614,7 +614,7 @@ public class AccountController {
 		Attendance2 a = new Attendance2(empId, sdf2.format(d), sdf.format(d));
 		int result = aService.outWork(a);
 		
-		return "redirect:home.wo";
+		return "home";
 	}
 	@ResponseBody
 	@RequestMapping("deptFixInfo.wo")

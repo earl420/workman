@@ -404,6 +404,7 @@ from salary
 <select id="checkSal" resultType="_int">
 	select count(*) from journalizing 
 	where extract(month from journ_date)= extract(month from sysdate) 
+	 and extract(year from journ_date) =extract(year from sysdate)
 	and debt='급여'
 </select>
 <insert id="insertSal">
