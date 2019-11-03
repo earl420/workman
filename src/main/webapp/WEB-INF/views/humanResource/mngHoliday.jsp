@@ -56,24 +56,58 @@
 							<div class="card-body">
 								<h5>직원 휴가 조회</h5>
 								<br>
+
+								<div class="form-group row">
+									<div class="col-lg-1">
+										<div class="bootstrap-modal">
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModalCenter1">부서
+												검색</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModalCenter1"
+												aria-hidden="true" style="display: none;">
+												<div class="modal-dialog modal-dialog-centered"
+													role="document">
+													<div class="modal-content" style="width: 500px;">
+														<div class="modal-header">
+															<h5 class="modal-title">부서 검색</h5>
+															<button type="button" class="close" data-dismiss="modal">
+																<span>×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="row">
+																<ul class="nav nav-pills mb-3">
+																	<c:forEach items="${ dlist }" var="d">
+																		<li class="nav-item"><a class="nav-link"
+																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																		<input type="hidden" id="dd" name="dd"
+																			value="${ d.deptName }">
+																	</c:forEach>
+																</ul>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">취소</button>
+															<button type="button" class="btn btn-primary" id="btn"
+																onclick="modalSubmit1();" data-dismiss="modal">완료</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<input type="text" class="form-control" id="a">
+									</div>
+								</div>
+
 								<div class="dropdown custom-dropdown">
 									<div data-toggle="dropdown" aria-expanded="false"
 										style="color: #F36F30;">
 										보기 <i class="fa fa-angle-down m-l-5"></i>
-									</div>
-									<div class="dropdown-menu dropdown-menu-right"
-										x-placement="bottom-end"
-										style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(83px, 21px, 0px);">
-										<a class="dropdown-item" href="#">Last 1 Month</a> <a
-											class="dropdown-item" href="#">Last 6 Month</a> <a
-											class="dropdown-item" href="#">Last 10 Month</a>
-									</div>
-								</div>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<div class="dropdown custom-dropdown">
-									<div data-toggle="dropdown" aria-expanded="false"
-										style="color: #F36F30;">
-										조직 <i class="fa fa-angle-down m-l-5"></i>
 									</div>
 									<div class="dropdown-menu dropdown-menu-right"
 										x-placement="bottom-end"
@@ -97,29 +131,21 @@
 												rowspan="2">올해생성</th>
 											<th scope="col" style="border: 1px solid lightgray;">생성내역</th>
 											<th scope="col" style="border: 1px solid lightgray;"
-												colspan="7">사용현황</th>
+												colspan="3">사용현황</th>
 											<th scope="col" style="border: 1px solid lightgray;"
 												rowspan="2">잔여</th>
 											<th scope="col" style="border: 1px solid lightgray;"
 												rowspan="2">상세</th>
 										</tr>
 										<tr>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">정기</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">연차</td>
+											<td style="background: #f9f9f9; border: 1px solid lightgray;">정기연차</td>
+											<td style="background: #f9f9f9; border: 1px solid lightgray;">개인사유</td>
 											<td style="background: #f9f9f9; border: 1px solid lightgray;">훈련</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">교육</td>
 											<td style="background: #f9f9f9; border: 1px solid lightgray;">경조사</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">병가</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">출산</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">무급</td>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
 											<td>d</td>
 											<td>d</td>
 											<td>d</td>
@@ -202,7 +228,8 @@
 																									<th scope="col"
 																										style="border: 1px solid lightgray;">번호</th>
 																									<th scope="col"
-																										style="border: 1px solid lightgray;">휴가 종류	</th>
+																										style="border: 1px solid lightgray;">휴가
+																										종류</th>
 																									<th scope="col"
 																										style="border: 1px solid lightgray;">일수</th>
 																									<th scope="col"
@@ -230,10 +257,6 @@
 											</td>
 										</tr>
 										<tr>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
 											<td>d</td>
 											<td>d</td>
 											<td>d</td>
@@ -287,6 +310,12 @@
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
+	<script type="text/javascript">
+		function modalSubmit1() {
+			
+			$("#a").val($(".nav-item>.active").text());
+		}
+	</script>
 
 </body>
 <iframe id="google_esf" name="google_esf"

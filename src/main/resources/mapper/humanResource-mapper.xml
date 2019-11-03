@@ -227,7 +227,7 @@
 	<select id="getThisLate" parameterType="string" resultType="_int">
 		select count(att_date)
 		from attendance
-		where emp_num='20190004' and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
+		where emp_num=#{empNum} and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
 	</select>
 	
 	<select id="getnoOn" parameterType="string" resultType="_int">
