@@ -49,7 +49,11 @@ public class DraftController {
 		
 		ArrayList<Dept> dlist = hService.selectModaDeptlList();
 		ArrayList<Modal> mlist = hService.selectModalEmpList();
-		String msg =empNum+" "+empName+"님의 연봉이 " +salary+"원으로 수정되었습니다.";
+		String msg ="";
+		if(empName!=null) {
+			msg =empNum+" "+empName+"님의 연봉이 " +salary+"원으로 수정되었습니다.";
+		}
+		
 		mv.addObject("mlist",mlist);
 		mv.addObject("dlist",dlist);
 		mv.addObject("msg", msg);
