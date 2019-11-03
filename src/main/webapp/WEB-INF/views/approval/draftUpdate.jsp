@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link
+	href="resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
 <link href="resources/css/style.css" rel="stylesheet">
-<link href="resources/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
-<link href="resources/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
 <meta charset="UTF-8">
 <style>
 	.box_from ul li{
@@ -16,13 +16,13 @@
 	}
 	.box_from ul {
 		margin-bottom : 0px;
-		
 	}
-	.dataform div{
-		display: inline-table;
+	.box_from ul li button {
+	padding: 7px 15px;
 	}
 </style>
-<script type="text/javascript" src="resources/se2/js/HuskyEZCreator.js"	charset="utf-8"></script>
+<script type="text/javascript" src="resources/se2/js/HuskyEZCreator.js"
+	charset="utf-8"></script>
 <title>전자결재</title>
 </head>
 <body>
@@ -33,19 +33,19 @@
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="javascript:void(0)">결제문서등록</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">휴가작성</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">기안서작성</a></li>
 					</ol>
 				</div>
 			</div>
 			<!-- row -->
 			<div class="container-fluid">
-			<form action="insertHoliday.wo" method="post" encType="multipart/form-data">
+			<form action="insertDraft.wo" method="post" encType="multipart/form-data">
 				<div class="row">
 					<div class="col-lg-12">
 					<div class="card">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h4>휴가신청</h4>
+                                    <h4>기안서</h4>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table">
@@ -192,25 +192,11 @@
                                             	</div>
                                             </th>
                                         </tr>
-										<tr>
-											<td align="center">휴가일시</td>
-											<td colspan="2">
-												<div class="dataform">
-													<div id="date-range" class="input-daterange" align="center" > 
-														<label>날짜선택</label> <br>
-                                                		<input type="text" class="form-control" name="daterangepicker_start"  style="display:inline-table; width:200px;"> <span class="input-group-addon bg-info b-0 text-white">~</span>
-                                                		<input type="text" class="form-control" name="daterangepicker_end" style="display:inline-table; width:200px;">
-                                            		</div>
-													<div align="center"> 
-														<label>휴가종류</label><br>
-														<select name="holiType"	 style="width:100px; height:45px; min-height: 30px;">
-															<option value="개인사유">개인사유</option>
-															<option value="훈련">훈련</option>
-															<option value="경조사">경조사</option>
-														</select>
-													</div>
-												</div>
-											</td>
+                                        <tr>
+                                        	<td align="center">제목</td>
+                                        	<td colspan="2">
+                                        		<input type="text" class="form-control" id="val-title" value="${ d.draftTitle }" name=" draftTitle" placeholder="제목등록">
+                                        	</td>
 										</tr>
 										<tr>
                                         	<td align="center" >파일첨부</td>
@@ -218,20 +204,28 @@
                                         		<label class="btn mb-1 btn-rounded btn-primary" for="file-input">
                                         			<span class="btn-icon-left"><i class="fa fa-upload color-success"></i> 
                                         		</span>Upload</label>
-                                        		<input id='file-input' type='file' name="file" style= "display:none;">
+                                        		<input id="file-input" class='file' type='file' name='file' style= "display:none;">
                                         	</td>
                                         	<th>
                                         		<div class="files box_from">
                                             		<ul id="fileName">
-                                   						
+                                   						<c:if test= "${a  ne null }">
+                                   						<li><button type="button" class="btn mb-1 btn-rounded btn-primary">${ a.attOriginalName }</button></li>
+                                   						</c:if>
                                             		</ul>
                                             	</div>
                                         	</th>
 										</tr>
 										<tr>
+                                        	<td align="center">내용</td>
+                                        	<th colspan="2">
+                                        		<textarea id="ir1" rows="15" cols="137" value="${ d.draftContent }" style="resize: none;" name="draftContent"></textarea>
+                                        	</th>
+										</tr>
+										<tr>
                                         	<td colspan="7" align="center">
                                         		<button type="submit" id="saveBtn" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;등록 &nbsp;</button> &nbsp;&nbsp;
-                                        		<button type="reset" onclick="location.href='allList.wo'" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;취소&nbsp;</button> &nbsp;&nbsp;
+                                        		<button type="button" onclick="location.href='allList.wo'" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;취소&nbsp;</button> &nbsp;&nbsp;
                                         	</td>
 										</tr>                                                                                 	
                                            
@@ -244,25 +238,17 @@
 			</form>
 			</div>
 		</div>
-		
-		
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
-	
-	<script src="resources/plugins/moment/moment.js"></script>
-	<script	src="resources/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-	<script	src="resources/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
-	<script	src="resources/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
-	<script src="resources/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-<script>
-		$(function() {
-	    	$('#date-range').datepicker({
-	        	toggleActive: true
-	    	});
-		})
-	
+<script type="text/javascript">
+	var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+ 	oAppRef: oEditors,
+ 	elPlaceHolder: "ir1",
+ 	sSkinURI: "resources/se2/SmartEditor2Skin.html",
+ 	fCreator: "createSEditor2"
+	});	
 </script>
-
 <script>
 	var fileInput = document.getElementById('file-input');
   		fileInput.addEventListener('change', function(event) {
@@ -318,7 +304,7 @@
 	function modalSubmit1(){
 		 
 		$.ajax({
-			 url: "submitEmpList5.wo",
+			 url: "submitEmpList1.wo",
 			 dataType : "json",
 			 method : 'POST',
 			 data: {"empList" : empList},
@@ -379,7 +365,7 @@
 	function modalSubmit2(){
 		 
 		$.ajax({
-			 url: "submitEmpList6.wo",
+			 url: "submitEmpList2.wo",
 			 dataType : "json",
 			 method : 'POST',
 			 data: {"empList2" : empList2},
@@ -408,6 +394,22 @@
 			}
 			
 		})
+		
+	$(function(){
+		$('#saveBtn').on('click', function(elClickedObj) {
+			// 에디터의 내용이 textarea에 적용된다.
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+
+			// 에디터의 내용에 대한 값 검증은 이곳에서
+			console.log(document.getElementById("ir1").value);
+			
+			try {
+				elClickedObj.form.submit();
+			} catch (e) {
+			}
+		});
+	})
 </script>
+
 </body>
 </html>

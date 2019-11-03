@@ -25,6 +25,16 @@ public interface HolidayService {
 	
 	Attachment selectAttachment(String holiNum);
 	
+	int updateConflrm1(String confirmNum, String docNum);
+	
+	int updateConflrm2(String confirmNum);
+	
+	int updateConflrm3(String confirmNum);
+	
+	int updateConflrm4(String confirmNum);
+	
+	int insertApproval(String holiNum);
+	
 	
 	
 	

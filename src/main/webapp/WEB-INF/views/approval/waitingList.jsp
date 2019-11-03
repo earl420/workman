@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,131 +32,88 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="card-title">
-									<h4>전체리스트</h4>
+									<h4>대기문서리스트</h4>
+								</div>
+								<div class="col-sm-12 col-md-6">총 문서 갯수 : ${ pi.listCount }
 								</div>
 								<div class="table-responsive">
-									<table class="table">
+									<table class="table" id="listArea">
 										<thead>
 											<tr>
-												<th width="10%">문서번호</th>
-												<th width="15%">문서종류</th>
-												<th width="30%">내용</th>
-												<th width="15%">진행상황</th>
-												<th width="15%">등록일</th>
-												<th width="15%">작성자</th>
+												<th width="15%" style="text-align: center;">문서번호</th>
+												<th width="10%" style="text-align: center;">문서종류</th>
+												<th  style="text-align: center;">제목</th>
+												<th width="15%" style="text-align: center;">진행상황</th>
+												<th width="15%" style="text-align: center;">등록일</th>
+												<th width="15%" style="text-align: center;">작성자</th>
 											</tr>
 										</thead>
 										<tbody>
+										<c:forEach items="${ doclist }" var="d">
 											<tr>
-												<th>1</th>
-												<td>기안서</td>
-												<td>문서기안</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>2018-09-04</td>
-												<td>나나나</td>
+												<td align="left">${ d.docNum }</td>
+												<c:set var = "name" value ="${d.docNum }" />
+												<c:if test="${fn:startsWith(name,'DRAFT')}">
+												<td align="left">기안서</td>
+												</c:if>
+												<c:if test="${fn:startsWith(name,'EXPENSE')}">
+												<td align="left">지출결의서</td>
+												</c:if>
+												<c:if test="${fn:startsWith(name,'HOLI')}">
+												<td align="left">휴가</td>
+												</c:if>
+												<c:if test="${fn:startsWith(name,'REQ')}">
+												<td align="left">품의서</td>
+												</c:if>
+												
+												<td align="left">${ d.docTitle }</td>
+												<td align="center"><span class="label label-warning">대기</span></td>
+												<td align="center">${ d.docDate }</td>
+												<td align="center">${ d.docEmpName }${ d.docGradeName }</td>
 											</tr>
-											<tr>
-												<th>2</th>
-												<td>기안서</td>
-												<td>문서 기안</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>2018-10-11</td>
-												<td>작성이요</td>
-											</tr>
-											<tr>
-												<th>3</th>
-												<td>기안서</td>
-												<td>제품구입기안</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>2018-09-25</td>
-												<td>민병현</td>
-											</tr>
-											<tr>
-												<th>4</th>
-												<td>품의서</td>
-												<td>제품구입품의</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>January 25</td>
-												<td>민병현</td>
-											</tr>
-											<tr>
-												<th>5</th>
-												<td>품의서</td>
-												<td>제품구입품의</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>January 25</td>
-												<td>민병현</td>
-											</tr>
-											<tr>
-												<th>6</th>
-												<td>품의서</td>
-												<td>제품구입품의</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>January 25</td>
-												<td>민병현</td>
-											</tr>
-											<tr>
-												<th>7</th>
-												<td>품의서</td>
-												<td>제품구입품의</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>January 25</td>
-												<td>민병현</td>
-											</tr>
-											<tr>
-												<th>8</th>
-												<td>품의서</td>
-												<td>제품구입품의</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>January 25</td>
-												<td>민병현</td>
-											</tr>
-											<tr>
-												<th>9</th>
-												<td>품의서</td>
-												<td>제품구입품의</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>January 25</td>
-												<td>민병현</td>
-											</tr>
-											<tr>
-												<th>10</th>
-												<td>품의서</td>
-												<td>제품구입품의</td>
-												<td><span class="label label-warning">대기</span></td>
-												<td>January 25</td>
-												<td>민병현</td>
-											</tr>
-										</tbody>
+										</c:forEach>
+										</tbody>	
 										<tfoot>
 											<tr>
 												<td colspan="3" align="center">
 												<div class="bootstrap-pagination">
 														<nav>
 															<ul class="pagination justify-content-end">
-																<li class="page-item disabled"><a class="page-link"	href="#" tabindex="-1">Previous</a></li>
-																<li class="page-item"><a class="page-link" href="#">1</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">2</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">3</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">4</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">5</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">6</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">7</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">8</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">9</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">10</a>
-																</li>
-																<li class="page-item"><a class="page-link" href="#">Next</a>
-																</li>
+															<!-- 이전 -->
+																<c:if test="${ pi.currentPage eq 1 }">
+																	<li class="page-item disabled"><a class="page-link"	>이전</a></li>
+																</c:if>
+																<c:if test="${ pi.currentPage ne 1 }">
+																	<c:url value="waitingList.wo" var="page">
+																		<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
+																	</c:url>
+																	<li class="page-item" data-dt-idx="${ page }" tabindex="0" ><a class="page-link" href="${ page }">이전</a></li>
+																</c:if>
+															
+															<!-- 번호들 -->
+																<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+																	<c:if test="${ p eq pi.currentPage }">
+																		<li  class="page-item disabled" data-dt-idx="1" tabindex="0" ><a class="page-link">${ p }</a></li>
+																	</c:if>
+																	
+																	<c:if test="${p ne pi.currentPage }">
+																		<c:url value="waitingList.wo" var="page">
+																			<c:param name="currentPage" value="${ p }"/>
+																		</c:url>
+																		<li class="page-item" data-dt-idx="${ page }" tabindex="0" ><a class="page-link" href="${ page }">${ p }</a></li>
+																	</c:if>
+																</c:forEach>
+																
+																<!-- [다음] -->
+																<c:if test="${ pi.currentPage eq pi.maxPage }">
+																	<li class="page-item disabled"><a class="page-link">다음</a></li>
+																</c:if>
+																<c:if test="${ pi.currentPage ne pi.maxPage }">
+																	<c:url value="waitingList.wo" var="next">
+																		<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+																	</c:url>
+																	<li class="page-item" data-dt-idx="${ page }" tabindex="0" ><a class="page-link" href="${ next }">다음</a></li>
+																</c:if>
 															</ul>
 														</nav>
 													</div>
@@ -191,5 +150,38 @@
 		</div>
 	<c:import url="../common/footer.jsp"></c:import>
 	</div>
+	<script>
+	$(function(){
+		
+		$("#listArea").find("td").mouseenter(function() {
+			$(this).parent().css({
+				"cursor" : "pointer"
+			});
+		}).click(function(){
+			var docNum=$(this).parent().children().eq(0).text();
+			//var DRAFT = "DRAFT";
+			//var DRAFT = "EXPENSE";
+			//var DRAFT = "HOLI";
+			//var DRAFT = "REQ";
+			console.log(docNum);
+			
+			if(docNum.indexOf("DRAFT") != -1) {
+				
+				location.href="draftDetail.wo?draftNum="+docNum;
+			}else if(docNum.indexOf("EXPENSE") != -1){
+				
+				location.href="expenseDetail.wo?expenseNum="+docNum;
+			}else if(docNum.indexOf("HOLI") != -1){
+				
+				location.href="holiDayDetail.wo?holiNum="+docNum;
+			}else if(docNum.indexOf("REQ") != -1){
+				
+				location.href="requestDetail.wo?requestNum="+docNum;
+			}
+		});
+		
+	})
+
+	</script>
 </body>
 </html>

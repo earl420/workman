@@ -92,6 +92,8 @@ public interface AccountService {
 	int outWork(Attendance2 a);
 	//그래프 자료값 가져오기
 	ForGraph getGraph(ForGraph grap);
+	
+	Partner selectPartner(String partnerNum);
 
 	
 }

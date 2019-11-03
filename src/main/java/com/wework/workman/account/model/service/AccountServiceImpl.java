@@ -291,6 +291,9 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public ForGraph getGraph(ForGraph grap) {
 		return aDao.getGraph(grap);
+	@Override
+	public Partner selectPartner(String partnerNum) {
+		return aDao.selectPartner(partnerNum);
 	}
 
 	

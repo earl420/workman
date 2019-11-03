@@ -488,7 +488,7 @@ public class HumanResourceController {
 		System.out.println(e);
 
 		if (!address1.equals("")) {
-			e.setEmpAddress(address1 + " " + address2);
+			e.setEmpAddress(address1 + "," + address2);
 		}
 		java.sql.Date empBirth = java.sql.Date.valueOf(birth);
 		e.setBirth(empBirth);

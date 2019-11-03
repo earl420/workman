@@ -1,9 +1,12 @@
 package com.wework.workman.approval.model.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.wework.workman.approval.model.vo.ApprovalSort;
 import com.wework.workman.approval.model.vo.Holiday;
 import com.wework.workman.approval.model.vo.HolidaySort;
 import com.wework.workman.common.Attachment;
@@ -50,5 +53,37 @@ public class HolidayDao {
 
 	public Attachment selectAttachment(String holiNum) {
 		return sqlSession.selectOne("approvalMapper.selectAttachment", holiNum);
-	}	
+	}
+	public int updateConflrm1(String confirmNum, String docNum) {
+		int result1 = sqlSession.update("approvalMapper.updateConflrm1",confirmNum );
+		int result2 = sqlSession.update("approvalMapper.progressHoliday", docNum);
+		return result1;
+	}
+
+	public int updateConflrm2(String confirmNum) {
+		return sqlSession.update("approvalMapper.updateConflrm2",confirmNum );
+	}
+
+	public int updateConflrm3(String confirmNum) {
+		return sqlSession.update("approvalMapper.updateConflrm3",confirmNum );
+	}
+	public int updateConflrm4(String confirmNum) {
+		return sqlSession.update("approvalMapper.updateConflrm4",confirmNum );
+	}
+
+	public int insertApproval(String holiNum) {
+		int result = sqlSession.insert("approvalMapper.insertApproval", holiNum);
+		ApprovalSort as = sqlSession.selectOne("approvalMapper.approvalSort");
+		
+		HashMap<String, String> select = new HashMap<>();
+		
+		select.put("holiNum", holiNum);
+		select.put("approvalNum", as.getApprovalNum());
+		
+		int result2 = sqlSession.update("approvalMapper.completeHoliday",select);
+		
+		
+		return result2;
+	}
+	
 }

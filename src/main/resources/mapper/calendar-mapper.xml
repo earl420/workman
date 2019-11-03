@@ -48,7 +48,4 @@
 		union
 		select * from schedule where dept_num = 999
 	</select>
-	
-	
-	
 </mapper>
