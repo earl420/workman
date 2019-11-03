@@ -48,19 +48,4 @@
 		union
 		select * from schedule where dept_num = 999
 	</select>
-	
-	
-	<!-- 출근-->
-	<insert id="Attendance" parameterType="Attendance">
-		insert into attendance
-		values(#{empNum}, sysdate, #{time_on}, null)
-	</insert>
-	
-	<!-- 퇴근 -->
-	<update id="updateAttendance" parameterType="Attendance">
-		update attendance
-		set time_off = (select to_char(sysdate, 'HH24:MI:SS') from dual)
-		where emp_num = #{empNum} and to_char(att_date, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
-	</update>
-	
 </mapper>

@@ -38,6 +38,8 @@ public class CalendarDao {
 	public ArrayList<Calendar> selectList(int deptNum) {
 		return (ArrayList)sqlSession.selectList("calendarMapper.selectCalendar", deptNum);
 	}
+	
+	
 }
 
 
