@@ -14,47 +14,38 @@
 		<result property="ctype" column="ctype"/>
 	</resultMap>
 
+	<!-- 일정등록 -->
 	<insert id="insertCalendar" parameterType="Calendar">
 		insert into schedule
 		values(#{empNum}, #{deptNum}, #{start}, #{end}, #{empNum}, #{description}, #{ctype})
 	</insert>
 	
+	<!-- 일정수정 -->
 	<update id="updateCalendar" parameterType="string">
 		update schedule
 		set sch_content=#{description}, emp_num=#{empNum}, sch_emp_start=#{start}, 
 			sch_emp_end=#{end}, register_emp_num=#{empNum}, ctype=#{ctype}
-		where empNum=#{empNum}
+		where emp_num=#{empNum}
 	</update>
 	
-	<select id="calendarDetail" parameterType="string" resultMap="calendarResultSet">
+	<!-- <select id="calendarDetail" parameterType="string" resultMap="calendarResultSet">
 		select *
 		from schedule
-		where empNum=#{empNum}
-	</select>
+		where emp_num=#{empNum}
+	</select> -->
 	
+	<!-- 일정삭제 -->
 	<delete id="deleteCalendar" parameterType="string">
 		delete from schedule
-		where empNum=#{empNum}
+		where emp_num=#{empNum}
 	</delete>
 	
+	<!-- 일정 조회 -->
 	<select id="selectCalendar" parameterType="_int" resultMap="calendarResultSet">
-		select *
-		from schedule
-		where deptNum=#{deptNum}
+		select * from schedule where emp_num =  #{empNum}
+		union
+		select * from schedule where dept_num = #{deptNum}
+		union
+		select * from schedule where dept_num = 999
 	</select>
-	
-	
-	<!-- 출근-->
-	<insert id="Attendance" parameterType="Attendance">
-		insert into attendance
-		values(#{empNum}, sysdate, #{time_on}, null)
-	</insert>
-	
-	<!-- 퇴근 -->
-	<update id="updateAttendance" parameterType="Attendance">
-		update attendance
-		set time_off = (select to_char(sysdate, 'HH24:MI:SS') from dual)
-		where emp_num = #{empNum} and to_char(att_date, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
-	</update>
-	
 </mapper>

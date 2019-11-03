@@ -25,5 +25,15 @@ public interface RequestService {
 	
 	Attachment selectAttachment(String requestNum);
 	
+	int updateConflrm1(String confirmNum, String docNum);
+	
+	int updateConflrm2(String confirmNum);
+	
+	int updateConflrm3(String confirmNum);
+	
+	int updateConflrm4(String confirmNum);
+	
+	int insertApproval(String requestNum);
+	
 
 }

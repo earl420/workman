@@ -12,87 +12,61 @@ import com.wework.workman.chatting.model.vo.Message;
 import com.wework.workman.chatting.model.vo.Room;
 
 @Service("cService")
-public class ChattingServiceImpl implements ChattingService{
-	
+public class ChattingServiceImpl implements ChattingService {
+
 //	@Resource(name="cDao")
 //	private ChattingDao cDao;
 	@Autowired
 	private ChattingDao cDao;
-	
+
 	@Override
 	public String sysId() {
-		// TODO Auto-generated method stub
 		return cDao.sysId();
 	}
 
-
 	@Override
-	public  ArrayList<Room>getRoomList(String userId) {
-		// TODO Auto-generated method stub
+	public ArrayList<Room> getRoomList(String userId) {
 		return cDao.getRoomList(userId);
 	}
+
 	@Override
 	public Room getRoom(String roomId) {
-		// TODO Auto-generated method stub
 		return cDao.getRoom(roomId);
 	}
-	
+
 	@Override
 	public ArrayList<Message> msgHistory(String roomId) {
-		// TODO Auto-generated method stub
 		return cDao.msgHistory(roomId);
 	}
 
 	@Override
 	public ArrayList<Message> roomChange(String roomId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	@Override
-	public int roomExit(String userId, String roomId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void roomExit(String roomId, String userId) {
+		cDao.roomExit(roomId, userId);
 	}
 
 	@Override
 	public int addUser(String roomId, String userId) {
-		// TODO Auto-generated method stub
 		return cDao.addUser(roomId, userId);
 	}
+
 	@Override
 	public int msgDb(Message msg) {
 		return cDao.msgDb(msg);
 	}
-	@Override
-	public String newChat(String userId) {
-		
-		return cDao.newChat(userId);
-	}
 
+	@Override
+	public String newChat(String userId,String roomName) {
+		return cDao.newChat(userId,roomName);
+	}
 
 	@Override
 	public String getName(String userId) {
-		// TODO Auto-generated method stub
 		return cDao.getName(userId);
 	}
 
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

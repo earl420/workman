@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
+import com.wework.workman.account.model.vo.ForGraph;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
 import com.wework.workman.account.model.vo.NoticeFile;
@@ -220,6 +222,10 @@ public class AccountDao {
 		return sqlSession.selectOne("accountMapper.noticeFile",acDetail);
 	}
 
+	public Partner selectPartner(String partnerNum) {
+		return sqlSession.selectOne("accountMapper.selectPartner",partnerNum);
+	}
+
 	public int getIncreaseRate(String li) {
 		return sqlSession.selectOne("accountMapper.getIncreaseRate", li);
 	}
@@ -240,6 +246,23 @@ public class AccountDao {
 		return sqlSession.update("accountMapper.updateEmpSalary", sm);
 	}
 
+	public int checkAtten(Attendance2 a) {
+		return sqlSession.selectOne("accountMapper.checkAtten", a);
+	}
+
+	public int goWork(Attendance2 a) {
+		return sqlSession.insert("accountMapper.goWork", a);
+	}
+
+	public int outWork(Attendance2 a) {
+		return sqlSession.update("accountMapper.outWork", a);
+	}
+
+	public ForGraph getGraph(ForGraph grap) {
+		return sqlSession.selectOne("accountMapper.getGraph", grap);
+	}
+	
+	
 
 
 	

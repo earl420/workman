@@ -84,7 +84,7 @@
 		select *
 		from notice
 		join employee using(emp_num)
-		where notice_status = 'Y'
+		where notice_status = 'Y' and notice_dept!=305
 		order by notice_num desc
 	</select>
 	

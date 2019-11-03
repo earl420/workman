@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +26,10 @@ import com.google.gson.JsonIOException;
 import com.wework.workman.account.model.service.AccountService;
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
+import com.wework.workman.account.model.vo.ForGraph;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
 import com.wework.workman.account.model.vo.NoticeFile;
@@ -45,7 +48,7 @@ public class AccountController {
 	private AccountService aService;
 	
 	@RequestMapping("acnoticeList.wo")
-	public String accountList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage, Model model) {
+	public String accountList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,  Model model) {
 		
 		
 		int listCount = aService.getNoticeListCount();
@@ -55,6 +58,53 @@ public class AccountController {
 			String nNo=list.get(i).getNoticeNum().substring(6);
 			list.get(i).setNoticeNum(nNo);
 		}
+		
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM");
+		String d = sdf.format(today);
+		String[] spl = d.split(" ");
+		int year = Integer.parseInt(spl[0]);
+		int month = Integer.parseInt(spl[1]);
+		int quarter =1;
+		switch (month) {
+		case 1:
+		case 2:
+		case 3:quarter=1;  break;
+		case 4:
+		case 5:
+		case 6:quarter=2;break;
+		case 7:
+		case 8:
+		case 9:quarter=3;break;
+		case 10:
+		case 11:
+		case 12:quarter=4;break;
+			
+			
+
+		default:
+			break;
+		}
+		ForGraph grap = new ForGraph(year, quarter);
+		ArrayList<ForGraph> graphList = new ArrayList<ForGraph>();
+		for (int i = 0; i < 4; i++) {
+			ForGraph fg =aService.getGraph(grap);
+			graphList.add(fg);
+			if (quarter==1) {
+				quarter=4;
+				year-=1;
+				grap.setQuarter(quarter);
+				grap.setYear(year);
+			}else {
+				quarter-=1;
+				grap.setQuarter(quarter);
+			}
+		}
+		
+		
+		
+		
+		model.addAttribute("graphList", graphList);
 		model.addAttribute("pi",pi);
 		model.addAttribute("list",list);
 		return "account/aNotice";
@@ -79,7 +129,6 @@ public class AccountController {
 		int deptNum=mp.getDeftNum();
 		int result =1;
 		AcNotice notice = new AcNotice(null, deptNum, noticeTitle, noticeContent, empNum, null, null, null, "Y", noticeAccType);
-		System.out.println("11" + notice);
 		if(noticeAccType ==1) {
 			notice.setNoticeContent(ir1);
 			int result2=aService.aNoticeInsert(notice);
@@ -136,7 +185,6 @@ public class AccountController {
 				nf.setOriginalName(file.getOriginalFilename());
 				nf.setRename(renameFileName);
 				nf.setPath("nupload");
-				System.out.println("check" +nf);
 				int a = aService.insertFile(nf);
 			}
 		}
@@ -153,7 +201,6 @@ public class AccountController {
 		NoticeFile file = aService.noticeFile(acDetail);
 		model.addAttribute("notice", notice);
 		model.addAttribute("file",file);
-		System.out.println("1111"+file);
 		//파일도 넣는처리할것 
 		return "account/detailNotice";
 	}
@@ -234,7 +281,6 @@ public class AccountController {
 		int listCount = aService.getSalaryListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<SalaryManage> list = aService.salaryList(pi);
-		System.out.println(list.size());
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		return "account/salaryList";
@@ -336,18 +382,14 @@ public class AccountController {
 			}
 		}
 		IsState iss = new IsState(startDate, endDate);
-//		int validCheck = aService.validCheck(noticeTitle);
-//		if(validCheck<1) {
-//			int result =aService.insertIncome(iss);
-//			System.out.println("결과...."+result);
-//		}
-		System.out.println("check" + iss);
+
 		ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
 		//비용합계
 		int sum =0;
 		for (int i = 1; i < list.size(); i++) {
 			sum+= list.get(i).getAccount();
 		}
+		System.out.println(sum);
 		int EBIT=list.get(0).getAccount()-sum;
 		IncomeStatement is1 = new IncomeStatement();
 		is1.setAccountSubject("매출");
@@ -534,6 +576,46 @@ public class AccountController {
 		}
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("checkAttendance.wo")
+	public void checkAttendance(HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
+		String empId = ((Mypage)session.getAttribute("loginMan")).getNum();
+		Attendance2 a = new Attendance2();
+		a.setEmpNum(empId);
+		Date d  = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("YY/MM/dd");
+		a.setToday(sdf.format(d));
+		int result = aService.checkAtten(a);
+		JSONObject obj = new JSONObject();
+		obj.put("result", result);
+		Gson gson = new Gson();
+		gson.toJson(obj, response.getWriter());
+		
+	}
+	@RequestMapping("gowork.wo")
+	public String goWork(HttpSession session) {
+		
+		Date d = new Date();
+		String empId = ((Mypage)session.getAttribute("loginMan")).getNum();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("YY/MM/dd");
+		Attendance2 a = new Attendance2(empId, sdf2.format(d), sdf.format(d));
+		int result = aService.goWork(a);
+		
+		return "redirect:home.wo";
+	}
+	@RequestMapping("outwork.wo")
+	public String outWork(HttpSession session) {
+		Date d = new Date();
+		String empId = ((Mypage)session.getAttribute("loginMan")).getNum();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("YY/MM/dd");
+		Attendance2 a = new Attendance2(empId, sdf2.format(d), sdf.format(d));
+		int result = aService.outWork(a);
+		
+		return "redirect:home.wo";
+	}
 }
 
 

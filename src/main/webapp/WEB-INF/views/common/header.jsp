@@ -78,51 +78,15 @@
 					/* 현재시간 value값으로 박으려고 */
 				%>
 
-					<form action="attend.wo" method="post" id="form1" style="display:inline;">
-						<input type="hidden" name="empNum" value="${ loginMan.num }">
-						<input type="hidden" name="att_date" value="<%=strToday%>">
-						<input type="hidden" name="time_on" value="<%=strTime%>">
-						<input type="hidden" name="time_off" value="<%=strTime%>">
-						<button class="btn mb-1 btn-rounded btn-success" type="submit" id="hi" style="color: white; width:100px; margin-top:20px">출근</button>
-					</form>
-						
-						
-					<form action="out.wo" method="post" id="form2" style="display:inline;">
-						<input type="hidden" name="empNum" value="${ loginMan.num }">
-						<input type="hidden" name="att_date" value="<%=strToday%>">
-						<input type="hidden" name="time_on" value="<%=strTime%>">
-						<input type="hidden" name="time_off" value="<%=strTime%>">
-					</form>
-						<button class="btn mb-1 btn-rounded btn-warning" type="button" id="bye" style="color: white; width:100px; margin-top:20px">퇴근</button>
 					
-		
-		 	<script>
-		 	$("#hi").on("click", function(){
-					var d = new Date();
-					var time = d.getHours() + '시' + d.getMinutes() + '분';
-		 			alert(time + ' 출근.');  
-		 			//$( "#hi").off( event );
-		          // $("#hi").hide();
-		           // $("#bye").show();
-		          //document.all.btn_submit.visibility = 'hidden';
-		           //$("#form1").submit();
-		           //return false;
-		            
-				 });
+				<button class="btn mb-1 btn-rounded btn-success" 
+				type="button" id="hi" style="color: white; width:100px; margin-top:20px" onclick="location.href='gowork.wo'">출근</button>
 				
-				 
-					$("#bye").on("click", function(){
-						var d = new Date();
-						var time = d.getHours() + '시' + d.getMinutes() + '분';
-			 			alert(time + ' 퇴근.');
-			 			
-			 			//$("#bye").hide();
-						
-						
-					 	//$("#form2").submit();
-					 	
-			 		});
-				</script> 
+				<button class="btn mb-1 btn-rounded btn-warning" 
+				type="button" id="bye" style="color: white; width:100px; margin-top:20px" onclick="location.href='outwork.wo'">퇴근</button>		
+				
+		
+		 	
 
 					
 				 
@@ -253,21 +217,11 @@
 						</a>
 							<ul>
 								<li><a href="draftWrite.wo">-&nbsp;기안서작성</a></li>
-								<li><a href="draftDetail.wo">-&nbsp;기안서상세</a></li>
 								<li><a href="requestWrite.wo">-&nbsp;품의서작성</a></li>
-								<li><a href="requestDetail.wo">-&nbsp;품의서상세</a></li>
 								<li><a href="expenseWrite.wo">-&nbsp;지출결의서작성</a></li>
-								<li><a href="expenseDetail.wo">-&nbsp;지출결의서상세</a></li>
 								<li><a href="holiDayWrite.wo">-&nbsp;휴가작성</a></li>
-								<li><a href="holiDayDetail.wo">-&nbsp;휴가상세</a></li>
 							</ul></li>
-						<li><a class="has-arrow" href="javascript:void()"
-							aria-expanded="false"> <i class=""></i><span class="">문서보관</span>
-						</a>
-							<ul>
-								<li><a href="companionList.wo">-&nbsp;반려</a></li>
-								<li><a href="temporaryList.wo">-&nbsp;임시저장</a></li>
-							</ul></li>
+						
 						<li><a class="has-arrow" href="javascript:void()"
 							aria-expanded="false"> <i class=""></i><span class="">문서보관</span>
 						</a>
@@ -383,20 +337,20 @@
 	<script src="resources/js/styleSwitcher.js"></script><!-- 
 	<script src="resources/plugins/toastr/js/toastr.min.js"></script>
 	<script src="resources/plugins/toastr/js/toastrSR.init.js"></script> -->
-
+	<script src="resources/account/js/header.js"></script>
 	<script type="text/javascript">
 		function printClock() {
 	
 		    var clock = document.getElementById("clock");            // 출력할 장소 선택
 		    var currentDate = new Date();                                     // 현재시간
 		    var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
-		    var amPm = 'AM'; // 초기값 AM
+		    var amPm = '오전'; // 초기값 AM
 		    var currentHours = addZeros(currentDate.getHours(),2);
 		    var currentMinute = addZeros(currentDate.getMinutes() ,2);
 		    var currentSeconds =  addZeros(currentDate.getSeconds(),2);
 		    
 		    if(currentHours >= 12){ // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
-		        amPm = 'PM';
+		        amPm = '오후';
 		        currentHours = addZeros(currentHours - 12,2);
 		    }
 	

@@ -10,7 +10,7 @@ public interface CalendarService {
 		 
 		int updateCalendar(String empNum); // 일정수정
 		
-		Calendar calendarDetail(String empNum); // 일정 상세보기
+		//Calendar calendarDetail(String empNum); // 일정 상세보기
 		
 		int deleteCalendar(String empNum); // 일정 삭제
 		

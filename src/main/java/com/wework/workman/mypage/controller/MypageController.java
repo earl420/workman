@@ -11,6 +11,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +61,6 @@ public class MypageController {
 	@RequestMapping("mypageView.wo")
 	public ModelAndView myPageView(ModelAndView mv,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
-		
 		int empCount = mService.empCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
 		ArrayList<EmpList> list = mService.empList(pi);
@@ -153,6 +153,7 @@ public class MypageController {
 	public String loginEmp(Mypage m, Model model){
 		  
 		  Mypage loginMan = mService.loginMan(m);
+		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
 			  model.addAttribute("loginMan", loginMan);
 			  model.addAttribute("login", "로그인 되었습니다.");
@@ -216,6 +217,7 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empUpdate.wo")
+	@DateTimeFormat(pattern="yyyy/MM/ dd")
 	public String empUpdate(Mypage m, Model model,
 							@RequestParam("address1") String address1,
 							@RequestParam("address2") String address2) {

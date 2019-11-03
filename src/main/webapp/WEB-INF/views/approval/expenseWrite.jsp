@@ -195,7 +195,7 @@
                                         <tr>
                                         	<td align="center">제목</td>
                                         	<td colspan="5">
-                                        		<input type="text" class="form-control" id="val-title" name="title" placeholder="제목등록">
+                                        		<input type="text" class="form-control" id="val-title" name="expenseTitle" placeholder="제목등록">
                                         	</td>
 										</tr>
 										<tr>
@@ -218,44 +218,44 @@
 										<tr>
 											<td align="center" width="10%">거래처</td>
 											<td align="center">
-												<select name="" aria-controls="DataTables_Table_0" style=" height:30px; width: 140px;" class="form-control form-control-sm">
-													<option value="" >선택</option>
+												<select id="select" aria-controls="DataTables_Table_0" style=" height:30px; width: 140px;" class="form-control form-control-sm">
+													<option value="선택" >선택</option>
 													<c:forEach items="${ plist }" var="p">
-														<option value="${ p.partnerName }" >${ p.partnerName }</option>
+														<option value="${ p.partnerNum }" >${ p.partnerName }</option>
 													</c:forEach>
 												</select>
-												
+												<input type="hidden" id="partnerNum" name="partnerNum">
 											</td>
 										</tr>
 										<tr>
 											<td align="center" width="10%">거래처명 </td>
-											<td align="center" width="20%"><input class="alert-info" type="text" name="partnerName"value="MSKOREA" style="height:30px; width:140px; text-align:center;" readonly></td>
+											<td align="center" width="20%"><input id="partnerName" class="alert-info" type="text" style="height:30px; width:140px; text-align:center;" readonly></td>
 											<td align="center" width="20%">거래처대표번호</td>
-											<td align="center" width="20%"><input class="alert-info" type="text" name="partnerPhone"value="02-6712-9348" style="height:30px; width:140px; text-align:center;" readonly></td>
+											<td align="center" width="20%"><input id="partnerPhone" class="alert-info" type="text" style="height:30px; width:140px; text-align:center;" readonly></td>
 											<td align="center"></td>
 										</tr>
 										<tr>
 											<td align="center" width="10%">거래처담당자</td>
-											<td align="center" width="20%"><input class="alert-info" type="text" name="partnerEmp" value="강정학" style="height:30px; width:140px; text-align:center;" readonly></td>
+											<td align="center" width="20%"><input id="partnerEmp" class="alert-info" type="text" style="height:30px; width:140px; text-align:center;" readonly></td>
 											<td align="center" width="20%">사업자등록번호</td>
-											<td align="center" width="20%"><input class="alert-info" type="text" name="bussinessNum"value="204-81-89080" style="height:30px; width:140px; text-align:center;" readonly></td>
+											<td align="center" width="20%"><input id="bussinessNum" class="alert-info" type="text" style="height:30px; width:140px; text-align:center;" readonly></td>
 										</tr>
 										<tr>
 											<td align="center" width="10%">금액</td>
-											<td align="center" width="20%"><input type="text" name=" expensePrice" value="120000" style="height:30px; width:140px;  text-align:center;">원</td>
+											<td align="center" width="20%"><input type="text" name=" expensePrice" style="height:30px; width:140px;  text-align:center;"></td>
 											<td align="center" width="20%">지출용도</td>
-											<td align="center" width="20%"><input type="text" name="" value="비품비용" style="height:30px; width:140px; text-align:center;" ></td>
+											<td align="center" width="20%"><input type="text" name="expenseType" style="height:30px; width:140px; text-align:center;" ></td>
 										</tr>
 										<tr>
                                         	<td align="center">내용</td>
                                         	<th colspan="5">
-                                        		<textarea id="ir1" rows="15" cols="135" name="draftContent"  style="resize: none;"></textarea>
+                                        		<textarea id="ir1" rows="15" cols="135" name="expenseContent"  style="resize: none;"></textarea>
                                         	</th>
 										</tr>
 										<tr>
                                         	<td colspan="6" align="center">
                                         		<button type="submit" id="saveBtn" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;등록 &nbsp;</button> &nbsp;&nbsp;
-                                        		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;취소&nbsp;</button> &nbsp;&nbsp;
+                                        		<button type="button" onclick="location.href='allList.wo'" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;취소&nbsp;</button> &nbsp;&nbsp;
                                         	</td>
 										</tr>                  
                                     </table>
@@ -436,6 +436,49 @@
 				elClickedObj.form.submit();
 			} catch (e) {
 			}
+		});
+	})
+	
+	$(function(){
+		
+		$("#select").on('click', function() {
+		
+		var partnerNum = $(this).val();
+		
+		if(partnerNum != "선택" ){
+			
+		
+			
+		console.log(partnerNum);
+		$.ajax({
+			 url: "selectPartner.wo",
+			 dataType : "json",
+			 method : 'POST',
+			 data: {"partnerNum" : partnerNum},
+			 success : function(data) {
+				
+				 $("#bussinessNum").val(data.bussinessNum);
+				 $("#partnerEmp").val(data.partnerEmp);
+				 $("#partnerName").val(data.partnerName);
+				 $("#partnerNum").val(data.partnerNum);
+				 $("#partnerPhone").val(data.partnerPhone);
+				
+			 },error : function() {
+				 console.log("ajax 통신실패");
+			 }
+		 });
+		}else{
+			 $("#bussinessNum").val("");
+			 $("#partnerEmp").val("");
+			 $("#partnerName").val("");
+			 $("#partnerNum").val("");
+			 $("#partnerPhone").val("");
+			
+		}
+		
+		
+		
+		
 		});
 	})
 </script>

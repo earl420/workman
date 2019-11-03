@@ -11,8 +11,8 @@ public interface ChattingService {
 	Room getRoom(String roomId);
 	ArrayList<Room> getRoomList(String userId);
 	ArrayList<Message> roomChange(String roomId);
-	String newChat(String userId);
-	int roomExit(String userId,String roomId);
+	String newChat(String userId,String roomName);
+	void roomExit(String userId,String roomId);
 	int addUser(String roomId, String userId);
 	ArrayList<Message>msgHistory(String roomId);
 	int msgDb(Message msg);

@@ -57,4 +57,31 @@ public class HolidayServiceImpl implements HolidayService{
 	public Attachment selectAttachment(String holiNum) {
 		return hDao.selectAttachment(holiNum);
 	}
+
+	@Override
+	public int updateConflrm1(String confirmNum, String docNum) {
+		return hDao.updateConflrm1(confirmNum,docNum);
+	}
+
+	@Override
+	public int updateConflrm2(String confirmNum) {
+		return hDao.updateConflrm2(confirmNum);
+	}
+
+	@Override
+	public int updateConflrm3(String confirmNum) {
+		return hDao.updateConflrm3(confirmNum);
+	}
+
+	@Override
+	public int updateConflrm4(String confirmNum) {
+		return hDao.updateConflrm4(confirmNum);
+	}
+
+	@Override
+	public int insertApproval(String holiNum) {
+		return hDao.insertApproval(holiNum);
+	}
+	
+	
 }

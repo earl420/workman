@@ -2,7 +2,12 @@
 <!DOCTYPE mapper PUBLIC 
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="accountMapper">
+	<resultMap id="graphInfo" type="ForGraph">
+		<result column="sumdebt" property="year"></result>	
+		<result column="salesum" property="quarter"></result>	
+	</resultMap>
 	<resultMap id="acnotice" type="AcNotice">
 		<id column="notice_num" property="noticeNum" />
 		<result column="notice_dept" property="noticeDept" />
@@ -48,6 +53,11 @@
 	<resultMap id="partner" type="Partner">
 		<id column="PARTNER_NUM" property="partnerNum"></id>
 		<result column="PARTNER_NAME" property="partnerName"></result>
+		<result column="PARTNER_PHONE" property="partnerPhone"></result>
+		<result column="PARTNER_FAX" property="partnerFax"></result>
+		<result column="PARTNER_ADDRESS" property="partnerAddress"></result>
+		<result column="BUSSINESS_NUM" property="bussinessNum"></result>
+		<result column="PARTNER_EMP" property="partnerEmp"></result>
 	</resultMap>
 	<resultMap id="sales" type="SaleManage">
 		<id column="SALES_NUM" property="salesNum"></id>
@@ -89,7 +99,7 @@
 	</resultMap>
 	<select id="getNoticeListCount" resultType="_int">
 		select count(*) from
-		notice
+		notice where notice_acc_type in(1,2,3)
 	</select>
 	<select id="noticeList" resultMap="acnotice">
 		select *
@@ -115,14 +125,11 @@
 		<![CDATA[
 		SELECT A1.ACCOUNTNAME as "DEPT", A1.ACOUNTSUM as
 		"ACCOUNT1" , A2.ACCOUNTNAME AS "CREDIT",A2.ACCOUNTSUM2 AS "ACCOUNT2"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM, ROWNUM AS "RN"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM, ROWNUM AS "RN"
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM
 		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
 		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
-		"ACOUNTSUM"
-		from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
+		"ACOUNTSUM" from (select debt, sum(debt_price) as "PRICE1" from (select j1.debt,
 		j1.debt_price from journalizing j1
 		where j1.journ_date<=#{noticeContent})
 		group by debt)
@@ -135,8 +142,7 @@
 		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A1
 		LEFT OUTER JOIN
 		(SELECT ACCOUNTNAME,ACCOUNTSUM2,ROWNUM AS "RN"
-		FROM
-		(SELECT ACCOUNTNAME, ACOUNTSUM*(-1) AS ACCOUNTSUM2
+		FROM (SELECT ACCOUNTNAME, ACOUNTSUM*(-1) AS ACCOUNTSUM2
 		FROM (select decode(debt,null,credit,debt) as "ACCOUNTNAME",
 		decode(price1,null,0,price1) - decode(price2,null,0,price2) as
 		"ACOUNTSUM"
@@ -149,10 +155,8 @@
 		where j1.journ_date<=#{noticeContent})
 		group by credit) on(debt =credit))
 		JOIN ACCOUNT ON(ACCOUNTNAME= ACCOUNT_NAME)
-		WHERE ACCOUNT_ALI LIKE('3%')OR ACCOUNT_ALI LIKE'4%' OR ACCOUNT_ALI LIKE
-		'5%'
-		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A2 ON(A1.RN = A2.RN)
-		ORDER BY A1.RN
+		WHERE ACCOUNT_ALI LIKE('3%')OR ACCOUNT_ALI LIKE'4%' OR ACCOUNT_ALI LIKE '5%'
+		ORDER BY ACCOUNT_ALI ASC, ACCOUNT_NUM ASC)) A2 ON(A1.RN = A2.RN) ORDER BY A1.RN
 		]]>
 
 	</select>
@@ -288,7 +292,7 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 
 <insert id="aNoticeInsert" parameterType="AcNotice">
 	insert into notice 
-	values (null,#{noticeDept}, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, 'Y', #{noticeAccType} )
+	values (null,305, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, 'Y', #{noticeAccType} )
 </insert>
 
 <select id="getSaleListCount" resultType="_int">
@@ -406,6 +410,9 @@ from salary
 <select id="noticeFile" parameterType="string" resultMap="noticeFiles">
 	select * from attachment where DOC_NUM like '%'||#{acDetail}
 </select>
+<select id="selectPartner" parameterType="string" resultMap="partner">
+	select * from partner where PARTNER_NUM = #{"partnerNum"}
+</select>
 <select id="getIncreaseRate" parameterType="string" resultType="_int">
 	select decode(count(*), 0, 0, sum(salary)) from salary where emp_num=#{li} and sal_year = (extract(year from sysdate)-1)	
 </select>
@@ -424,4 +431,66 @@ update salary set salary=#{yearSalary} where sal_year = extract(year from sysdat
 <update id="updateEmpSalary" parameterType="SalaryManage">
 	update employee set emp_salary = #{yearSalary} where emp_num=#{empNum}
 </update>
+
+<select id="checkAtten" resultType="_int" parameterType="Attendance2">
+	select count(*) from attendance where emp_num=#{empNum} and att_date=#{today}
+</select>
+
+<insert id="goWork" parameterType="Attendance2">
+	insert into attendance values (#{empNum},#{today},#{time},null)
+</insert>
+
+<update id="outWork" parameterType="Attendance2">
+	update attendance set time_off = #{time} where emp_num=#{empNum} and att_date=#{today}
+</update>
+
+<select id="getGraph" parameterType="ForGraph" resultMap="graphInfo">
+	select  s1.debtsum as sumdebt, s2.salessum as salesum from
+	(select  sum(debt_price) as debtsum from journalizing
+			join account on (debt =account_name)
+			where extract(year from journ_date)=#{year}
+			and account_ali like '2%'
+			and extract(month from journ_date) 
+			<choose>
+				<when test="quarter==1">
+			between 1 and 3
+				</when>
+				<when test="quarter==2">
+			between 4 and 6
+				</when>
+				<when test="quarter==3">
+			between 7 and 9
+				</when>
+				<otherwise>
+			between 10 and 12
+				</otherwise>
+			</choose>
+			
+			) s1,
+             (
+	select  sum(credit_price) as salessum from journalizing
+			join account on (credit =account_name)
+			where extract(year from journ_date)=#{year}
+			and account_ali like '5%'
+			and extract(month from journ_date) 
+			
+			<choose>
+				<when test="quarter==1">
+			between 1 and 3
+				</when>
+				<when test="quarter==2">
+			between 4 and 6
+				</when>
+				<when test="quarter==3">
+			between 7 and 9
+				</when>
+				<otherwise>
+			between 10 and 12
+				</otherwise>
+			</choose>
+            
+            ) s2
+</select>
+
+
 </mapper>

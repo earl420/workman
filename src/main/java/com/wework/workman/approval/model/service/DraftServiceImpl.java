@@ -57,6 +57,31 @@ public class DraftServiceImpl implements DraftService{
 	public Attachment selectAttachment(String draftNum) {
 		return dDao.selectAttachment(draftNum);
 	}
+
+	@Override
+	public int updateConflrm1(String confirmNum, String docNum) {
+		return dDao.updateConflrm1(confirmNum,docNum);
+	}
+
+	@Override
+	public int updateConflrm2(String confirmNum) {
+		return dDao.updateConflrm2(confirmNum);
+	}
+
+	@Override
+	public int updateConflrm3(String confirmNum) {
+		return dDao.updateConflrm3(confirmNum);
+	}
+
+	@Override
+	public int updateConflrm4(String confirmNum) {
+		return dDao.updateConflrm4(confirmNum);
+	}
+
+	@Override
+	public int insertApproval(String draftNum) {
+		return dDao.insertApproval(draftNum);
+	}
 	
 	
 }

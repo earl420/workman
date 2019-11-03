@@ -17,8 +17,10 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.wework.workman.account.model.dao.AccountDao;
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
+import com.wework.workman.account.model.vo.ForGraph;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
 import com.wework.workman.account.model.vo.NoticeFile;
@@ -269,6 +271,30 @@ public class AccountServiceImpl implements AccountService{
 			result=1;
 		}
 		return result;
+	}
+
+	@Override
+	public int checkAtten(Attendance2 a) {
+		return aDao.checkAtten(a);
+	}
+
+	@Override
+	public int goWork(Attendance2 a) {
+		return aDao.goWork(a);
+	}
+
+	@Override
+	public int outWork(Attendance2 a) {
+		return aDao.outWork(a);
+	}
+
+	@Override
+	public ForGraph getGraph(ForGraph grap) {
+		return aDao.getGraph(grap);
+	}
+	@Override
+	public Partner selectPartner(String partnerNum) {
+		return aDao.selectPartner(partnerNum);
 	}
 
 	
