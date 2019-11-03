@@ -69,29 +69,28 @@
 											<div class="p-t-15">
 												<h4>근태 현황</h4>
 												<br>
-
+												<h5 align="center">이번 달 근태 현황</h5><br>
 												<table
 													class="table table-bordered zero-configuration dataTable"
 													id="DataTables_Table_0" role="grid"
 													aria-describedby="DataTables_Table_0_info">
-
+							
 													<tbody>
 														<tr>
 															<td
 																style="background: #f9f9f9; text-align: center; width: 120px">근무시간</td>
-															<td colspan="3"></td>
+															<td colspan="3">09:00 ~ 18:00</td>
 														</tr>
 														<tr>
 															<td style="background: #f9f9f9; text-align: center;">지각</td>
-															<td colspan="3"></td>
+															<td colspan="3">${ late }</td>
 														</tr>
 														<tr>
-															<td style="background: #f9f9f9; text-align: center;">미체크</td>
-															<td>Junior Technical Author</td>
+															<td style="background: #f9f9f9; text-align: center;">비정상 출근</td>
+															<td>${ noOn }</td>
 															<td
-																style="background: #f9f9f9; text-align: center; width: 200px">퇴근
-																체크(비정상 퇴근처리)</td>
-															<td style="width: 300px;">66</td>
+																style="background: #f9f9f9; text-align: center; width: 200px">비정상 퇴근</td>
+															<td style="width: 300px;">${ noOff }</td>
 														</tr>
 
 													</tbody>
@@ -122,6 +121,7 @@
 																				<div class="modal-header">
 																					<h5 class="modal-title" style="float: left;">일별
 																						근태 상세</h5>
+																						
 																					<button type="button" class="close"
 																						data-dismiss="modal">
 																						<span>×</span>
@@ -130,7 +130,7 @@
 																				<div class="modal-body" style="text-align: left;">
 
 																					<p>
-																						강연재(사번)<br> 근무시간 : 09:00 ~ 18:00 / 퇴근 체크 대상
+																						${ m.name }(${ m.num })<br> 근무시간 : 09:00 ~ 18:00 / 퇴근 체크 대상
 																					</p>
 
 																					<select name="year">
@@ -325,6 +325,7 @@
 																						</table>
 																					</div>
 																				</div>
+																				
 																				<div class="modal-footer">
 																					<button type="button" class="btn btn-secondary"
 																						data-dismiss="modal">Close</button>
@@ -341,7 +342,9 @@
 															<td>7월</td>
 															<td>8월</td>
 															<td>9월</td>
-															<td>10월</td>
+															<td><button type="button" data-toggle="modal"
+																		data-target="#exampleModalLong"
+																		style="border: none; cursor: pointer;" onclick="location.href='monthAtt.wo';">10월</button></td>
 															<td>11월</td>
 															<td>12월</td>
 															<td>합계</td>
@@ -365,7 +368,7 @@
 															<td></td>
 														</tr>
 														<tr>
-															<td style="background: #f9f9f9;">미체크</td>
+															<td style="background: #f9f9f9;">비정상 출근</td>
 															<td></td>
 															<td></td>
 															<td></td>
@@ -381,7 +384,7 @@
 															<td></td>
 														</tr>
 														<tr>
-															<td style="background: #f9f9f9;">비정상퇴근</td>
+															<td style="background: #f9f9f9;">비정상 퇴근</td>
 															<td></td>
 															<td></td>
 															<td></td>
@@ -396,134 +399,7 @@
 															<td></td>
 															<td></td>
 														</tr>
-														<tr>
-															<td style="background: #f9f9f9;">연차</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-														<tr>
-															<td style="background: #f9f9f9;">포상</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-														<tr>
-															<td style="background: #f9f9f9;">훈련</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-														<tr>
-															<td style="background: #f9f9f9;">교육</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-														<tr>
-															<td style="background: #f9f9f9;">경조사</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-														<tr>
-															<td style="background: #f9f9f9;">병가</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-														<tr>
-															<td style="background: #f9f9f9;">출산</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
-														<tr>
-															<td style="background: #f9f9f9;">무급</td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td></td>
-														</tr>
+														
 
 													</tbody>
 												</table>

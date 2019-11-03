@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
+import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
@@ -61,6 +62,14 @@ public interface HumanResourceService {
 	// modal에서 선택된 empNum의 Modal 리스트 불러오기
 	ArrayList<Modal> selectModalList(String[] empList);
 	
+	// 근태현황에서 이번달 지각 수 가져오기
+	int getThisLate(String empNum);
+	
+	// 근태현황에서 이번 달 비정상 출근 가져오기
+	int getnoOn(String empNum);
+	// 근태현황에서 이번 달 비정상 퇴근 가져오기
+	int getnoOff(String empNum);
+	
 	// 부서 추가
 	int addDept(String deptName);
 	
@@ -72,6 +81,9 @@ public interface HumanResourceService {
 	
 	// 직원 등록
 	int insertEmp(Employee e);
+	
+	// 직원 등록 후 바로 연차 발생 (12 - extract(month from sysdate))
+	int setHoliday();
 
 	// 부서 이름으로 부서 번호 가져오기
 	int getDeptNum(String deptName);
@@ -84,6 +96,10 @@ public interface HumanResourceService {
 	
 	// 인사/인사관리/ 사용자 관리 -> 수정하기 버튼 클릭 시(직급, 부서 수정)
 	int updateEmp(Employee e);
+	
+	ArrayList<Att> getMonthAtt(String empNum);
+	
+
 	
 	
 	

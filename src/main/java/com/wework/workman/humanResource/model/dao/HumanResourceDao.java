@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
+import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
@@ -93,10 +94,10 @@ public class HumanResourceDao {
 	public ArrayList<Dept> selectModaDeptlList() {
 		return (ArrayList) sqlSession.selectList("humanMapper.selectModaDeptlList");
 	}
-	
+
 	// ModalGradeList 불러오기
-	public ArrayList<Grade> selectModalGradeList(){
-		return (ArrayList)sqlSession.selectList("humanMapper.selectModalGradeList");
+	public ArrayList<Grade> selectModalGradeList() {
+		return (ArrayList) sqlSession.selectList("humanMapper.selectModalGradeList");
 	}
 
 	// ModalEmpList 불러오기
@@ -111,44 +112,69 @@ public class HumanResourceDao {
 		}
 		return list;
 	}
-	
+
 	public int addDept(String deptName) {
-		
+
 		return sqlSession.insert("humanMapper.addDept", deptName);
 	}
-	
+
 	public int updateDept(Dept d) {
-		
+
 		return sqlSession.update("humanMapper.updateDept", d);
 	}
-	
+
 	public int deleteDept(int deptNum) {
-		
+
 		return sqlSession.delete("humanMapper.deleteDept", deptNum);
 	}
-	
+
 	public int insertEmp(Employee e) {
-		
+
 		return sqlSession.insert("humanMapper.insertEmp", e);
 	}
-	
+
+	public int setHoliday() {
+
+		return sqlSession.insert("humanMapper.setHoliday");
+	}
+
 	public int getDeptNum(String deptName) {
-		
+
 		return sqlSession.selectOne("humanMapper.getDeptNum", deptName);
 	}
-	
+
 	public int getGradeNum(String gradeName) {
-		
+
 		return sqlSession.selectOne("humanMapper.getGradeNum", gradeName);
 	}
-	
-	public ArrayList<Employee> elistByName(String deptName){
-		
-		return (ArrayList)sqlSession.selectList("humanMapper.elistByName", deptName);
+
+	public ArrayList<Employee> elistByName(String deptName) {
+
+		return (ArrayList) sqlSession.selectList("humanMapper.elistByName", deptName);
+	}
+
+	public int updateEmp(Employee e) {
+
+		return (int) sqlSession.update("humanMapper.updateEmp", e);
+	}
+
+	public int getThisLate(String empNum) {
+
+		return sqlSession.selectOne("humanMapper.getThisLate", empNum);
+	}
+
+	public int getnoOn(String empNum) {
+
+		return sqlSession.selectOne("humanMapper.getnoOn", empNum);
+	}
+
+	public int getnoOff(String empNum) {
+
+		return sqlSession.selectOne("humanMapper.getnoOff", empNum);
 	}
 	
-	public int updateEmp(Employee e) {
+	public ArrayList<Att> getMonthAtt(String empNum){
 		
-		return (int)sqlSession.update("humanMapper.updateEmp", e);
+		return (ArrayList)sqlSession.selectList("humanMapper.getMonthAtt", empNum);
 	}
 }
