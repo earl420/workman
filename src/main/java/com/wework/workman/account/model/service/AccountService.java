@@ -99,6 +99,7 @@ public interface AccountService {
 	//사번 및 사원명 가져오기
 	ArrayList<AcNotice> deptEmpInfo(int deptNum);
 	int insertFixture(Fixture f);
+	int insertOs(OsManage o);
 
 	
 }

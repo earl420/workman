@@ -508,7 +508,7 @@ update salary set salary=#{yearSalary} where sal_year = extract(year from sysdat
 
 <insert id="insertFixture1" parameterType="Fixture">
 	insert into payment values(null,#{fixturePrice}, #{saleCount},#{deptName},
-	sysdate, '현금','신한은행' )
+	sysdate, '현금','신한' )
 </insert>
 <insert id="insertFixture2" parameterType="Fixture">
 insert into fixture values (null, #{fixtureType},#{fixtureName},sysdate,
@@ -519,5 +519,19 @@ insert into fixture values (null, #{fixtureType},#{fixtureName},sysdate,
 ('소모품'),#{fixturePrice},
 ('현금'),#{fixturePrice},null )
 </insert>
+<insert id="insertOs1" parameterType="OsManage">
+	insert into payment values(null,#{salePrice}, #{saleCount},#{partnerNum},
+	sysdate, '현금','신한' )
+</insert>
+<insert id="insertOs2" parameterType="OsManage">
+	insert into license values(null,#{productName},
+	#{licenseNum}, (select pay_num from (select * from payment order by pay_num desc) where rownum=1),
+	sysdate, add_months(sysdate, 12*#{endurance}),null)
+</insert>
 
+<insert id="insertOs3" parameterType="OsManage">
+ insert into journalizing values(JOURN_NUM_SEQ.nextval,sysdate,
+('소프트웨어'),#{salePrice},
+('현금'),#{salePrice},null )
+</insert>
 </mapper>

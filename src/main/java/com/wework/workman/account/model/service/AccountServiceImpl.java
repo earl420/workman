@@ -319,5 +319,17 @@ public class AccountServiceImpl implements AccountService{
 		return result;
 	}
 
+	@Override
+	public int insertOs(OsManage o) {
+		int result =0;
+		int r1 = aDao.insertOs1(o);
+		int r2 = aDao.insertOs2(o);
+		int r3 = aDao.insertOs3(o);
+		if (r1>0&&r2>0&&r3>0) {
+			result=1;
+		}
+		return result;
+	}
+
 	
 }

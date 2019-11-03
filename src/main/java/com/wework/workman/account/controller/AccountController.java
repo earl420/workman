@@ -668,6 +668,41 @@ public class AccountController {
 		}
 	}
 	
+	
+	@RequestMapping("insertOs.wo")
+	public String insertOs(
+			@RequestParam(value = "product", required = false) String product,
+			@RequestParam(value = "productCode", required = false) String productCode,
+			@RequestParam(value = "partner", required = false) String partner,
+			@RequestParam(value = "saleCount", required = false) int saleCount,
+			@RequestParam(value = "salePrice", required = false) int salePrice,
+			@RequestParam(value = "endurance", required = false) int endurance,
+			@RequestParam(value = "empNum", required = false) String empNum,
+			Model model) {
+		
+		OsManage o = new OsManage();
+		o.setProductName(product);
+		o.setLicenseNum(productCode);
+		o.setPartnerNum(partner);
+		o.setSaleCount(saleCount);
+		o.setSalePrice(salePrice);
+		o.setEndurance(endurance);
+		o.setEmpNum(empNum);
+		
+		int result = aService.insertOs(o);
+		
+		if (result>0) {
+			String msg = product+"를 " +salePrice +"에 구매하였음";
+			model.addAttribute("msg", msg);
+			model.addAttribute("partnerNum", partner);
+			return "redirect:expenseWrite.wo";
+		}else {
+			return "common/500error";
+		}
+		
+	}
+	
+	
 }
 
 

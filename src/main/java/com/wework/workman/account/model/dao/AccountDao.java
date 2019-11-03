@@ -298,6 +298,18 @@ public class AccountDao {
 	public int insertFixture3(Fixture f) {
 		return sqlSession.insert("accountMapper.insertFixture3", f);
 	}
+
+	public int insertOs1(OsManage o) {
+		return sqlSession.insert("accountMapper.insertOs1", o);
+	}
+
+	public int insertOs2(OsManage o) {
+		return sqlSession.insert("accountMapper.insertOs2", o);
+	}
+
+	public int insertOs3(OsManage o) {
+		return sqlSession.insert("accountMapper.insertOs3", o);
+	}
 	
 	
 
