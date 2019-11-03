@@ -163,6 +163,8 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	public int updateEmp(Employee e) {
 
 		return hDao.updateEmp(e);
+	}
+	
 	public int checkHolidayCount() {
 		return aDao.checkHolidayCount();
 	}

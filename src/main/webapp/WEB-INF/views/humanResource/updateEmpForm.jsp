@@ -37,7 +37,13 @@
 		<div class="content-body" style="min-height: 889px;">
 
 			<div class="row page-titles mx-0">
-				<div class="col p-md-0"></div>
+				<div class="col p-md-0">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="hrNotice.wo">인사</a></li>
+						<li class="breadcrumb-item active"><a href="mngEmpChart.wo">인사관리</a></li>
+						<li class="breadcrumb-item active"><a href="mngUser.wo">사용자관리</a></li>
+					</ol>
+				</div>
 			</div>
 			<!-- row -->
 
@@ -46,193 +52,85 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h5>직원 정보 수정</h5>
+								<h5>사용자 관리</h5>
 								<br>
-								<div class="form-validation">
-									<form class="form-valide" action="#" method="post"
-										novalidate="novalidate">
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-username">이름
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id="val-username"
-													name="name" placeholder="이름을 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-email">ID
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="id" placeholder="아이디를 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-password">비밀번호
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="password" class="form-control"
-													id="val-password" name="pwd" placeholder="비밀번호를 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label"
-												for="val-confirm-password">비밀번호 확인 <span
-												class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="password" class="form-control"
-													id="val-confirm-password" name="conPwd">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-username">사번
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="empNum" placeholder="사번을 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-username">입사일
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="enrollDate" placeholder="입사일을 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-currency">소속
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-1">
-												<div class="bootstrap-modal">
-													<!-- Button trigger modal -->
-													<button type="button" class="btn btn-primary"
-														data-toggle="modal" data-target="#basicModal">소속 검색</button>
-													<!-- Modal -->
-													<div class="modal fade" id="basicModal" aria-hidden="true"
-														style="display: none;">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">소속 검색</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																		여기 소속 리스트
-																		
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save
-																		changes</button>
-																</div>
+								<button type="button" class="btn mb-1 btn-rounded btn-warning"
+									onclick="location.href='addEmpForm.wo';">사용자 추가</button>
+								<div class="input-group icons"
+									style="width: 200px; float: right;">
+									<div class="input-group-prepend">
+										<span
+											class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
+											id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+									</div>
+									<input type="search" class="form-control" placeholder="이름 검색"
+										aria-label="Search Dashboard">
+								</div>
+								<br> <br>
+								<div class="form-group row">
+									<div class="col-lg-1">
+										<div class="bootstrap-modal">
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModalCenter1">부서
+												검색</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModalCenter1"
+												aria-hidden="true" style="display: none;">
+												<div class="modal-dialog modal-dialog-centered"
+													role="document">
+													<div class="modal-content" style="width: 500px;">
+														<div class="modal-header">
+															<h5 class="modal-title">부서 검색</h5>
+															<button type="button" class="close" data-dismiss="modal">
+																<span>×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="row">
+																<ul class="nav nav-pills mb-3">
+																	<c:forEach items="${ dlist }" var="d">
+																		<li class="nav-item"><a class="nav-link"
+																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																	</c:forEach>
+																</ul>
 															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">취소</button>
+															<button type="button" class="btn btn-primary" id="btn"
+																onclick="modalSubmit1();" data-dismiss="modal">완료</button>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="col-lg-3">
-												<input type="text" class="form-control" id=""
-													name="dept" placeholder="검색 후 입력받은 소속 이름"></div>
 										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-website">직위
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="grade" placeholder="직위를 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-phoneus">이메일
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="email" class="form-control" id=""
-													name="email" placeholder="kkkk@kkkkk.com">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-digits">휴대전화
-												<span class="text-danger">*</span>
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="phone" placeholder="010-2222-2222">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-number">성별
-											</label>
-											<div class="col-lg-6">
-												<input type="radio" id=""
-													name="gender" value="남">&nbsp;&nbsp;남 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="radio" id=""
-													name="gender" value="여">&nbsp;&nbsp;여
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-range">생년월일
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="birth" placeholder="생년월일 입력 형식 어케해?">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-range">연봉
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="salary" placeholder="연봉을 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-range">급여수령은행
-											</label>
-											<div class="col-lg-3">
-												<input type="text" class="form-control" id=""
-													name="bank" placeholder="급여를 수령할 은행명을 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-range">급여수령계좌
-											</label>
-											<div class="col-lg-3">
-												<input type="text" class="form-control" id=""
-													name="account" placeholder="급여를 수령할 계좌번호를 입력하세요.">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="val-range">주소
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id=""
-													name="address" placeholder="주소찾기 가져다 쓰기**">
-											</div>
-										</div>
-										
-										<div class="form-group row">
-											<div class="col-lg-8 ml-auto">
-												<button type="submit" class="btn btn-primary">저장</button>
-												<input type="button" class="btn btn-danger" value="퇴사처리">
-											</div>
-										</div>
-										
-									</form>
+									</div>
+									<div class="col-lg-3">
+										<input type="text" class="form-control" id="a">
+									</div>
 								</div>
+								<div>
+									소속 직원 수 : <label id="count"></label>
+								</div>
+								<div></div>
+								<table class="table header-border">
+									<thead>
+										<tr style="background: #f9f9f9;">
+											<th scope="col" style="width: 100px;">이름</th>
+											<th scope="col" style="width: 130px;">ID</th>
+											<th scope="col">휴대전화</th>
+											<th scope="col">소속</th>
+											<th scope="col">직위</th>
+											<th scope="col">입사일</th>
+											<th scope="col">수정하기</th>
+										</tr>
+									</thead>
+									<tbody id="tbody">
+
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
