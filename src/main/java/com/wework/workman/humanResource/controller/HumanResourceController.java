@@ -320,20 +320,23 @@ public class HumanResourceController {
 		
 		int noOff = hService.getnoOff(((Mypage)session.getAttribute("loginMan")).getNum());
 		
-		mv.addObject("m", m).addObject("late", late ).addObject("noOn", noOn).addObject("noOff", noOff).setViewName("humanResource/showAtt");
+		// 해당 달 클릭해서 일별로 출/퇴근 보기
+		ArrayList<Att> att = hService.getMonthAtt(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		mv.addObject("m", m).addObject("late", late).addObject("noOn", noOn).addObject("noOff", noOff).addObject("att", att).setViewName("humanResource/showAtt");
 		return mv;
 		
 	}
 	
-	@RequestMapping("monthAtt.wo")
-	public ModelAndView monthAtt(HttpSession session, ModelAndView mv) {
-		
-		ArrayList<Att> att = hService.getMonthAtt(((Mypage)session.getAttribute("loginMan")).getNum());
-		
-		mv.addObject("att", att).setViewName("humanResource/showAtt");
-		
-		return mv;
-	}
+//	@RequestMapping("monthAtt.wo")
+//	public ModelAndView monthAtt(HttpSession session, ModelAndView mv) {
+//		
+//		ArrayList<Att> att = hService.getMonthAtt(((Mypage)session.getAttribute("loginMan")).getNum());
+//		
+//		mv.addObject("att", att).setViewName("humanResource/showAtt");
+//		
+//		return mv;
+//	}
 	
 
 	// 인사/인사 관리/조직도 관리
@@ -604,9 +607,17 @@ public class HumanResourceController {
 
 	// 인사/휴가근태 관리/휴가관리
 	@RequestMapping("mngHoliday.wo")
-	public String mngHoliday() {
+	public ModelAndView mngHoliday(ModelAndView mv) {
 
-		return "humanResource/mngHoliday";
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		
+
+		if(!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).setViewName("humanResource/mngHoliday");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
 	}
 
 	// 인사/휴가근태 관리/근태관리
