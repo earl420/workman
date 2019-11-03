@@ -56,32 +56,56 @@
 							<div class="card-body">
 								<h5>직원 근태 조회</h5>
 								<br>
-								<div class="dropdown custom-dropdown">
-									<div data-toggle="dropdown" aria-expanded="false"
-										style="color: #F36F30;">
-										조직 <i class="fa fa-angle-down m-l-5"></i>
+								<div class="form-group row">
+									<div class="col-lg-1">
+										<div class="bootstrap-modal">
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModalCenter1">부서
+												검색</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModalCenter1"
+												aria-hidden="true" style="display: none;">
+												<div class="modal-dialog modal-dialog-centered"
+													role="document">
+													<div class="modal-content" style="width: 500px;">
+														<div class="modal-header">
+															<h5 class="modal-title">부서 검색</h5>
+															<button type="button" class="close" data-dismiss="modal">
+																<span>×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="row">
+																<ul class="nav nav-pills mb-3">
+																	<c:forEach items="${ dlist }" var="d">
+																		<li class="nav-item"><a class="nav-link"
+																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																		<input type="hidden" id="dd" name="dd" value="${ d.deptName }">
+																	</c:forEach>
+																</ul>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">취소</button>
+															<button type="button" class="btn btn-primary" id="btn"
+																onclick="modalSubmit1();" data-dismiss="modal">완료</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="dropdown-menu dropdown-menu-right"
-										x-placement="bottom-end"
-										style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(83px, 21px, 0px);">
-										<a class="dropdown-item" href="#">Last 1 Month</a> <a
-											class="dropdown-item" href="#">Last 6 Month</a> <a
-											class="dropdown-item" href="#">Last 10 Month</a>
+									<div class="col-lg-3">
+										<input type="text" class="form-control" id="a">
 									</div>
 								</div>
 
-								<div class="input-group icons"
-									style="width: 200px; float: right;">
-									<div class="input-group-prepend">
-										<span
-											class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
-											id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-									</div>
-									<input type="search" class="form-control" placeholder="이름 검색"
-										aria-label="Search Dashboard">
-								</div>
+								
 
 								<br> <br>
+								소식 직원 수 : <span id="count"></span>
 								<table class="table header-border" style="text-align: center;">
 									<thead>
 										<tr style="background: #f9f9f9; border: 1px solid lightgray;">
@@ -93,273 +117,8 @@
 											<th scope="col" style="border: 1px solid lightgray;">상세보기</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>
-												<div class="bootstrap-modal">
-													<!-- Button trigger modal -->
-													<button type="button" class="btn btn-primary"
-														data-toggle="modal" data-target="#exampleModalLong"
-														style="padding-top: 0; height: 20px;">상세</button>
-													<!-- Modal -->
-													<div class="modal fade" id="exampleModalLong"
-														aria-hidden="true" style="display: none;">
-														<div class="modal-dialog">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title" style="float: left;">일별 근태
-																		상세</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body" style="text-align: left;">
-
-																	<p>
-																		강연재(사번)<br> 근무시간 : 09:00 ~ 18:00 / 퇴근 체크 대상
-																	</p>
-
-																	<select name="year">
-																		<option value="2019" selected>2019년</option>
-																		<option value="2018">2018년</option>
-																		<option value="2017">2017년</option>
-																		<option value="2016">2016년</option>
-																	</select>&nbsp; <select name="month">
-																		<option value="1">1월</option>
-																		<option value="2">2월</option>
-																		<option value="3">3월</option>
-																		<option value="4">4월</option>
-																		<option value="5">5월</option>
-																		<option value="6">6월</option>
-																		<option value="7">7월</option>
-																		<option value="8">8월</option>
-																		<option value="9">9월</option>
-																		<option value="10" selected>10월</option>
-																		<option value="11">11월</option>
-																		<option value="12">12월</option>
-																	</select> <br> <br>
-																	<div class="table-responsive">
-																		<table class="table">
-																			<thead>
-																				<tr>
-																					<th>날짜</th>
-																					<th>출근(시간 / 결과)</th>
-																					<th>퇴근(시간 / 결과)</th>
-																					<th>수정</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-																				<tr>
-																					<td>2019-10-01</td>
-																					<td>08:40 / 〇</td>
-																					<td>18:30 / 〇</td>
-																					<td><a href="">요청</a></td>
-																				</tr>
-
-																			</tbody>
-																		</table>
-																	</div>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>
-												<div class="bootstrap-modal">
-													<!-- Button trigger modal -->
-													<button type="button" class="btn btn-primary"
-														data-toggle="modal" data-target="#basicModal"
-														style="padding-top: 0; height: 20px;">상세</button>
-													<!-- Modal -->
-													<div class="modal fade" id="basicModal"
-														style="display: none;" aria-hidden="true">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">Modalㅇ맂,ㅣ</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">Modal body text goes
-																	here.ㅇㅇ</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save
-																		changes</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr>
+									<tbody id="tbody">
+										
 									</tbody>
 								</table>
 							</div>
@@ -373,6 +132,43 @@
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
+	
+	<script type="text/javascript">
+		function modalSubmit1() {
+	
+			$("#a").val($(".nav-item>.active").text());
+		}
+		
+		$("#btn").on("click", function(){
+			
+			var deptName = $("#a").val();
+			
+			$.ajax({
+				url : "elistByName.wo",
+				data : {deptName : deptName},
+				dataType : "json",
+				success : function(data){
+					
+					var $tbody = $("#tbody");
+					$tbody.html("");
+					
+					if(data.length > 0){
+						
+						$("#count").text(data.length);
+						$.each(data, function(index, value){
+							
+							var $tr = $('<tr><td>'+value.empName+'</td><td>'+value.deptName+'')
+						});
+					}
+				},
+				error : function(){
+					alert("ajax 통신실패");
+				}
+			});
+			
+		});
+		
+	</script>
 
 </body>
 <iframe id="google_esf" name="google_esf"

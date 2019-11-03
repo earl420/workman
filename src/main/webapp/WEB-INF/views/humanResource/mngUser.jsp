@@ -92,6 +92,7 @@
 																	<c:forEach items="${ dlist }" var="d">
 																		<li class="nav-item"><a class="nav-link"
 																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																		<input type="hidden" id="dd" name="dd" value="${ d.deptName }">
 																	</c:forEach>
 																</ul>
 															</div>
@@ -111,11 +112,8 @@
 										<input type="text" class="form-control" id="a">
 									</div>
 								</div>
-								<div id="count">소속 직원 수 : <label id="count"></label></div>
-								<div>
-									현존 부서 : ${ dlist } <br>
-									현존 직급 : ${ glist } <br>
-								</div>
+								<div>소속 직원 수 : <label id="count"></label></div>
+								
 								<table class="table header-border">
 									<thead>
 										<tr style="background: #f9f9f9;">
@@ -193,6 +191,25 @@
 				success : function(data){
 					
 					console.log(data);
+					
+					getlist(data);
+					
+				},
+				error : function(){
+					console.log("ajax 통신 실패");
+				}
+			});
+		}
+		
+		function getlist(data){
+			
+			$.ajax({
+				url:"dlist.wo",
+				dataType : "json",
+				success: function(dlist){
+					console.log(dlist);
+					console.log(data);
+					
 					var $tbody = $("#tbody");
 					$tbody.html("");
 					
@@ -201,9 +218,19 @@
 						$("#count").text(data.length);
 						$.each(data,function(index, value){
 							
-							var $td = $('<tr><td>' + value.empName + '</td><td id="empNum">' + value.empNum + '</td><td>' + value.empPhone + '</td><td><input type="text" id="deptName" value="' + value.deptName + '"></td>"<td><input type="text" id="gradeName" value="' + value.gradeName + '"></td><td>' + value.enrollDate + '</td><td><input type="button" value="수정하기" class="btn mb-1 btn-warning updateBtn" style="height: 20px; padding-top: 0"></td></tr>');
+							var $tr = $('<tr>');
+							var $td = $('<td>' + value.empName + '</td><td id="empNum">' + value.empNum + '</td><td>' + value.empPhone + '</td>');
+							var $td1 = $('<td>');
+							var $select = $('<select id="select" name="deptName">');
 							
-							$tbody.append($td);
+							
+							$.each(dlist, function(index, v){
+								
+								var $td2 = $('<option value="'+ v.deptName +'">'+ v.deptName +'</option></select></td>');
+	/* 							var $td3 = $('</select></td>"<td><input type="text" id="gradeName" value="' + value.gradeName + '"></td><td>' + value.enrollDate + '</td><td><input type="button" value="수정하기" class="btn mb-1 btn-warning updateBtn" style="height: 20px; padding-top: 0"></td></tr>');
+	 */							
+								$tbody.append($tr).append($td).append($select.append($td2));
+							});
 						});
 					}else{
 						
@@ -211,9 +238,11 @@
 					}
 				},
 				error : function(){
-					console.log("ajax 통신 실패");
+					console.log("ajax 통신실패2");
 				}
+				
 			});
+			
 		}
 	</script>
 
