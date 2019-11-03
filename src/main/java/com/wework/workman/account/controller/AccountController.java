@@ -82,7 +82,6 @@ public class AccountController {
 		int deptNum=mp.getDeftNum();
 		int result =1;
 		AcNotice notice = new AcNotice(null, deptNum, noticeTitle, noticeContent, empNum, null, null, null, "Y", noticeAccType);
-		System.out.println("11" + notice);
 		if(noticeAccType ==1) {
 			notice.setNoticeContent(ir1);
 			int result2=aService.aNoticeInsert(notice);
@@ -139,7 +138,6 @@ public class AccountController {
 				nf.setOriginalName(file.getOriginalFilename());
 				nf.setRename(renameFileName);
 				nf.setPath("nupload");
-				System.out.println("check" +nf);
 				int a = aService.insertFile(nf);
 			}
 		}
@@ -156,7 +154,6 @@ public class AccountController {
 		NoticeFile file = aService.noticeFile(acDetail);
 		model.addAttribute("notice", notice);
 		model.addAttribute("file",file);
-		System.out.println("1111"+file);
 		//파일도 넣는처리할것 
 		return "account/detailNotice";
 	}
@@ -237,7 +234,6 @@ public class AccountController {
 		int listCount = aService.getSalaryListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<SalaryManage> list = aService.salaryList(pi);
-		System.out.println(list.size());
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		return "account/salaryList";
@@ -344,7 +340,6 @@ public class AccountController {
 //			int result =aService.insertIncome(iss);
 //			System.out.println("결과...."+result);
 //		}
-		System.out.println("check" + iss);
 		ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
 		//비용합계
 		int sum =0;
