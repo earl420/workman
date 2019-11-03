@@ -104,7 +104,7 @@
 				
 					<div style=" width:200px; height:50px; line-height:50px; color:#666;font-size:10px; text-align:right;" id="clock" ></div>
 				
-					<li class="icons dropdown"><a href="javascript:void(0)"
+					<!-- <li class="icons dropdown"><a href="javascript:void(0)"
 						data-toggle="dropdown"> <i class="mdi mdi-bell-outline"></i> <span
 							class="badge badge-pill gradient-2 badge-primary">3</span>
 					</a>
@@ -154,7 +154,7 @@
 
 							</div>
 
-						</div></li>
+						</div></li> -->
 					<li class="icons dropdown d-none d-md-flex"><a
 						href="javascript:void(0)" class="log-user" data-toggle="dropdown">
 							<i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
@@ -217,11 +217,21 @@
 						</a>
 							<ul>
 								<li><a href="draftWrite.wo">-&nbsp;기안서작성</a></li>
+								<li><a href="draftDetail.wo">-&nbsp;기안서상세</a></li>
 								<li><a href="requestWrite.wo">-&nbsp;품의서작성</a></li>
+								<li><a href="requestDetail.wo">-&nbsp;품의서상세</a></li>
 								<li><a href="expenseWrite.wo">-&nbsp;지출결의서작성</a></li>
+								<li><a href="expenseDetail.wo">-&nbsp;지출결의서상세</a></li>
 								<li><a href="holiDayWrite.wo">-&nbsp;휴가작성</a></li>
+								<li><a href="holiDayDetail.wo">-&nbsp;휴가상세</a></li>
 							</ul></li>
-						
+						<li><a class="has-arrow" href="javascript:void()"
+							aria-expanded="false"> <i class=""></i><span class="">문서보관</span>
+						</a>
+							<ul>
+								<li><a href="companionList.wo">-&nbsp;반려</a></li>
+								<li><a href="temporaryList.wo">-&nbsp;임시저장</a></li>
+							</ul></li>
 						<li><a class="has-arrow" href="javascript:void()"
 							aria-expanded="false"> <i class=""></i><span class="">문서보관</span>
 						</a>

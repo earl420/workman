@@ -17,7 +17,7 @@
 	href="resources/icons/logo1.png">
 
 <meta charset="UTF-8">
-<title>WEworks</title>
+<title>비밀번호 찾기</title>
 <style>
 	html {
 	  background-color: #56baed;

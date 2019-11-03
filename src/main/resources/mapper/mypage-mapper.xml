@@ -105,13 +105,12 @@
 		from employee
 		join grade using(grade_num)
 		join dept using(dept_num)
-		where emp_name != 'SYSTEM' and
-			  emp_name like '%'||#{emp}||'%' or 
+		where emp_name like '%'||#{emp}||'%' or 
 			  grade_name like '%'||#{emp}||'%' or 
 			  dept_name like '%'||#{emp}||'%' or
 			  emp_phone like '%'||#{emp}||'%' or
 			  emp_email like '%'||#{emp}||'%' and 
-			  emp_status='Y'
+			  emp_name != 'SYSTEM' and emp_status='Y'
 		order by emp_name
 	</select>
 	

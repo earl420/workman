@@ -17,7 +17,7 @@
 	href="resources/icons/logo1.png">
 
 <meta charset="UTF-8">
-<title>비밀번호 찾기</title>
+<title>사원번호</title>
 <style>
 	html {
 	  background-color: #56baed;

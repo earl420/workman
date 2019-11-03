@@ -83,7 +83,7 @@
 											<label class="col-lg-4 col-form-label" for="birth">생년월일
 											</label>
 											<div class="col-lg-6">
-												<input type="date" min="1960-01-01" max="1999-12-12" class="form-control" id="birth"
+												<input type="text" min="1960-01-01" max="1999-12-12" class="form-control" id="birth"
 													name="birth" value="${ loginMan.birth }" readonly>
 											</div>
 										</div>
@@ -147,23 +147,6 @@
 											</div>											
 										</c:if> --%>
 										
-										
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="bank">급여수령은행
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id="bank"
-													name="bank" value="${ loginMan.bank }">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-lg-4 col-form-label" for="account">급여수령계좌
-											</label>
-											<div class="col-lg-6">
-												<input type="text" class="form-control" id="account"
-													name="account" value="${ loginMan.account }">
-											</div>
-										</div>
 										<c:if test="${ empty loginMan.address }">
 											<div class="form-group row">
 												<label class="col-lg-4 col-form-label" for="adress1">주소
