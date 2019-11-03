@@ -45,11 +45,9 @@ public class ChattingDao {
 		return result;
 	}
 	
-	public String newChat(String userId) {
-		System.out.println("dao newChat userId : "+userId);
-		
+	public String newChat(String userId,String roomName) {
 		//룸생성 userId로 이름
-		sqlSession.insert("chattingMapper.insertNewChat",userId);
+		sqlSession.insert("chattingMapper.insertNewChat",roomName);
 		
 		//생성룸아이디 받기
 		String roomId = sqlSession.selectOne("chattingMapper.selectNewChat");
@@ -61,8 +59,6 @@ public class ChattingDao {
 		return roomId;
 	}
 	public int addUser(String roomId, String userId) {
-		System.out.println("dao adUser userId : "+userId);
-		System.out.println("dao addUser roomId : "+roomId);
 		HashMap<String, String> m1 = new HashMap<>();
 		m1.put("roomId",roomId);
 		m1.put("userId", userId);
@@ -70,9 +66,18 @@ public class ChattingDao {
 		return result;
 	}
 	public String getName(String userId) {
-		System.out.println(userId);
 		String userName=sqlSession.selectOne("chattingMapper.getName",userId);
 		System.out.println(userName);
 		return userName;
+	}
+	public void roomExit(String roomId, String userId) {
+		HashMap<String, String> m1 = new HashMap<>();
+		m1.put("roomId",roomId);
+		m1.put("userId", userId);
+		m1.put("sysId",sysId);
+		sqlSession.update("chattingMapper.roomExitU",m1);
+		sqlSession.delete("chattingMapper.roomExitD",m1);
+		System.out.println("rExit작동");
+		
 	}
 }

@@ -121,9 +121,8 @@
 
 								<div id="here"></div>
 								<!-- modal -->
-								<c:forEach items="${ elist }" var="e" varStatus="status">
-									<c:if test="${ e.deptNum eq d.deptNum}">
-										<div class="modal fade" id="basicModal${ status.index }"
+								<c:forEach items="${ elist }" var="e">
+										<div class="modal fade" id="basicModal${ e.empNum }"
 											style="display: none;" aria-hidden="true">
 											<div class="modal-dialog" role="document">
 												<div class="modal-content">
@@ -170,7 +169,6 @@
 											</div>
 										</div>
 										<!-- /modal -->
-									</c:if>
 								</c:forEach>
 							</div>
 						</div>
@@ -216,15 +214,18 @@
 												$("#count").text(data.length);
 												$.each(data, function(index, value) {
 
-													var $button = $('<button type="button" class="btn mb-1 btn-flat btn-info" data-toggle="modal" data-target="#basicModal${ status.index }" style="margin-right: 20px; cursor:pointer;"><label id="nameLabel">'
-																	+ value.empName
+													var $button = $('<button type="button" class="btn mb-1 btn-flat btn-info" data-toggle="modal" data-target = "#basicModal0" style="margin-right: 20px; cursor:pointer;">').attr("data-target", "#basicModal"+value.empNum);
+													
+				
+														var $label = $('<label id="nameLabel">'+ value.empName
 																	+ '</label><br> '
 																	+ value.deptName
 																	+ '<br> '
 																	+ value.gradeName
 																	+ '</button>');
 
-																	$(here).append($button);
+																	$button.append($label);
+																	$here.append($button);
 																});
 											} else {
 												$here.append("직원 리스트 불러오기 실패");

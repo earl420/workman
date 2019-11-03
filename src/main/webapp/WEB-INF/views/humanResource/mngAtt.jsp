@@ -105,7 +105,7 @@
 								
 
 								<br> <br>
-								소식 직원 수 : <span id="count"></span>
+								소속 직원 수 : <span id="count"></span>
 								<table class="table header-border" style="text-align: center;">
 									<thead>
 										<tr style="background: #f9f9f9; border: 1px solid lightgray;">

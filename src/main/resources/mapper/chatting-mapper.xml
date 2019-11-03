@@ -84,11 +84,19 @@
 		INSERT INTO CHAT_JOIN VALUES(#{roomId},#{userId},SYSDATE)
 	</insert>
 	<select id="getName" parameterType="string" resultType="string">
-	    SELECT EMP_NUM
+	    SELECT EMP_NAME
 		FROM EMPLOYEE
 		WHERE EMP_NUM=#{userId}
 	</select>
-
+	<update id="roomExitU" parameterType="hashmap">
+		UPDATE CHAT_MSG 
+		SET CHAT_USER=#{sysId}, MSG_STAT='N' 
+		WHERE CHAT_USER=#{userId} AND CHAT_ROOM =#{roomId}
+	</update>
+	<delete id="roomExitD" parameterType="hashmap">
+		DELETE FROM CHAT_JOIN 
+		WHERE CHAT_USER =#{userId} AND CHAT_ROOM=#{roomId}
+	</delete>
 
 
 

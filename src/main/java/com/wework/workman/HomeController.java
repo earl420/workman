@@ -43,7 +43,7 @@ public class HomeController {
 			int insertSal = aService.insertSal();
 		}
 		int check2 = hService.checkHolidayCount();
-		if(check<1) {
+		if(check2<1) {
 			int updateHoliday = hService.updateHolidayCount();
 		}
 		
