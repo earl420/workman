@@ -132,6 +132,74 @@
 		<result property="confirmNum" column="CONFIRM_NUM"/>
 		<result property="holidayStatus" column="HOLIDAY_STATUS"/>
 	</resultMap>
+	
+	<!-- 지출결의 -->
+	<resultMap id="expenseResultSet" type="Expense">
+		<id property="expenseNum" column="EXPENSE_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="empNum" column="EMP_NUM"/>
+		<result property="expenseTitle" column="EXPENSE_TITLE"/>
+		<result property="expenseContent" column="EXPENSE_CONTENT"/>
+		<result property="expenseDate" column="EXPENSE_DATE"/>
+		<result property="expenseType" column="EXPENSE_TYPE"/>
+		<result property="partnerNum" column="PARTNER_NUM"/>
+		<result property="expensePrice" column="EXPENSE_PRICE"/>
+		<result property="expenseStatus" column="EXPENSE_STAUS"/>
+		<result property="expenseComplete" column="EXPENSE_COLPLETE"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+	</resultMap>
+	
+	<!-- 지출결의 문서정렬 -->
+	<resultMap id="expenseSortResultSet" type="ExpenseSort">
+		<id property="pNum" column="PNUM"/>
+		<result property="rNum" column="RNUM"/>
+		<result property="expenseNum" column="EXPENSE_NUM"/>
+		<result property="deptNum" column="DEPT_NUM"/>
+		<result property="empNum" column="EMP_NUM"/>
+		<result property="expenseTitle" column="EXPENSE_TITLE"/>
+		<result property="expenseContent" column="EXPENSE_CONTENT"/>
+		<result property="expenseDate" column="EXPENSE_DATE"/>
+		<result property="expenseType" column="EXPENSE_TYPE"/>
+		<result property="partnerNum" column="PARTNER_NUM"/>
+		<result property="expensePrice" column="EXPENSE_PRICE"/>
+		<result property="expenseStatus" column="EXPENSE_STAUS"/>
+		<result property="expenseComplete" column="EXPENSE_COLPLETE"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+	</resultMap>
+	
+	
+	<!-- 문서  -->
+	<resultMap id="docResultSet" type="Doc">
+		<id property="docNum" column="DOC_NUM"/>
+		<result property="docEmpName" column="EMP_NAME"/>
+		<result property="docGradeName" column="GRADE_NAME"/>
+		<result property="docTitle" column="DOC_TITLE"/>
+		<result property="docContent" column="DOC_CONTENT"/>
+		<result property="docDate" column="DOC_DATE"/>
+		<result property="docStatus" column="DOC_STATUS"/>
+		<result property="confirmNum" column="CONFIRM_NUM"/>
+		<result property="confirmEmp1" column="CONFIRM_EMP1"/>
+		<result property="confirmEmp2" column="CONFIRM_EMP2"/>
+		<result property="confirmEmp3" column="CONFIRM_EMP3"/>
+		<result property="confirmEmp4" column="CONFIRM_EMP4"/>
+		<result property="confirmDate1" column="CONFIRM_DATE1"/>
+		<result property="confirmDate2" column="CONFIRM_DATE2"/>
+		<result property="confirmDate3" column="CONFIRM_DATE3"/>
+		<result property="confirmDate4" column="CONFIRM_DATE4"/>
+	</resultMap>
+	
+	
+	<!-- 승인 정렬  -->
+	<resultMap id="approvalSortResultSet" type="ApprovalSort">
+		<id property="pNum" column="PNUM"/>
+		<result property="rNum" column="RNUM"/>
+		<result property="approvalNum" column="APPROVAL_NUM"/>
+		<result property="docNum" column="DOC_NUM"/>
+	</resultMap>
+		
+	
 
 	<insert id="insertConflrm" parameterType="Conflrm">
 		 insert into CONFIRM values( CONFIRM_NUM_SEQ.nextval ,#{confirmEmp1},#{confirmEmp2},#{confirmEmp3},#{confirmEmp4},default,default,default,default)	
@@ -199,6 +267,185 @@
 		select * from DOC_HOLIDAY where HOLI_NUM = #{string}
 	</select>
 	
+	<insert id="insertExpense" parameterType="Expense">
+		 insert into DOC_EXPENSE values( EXPENSE_NUM_SEQ.nextval ,#{deptNum},#{empNum},#{expenseTitle},#{expenseContent},SYSDATE,#{expenseType},#{partnerNum},#{expensePrice},default,default,default,#{confirmNum})	
+	</insert>
+	
+	<select id="expenseSort" resultMap="expenseSortResultSet">
+		select * from expenseSort where PNUM=1
+	</select>
+	
+	<select id="selectExpense" parameterType="string" resultMap="expenseResultSet">
+		select * from DOC_EXPENSE where EXPENSE_NUM = #{string}
+	</select>
+	
+	
+	<!-- 리스트불러오기 -->
+
+	<select id="getallListCount"  parameterType="string" resultType="_int">
+		select COUNT(*) from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			where DOC_EMPNUM = #{string} or CONFIRM_emp1 = #{string}
+       		 or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
+	</select>	
+	
+	<select id="docList"  parameterType="string" resultMap="docResultSet">
+		select * from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			join MODAL on(DOC_EMPNUM = EMP_NUM)
+			where DOC_EMPNUM = #{string} or CONFIRM_emp1 = #{string}
+       		 					or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
+       		ORDER BY DOC_DATE DESC
+	</select>
+	
+	<!-- 대기/진행/완료리스트 -->	
+	
+	<select id="selectCount"  parameterType="HashMap" resultType="_int">
+		select COUNT(*) from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			where DOC_EMPNUM = #{userNum} and DOC_STATUS = #{status}
+	</select>
+	
+	<select id="docselectList"  parameterType="HashMap" resultMap="docResultSet">
+		select * from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			join MODAL on(DOC_EMPNUM = EMP_NUM)
+			where DOC_EMPNUM = #{userNum} and DOC_STATUS = #{status}
+       		ORDER BY DOC_DATE DESC
+	</select>
+	
+	<!-- 승인리스트 -->	
+	<select id="approvalListCount"  parameterType="string" resultType="_int">
+		select COUNT(*) from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			where CONFIRM_emp1 = #{string}
+       		 or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
+	</select>
+	
+	<select id="approvalList"  parameterType="string" resultMap="docResultSet">
+		select * from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			join MODAL on(DOC_EMPNUM = EMP_NUM)
+			where CONFIRM_emp1 = #{string}
+       		 					or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
+       		ORDER BY DOC_DATE DESC
+	</select>
+	
+	<!-- 결재대기 전체 리스트 -->
+	
+	<select id="allRequestListCount"  parameterType="string" resultType="_int">
+		select COUNT(*) from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			where (CONFIRM_emp1 = #{string}
+       		 or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string})
+       		 and DOC_STATUS != 'C'
+    </select>
+    
+    <select id="docRequestList"  parameterType="string" resultMap="docResultSet">
+		select * from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			join MODAL on(DOC_EMPNUM = EMP_NUM)
+			where (CONFIRM_emp1 = #{string}
+       		 					or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string})
+       		 	and DOC_STATUS != 'C'
+       		ORDER BY DOC_DATE DESC
+	</select>
+	
+	<!-- 결재대기 기안/품의/지출/휴가  리스트 -->
+	<select id="selectRequestListCount"  parameterType="HashMap" resultType="_int">
+		select COUNT(*) from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			where (CONFIRM_emp1 = #{userNum}
+       		 or CONFIRM_emp2 = #{userNum} or CONFIRM_emp3 = #{userNum} or CONFIRM_emp4 = #{userNum})
+       		 and DOC_STATUS != 'C' and DOC_NUM like #{docNum}
+	</select>
+	
+	  <select id="docsselectRequestList"  parameterType="HashMap" resultMap="docResultSet">
+		select * from doc
+			join CONFIRM  USING (CONFIRM_NUM)
+			join MODAL on(DOC_EMPNUM = EMP_NUM)
+			where (CONFIRM_emp1 = #{userNum}
+       		 or CONFIRM_emp2 = #{userNum} or CONFIRM_emp3 = #{userNum} or CONFIRM_emp4 = #{userNum})
+       		 and DOC_STATUS != 'C' and DOC_NUM like #{docNum}
+       		ORDER BY DOC_DATE DESC
+	</select>
+	
+	<update id="updateConflrm1" parameterType="string">
+		 update CONFIRM
+	 	set CONFIRM_DATE1 = SYSDATE
+	 	WHERE CONFIRM_NUM = #{string}  
+	</update>
+	<update id="updateConflrm2" parameterType="string">
+		 update CONFIRM
+		 set CONFIRM_DATE2 = SYSDATE
+	 	WHERE CONFIRM_NUM = #{string}  
+	</update>
+	<update id="updateConflrm3" parameterType="string">
+	 	update CONFIRM
+	 	set CONFIRM_DATE3 = SYSDATE
+		 WHERE CONFIRM_NUM = #{string}  
+	</update>
+	<update id="updateConflrm4" parameterType="string">
+		 update CONFIRM
+	 	set CONFIRM_DATE4 = SYSDATE
+	 	WHERE CONFIRM_NUM = #{string}  
+	</update>
+	
+	<update id="progressDraft" parameterType="string">
+	 	update DOC_DRAFT
+		 set DRAFT_STATUS = 'P'
+		 WHERE DRAFT_NUM = #{string}  
+	</update>
+	
+	<update id="progressRequest" parameterType="string">
+	 	update DOC_REQUEST
+	 	set REQUEST_STATUS = 'P'
+	 	WHERE REQUEST_NUM = #{string}  
+	</update>
+	
+	<update id="progressHoliday" parameterType="string">
+	 	update DOC_HOLIDAY
+	 	set HOLIDAY_STATUS = 'P'
+	 	WHERE HOLI_NUM = #{string}  
+	</update>
+	
+	<update id="progressExpense" parameterType="string">
+	 	update DOC_EXPENSE
+	 	set EXPENSE_STAUS = 'P'
+	 	WHERE EXPENSE_NUM = #{string}  
+	</update>
+	
+	<insert id="insertApproval" parameterType="string">
+		 insert into APPROVAL values( APPROVAL_NUM_SEQ.nextval ,SYSDATE, #{string})	
+	</insert>
+	
+	<select id="approvalSort" resultMap="approvalSortResultSet">
+		select * from ApprovalSort where PNUM=1
+	</select>
+	
+	<update id="completeDraft" parameterType="HashMap">
+	 	update DOC_DRAFT
+		set DRAFT_STATUS = 'C', APPROVAL_NUM = #{approvalNum}, DRAFT_COMPLETE=SYSDATE
+		WHERE DRAFT_NUM = #{draftNum}  
+	</update>
+	
+	<update id="completeRequest" parameterType="HashMap">
+	 	update DOC_REQUEST
+	 	set REQUEST_STATUS = 'C', APPROVAL_NUM = #{approvalNum}, REQUEST_COMPLETE=SYSDATE
+		WHERE REQUEST_NUM = #{requestNum}  
+	</update>
+	
+	<update id="completeHoliday" parameterType="HashMap">
+	 	update DOC_HOLIDAY
+	 	set HOLIDAY_STATUS = 'C', APPROVAL_NUM = #{approvalNum}
+		WHERE HOLI_NUM = #{holiNum}  
+	</update>
+	
+	<update id="completeExpense" parameterType="HashMap">
+	 	update DOC_EXPENSE
+	 	set EXPENSE_STAUS = 'C', APPROVAL_NUM = #{approvalNum} ,EXPENSE_COLPLETE=SYSDATE
+	 	WHERE EXPENSE_NUM = #{expenseNum} 
+	</update>
 	
 	
 	

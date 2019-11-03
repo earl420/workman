@@ -9,6 +9,7 @@ public class Expense {
 	private String expenseTitle;		// 지출결의제목
 	private String expenseContent;		// 지출결의내용
 	private Date expenseDate;			// 지출결의등록일시
+	private String expenseType;			// 지출타입
 	private String partnerNum;			// 거래처번호
 	private int expensePrice;			// 거래금액
 	private String expenseStatus;		// 상태	Y :등록시 대기 , N:반려,  P:진행 , C:완료  
@@ -21,8 +22,8 @@ public class Expense {
 	}
 
 	public Expense(String expenseNum, int deptNum, String empNum, String expenseTitle, String expenseContent,
-			Date expenseDate, String partnerNum, int expensePrice, String expenseStatus, Date expenseComplete,
-			String approvalNum, String confirmNum) {
+			Date expenseDate, String expenseType, String partnerNum, int expensePrice, String expenseStatus,
+			Date expenseComplete, String approvalNum, String confirmNum) {
 		super();
 		this.expenseNum = expenseNum;
 		this.deptNum = deptNum;
@@ -30,6 +31,7 @@ public class Expense {
 		this.expenseTitle = expenseTitle;
 		this.expenseContent = expenseContent;
 		this.expenseDate = expenseDate;
+		this.expenseType = expenseType;
 		this.partnerNum = partnerNum;
 		this.expensePrice = expensePrice;
 		this.expenseStatus = expenseStatus;
@@ -86,6 +88,14 @@ public class Expense {
 		this.expenseDate = expenseDate;
 	}
 
+	public String getExpenseType() {
+		return expenseType;
+	}
+
+	public void setExpenseType(String expenseType) {
+		this.expenseType = expenseType;
+	}
+
 	public String getPartnerNum() {
 		return partnerNum;
 	}
@@ -137,11 +147,12 @@ public class Expense {
 	@Override
 	public String toString() {
 		return "Expense [expenseNum=" + expenseNum + ", deptNum=" + deptNum + ", empNum=" + empNum + ", expenseTitle="
-				+ expenseTitle + ", expenseContent=" + expenseContent + ", expenseDate=" + expenseDate + ", partnerNum="
-				+ partnerNum + ", expensePrice=" + expensePrice + ", expenseStatus=" + expenseStatus
-				+ ", expenseComplete=" + expenseComplete + ", approvalNum=" + approvalNum + ", confirmNum=" + confirmNum
-				+ "]";
+				+ expenseTitle + ", expenseContent=" + expenseContent + ", expenseDate=" + expenseDate
+				+ ", expenseType=" + expenseType + ", partnerNum=" + partnerNum + ", expensePrice=" + expensePrice
+				+ ", expenseStatus=" + expenseStatus + ", expenseComplete=" + expenseComplete + ", approvalNum="
+				+ approvalNum + ", confirmNum=" + confirmNum + "]";
 	}
+
 	
 	
 	

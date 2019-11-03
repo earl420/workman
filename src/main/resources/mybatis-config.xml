@@ -52,6 +52,11 @@
 	<typeAlias type="com.wework.workman.approval.model.vo.ExpenseSort" alias="ExpenseSort"/>
 	<typeAlias type="com.wework.workman.approval.model.vo.HolidaySort" alias="HolidaySort"/>
 	<typeAlias type="com.wework.workman.approval.model.vo.RequestSort" alias="RequestSort"/>
+	<typeAlias type="com.wework.workman.approval.model.vo.ApprovalSort"  alias="ApprovalSort"/>
+	
+	<!-- 문서리스트용  -->
+	<typeAlias type="com.wework.workman.approval.model.vo.Doc" alias="Doc"/>
+	
 	
 </typeAliases>
 

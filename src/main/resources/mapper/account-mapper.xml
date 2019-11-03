@@ -48,6 +48,11 @@
 	<resultMap id="partner" type="Partner">
 		<id column="PARTNER_NUM" property="partnerNum"></id>
 		<result column="PARTNER_NAME" property="partnerName"></result>
+		<result column="PARTNER_PHONE" property="partnerPhone"></result>
+		<result column="PARTNER_FAX" property="partnerFax"></result>
+		<result column="PARTNER_ADDRESS" property="partnerAddress"></result>
+		<result column="BUSSINESS_NUM" property="bussinessNum"></result>
+		<result column="PARTNER_EMP" property="partnerEmp"></result>
 	</resultMap>
 	<resultMap id="sales" type="SaleManage">
 		<id column="SALES_NUM" property="salesNum"></id>
@@ -399,6 +404,9 @@ from salary
 </insert>
 <select id="noticeFile" parameterType="string" resultMap="noticeFiles">
 	select * from attachment where DOC_NUM like '%'||#{acDetail}
+</select>
+<select id="selectPartner" parameterType="string" resultMap="partner">
+	select * from partner where PARTNER_NUM = #{"partnerNum"}
 </select>
 <select id="getIncreaseRate" parameterType="string" resultType="_int">
 	select decode(count(*), 0, 0, sum(salary)) from salary where emp_num=#{li} and sal_year = (extract(year from sysdate)-1)	

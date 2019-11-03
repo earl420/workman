@@ -221,6 +221,10 @@ public class AccountDao {
 		return sqlSession.selectOne("accountMapper.noticeFile",acDetail);
 	}
 
+	public Partner selectPartner(String partnerNum) {
+		return sqlSession.selectOne("accountMapper.selectPartner",partnerNum);
+	}
+
 	public int getIncreaseRate(String li) {
 		return sqlSession.selectOne("accountMapper.getIncreaseRate", li);
 	}

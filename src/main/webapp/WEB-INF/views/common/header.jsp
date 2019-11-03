@@ -217,21 +217,11 @@
 						</a>
 							<ul>
 								<li><a href="draftWrite.wo">-&nbsp;기안서작성</a></li>
-								<li><a href="draftDetail.wo">-&nbsp;기안서상세</a></li>
 								<li><a href="requestWrite.wo">-&nbsp;품의서작성</a></li>
-								<li><a href="requestDetail.wo">-&nbsp;품의서상세</a></li>
 								<li><a href="expenseWrite.wo">-&nbsp;지출결의서작성</a></li>
-								<li><a href="expenseDetail.wo">-&nbsp;지출결의서상세</a></li>
 								<li><a href="holiDayWrite.wo">-&nbsp;휴가작성</a></li>
-								<li><a href="holiDayDetail.wo">-&nbsp;휴가상세</a></li>
 							</ul></li>
-						<li><a class="has-arrow" href="javascript:void()"
-							aria-expanded="false"> <i class=""></i><span class="">문서보관</span>
-						</a>
-							<ul>
-								<li><a href="companionList.wo">-&nbsp;반려</a></li>
-								<li><a href="temporaryList.wo">-&nbsp;임시저장</a></li>
-							</ul></li>
+						
 						<li><a class="has-arrow" href="javascript:void()"
 							aria-expanded="false"> <i class=""></i><span class="">문서보관</span>
 						</a>

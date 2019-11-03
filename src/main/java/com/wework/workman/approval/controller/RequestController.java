@@ -91,6 +91,8 @@ public class RequestController {
 		Conflrm c = rService.selectConflrm(r.getConfirmNum());
 		Reference rf = rService.selectReference(requestNum);
 		Attachment a = rService.selectAttachment(requestNum);
+		ArrayList<Modal> mlist = hService.selectModalEmpList();
+		
 		System.out.println(r);
 		System.out.println(c);
 		System.out.println(rf);
@@ -100,13 +102,14 @@ public class RequestController {
 		mv.addObject("c",c);
 		mv.addObject("rf",rf);
 		mv.addObject("a",a);
+		mv.addObject("mlist",mlist);
 		mv.setViewName("approval/requestDetail");
 		return mv;
 	}
 	
 	@RequestMapping("insertRequest.wo")
 	
-	public ModelAndView insertRequest(Request r, ModelAndView mv, HttpServletRequest request, HttpSession session,
+	public ModelAndView insertRequest(Request r, Attachment a, ModelAndView mv, HttpServletRequest request, HttpSession session,
 			@RequestParam(name="file", required=false) MultipartFile file,
 			@RequestParam(name="applicant", required=false) String[] applicant,
 			@RequestParam(name="referrer", required=false) String[] referrer) {
@@ -153,31 +156,30 @@ public class RequestController {
 							break;
 						case 2:
 							rf.setEmpNum1(referrer[0]);
-							rf.setEmpNum1(referrer[1]);
+							rf.setEmpNum2(referrer[1]);
 							break;
 						case 3:
 							rf.setEmpNum1(referrer[0]);
-							rf.setEmpNum1(referrer[1]);
-							rf.setEmpNum1(referrer[2]);
+							rf.setEmpNum2(referrer[1]);
+							rf.setEmpNum3(referrer[2]);
 							break;
 
 						case 4:
 							rf.setEmpNum1(referrer[0]);
-							rf.setEmpNum1(referrer[1]);
-							rf.setEmpNum1(referrer[2]);
-							rf.setEmpNum1(referrer[3]);
+							rf.setEmpNum2(referrer[1]);
+							rf.setEmpNum3(referrer[2]);
+							rf.setEmpNum4(referrer[3]);
 							break;
 						}
 					rf.setDocNum(requestNum);
 					int result = rService.insertReference(rf);
 				}
 				
-				Attachment a = new Attachment();
 				if(!file.getOriginalFilename().equals("")) { // 첨부파일이 넘어온 경우
 				
 				// 서버에 파일등록(폴더에 저장)
 				// 내가 저장하고자 하는 파일 , request 전달하고 실제로 저장된 파일명 돌려주는 saveFile
-				String renameFileName = saveFile(file,request);
+					String renameFileName = saveFile(file, request, a);
 				
 				if(renameFileName != null) { // 파일이 잘 저장된 경우
 					a.setAttOriginalName(file.getOriginalFilename());
@@ -198,7 +200,7 @@ public class RequestController {
 				
 	}
 	
-	public String saveFile(MultipartFile file, HttpServletRequest request) {
+	public String saveFile(MultipartFile file, HttpServletRequest request, Attachment a) {
 
 		// 파일이 저장될 경로 설정
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -222,6 +224,8 @@ public class RequestController {
 		
 		String renamePath = savePath + "\\" + renameFileName; // resources\bupload/20120311200000
 		
+		a.setAttPath(renamePath);
+		
 		try {
 			file.transferTo(new File(renamePath)); // 이때 서버에 업로드 됨
 			
@@ -231,6 +235,61 @@ public class RequestController {
 			
 		return renameFileName;
 	}
+	
+	@RequestMapping("successRequest.wo")
+	public ModelAndView successRequest( ModelAndView mv,
+									  @RequestParam(name="confirmNum", required=false) String confirmNum,
+									  @RequestParam(name="requestNum", required=false) String docNum,
+									  @RequestParam(name="count", required=false) int count) {
 		
+		Conflrm c = rService.selectConflrm(confirmNum);
+		
+		int count1 = 0;
+		if(c.getConfirmEmp4() != null) {
+			count1=4;
+		}else if(c.getConfirmEmp3() != null){
+			count1=3;
+		}else if(c.getConfirmEmp2() != null){
+			count1=2;
+		}else {
+			count1=1;
+		}
+		
+		int result1=0;
+		int result2=0;
+		switch (count) {
+		case 1:
+			result1 = rService.updateConflrm1(confirmNum, docNum);
+			 if(count1==1) {
+				 result2 = rService.insertApproval(docNum);
+			 }
+			break;
+		case 2:
+			 result1 = rService.updateConflrm2(confirmNum);
+			 if(count1==2) {
+				 result2 = rService.insertApproval(docNum);
+			 }
+			break;
+		case 3:
+			 result1 = rService.updateConflrm3(confirmNum);
+			 if(count1==3) {
+				 result2 = rService.insertApproval(docNum);
+			 }
+			break;
+			
+		case 4:
+			 result1 = rService.updateConflrm4(confirmNum);
+			 if(count1==4) {
+				 result2 = rService.insertApproval(docNum);
+			 }
+			break;
+		}
+		mv.setViewName("redirect:allList.wo");
+		return mv;
+	}
+	
 }
+
+		
+
 
