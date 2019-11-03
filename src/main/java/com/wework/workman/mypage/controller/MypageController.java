@@ -153,6 +153,7 @@ public class MypageController {
 	public String loginEmp(Mypage m, Model model){
 		  
 		  Mypage loginMan = mService.loginMan(m);
+		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
 			  model.addAttribute("loginMan", loginMan);
 			  model.addAttribute("login", "로그인 되었습니다.");
@@ -216,7 +217,7 @@ public class MypageController {
 	 * @return
 	 */
 	@RequestMapping("empUpdate.wo")
-	@DateTimeFormat(pattern="yyyy/MM/dd")
+	@DateTimeFormat(pattern="yyyy/MM/ dd")
 	public String empUpdate(Mypage m, Model model,
 							@RequestParam("address1") String address1,
 							@RequestParam("address2") String address2) {
