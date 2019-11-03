@@ -89,6 +89,8 @@ public interface AccountService {
 	int goWork(Attendance2 a);
 	//퇴근
 	int outWork(Attendance2 a);
+	
+	Partner selectPartner(String partnerNum);
 
 	
 }
