@@ -182,7 +182,16 @@
 						var $button= $("<button type='button' class='btn mb-1 btn-rounded btn-primary'>").text(value.empName + value.gradeName).val(value.empNum);
 						$li.append($button);
 						$ul.append($li);
+						
 					 });
+					 
+					 var $ul = $(".member ul");
+					 $ul.html("");
+					 
+					 $(".tab-pane ul li button").attr("disabled",false);
+					 
+					empList = new Array();
+					
 				 },error : function() {
 					 console.log("ajax 통신실패");
 				 }
