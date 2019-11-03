@@ -364,7 +364,8 @@
 	
 	    <!-- Remind Passowrd -->
 	    <div id="formFooter">
-	      <a class="underlineHover" href="findPwdPage.wo">비밀번호 찾기</a>
+	      <a class="underlineHover" id="find" style="cursor:pointer; color:black;">사원번호 찾기&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	      <a class="underlineHover" style="color:black;" href="findPwdPage.wo">&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 찾기</a>
     	</div>
 			
 		</div>
@@ -373,6 +374,17 @@
 
 
 	<script>
+	
+	$(function(){
+		$("#find").on("click", function(){
+			swal.fire({
+				type: 'info',
+				title : '사원번호를 모르는 당신',
+				text : '인사과로 연락하세요',
+				confirmButtonText: '확인'
+			});
+		});
+	});
 		
 	$(function(){
 		   if(${!empty success}){

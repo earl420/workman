@@ -11,6 +11,7 @@ import com.wework.workman.account.model.dao.AccountDao;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.dao.HumanResourceDao;
+import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
@@ -140,6 +141,12 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 
 		return hDao.insertEmp(e);
 	}
+	
+	@Override
+	public int setHoliday() {
+
+		return hDao.setHoliday();
+	}
 
 	@Override
 	public int getDeptNum(String deptName) {
@@ -174,6 +181,31 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	public int updateHolidayCount() {
 		return aDao.updateHolidayCount();
 	}
+
+	@Override
+	public int getThisLate(String empNum) {
+
+		return hDao.getThisLate(empNum);
+	}
+
+	@Override
+	public int getnoOn(String empNum) {
+
+		return hDao.getnoOn(empNum);
+	}
+
+	@Override
+	public int getnoOff(String empNum) {
+		return hDao.getnoOff(empNum);
+	}
+
+	@Override
+	public ArrayList<Att> getMonthAtt(String empNum) {
+			
+		return hDao.getMonthAtt(empNum);
+	}
+
+	
 
 	
 

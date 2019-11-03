@@ -217,41 +217,6 @@ img {
 								<div class="card-title">ChatList</div>
 								<div class="slimScrollDiv" id="chatListScroll">
 
-									<div class="chat_list active_chat" id="RoomId">
-										<input type="hidden" value="test">
-										<h5>
-
-											<i class="fas fa-cog setSpan " id="dropdownMenuButton"
-												data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false"></i>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a>
-												<a class="dropdown-item" onclick="addUser();">대화상대 초대</a> <a
-													class="dropdown-item" onclick="exitRoom();">채팅방 나가기</a>
-											</div>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
-
-										</h5>
-										<p>Test, which is a one roof.</p>
-									</div>
-
-									<!-- dataToggleDiv -->
-
-									<div class="dropdown">
-										<button class="btn btn-secondary dropdown-toggle"
-											type="button" id="dropdownMenuButton" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">Dropdown
-											button</button>
-										<div class="dropdown-menu"
-											aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="#">Action</a> <a
-												class="dropdown-item" href="#">Another action</a> <a
-												class="dropdown-item" href="#">Something else here</a>
-										</div>
-									</div>
-
-
-
 
 								</div>
 
@@ -308,7 +273,7 @@ img {
 																</div>
 															</c:forEach>
 														</div>
-														<div class="applicantMember box_from">
+														<div id="modalUl" class="applicantMember box_from">
 															<ul>
 															</ul>
 														</div>
@@ -333,7 +298,7 @@ img {
 							</div>
 						</div>
 					</div>
-					<div class="col col-lg-6">
+					<div class="col col-lg-9">
 						<div class="card">
 							<div class="card-body">
 								<div class="card-title">Chatting</div>
@@ -360,14 +325,14 @@ img {
 							</div>
 						</div>
 					</div>
-					<div class="col col-lg-3">
-						<div class="card">
-							<div class="card-body">
-								<div class="card-title">memo..etc?</div>
-								<div class="slimScrollDiv"></div>
-							</div>
-						</div>
-					</div>
+<!-- 					<div class="col col-lg-3"> -->
+<!-- 						<div class="card"> -->
+<!-- 							<div class="card-body"> -->
+<!-- 								<div class="card-title">memo..etc?</div> -->
+<!-- 								<div class="slimScrollDiv"></div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 
 				</div>
 			</div>
@@ -437,9 +402,42 @@ img {
 
 		function newChat(){
 			wbSocket.send("newChat:"+empList);
-			empList = new Array();
+			
+			var $ul = $(".applicantMember ul");
+            $ul.html("");
+            $(".tab-pane ul li button").attr("disabled",false);
+           empList = new Array();
+			
+			
 		}
+		//roomSetBtn
+		$("#chatListScroll").on("click", ".setSpan", function() {
+			// 			alert("i");
+			var hrId = $(this).parent().parent().children().eq(0).val();
+			console.log(hrId);
 
+		});
+
+		//roomChange
+		$("#chatListScroll").on("click", ".chat_list", function() {
+			var rCng = $(this).children().eq(0).val();
+			// 			rCng:roomId
+			$('#' + actiRoomId).removeClass('active_chat');
+			actiRoomId = rCng;
+			$('#actiRoomId').val(rCng);
+			$('#' + actiRoomId).addClass('active_chat');
+			wbSocket.send("rCng:" + actiRoomId);
+			$('#chatBox').empty();
+		});
+		function exitRoom(){
+			console.log("-------------------"+actiRoomId);
+			wbSocket.send("exitRoom:"+actiRoomId+":"+userId);
+			location.reload();
+		}
+		function rNameChange(){
+			
+		}
+		
 		//handler
 		function onMessage(evt) {
 			var data = evt.data;
@@ -447,7 +445,7 @@ img {
 			
 			var preMsg = spData[0];
 			//onOpen:userId
-			//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
+			//	<= roomSetList:rId:rName:lastWord:lastMan:lastComm;
 			//	<=msgHistory:sender:content:time:status
 			//msg:userId:msgContent
 			//rCng:roomId;
@@ -488,13 +486,14 @@ img {
 		//--------초기설정----------
 
 		//onOpen:userId
-		//	<= roomSetList:roomId:lastMan:lastWord:lastComm;
+		//	<= roomSetList:rId:rName:lastWord:lastMan:lastComm;
 		//	<=msgHistory:sender:content:time:status
+	
 		function roomSetList(spData) {
 			var setRoomId = spData[1];
 			var setRoomName = spData[2];
-			var setLastMan = spData[3];
-			var setLastWord = spData[4];
+			var setLastMan = spData[4];
+			var setLastWord = spData[3];
 			var setLastComm = spData[5];
 
 			var $divSc = $('#chatListScroll');
@@ -502,7 +501,7 @@ img {
 			// 			<div class="chat_list active_chat" id="RoomId">
 			// 				<input type="hidden" value="test">
 			// 				<h5>
-			// 					<i class="fas fa-cog setSpan " id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+			// 					<i class="fas fa-cog setSpan" id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></i>
 
 			// 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 			// 						<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a> 
@@ -518,16 +517,26 @@ img {
 
 			var $div_chatList = $("<div class='chat_list' id='"+setRoomId+"'>");
 			var $hrId = $("<input type='hidden' value='"+setRoomId+"'>");
-			var $h5 = $("<h5>" + setRoomName + "<span class='chat_date'>"
-					+ setLastComm + "</span></h5>");
-			var $iSpan = $("<i class='fas fa-cog setSpan'></i>");
+			var $h5 = $("<h5>" + setRoomName + "<span class='chat_date'>" + setLastComm + "</span></h5>");
+			var $iSpan = $("<i class='fas fa-cog setSpan' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></i>");
 			var $p = $("<p>" + setLastWord + "<p>");
 
+			var $div_down =$('<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">');
+			var $a1 = $('<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a>')
+			var $a2 = $('<a class="dropdown-item" onclick="addUser();">대화상대 초대</a>')
+			var $a3 = $('<a class="dropdown-item" onclick="exitRoom();">채팅방 나가기</a>')
+			
 			$divSc.append($div_chatList);
 			$div_chatList.append($hrId);
 			$div_chatList.append($h5);
 			$h5.append($iSpan);
+			
+			$div_down.append($a1);
+			$div_down.append($a2);
+			$div_down.append($a3);
 
+			$h5.append($div_down);
+			
 			$div_chatList.append($p);
 
 			$("#actiRoomId").val(setRoomId);
@@ -542,27 +551,6 @@ img {
 		//		------------초기설정 끝
 
 
-		//roomSetBtn
-		$("#chatListScroll").on("click", ".setSpan", function() {
-			// 			alert("i");
-			var hrId = $(this).parent().parent().children().eq(0).val();
-			console.log(hrId);
-
-		});
-
-		//roomChange
-		$("#chatListScroll").on("click", ".chat_list", function() {
-			var rCng = $(this).children().eq(0).val();
-			// 			rCng:roomId
-			$('#' + actiRoomId).removeClass('active_chat');
-			actiRoomId = rCng;
-			$('#actiRoomId').val(rCng);
-			$('#' + actiRoomId).addClass('active_chat');
-			wbSocket.send("rCng:" + actiRoomId);
-			$('#chatBox').empty();
-		});
-		
-		
 		
 		////////////////////////Modal//////////////////////////
 		  
@@ -596,7 +584,12 @@ img {
 			});
 		});
 	function modalReset(){
-		empList = new Array();
+		var $ul = $(".applicantMember ul");
+        $ul.html("");
+        
+        $(".tab-pane ul li button").attr("disabled",false);
+        
+       empList = new Array();
 	}
 
 </script>

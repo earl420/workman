@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +24,20 @@ import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.common.Pagination;
 import com.wework.workman.humanResource.model.service.HumanResourceService;
+import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
 import com.wework.workman.humanResource.model.vo.Grade;
 import com.wework.workman.humanResource.model.vo.Notice;
+import com.wework.workman.mypage.model.vo.Mypage;
 
 @Controller
 public class HumanResourceController {
+	
 	@Resource(name = "humanResourceService")
 	private HumanResourceService hService;
+	
 
 	// 전체 공지 리스트
 	@RequestMapping("notice.wo")
@@ -129,8 +134,10 @@ public class HumanResourceController {
 
 		String root = request.getSession().getServletContext().getRealPath("resource");
 		String savePath = root + "/upload";
+//		String savePath = root + "\\upload";
 
 		File f = new File(savePath + "/" + noticeNum);
+//		File f = new File(savePath + "\\" + noticeNum);
 
 		if (f.exists()) {
 			f.delete();
@@ -210,6 +217,7 @@ public class HumanResourceController {
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "/upload";
+//		String savePath = root + "\\upload";
 
 		File folder = new File(savePath);
 
@@ -225,6 +233,7 @@ public class HumanResourceController {
 				+ originalFileName.substring(originalFileName.lastIndexOf("."));
 
 		String renamePath = savePath + "/" + renameFileName;
+//		String renamePath = savePath + "\" + renameFileName;
 
 		a.setAttPath(renamePath);
 
@@ -300,10 +309,35 @@ public class HumanResourceController {
 
 	// 인사/휴가근태/근태현황
 	@RequestMapping("showAtt.wo")
-	public String showAtt() {
-
-		return "humanResource/showAtt";
+	public ModelAndView showAtt(HttpSession session, ModelAndView mv) {
+		
+		Mypage m = ((Mypage)session.getAttribute("loginMan"));
+		// 이번 달 지각 횟수 가져오기
+		int late = hService.getThisLate(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		// 이번 달 비정상 출근 가져오기
+		int noOn = hService.getnoOn(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		int noOff = hService.getnoOff(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		// 해당 달 클릭해서 일별로 출/퇴근 보기
+		ArrayList<Att> att = hService.getMonthAtt(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		mv.addObject("m", m).addObject("late", late).addObject("noOn", noOn).addObject("noOff", noOff).addObject("att", att).setViewName("humanResource/showAtt");
+		return mv;
+		
 	}
+	
+//	@RequestMapping("monthAtt.wo")
+//	public ModelAndView monthAtt(HttpSession session, ModelAndView mv) {
+//		
+//		ArrayList<Att> att = hService.getMonthAtt(((Mypage)session.getAttribute("loginMan")).getNum());
+//		
+//		mv.addObject("att", att).setViewName("humanResource/showAtt");
+//		
+//		return mv;
+//	}
+	
 
 	// 인사/인사 관리/조직도 관리
 	@RequestMapping("mngEmpChart.wo")
@@ -505,9 +539,11 @@ public class HumanResourceController {
 		e.setGradeNum(gradeNum);
 		e.setEmpSalary(Integer.parseInt(empSalary));
 
-		int result = hService.insertEmp(e);
+		int result1 = hService.insertEmp(e);
+		
+		int result2 = hService.setHoliday();
 
-		if (result > 0) {
+		if (result1 > 0 && result2 > 0) {
 
 			return "redirect:empChart.wo";
 
@@ -571,9 +607,17 @@ public class HumanResourceController {
 
 	// 인사/휴가근태 관리/휴가관리
 	@RequestMapping("mngHoliday.wo")
-	public String mngHoliday() {
+	public ModelAndView mngHoliday(ModelAndView mv) {
 
-		return "humanResource/mngHoliday";
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		
+
+		if(!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).setViewName("humanResource/mngHoliday");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
 	}
 
 	// 인사/휴가근태 관리/근태관리

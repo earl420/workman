@@ -37,13 +37,18 @@ public class HomeController {
 	public String home(Locale locale, Model model, HttpSession session) {
 		
 		logger.info("Welcome home! The client locale is {}.", locale);
+		int check3 = aService.checkYearSal();
+		if(check3<1) {
+			int insertYearSal = aService.insertYearSalary();
+			
+		}
 		
 		int check = aService.checkSal();
 		if(check<1) {
 			int insertSal = aService.insertSal();
 		}
 		int check2 = hService.checkHolidayCount();
-		if(check<1) {
+		if(check2<1) {
 			int updateHoliday = hService.updateHolidayCount();
 		}
 		

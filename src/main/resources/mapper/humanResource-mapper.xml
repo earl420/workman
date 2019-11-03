@@ -67,6 +67,13 @@
 		<result property="count" column="count"/>
 	</resultMap>
 	
+	<resultMap type="Att" id="monthAttResultSet">
+		<id property="empNum" column="emp_num"/>
+		<result property="attDate" column="att_date"/>
+		<result property="timeOn" column="time_on"/>
+		<result property="timeOff" column="time_off"/>
+	</resultMap>
+	
 	<select id="getnListCount" resultType="_int">
 		select count(*)
 		from notice
@@ -195,6 +202,14 @@
 		values(emp_num_seq.nextval, #{empPwd}, #{empName}, #{email}, #{gender}, #{birth}, #{empPhone}, #{empAddress}, #{gradeNum}, #{deptNum}, #{empSalary}, sysdate, default, default, #{empAccount}, #{empBank})
 	</insert>
 	
+	<insert id="setHoliday">
+		insert into holiday_count
+		values ((select max(emp_num) from employee),
+        12-extract(month from sysdate), 
+        12-extract(month from sysdate), 
+        extract(year from sysdate))
+	</insert>
+	
 	<select id="elistByName" parameterType="string" resultMap="selectEmp">
 		select *
 		from employee
@@ -208,4 +223,30 @@
 		set dept_num=#{deptNum}, grade_num=#{gradeNum}
 		where  emp_num = #{empNum}
 	</update>
+	
+	<select id="getThisLate" parameterType="string" resultType="_int">
+		select count(att_date)
+		from attendance
+		where emp_num=#{empNum} and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
+	</select>
+	
+	<select id="getnoOn" parameterType="string" resultType="_int">
+		select count(att_date)
+		from attendance
+		where emp_num=#{empNum} and time_on is null
+	</select>
+	
+	<select id="getnoOff" parameterType="string" resultType="_int">
+		select count(att_date)
+		from attendance
+		where emp_num=#{empNum} and time_off is null
+	</select>
+	
+	<select id="getMonthAtt" parameterType="string" resultMap="monthAttResultSet">
+		select *
+		from attendance
+		where emp_num='20190004' and extract(month from att_date) = '10' 
+	</select>
+	
+	
 </mapper>
