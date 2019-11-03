@@ -23,38 +23,38 @@
 		update schedule
 		set sch_content=#{description}, emp_num=#{empNum}, sch_emp_start=#{start}, 
 			sch_emp_end=#{end}, register_emp_num=#{empNum}, ctype=#{ctype}
-		where emp_num=#{empNum}
+		where empNum=#{empNum}
 	</update>
 	
 	<select id="calendarDetail" parameterType="string" resultMap="calendarResultSet">
 		select *
 		from schedule
-		where emp_num=#{empNum}
+		where empNum=#{empNum}
 	</select>
 	
 	<delete id="deleteCalendar" parameterType="string">
 		delete from schedule
-		where emp_num=#{empNum}
+		where empNum=#{empNum}
 	</delete>
 	
 	<select id="selectCalendar" parameterType="_int" resultMap="calendarResultSet">
 		select *
 		from schedule
-		where dept_num=#{deptNum}
+		where deptNum=#{deptNum}
 	</select>
 	
 	
 	<!-- 출근-->
 	<insert id="Attendance" parameterType="Attendance">
 		insert into attendance
-		values(#{empNum}, #{att_date}, #{time_on}, null)
+		values(#{empNum}, sysdate, #{time_on}, null)
 	</insert>
 	
 	<!-- 퇴근 -->
 	<update id="updateAttendance" parameterType="Attendance">
 		update attendance
-		set time_off = sysdate
-		where empNum = #{empNum}
+		set time_off = (select to_char(sysdate, 'HH24:MI:SS') from dual)
+		where emp_num = #{empNum} and to_char(att_date, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
 	</update>
 	
 </mapper>

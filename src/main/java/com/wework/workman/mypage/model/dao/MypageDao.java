@@ -87,4 +87,26 @@ public class MypageDao {
 		return (ArrayList)sqlSession.selectList("mypageMapper.empList", null, rowBounds);
 	}
 
+	
+	/**
+	 * 검색한 직원 수
+	 * @param emp
+	 * @return
+	 */
+	public int searchCount(String emp) {
+		return sqlSession.selectOne("mypageMapper.searchCount", emp);
+	}
+
+	/**
+	 * 검색한 직원
+	 * @param emp
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<EmpList> empSearch(String emp, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mypageMapper.empSearch", emp, rowBounds);
+	}
+
 }

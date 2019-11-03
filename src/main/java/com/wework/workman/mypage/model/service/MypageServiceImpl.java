@@ -85,6 +85,23 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 
+	/**
+	 * 검색한 직원 수
+	 */
+	@Override
+	public int searchCount(String emp) {
+		return mDao.searchCount(emp);
+	}
+
+	/**
+	 * 검색한 직원
+	 */
+	@Override
+	public ArrayList<EmpList> empSearch(String emp, PageInfo pi) {
+		return mDao.empSearch(emp, pi);
+	}
+
+
 
 	
 }

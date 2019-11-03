@@ -32,7 +32,7 @@
 
 
 	<!-- main wrapper -->
-	<div id="main-wrapper" style="">
+	<div id="main-wrapper">
 		<c:import url="../common/header.jsp"></c:import>
 		<!-- content-body -->
 		<div class="content-body" style="min-height: 889px;">
@@ -46,7 +46,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="card">
-							<div class="card-body">
+							<div class="card-body" style="height: 700px;">
 								<h5>내 정보</h5>
 								<br>
 								<div class="form-validation">
@@ -90,20 +90,27 @@
 				
 					<div class="col-md-8">
 						<div class="card">
-							<div class="card-body">
+							<div class="card-body" style="height: 700px;">
 								<h4 class="card-title">직원</h4>
 								<div class="table-responsive">
 									<div id="DataTables_Table_0_wrapper"
 										class="dataTables_wrapper container-fluid dt-bootstrap4">
 										<div class="row">
-											<div class="col-sm-12 col-md-6">총 직원 수 : ${ pi.listCount }
+											<div class="col-sm-12 col-md-6">
+												<c:out value="총 직원 수 : ${ pi.listCount }"></c:out>
+												
 											</div>
 											<div class="col-sm-12 col-md-6">
 												<div id="DataTables_Table_0_filter"
 													class="dataTables_filter">
-													<label>Search:<input type="search"
-														class="form-control form-control-sm" placeholder="직원  찾기"
-														aria-controls="DataTables_Table_0"></label>
+													<form action="empSearch.wo" method="post">
+														<label>직원 검색:
+															<input type="search" name="emp"
+															class="form-control form-control-sm" placeholder="직원명"
+															aria-controls="DataTables_Table_0">
+															<button type="submit" class="btn mb-1">검색</button>
+														</label>
+													</form>
 												</div>
 											</div>
 										</div>
@@ -238,6 +245,44 @@
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
+	
+	<script type="text/javascript">
+			
+	
+	
+	
+		/* $(function(){
+			$('#emp').on('keyup', function(){
+				
+				var emp = $(this).val();
+				
+				$.ajax({
+					url:"empSearch.wo",
+					data:{id:emp},
+					type:"post",
+					data:params,
+					success: function(data){
+						
+					},
+					error: function(){
+						swal.fire({
+							type: 'error',
+							title: '없는 직원 입니다.',
+							confirmButtonText: '확인'
+						});
+					}
+				});
+				
+				
+			});
+			
+			
+		}); */
+		
+	
+	
+	</script>
+	
 
 </body>
 <iframe id="google_esf" name="google_esf"

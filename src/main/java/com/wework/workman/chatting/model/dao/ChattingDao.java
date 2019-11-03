@@ -16,12 +16,11 @@ public class ChattingDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	private String sysId;
+	
 	public String sysId() {
 		 sysId=sqlSession.selectOne("chattingMapper.sysId");
 		return sysId;
 	}
-	
-	
 	//userId에대한 채팅방 리스트, 채팅방들의 마지막전송일시,전송자, 메세지내용
 	public ArrayList<Room>getRoomList(String userId){
 		List<String> list = (List)sqlSession.selectList("chattingMapper.getRoomList",userId);
@@ -48,25 +47,17 @@ public class ChattingDao {
 	
 	public String newChat(String userId) {
 		System.out.println("dao newChat userId : "+userId);
-		HashMap<String,String> m1 = new HashMap<>();
-		m1.put("userId",userId);
 		
 		//룸생성 userId로 이름
 		sqlSession.insert("chattingMapper.insertNewChat",userId);
 		
 		//생성룸아이디 받기
 		String roomId = sqlSession.selectOne("chattingMapper.selectNewChat");
-		m1.put("roomId", roomId);
 		
-		//chat_join에 유저넣기
-		for(String i : m1.keySet()) {
-			String key=i;
-			String value = m1.get(key);
-		}
-		sqlSession.insert("chattingMapper.insertUser",m1);
+		//chat_join에 생성한 유저넣기
+		addUser(roomId,userId);
 		//chat_join에system 넣어놓기
-		m1.put("userId",sysId);
-		sqlSession.insert("chattingMapper.insertUser",m1);
+		addUser(roomId,sysId);
 		return roomId;
 	}
 	public int addUser(String roomId, String userId) {
@@ -78,5 +69,10 @@ public class ChattingDao {
 		int result = sqlSession.insert("chattingMapper.insertUser",m1);
 		return result;
 	}
-	
+	public String getName(String userId) {
+		System.out.println(userId);
+		String userName=sqlSession.selectOne("chattingMapper.getName",userId);
+		System.out.println(userName);
+		return userName;
+	}
 }

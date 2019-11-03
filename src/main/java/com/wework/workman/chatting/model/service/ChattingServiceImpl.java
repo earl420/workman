@@ -72,6 +72,13 @@ public class ChattingServiceImpl implements ChattingService{
 	}
 
 
+	@Override
+	public String getName(String userId) {
+		// TODO Auto-generated method stub
+		return cDao.getName(userId);
+	}
+
+
 	
 	
 

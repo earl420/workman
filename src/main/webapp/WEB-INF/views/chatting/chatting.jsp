@@ -465,7 +465,7 @@ img {
 				msgHistory(spData[2]);
 			} else if (preMsg == "msg") {
 				writer = spData[1];
-				var mCont = data.spilt(":",2);
+				var mCont = data.split(":",3);
 				appendMessage(mCont[2]);
 			} else {
 				console.log(data);

@@ -232,6 +232,14 @@ public class AccountDao {
 		return sqlSession.insert("accountMapper.updateHolidayCount");
 	}
 
+	public int updateYearSalary(SalaryManage sm) {
+		return sqlSession.update("accountMapper.updateYearSalary", sm);
+	}
+
+	public int updateEmpSalary(SalaryManage sm) {
+		return sqlSession.update("accountMapper.updateEmpSalary", sm);
+	}
+
 
 
 	

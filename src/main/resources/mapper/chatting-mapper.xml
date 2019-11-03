@@ -83,7 +83,11 @@
 	<insert id="insertUser" parameterType="hashmap">
 		INSERT INTO CHAT_JOIN VALUES(#{roomId},#{userId},SYSDATE)
 	</insert>
-	
+	<select id="getName" parameterType="string" resultType="string">
+	    SELECT EMP_NUM
+		FROM EMPLOYEE
+		WHERE EMP_NUM=#{userId}
+	</select>
 
 
 

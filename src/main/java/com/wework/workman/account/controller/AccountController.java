@@ -506,12 +506,33 @@ public class AccountController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(renameFileName);
 		return renameFileName;
 	}
 	
 	
-	
+	@RequestMapping("updateyearsalary.wo")
+	public String updateYearSalary(@RequestParam("empNum") String empNum,
+			@RequestParam(value = "salary", required = false) int salary,
+			@RequestParam(value="empName") String empName,
+			Model model) {
+		SalaryManage sm = new SalaryManage();
+		sm.setEmpNum(empNum);
+		if(salary==0) {
+			salary = 20000000;
+		}
+		sm.setYearSalary(salary);
+		
+		int result =aService.updateYearSalary(sm);
+		if(result<1) {
+			model.addAttribute("empNum", empNum);
+			return "redirect:salarydetail.wo";
+		}else {
+			model.addAttribute("empNum",empNum);
+			model.addAttribute("empName",empName);
+			model.addAttribute("salary", salary);
+			return "redirect:draftWrite.wo";
+		}
+	}
 	
 }
 

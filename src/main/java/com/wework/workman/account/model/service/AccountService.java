@@ -81,5 +81,7 @@ public interface AccountService {
 
 	NoticeFile noticeFile(String acDetail);
 
+	int updateYearSalary(SalaryManage sm);
+
 	
 }

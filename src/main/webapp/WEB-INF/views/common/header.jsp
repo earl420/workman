@@ -2,38 +2,31 @@
 	pageEncoding="UTF-8"
 	import="java.util.Date, java.text.SimpleDateFormat"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <script src="https://kit.fontawesome.com/ee2dc8e60a.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- <link href="resources/plugins/toastr/css/toastr.min.css" rel="stylesheet"> -->
+	
     <!--&nbsp;Custom Stylesheet -->
      <link href="resources/css/style.css" rel="stylesheet">
 <style>
-   #bye{
-        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
-        color: white;
-        width:100px;
-    }
-    
-    #hi{
-        font-family: "NanumSquare-EB", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif;
-        color: white;
-        width:100px;
-    }
 	#header-right{
-	display:inline;
+		display:inline;
 	}
-	#hi3{
-		float:left;
-		padding-top:20px;
+	#p1{
+        color: navy;
+        /* border:1px solid black; */
+        margin-top:30px;
 	}
 </style>
 </head>
 
 <body onload="printClock()">
+
 
 	<c:set var="contextPath"></c:set>
 
@@ -60,9 +53,8 @@
             Header start
         ***********************************-->
 	<div class="header">
-
-		<div class="header-content clearfix"
-			style="border-bottom: 1px solid gray;">
+ 
+		<div class="header-content clearfix" style="border-bottom: 1px solid gray;">
 
 
 			<div class="nav-control">
@@ -81,63 +73,59 @@
 					/* 오늘날짜 value값으로 박으려고 */
 
 					Date time = new Date();
-					SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss");
+					SimpleDateFormat sdf2 = new SimpleDateFormat("kk:mm:s");
 					String strTime = sdf2.format(time);
 					/* 현재시간 value값으로 박으려고 */
 				%>
 
-				<div class="hi3">
-
-
-					<form action="attend.wo" method="post" id="form1">
+					<form action="attend.wo" method="post" id="form1" style="display:inline;">
 						<input type="hidden" name="empNum" value="${ loginMan.num }">
 						<input type="hidden" name="att_date" value="<%=strToday%>">
 						<input type="hidden" name="time_on" value="<%=strTime%>">
 						<input type="hidden" name="time_off" value="<%=strTime%>">
-						<input type="hidden" name="flag" value="${flag }" id="flag">
-						<c:if test="${flag eq '출'}">
-							<button class="btn mb-1 btn-rounded btn-success" type="submit"
-								id="hi">출근</button>
-						</c:if>
-
-						<c:if test="${flag eq '퇴'}">
-							<button class="btn mb-1 btn-rounded btn-warning" type="submit"
-								id="bye">퇴근</button>
-						</c:if>
+						<button class="btn mb-1 btn-rounded btn-success" type="submit" id="hi" style="color: white; width:100px; margin-top:20px">출근</button>
 					</form>
-				</div>
-
-				<script>
-					/* 출퇴근 버튼 스크립트 */
-					$(function() {
-						$("#bye").hide(); /* 출근버튼 누르기 전에는 퇴근버튼 안보임 */
-					});
-
-					// 출근 버튼 누르면 알림창 뜨기
-					$("#hi").on("click", function() {
+						
+						
+					<form action="out.wo" method="post" id="form2" style="display:inline;">
+						<input type="hidden" name="empNum" value="${ loginMan.num }">
+						<input type="hidden" name="att_date" value="<%=strToday%>">
+						<input type="hidden" name="time_on" value="<%=strTime%>">
+						<input type="hidden" name="time_off" value="<%=strTime%>">
+					</form>
+						<button class="btn mb-1 btn-rounded btn-warning" type="button" id="bye" style="color: white; width:100px; margin-top:20px">퇴근</button>
+					
+		
+		 	<script>
+		 	$("#hi").on("click", function(){
+					var d = new Date();
+					var time = d.getHours() + '시' + d.getMinutes() + '분';
+		 			alert(time + ' 출근.');  
+		 			//$( "#hi").off( event );
+		          // $("#hi").hide();
+		           // $("#bye").show();
+		          //document.all.btn_submit.visibility = 'hidden';
+		           //$("#form1").submit();
+		           //return false;
+		            
+				 });
+				
+				 
+					$("#bye").on("click", function(){
 						var d = new Date();
 						var time = d.getHours() + '시' + d.getMinutes() + '분';
-						alert(time + ' 출근.');
-						$("#bye").show(); /* 출근버튼 눌러야 퇴근버튼 보이게 */
-						$("#hi").hide(); /* 출근버튼은 안보이게 */
+			 			alert(time + ' 퇴근.');
+			 			
+			 			//$("#bye").hide();
+						
+						
+					 	//$("#form2").submit();
+					 	
+			 		});
+				</script> 
 
-						$("#flag").val("출");
-
-						return true;
-					});
-
-					// 퇴근 버튼 누르면 알림창 뜨기
-					$("#bye").on("click", function() {
-						var d = new Date();
-						var time = d.getHours() + '시' + d.getMinutes() + '분';
-						alert(time + ' 퇴근.');
-						$("#bye").hide(); /* 퇴근버튼은 안보이게 */
-
-						$("#flag").val("퇴");
-
-						return true;
-					});
-				</script>
+					
+				 
 			</div>
 
 			<div class="header-right">
@@ -287,6 +275,8 @@
 								<li><a href="test.wo">-&nbsp;테스트</a></li>
 							</ul></li>
 					</ul></li>
+				<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 302 || loginMan.deftNum eq 304 || loginMan.deftNum eq 305 }">
+				
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-calculator"></i><span
 						class="nav-text">총무/회계</span>
@@ -298,6 +288,8 @@
 						<li><a href="fixturelist.wo">-&nbsp;사내물품 관리</a></li>
 						<li><a href="salarylist.wo">-&nbsp;월급 관리</a></li>
 					</ul></li>
+				</c:if>
+				<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 301 }">
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-users"></i><span
 						class="nav-text">인사</span>
@@ -344,6 +336,7 @@
 								<li><a href="mngAtt.wo">-&nbsp;직원 근태 조회</a>
 							</ul></li>
 					</ul></li>
+				</c:if>	
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-calendar-alt"></i><span
 						class="nav-text">일정</span>
@@ -358,7 +351,7 @@
 						class="nav-text">마이 페이지</span>
 				</a>
 					<ul aria-expanded="false">
-						<li><a href="mypageView.wo">-&nbsp;마이 페이지</a></li>
+						<li><a href="mypageView.wo">-&nbsp;직원정보</a></li>
 						<li><a href="empInfo.wo">-&nbsp;개인정보 설정</a></li>
 						<li><a href="confirmPwdPage.wo">-&nbsp;비밀번호 변경</a></li>
 					</ul></li>
@@ -387,7 +380,9 @@
 	<script src="resources/js/custom.min.js"></script>
 	<script src="resources/js/settings.js"></script>
 	<script src="resources/js/gleek.js"></script>
-	<script src="resources/js/styleSwitcher.js"></script>
+	<script src="resources/js/styleSwitcher.js"></script><!-- 
+	<script src="resources/plugins/toastr/js/toastr.min.js"></script>
+	<script src="resources/plugins/toastr/js/toastrSR.init.js"></script> -->
 
 	<script type="text/javascript">
 		function printClock() {

@@ -137,64 +137,67 @@
 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
+<script type="text/javascript">
 
+$(function(){
+ calendarEvent();
+});
+
+function calendarEvent(eventData){
+ $("#calender").html("");
+ var date = new Date();
+ var d = date.getDate();
+ var m = date.getMonth();
+ var y = date.getFullYear();
+ var calendar = $('#calender').fullCalendar({
+  header: {
+   left: "",
+   center: "title",
+//    right: "month,basicWeek,basicDay"
+   right: "today prev,next"
+   },
+   editable: true,
+   titleFormat: {
+   month: "yyyy년 MMMM",
+   week: "[yyyy] MMM dd일{ [yyyy] MMM dd일}",
+   day: "yyyy년 MMM d일 dddd"
+   },
+   allDayDefault: false,
+   defaultView: "month",
+   editable: false,
+   monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+   monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+   dayNames: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
+   dayNamesShort: ["일","월","화","수","목","금","토"],
+   buttonText: {
+   today : "오늘",
+   month : "월별",
+   week : "주별",
+   day : "일별",
+   },
+   events : eventData,
+   timeFormat : "HH:mm",
+ });
+}
+</script>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    
+    var a = new Date();
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-      //selectable: true,
-      header: {
-        left: 'today',
-        center: 'title',
-        right: 'prev,next'
-      },
-      
-      events: function (start, end, callback) {
-    	  
-    	 $.ajax({
-           url: 'calDetailView2.wo',
-           type: "GET",
-           async:false,
-           datatype: 'json',
-           success:  function(calendarList) {
-        	   console.log(calendarList);
-               var events = [];
-            	
-               $.map( calendarList.result, function( obj ) {
-               for (var i=0; i<=5; i++) //리스트 생성
-            	      {
-            	   		events.push({
-            	        title : obj.description
-            	        });
-            	      }
-            	      });
-               
-               callback(events);
-              },
-             });
-         },
-          eventRender: function (event, element) {
-        	  var icon  = '<div class="fc-event" value="전체" style="width:15px; height:15px; background:blue;"></div>'
-              $(element).find('.fc-content').append(icon);
-         },
-        /*  dayClick: function(date, jsEvent, view) {
-          return false;
-         },
-         eventClick: function(calEvent, jsEvent, view) {
-          return false;
-      },   */
-    	 
-      dateClick: function(info) {
-        location.href= 'calInsertView.wo';
-      } ,
-      select: function(info) {
-        location.href= 'calInsertView.wo';
-      }
+      plugins: [ 'interaction', 'dayGrid' ],
+      defaultDate: a,
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      locale: 'ko',
+      events: ${list}
     });
+
     calendar.render();
   });
+
 </script>
 
 
@@ -217,14 +220,7 @@
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 
-<style>
-$(function(){
 
-$('.fc-title').css('color', 'white');
-
-})
-
-</style>
 </body>
 
 

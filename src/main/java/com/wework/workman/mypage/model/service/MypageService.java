@@ -29,5 +29,11 @@ public interface MypageService {
 	// 총 직원 리스트
 	ArrayList<EmpList> empList(PageInfo pi);
 
+	// 검색한 직원 수
+	int searchCount(String emp);
+
+	// 검색한 직원
+	ArrayList<EmpList> empSearch(String emp, PageInfo pi);
+
 
 }
