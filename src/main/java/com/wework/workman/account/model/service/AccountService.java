@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
@@ -82,6 +83,12 @@ public interface AccountService {
 	NoticeFile noticeFile(String acDetail);
 
 	int updateYearSalary(SalaryManage sm);
+
+	int checkAtten(Attendance2 a);
+
+	int goWork(Attendance2 a);
+
+	int outWork(Attendance2 a);
 
 	
 }

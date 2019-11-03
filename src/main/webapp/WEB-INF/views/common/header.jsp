@@ -78,51 +78,15 @@
 					/* 현재시간 value값으로 박으려고 */
 				%>
 
-					<form action="attend.wo" method="post" id="form1" style="display:inline;">
-						<input type="hidden" name="empNum" value="${ loginMan.num }">
-						<input type="hidden" name="att_date" value="<%=strToday%>">
-						<input type="hidden" name="time_on" value="<%=strTime%>">
-						<input type="hidden" name="time_off" value="<%=strTime%>">
-						<button class="btn mb-1 btn-rounded btn-success" type="submit" id="hi" style="color: white; width:100px; margin-top:20px">출근</button>
-					</form>
-						
-						
-					<form action="out.wo" method="post" id="form2" style="display:inline;">
-						<input type="hidden" name="empNum" value="${ loginMan.num }">
-						<input type="hidden" name="att_date" value="<%=strToday%>">
-						<input type="hidden" name="time_on" value="<%=strTime%>">
-						<input type="hidden" name="time_off" value="<%=strTime%>">
-					</form>
-						<button class="btn mb-1 btn-rounded btn-warning" type="button" id="bye" style="color: white; width:100px; margin-top:20px">퇴근</button>
 					
-		
-		 	<script>
-		 	$("#hi").one("click", function(){
-					var d = new Date();
-					var time = d.getHours() + '시' + d.getMinutes() + '분';
-		 			alert(time + ' 출근.');  
-		 			//$( "#hi").off( event );
-		          // $("#hi").hide();
-		           // $("#bye").show();
-		          //document.all.btn_submit.visibility = 'hidden';
-		           //$("#form1").submit();
-		           //return false;
-		            
-				 });
+				<button class="btn mb-1 btn-rounded btn-success" 
+				type="button" id="hi" style="color: white; width:100px; margin-top:20px" onclick="location.href='gowork.wo'">출근</button>
 				
-				 
-					$("#bye").one("click", function(){
-						var d = new Date();
-						var time = d.getHours() + '시' + d.getMinutes() + '분';
-			 			alert(time + ' 퇴근.');
-			 			
-			 			//$("#bye").hide();
-						
-						
-					 	//$("#form2").submit();
-					 	
-			 		});
-				</script> 
+				<button class="btn mb-1 btn-rounded btn-warning" 
+				type="button" id="bye" style="color: white; width:100px; margin-top:20px" onclick="location.href='outwork.wo'">퇴근</button>		
+				
+		
+		 	
 
 					
 				 
@@ -383,7 +347,7 @@
 	<script src="resources/js/styleSwitcher.js"></script><!-- 
 	<script src="resources/plugins/toastr/js/toastr.min.js"></script>
 	<script src="resources/plugins/toastr/js/toastrSR.init.js"></script> -->
-
+	<script src="resources/account/js/header.js"></script>
 	<script type="text/javascript">
 		function printClock() {
 	

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
 import com.wework.workman.account.model.service.AccountService;
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
+import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
 import com.wework.workman.account.model.vo.IncomeStatement;
@@ -534,6 +537,46 @@ public class AccountController {
 		}
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("checkAttendance.wo")
+	public void checkAttendance(HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
+		String empId = ((Mypage)session.getAttribute("loginMan")).getNum();
+		Attendance2 a = new Attendance2();
+		a.setEmpNum(empId);
+		Date d  = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("YY/MM/dd");
+		a.setToday(sdf.format(d));
+		int result = aService.checkAtten(a);
+		JSONObject obj = new JSONObject();
+		obj.put("result", result);
+		Gson gson = new Gson();
+		gson.toJson(obj, response.getWriter());
+		
+	}
+	@RequestMapping("gowork.wo")
+	public String goWork(HttpSession session) {
+		
+		Date d = new Date();
+		String empId = ((Mypage)session.getAttribute("loginMan")).getNum();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("YY/MM/dd");
+		Attendance2 a = new Attendance2(empId, sdf2.format(d), sdf.format(d));
+		int result = aService.goWork(a);
+		
+		return "redirect:home.wo";
+	}
+	@RequestMapping("outwork.wo")
+	public String outWork(HttpSession session) {
+		Date d = new Date();
+		String empId = ((Mypage)session.getAttribute("loginMan")).getNum();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("YY/MM/dd");
+		Attendance2 a = new Attendance2(empId, sdf2.format(d), sdf.format(d));
+		int result = aService.outWork(a);
+		
+		return "redirect:home.wo";
+	}
 }
 
 
