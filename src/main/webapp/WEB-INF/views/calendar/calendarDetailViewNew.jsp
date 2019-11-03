@@ -208,12 +208,11 @@ function calendarEvent(eventData){
 	 <c:import url="../common/header.jsp"></c:import>
 	
 <form action="calDetailView.wo" method="post" class="outdiv">
- 
+   
   <div id='calendar'></div>
 </form>
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
-
 <!--  <script src="resources/js/sa.js"></script> -->
 </body>
 
