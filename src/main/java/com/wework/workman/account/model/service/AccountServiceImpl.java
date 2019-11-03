@@ -246,5 +246,10 @@ public class AccountServiceImpl implements AccountService{
 		return aDao.noticeFile(acDetail);
 	}
 
+	@Override
+	public Partner selectPartner(String partnerNum) {
+		return aDao.selectPartner(partnerNum);
+	}
+
 	
 }

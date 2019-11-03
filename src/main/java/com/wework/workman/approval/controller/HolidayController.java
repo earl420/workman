@@ -93,6 +93,7 @@ public class HolidayController {
 		Conflrm c = hoService.selectConflrm(h.getConfirmNum());
 		Reference rf = hoService.selectReference(holiNum);
 		Attachment a = hoService.selectAttachment(holiNum);
+		ArrayList<Modal> mlist = hService.selectModalEmpList();
 		
 		System.out.println(h);
 		System.out.println(c);
@@ -103,12 +104,13 @@ public class HolidayController {
 		mv.addObject("c",c);
 		mv.addObject("rf",rf);
 		mv.addObject("a",a);
+		mv.addObject("mlist",mlist);
 		mv.setViewName("approval/holiDayDetail");
 		return mv;
 	}
 	
 	@RequestMapping("insertHoliday.wo")
-	public ModelAndView insertHoliday(Holiday h, ModelAndView mv, HttpServletRequest request, HttpSession session,
+	public ModelAndView insertHoliday(Holiday h, Attachment a, ModelAndView mv, HttpServletRequest request, HttpSession session,
 									@RequestParam(name="daterangepicker_start", required=false) String start,
 									@RequestParam(name="daterangepicker_end", required=false) String end,
 									@RequestParam(name="file", required=false) MultipartFile file,
@@ -165,19 +167,19 @@ public class HolidayController {
 							break;
 						case 2:
 							rf.setEmpNum1(referrer[0]);
-							rf.setEmpNum1(referrer[1]);
+							rf.setEmpNum2(referrer[1]);
 							break;
 						case 3:
 							rf.setEmpNum1(referrer[0]);
-							rf.setEmpNum1(referrer[1]);
-							rf.setEmpNum1(referrer[2]);
+							rf.setEmpNum2(referrer[1]);
+							rf.setEmpNum3(referrer[2]);
 							break;
 
 						case 4:
 							rf.setEmpNum1(referrer[0]);
-							rf.setEmpNum1(referrer[1]);
-							rf.setEmpNum1(referrer[2]);
-							rf.setEmpNum1(referrer[3]);
+							rf.setEmpNum2(referrer[1]);
+							rf.setEmpNum3(referrer[2]);
+							rf.setEmpNum4(referrer[3]);
 							break;
 						}
 					rf.setDocNum(holiNum);
@@ -185,12 +187,11 @@ public class HolidayController {
 				}
 				
 				
-				Attachment a = new Attachment();
 				if(!file.getOriginalFilename().equals("")) { // 첨부파일이 넘어온 경우
 				
 				// 서버에 파일등록(폴더에 저장)
 				// 내가 저장하고자 하는 파일 , request 전달하고 실제로 저장된 파일명 돌려주는 saveFile
-				String renameFileName = saveFile(file,request);
+					String renameFileName = saveFile(file, request, a);
 				
 				if(renameFileName != null) { // 파일이 잘 저장된 경우
 					a.setAttOriginalName(file.getOriginalFilename());
@@ -210,7 +211,7 @@ public class HolidayController {
 			
 			return mv;
 		}
-		public String saveFile(MultipartFile file, HttpServletRequest request) {
+		public String saveFile(MultipartFile file, HttpServletRequest request, Attachment a) {
 
 			// 파일이 저장될 경로 설정
 			String root = request.getSession().getServletContext().getRealPath("resources");
@@ -234,6 +235,8 @@ public class HolidayController {
 			
 			String renamePath = savePath + "\\" + renameFileName; // resources\bupload/20120311200000
 			
+			a.setAttPath(renamePath);
+			
 			try {
 				file.transferTo(new File(renamePath)); // 이때 서버에 업로드 됨
 				
@@ -244,8 +247,58 @@ public class HolidayController {
 			return renameFileName;
 		}
 		
-		
-		
+		@RequestMapping("successtHoliday.wo")
+		public ModelAndView successDraft( ModelAndView mv,
+										  @RequestParam(name="confirmNum", required=false) String confirmNum,
+										  @RequestParam(name="holiNum", required=false) String docNum,
+										  @RequestParam(name="count", required=false) int count) {
+			
+			Conflrm c = hoService.selectConflrm(confirmNum);
+			
+			int count1 = 0;
+			if(c.getConfirmEmp4() != null) {
+				count1=4;
+			}else if(c.getConfirmEmp3() != null){
+				count1=3;
+			}else if(c.getConfirmEmp2() != null){
+				count1=2;
+			}else {
+				count1=1;
+			}
+			
+			int result1=0;
+			int result2=0;
+			switch (count) {
+			case 1:
+				result1 = hoService.updateConflrm1(confirmNum, docNum);
+				 if(count1==1) {
+					 result2 = hoService.insertApproval(docNum);
+				 }
+				break;
+			case 2:
+				 result1 = hoService.updateConflrm2(confirmNum);
+				 if(count1==2) {
+					 result2 = hoService.insertApproval(docNum);
+				 }
+				break;
+			case 3:
+				 result1 = hoService.updateConflrm3(confirmNum);
+				 if(count1==3) {
+					 result2 = hoService.insertApproval(docNum);
+				 }
+				break;
+				
+			case 4:
+				 result1 = hoService.updateConflrm4(confirmNum);
+				 if(count1==4) {
+					 result2 = hoService.insertApproval(docNum);
+				 }
+				break;
+			}
+			mv.setViewName("redirect:allList.wo");
+			return mv;
+		}
+
 	}
 
 	

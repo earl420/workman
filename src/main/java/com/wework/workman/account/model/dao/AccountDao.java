@@ -220,6 +220,10 @@ public class AccountDao {
 		return sqlSession.selectOne("accountMapper.noticeFile",acDetail);
 	}
 
+	public Partner selectPartner(String partnerNum) {
+		return sqlSession.selectOne("accountMapper.selectPartner",partnerNum);
+	}
+
 
 
 	

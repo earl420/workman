@@ -45,7 +45,7 @@ public class AccountController {
 	private AccountService aService;
 	
 	@RequestMapping("acnoticeList.wo")
-	public String accountList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage, Model model) {
+	public String accountList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,  Model model) {
 		
 		
 		int listCount = aService.getNoticeListCount();

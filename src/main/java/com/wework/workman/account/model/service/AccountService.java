@@ -80,6 +80,8 @@ public interface AccountService {
 	int insertFile(NoticeFile nf);
 
 	NoticeFile noticeFile(String acDetail);
+	
+	Partner selectPartner(String partnerNum);
 
 	
 }

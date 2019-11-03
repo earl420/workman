@@ -91,16 +91,13 @@ public class DraftController {
 		Conflrm c = dService.selectConflrm(d.getConfirmNum());
 		Reference rf = dService.selectReference(draftNum);
 		Attachment a = dService.selectAttachment(draftNum);
-		
-		System.out.println(d);
-		System.out.println(c);
-		System.out.println(rf);
-		System.out.println(a);
+		ArrayList<Modal> mlist = hService.selectModalEmpList();
 		
 		mv.addObject("d",d);
 		mv.addObject("c",c);
 		mv.addObject("rf",rf);
 		mv.addObject("a",a);
+		mv.addObject("mlist",mlist);
 		mv.setViewName("approval/draftDetail");
 		return mv;
 	}
@@ -109,7 +106,7 @@ public class DraftController {
 	 * @return
 	 */
 	@RequestMapping("insertDraft.wo")
-	public ModelAndView insertDraft(Draft d,   ModelAndView mv, HttpServletRequest request, HttpSession session,
+	public ModelAndView insertDraft(Draft d, Attachment a,  ModelAndView mv, HttpServletRequest request, HttpSession session,
 								@RequestParam(name="file", required=false) MultipartFile file,
 								@RequestParam(name="applicant", required=false) String[] applicant,
 								@RequestParam(name="referrer", required=false) String[] referrer){
@@ -142,12 +139,9 @@ public class DraftController {
 		d.setEmpNum(((Mypage)session.getAttribute("loginMan")).getNum());
 		
 		String draftNum = dService.insertDraft(d,c);
-		System.out.println(draftNum);
 		
 		// 승인자 추가
 		Reference rf = new Reference();
-		System.out.println("===================================");
-		System.out.println(referrer);
 		if(referrer != null) {
 			switch (referrer.length) {
 				case 1:
@@ -155,31 +149,31 @@ public class DraftController {
 					break;
 				case 2:
 					rf.setEmpNum1(referrer[0]);
-					rf.setEmpNum1(referrer[1]);
+					rf.setEmpNum2(referrer[1]);
 					break;
 				case 3:
 					rf.setEmpNum1(referrer[0]);
-					rf.setEmpNum1(referrer[1]);
-					rf.setEmpNum1(referrer[2]);
+					rf.setEmpNum2(referrer[1]);
+					rf.setEmpNum3(referrer[2]);
 					break;
 
 				case 4:
 					rf.setEmpNum1(referrer[0]);
-					rf.setEmpNum1(referrer[1]);
-					rf.setEmpNum1(referrer[2]);
-					rf.setEmpNum1(referrer[3]);
+					rf.setEmpNum2(referrer[1]);
+					rf.setEmpNum3(referrer[2]);
+					rf.setEmpNum4(referrer[3]);
 					break;
 				}
 			rf.setDocNum(draftNum);
 			int result = dService.insertReference(rf);
 		}
 		
-		Attachment a = new Attachment();
+		
 			if(!file.getOriginalFilename().equals("")) { // 첨부파일이 넘어온 경우
 			
 			// 서버에 파일등록(폴더에 저장)
 			// 내가 저장하고자 하는 파일 , request 전달하고 실제로 저장된 파일명 돌려주는 saveFile
-			String renameFileName = saveFile(file,request);
+				String renameFileName = saveFile(file, request, a);
 			
 			if(renameFileName != null) { // 파일이 잘 저장된 경우
 				a.setAttOriginalName(file.getOriginalFilename());
@@ -199,7 +193,7 @@ public class DraftController {
 		
 		return mv;
 	}
-	public String saveFile(MultipartFile file, HttpServletRequest request) {
+	public String saveFile(MultipartFile file, HttpServletRequest request, Attachment a) {
 
 		// 파일이 저장될 경로 설정
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -223,6 +217,8 @@ public class DraftController {
 		
 		String renamePath = savePath + "\\" + renameFileName; // resources\bupload/20120311200000
 		
+		a.setAttPath(renamePath);
+		
 		try {
 			file.transferTo(new File(renamePath)); // 이때 서버에 업로드 됨
 			
@@ -233,6 +229,77 @@ public class DraftController {
 		return renameFileName;
 	}
 	
+	@RequestMapping("successDraft.wo")
+	public ModelAndView successDraft( ModelAndView mv,
+									  @RequestParam(name="confirmNum", required=false) String confirmNum,
+									  @RequestParam(name="draftNum", required=false) String docNum,
+									  @RequestParam(name="count", required=false) int count) {
+		
+		Conflrm c = dService.selectConflrm(confirmNum);
+		
+		int count1 = 0;
+		if(c.getConfirmEmp4() != null) {
+			count1=4;
+		}else if(c.getConfirmEmp3() != null){
+			count1=3;
+		}else if(c.getConfirmEmp2() != null){
+			count1=2;
+		}else {
+			count1=1;
+		}
+		
+		int result1=0;
+		int result2=0;
+		switch (count) {
+		case 1:
+			result1 = dService.updateConflrm1(confirmNum, docNum);
+			 if(count1==1) {
+				 result2 = dService.insertApproval(docNum);
+			 }
+			break;
+		case 2:
+			 result1 = dService.updateConflrm2(confirmNum);
+			 if(count1==2) {
+				 result2 = dService.insertApproval(docNum);
+			 }
+			break;
+		case 3:
+			 result1 = dService.updateConflrm3(confirmNum);
+			 if(count1==3) {
+				 result2 = dService.insertApproval(docNum);
+			 }
+			break;
+			
+		case 4:
+			 result1 = dService.updateConflrm4(confirmNum);
+			 if(count1==4) {
+				 result2 = dService.insertApproval(docNum);
+			 }
+			break;
+		}
+		mv.setViewName("redirect:allList.wo");
+		return mv;
+	}
 	
+	
+	@RequestMapping("draftUpdate.wo")
+	public ModelAndView draftUpdate(String draftNum, ModelAndView mv) {
+		
+		Draft d = dService.selectDraft(draftNum);
+		Conflrm c = dService.selectConflrm(d.getConfirmNum());
+		Reference rf = dService.selectReference(draftNum);
+		Attachment a = dService.selectAttachment(draftNum);
+		ArrayList<Modal> mlist = hService.selectModalEmpList();
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		
+		mv.addObject("d",d);
+		mv.addObject("c",c);
+		mv.addObject("rf",rf);
+		mv.addObject("a",a);
+		mv.addObject("mlist",mlist);
+		mv.addObject("dlist",dlist);
+		mv.setViewName("approval/draftUpdate");
+		return mv;
+	}
 	
 }
