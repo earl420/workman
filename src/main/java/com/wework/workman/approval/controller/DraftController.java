@@ -45,7 +45,7 @@ public class DraftController {
 	@RequestMapping("draftWrite.wo")
 	public ModelAndView draftWrite(@RequestParam(value = "empNum", required = false) String empNum,
 			@RequestParam(value = "empName", required = false)String empName,
-			@RequestParam(value="salary", required = false) int salary,ModelAndView mv) {
+			@RequestParam(value="salary", required = false, defaultValue = "1") int salary,ModelAndView mv) {
 		
 		ArrayList<Dept> dlist = hService.selectModaDeptlList();
 		ArrayList<Modal> mlist = hService.selectModalEmpList();
