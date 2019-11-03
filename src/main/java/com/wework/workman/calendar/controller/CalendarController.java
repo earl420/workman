@@ -31,6 +31,7 @@ public class CalendarController {
 		JSONArray jArr = new JSONArray();
 		for (int i = 0; i < calendarList.size(); i++) {
 			JSONObject obj = new JSONObject(); // obj.put("_id", i+1);
+			obj.put("_id", i+1);
 			obj.put("title", calendarList.get(i).getDescription());
 			obj.put("description", calendarList.get(i).getDescription());
 			String start = calendarList.get(i).getStart().toString();

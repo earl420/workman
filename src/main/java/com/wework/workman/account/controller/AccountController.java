@@ -23,13 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
 import com.wework.workman.account.model.service.AccountService;
 import com.wework.workman.account.model.vo.AcNotice;
 import com.wework.workman.account.model.vo.AccountStatus;
 import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
+import com.wework.workman.account.model.vo.ForGraph;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
 import com.wework.workman.account.model.vo.NoticeFile;
@@ -58,6 +58,53 @@ public class AccountController {
 			String nNo=list.get(i).getNoticeNum().substring(6);
 			list.get(i).setNoticeNum(nNo);
 		}
+		
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM");
+		String d = sdf.format(today);
+		String[] spl = d.split(" ");
+		int year = Integer.parseInt(spl[0]);
+		int month = Integer.parseInt(spl[1]);
+		int quarter =1;
+		switch (month) {
+		case 1:
+		case 2:
+		case 3:quarter=1;  break;
+		case 4:
+		case 5:
+		case 6:quarter=2;break;
+		case 7:
+		case 8:
+		case 9:quarter=3;break;
+		case 10:
+		case 11:
+		case 12:quarter=4;break;
+			
+			
+
+		default:
+			break;
+		}
+		ForGraph grap = new ForGraph(year, quarter);
+		ArrayList<ForGraph> graphList = new ArrayList<ForGraph>();
+		for (int i = 0; i < 4; i++) {
+			ForGraph fg =aService.getGraph(grap);
+			graphList.add(fg);
+			if (quarter==1) {
+				quarter=4;
+				year-=1;
+				grap.setQuarter(quarter);
+				grap.setYear(year);
+			}else {
+				quarter-=1;
+				grap.setQuarter(quarter);
+			}
+		}
+		
+		
+		
+		
+		model.addAttribute("graphList", graphList);
 		model.addAttribute("pi",pi);
 		model.addAttribute("list",list);
 		return "account/aNotice";
@@ -335,17 +382,14 @@ public class AccountController {
 			}
 		}
 		IsState iss = new IsState(startDate, endDate);
-//		int validCheck = aService.validCheck(noticeTitle);
-//		if(validCheck<1) {
-//			int result =aService.insertIncome(iss);
-//			System.out.println("결과...."+result);
-//		}
+
 		ArrayList<IncomeStatement> list = aService.incomeStatus(iss);
 		//비용합계
 		int sum =0;
 		for (int i = 1; i < list.size(); i++) {
 			sum+= list.get(i).getAccount();
 		}
+		System.out.println(sum);
 		int EBIT=list.get(0).getAccount()-sum;
 		IncomeStatement is1 = new IncomeStatement();
 		is1.setAccountSubject("매출");

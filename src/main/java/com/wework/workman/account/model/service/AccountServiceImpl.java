@@ -20,6 +20,7 @@ import com.wework.workman.account.model.vo.AccountStatus;
 import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
+import com.wework.workman.account.model.vo.ForGraph;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
 import com.wework.workman.account.model.vo.NoticeFile;
@@ -285,6 +286,11 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public int outWork(Attendance2 a) {
 		return aDao.outWork(a);
+	}
+
+	@Override
+	public ForGraph getGraph(ForGraph grap) {
+		return aDao.getGraph(grap);
 	}
 
 	

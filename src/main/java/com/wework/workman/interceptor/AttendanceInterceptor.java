@@ -11,7 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.wework.workman.mypage.model.vo.Mypage;
 
-public class LoginInterceptor extends HandlerInterceptorAdapter {
+public class AttendanceInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

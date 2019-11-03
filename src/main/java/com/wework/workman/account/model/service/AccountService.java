@@ -8,6 +8,7 @@ import com.wework.workman.account.model.vo.AccountStatus;
 import com.wework.workman.account.model.vo.Attendance2;
 import com.wework.workman.account.model.vo.AvgSalary;
 import com.wework.workman.account.model.vo.Fixture;
+import com.wework.workman.account.model.vo.ForGraph;
 import com.wework.workman.account.model.vo.IncomeStatement;
 import com.wework.workman.account.model.vo.IsState;
 import com.wework.workman.account.model.vo.NoticeFile;
@@ -89,6 +90,8 @@ public interface AccountService {
 	int goWork(Attendance2 a);
 	//퇴근
 	int outWork(Attendance2 a);
+	//그래프 자료값 가져오기
+	ForGraph getGraph(ForGraph grap);
 
 	
 }

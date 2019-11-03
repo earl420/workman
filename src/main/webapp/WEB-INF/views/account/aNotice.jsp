@@ -17,6 +17,59 @@
 	rel="stylesheet">
 <link href="resources/css/style.css" rel="stylesheet">
 <link href="resources/account/css/salaryList.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+	
+		var data2 =new Array();
+		data2.push(${graphList.get(0).year});
+		data2.push(${graphList.get(0).quarter});
+		data2.push(${graphList.get(1).year});
+		data2.push(${graphList.get(1).quarter});
+		data2.push(${graphList.get(2).year});
+		data2.push(${graphList.get(2).quarter});
+		data2.push(${graphList.get(3).year});
+		data2.push(${graphList.get(3).quarter});
+		
+		var today = new Date();
+		var year = today.getFullYear();
+		var month = today.getMonth()+1;
+		var quarter;
+		if(month<=3){
+			quarter =1;
+		}else if(month<=6){
+			quarter =2;
+		}else if(month<=9){
+			quarter =3;
+		}else{
+			quarter=4;
+		}
+		console.log(quarter);	
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawVisualization);
+	
+		function drawVisualization() { 
+			var data = google.visualization.arrayToDataTable([
+					['분기', '비용', '매출','순이익'],
+					[year+'/'+quarter +"분기" ,  data2[0],data2[1], (data2[1]-data2[0])],
+					[((quarter-1)>0) ? year+'/'+(quarter-1) +"분기" : (year-1)+'/4' +"분기",  data2[2],data2[3], (data2[3]-data2[2])],
+					[((quarter-2)>0) ? year+'/'+(quarter-2) +"분기" : (year-1)+'/4' +"분기",  data2[4],data2[5], (data2[5]-data2[4])],
+					[((quarter-3)>0) ? year+'/'+(quarter-3) +"분기" : (year-1)+'/4' +"분기",  data2[6],data2[7], (data2[7]-data2[6])],
+					
+				]);
+			var options = {
+					title : '분기별 매출/비용 동향',
+					vAxis: {title: '액수'},
+					hAxis: {title: '분기'}, 
+					seriesType: 'bars',
+					series: {2: {type: 'line'}}
+				};
+			
+			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		}
+	</script>
+
 </head>
 <body>
 	<!-- preloader -->
@@ -35,7 +88,10 @@
 		<c:import url="../common/header.jsp"></c:import>
 		<!-- content-body -->
 		<div class="content-body" style="min-height: 889px;">
-
+			
+			
+				
+			
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
@@ -45,13 +101,18 @@
 				</div>
 			</div>
 			<!-- row -->
-
+	
 			<div class="container-fluid">
 				<div class="row">
+				
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">회계 공지사항</h4>
+								<div class="row">
+					<div id="chart_div" style="height: 300px; width: 100%;">
+					</div>
+				</div>
 								<div class="table-responsive">
 									<div id="DataTables_Table_0_wrapper"
 										class="dataTables_wrapper container-fluid dt-bootstrap4">

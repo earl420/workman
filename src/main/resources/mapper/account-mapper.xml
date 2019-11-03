@@ -2,7 +2,12 @@
 <!DOCTYPE mapper PUBLIC 
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="accountMapper">
+	<resultMap id="graphInfo" type="ForGraph">
+		<result column="sumdebt" property="year"></result>	
+		<result column="salesum" property="quarter"></result>	
+	</resultMap>
 	<resultMap id="acnotice" type="AcNotice">
 		<id column="notice_num" property="noticeNum" />
 		<result column="notice_dept" property="noticeDept" />
@@ -89,7 +94,7 @@
 	</resultMap>
 	<select id="getNoticeListCount" resultType="_int">
 		select count(*) from
-		notice
+		notice where notice_acc_type in(1,2,3)
 	</select>
 	<select id="noticeList" resultMap="acnotice">
 		select *
@@ -430,5 +435,54 @@ update salary set salary=#{yearSalary} where sal_year = extract(year from sysdat
 <update id="outWork" parameterType="Attendance2">
 	update attendance set time_off = #{time} where emp_num=#{empNum} and att_date=#{today}
 </update>
+
+<select id="getGraph" parameterType="ForGraph" resultMap="graphInfo">
+	select  s1.debtsum as sumdebt, s2.salessum as salesum from
+	(select  sum(debt_price) as debtsum from journalizing
+			join account on (debt =account_name)
+			where extract(year from journ_date)=#{year}
+			and account_ali like '2%'
+			and extract(month from journ_date) 
+			<choose>
+				<when test="quarter==1">
+			between 1 and 3
+				</when>
+				<when test="quarter==2">
+			between 4 and 6
+				</when>
+				<when test="quarter==3">
+			between 7 and 9
+				</when>
+				<otherwise>
+			between 10 and 12
+				</otherwise>
+			</choose>
+			
+			) s1,
+             (
+	select  sum(credit_price) as salessum from journalizing
+			join account on (credit =account_name)
+			where extract(year from journ_date)=#{year}
+			and account_ali like '5%'
+			and extract(month from journ_date) 
+			
+			<choose>
+				<when test="quarter==1">
+			between 1 and 3
+				</when>
+				<when test="quarter==2">
+			between 4 and 6
+				</when>
+				<when test="quarter==3">
+			between 7 and 9
+				</when>
+				<otherwise>
+			between 10 and 12
+				</otherwise>
+			</choose>
+            
+            ) s2
+</select>
+
 
 </mapper>
