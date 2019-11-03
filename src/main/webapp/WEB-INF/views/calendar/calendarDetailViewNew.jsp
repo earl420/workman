@@ -26,7 +26,6 @@
 	}
 	
 </style>
-  
  <link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />
 <link href='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.css' rel='stylesheet' />
 <!-- <script src='resources/js/demo-to-codepen.js'></script> -->
@@ -197,7 +196,7 @@ function calendarEvent(eventData){
 
     calendar.render();
   });
-
+  
 </script>
 
 
@@ -209,14 +208,13 @@ function calendarEvent(eventData){
 	 <c:import url="../common/header.jsp"></c:import>
 	
 <form action="calDetailView.wo" method="post" class="outdiv">
-
  
   <div id='calendar'></div>
 </form>
 		<c:import url="../common/footer.jsp"></c:import>	
 	</div>
 
-
+<!--  <script src="resources/js/sa.js"></script> -->
 </body>
 
 
