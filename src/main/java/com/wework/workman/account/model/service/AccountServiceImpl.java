@@ -287,5 +287,10 @@ public class AccountServiceImpl implements AccountService{
 		return aDao.outWork(a);
 	}
 
+	@Override
+	public Partner selectPartner(String partnerNum) {
+		return aDao.selectPartner(partnerNum);
+	}
+
 	
 }
