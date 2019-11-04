@@ -10,16 +10,19 @@ public class UseHoli {
 	private Date holiStart;
 	private Date holiEnd;
 	private String holiStatus;
+	private int due;
 	public UseHoli() {
 		super();
 	}
-	public UseHoli(String holiNum, String empNum, String holiType, Date holiStart, Date holiEnd, String holiStatus) {
+	public UseHoli(String holiNum, String empNum, String holiType, Date holiStart, Date holiEnd, String holiStatus,
+			int due) {
 		this.holiNum = holiNum;
 		this.empNum = empNum;
 		this.holiType = holiType;
 		this.holiStart = holiStart;
 		this.holiEnd = holiEnd;
 		this.holiStatus = holiStatus;
+		this.due = due;
 	}
 	public String getHoliNum() {
 		return holiNum;
@@ -57,11 +60,18 @@ public class UseHoli {
 	public void setHoliStatus(String holiStatus) {
 		this.holiStatus = holiStatus;
 	}
+	public int getDue() {
+		return due;
+	}
+	public void setDue(int due) {
+		this.due = due;
+	}
 	@Override
 	public String toString() {
 		return "UseHoli [holiNum=" + holiNum + ", empNum=" + empNum + ", holiType=" + holiType + ", holiStart="
-				+ holiStart + ", holiEnd=" + holiEnd + ", holiStatus=" + holiStatus + "]";
+				+ holiStart + ", holiEnd=" + holiEnd + ", holiStatus=" + holiStatus + ", due=" + due + "]";
 	}
+
 	
 	
 

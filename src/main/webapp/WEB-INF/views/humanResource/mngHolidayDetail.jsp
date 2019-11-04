@@ -206,13 +206,18 @@
 																								
 																								<tbody>
 																									<c:forEach var="i" items="${ useHoli }">
-																										<tr>
-																											<td>${i.holiNum }</td>
-																											<td>${i.holiType }</td>
-																											<td>${i.holiEnd - i.holiStart +1}</td>
-																											<td>${i.holiStart }~${i.holiEnd }</td>
-																											<td>${i.holiday_status }</td>
-																										</tr>
+																										<c:if test="${ a.empNum eq i.empNum}">
+																											<tr>
+																												<td>${i.holiNum }</td>
+																												<td>${i.holiType }</td>
+																												<td>${i.due}</td>
+																												<td>${i.holiStart }~${i.holiEnd }</td>
+																												<td>${i.holiStatus }</td>
+																											</tr>
+																										</c:if>
+																										
+																										
+																										
 																									</c:forEach>
 																								</tbody>
 

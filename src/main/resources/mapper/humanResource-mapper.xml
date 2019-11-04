@@ -104,6 +104,7 @@
 		<result property="holiStart" column="holiday_start"/>
 		<result property="holiEnd" column="holiday_end"/>
 		<result property="holiStatus" column="holiday_status"/>
+		<result property="due" column="due"/>
 	</resultMap>
 	
 	<select id="getnListCount" resultType="_int">
@@ -278,7 +279,7 @@
 	<select id="getMonthAtt" parameterType="string" resultMap="monthAttResultSet">
 		select *
 		from attendance
-		where emp_num='20190004' and extract(month from att_date) = '10' 
+		where emp_num='20190004' and extract(month from att_date) =10 
 	</select>
 	
 	<select id="showMyHoliday" parameterType="string" resultMap="showMyHoliResultSet">
@@ -300,10 +301,10 @@
 		select * from holiday_count join employee using(emp_num) join dept using(dept_num) where dept_name=#{deptName}
 	</select>
 	
-	<select id="useHilidayList" parameterType="string" resultMap="useHoliResultSet">
+	<select id="useHolidayList" parameterType="string" resultMap="useHoliResultSet">
 		select emp_num, holi_num, holi_type, to_number(holiday_end-holiday_start+1) as due, holiday_start, holiday_end, holiday_status
 		from doc_holiday
 		join dept using(dept_num)
-		where emp_num=#{empNum}
+		where dept_name=#{empNum}
 	</select>
 </mapper>

@@ -651,11 +651,11 @@ public class HumanResourceController {
 	public ModelAndView mngHoliDetail(HttpServletRequest request, ModelAndView mv) {
 		
 		String deptName = request.getParameter("deptName");
-		
+		System.out.println(deptName);
 		ArrayList<AllHoli> allHoli = hService.allHoliday(deptName);
 		
 		ArrayList<UseHoli> useHoli = hService.useHolidayList(deptName);
-		System.out.println(useHoli);
+		System.out.println("1"+useHoli);
 		if(!allHoli.isEmpty()) {
 			mv.addObject("allHoli", allHoli).addObject("useHoli",useHoli).addObject("deptName", deptName).setViewName("humanResource/mngHolidayDetail");
 		}else {

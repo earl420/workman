@@ -200,7 +200,7 @@ public class HumanResourceDao {
 	
 	public ArrayList<UseHoli> useHolidayList(String empNum){
 		
-		return (ArrayList)sqlSession.selectList("humanMapper.useHilidayList", empNum);
+		return (ArrayList)sqlSession.selectList("humanMapper.useHolidayList", empNum);
 		
 	}
 }
