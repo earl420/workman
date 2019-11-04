@@ -4,6 +4,20 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="accountMapper">
+	<resultMap id="getDept" type="Fixture">
+		<id column="DEPT_NUM" property="deptNum"></id>
+		<result column="DEPT_NAME" property="deptName"></result>		
+	</resultMap>
+	<select id="deptFixInfo" resultMap="getDept">
+		select * from dept
+	</select>
+	<select  id="deptEmpInfo" resultMap="getEmpList" parameterType="_int">
+		select * from employee where dept_num = #{deptNum}
+	</select>
+	<resultMap id="getEmpList" type="AcNotice">
+		<id column="EMP_NUM" property="empNum"></id>
+		<result column="EMP_NAME" property="empName"></result>	
+	</resultMap>
 	<resultMap id="graphInfo" type="ForGraph">
 		<result column="sumdebt" property="year"></result>	
 		<result column="salesum" property="quarter"></result>	
@@ -390,6 +404,7 @@ from salary
 <select id="checkSal" resultType="_int">
 	select count(*) from journalizing 
 	where extract(month from journ_date)= extract(month from sysdate) 
+	 and extract(year from journ_date) =extract(year from sysdate)
 	and debt='급여'
 </select>
 <insert id="insertSal">
@@ -492,5 +507,32 @@ update salary set salary=#{yearSalary} where sal_year = extract(year from sysdat
             ) s2
 </select>
 
+<insert id="insertFixture1" parameterType="Fixture">
+	insert into payment values(null,#{fixturePrice}, #{saleCount},#{deptName},
+	sysdate, '현금','신한' )
+</insert>
+<insert id="insertFixture2" parameterType="Fixture">
+insert into fixture values (null, #{fixtureType},#{fixtureName},sysdate,
+	#{deptNum}, #{empNum}, #{endurance}, (select pay_num from (select * from payment order by pay_num desc) where rownum=1))
+</insert>
+<insert id="insertFixture3" parameterType="Fixture">
+ insert into journalizing values(JOURN_NUM_SEQ.nextval,sysdate,
+('소모품'),#{fixturePrice},
+('현금'),#{fixturePrice},null )
+</insert>
+<insert id="insertOs1" parameterType="OsManage">
+	insert into payment values(null,#{salePrice}, #{saleCount},#{partnerNum},
+	sysdate, '현금','신한' )
+</insert>
+<insert id="insertOs2" parameterType="OsManage">
+	insert into license values(null,#{productName},
+	#{licenseNum}, (select pay_num from (select * from payment order by pay_num desc) where rownum=1),
+	sysdate, add_months(sysdate, 12*#{endurance}),null)
+</insert>
 
+<insert id="insertOs3" parameterType="OsManage">
+ insert into journalizing values(JOURN_NUM_SEQ.nextval,sysdate,
+('소프트웨어'),#{salePrice},
+('현금'),#{salePrice},null )
+</insert>
 </mapper>

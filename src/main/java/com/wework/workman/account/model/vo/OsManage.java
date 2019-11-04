@@ -10,10 +10,22 @@ public class OsManage {
 	private Date licenseStart;
 	private Date licenseEnd;
 	private Date licenseUpdate;
+	private int saleCount;
+	private int salePrice;
+	private int endurance;
+	private String empNum;
+	private String partnerNum;
+	public String getPartnerNum() {
+		return partnerNum;
+	}
+	public void setPartnerNum(String partnerNum) {
+		this.partnerNum = partnerNum;
+	}
 	public OsManage() {
 	}
 	public OsManage(String licenseManage, String productName, String licenseNum, String payNum, Date licenseStart,
-			Date licenseEnd, Date licenseUpdate) {
+			Date licenseEnd, Date licenseUpdate, int saleCount, int salePrice, int endurance, String empNum) {
+		super();
 		this.licenseManage = licenseManage;
 		this.productName = productName;
 		this.licenseNum = licenseNum;
@@ -21,6 +33,10 @@ public class OsManage {
 		this.licenseStart = licenseStart;
 		this.licenseEnd = licenseEnd;
 		this.licenseUpdate = licenseUpdate;
+		this.saleCount = saleCount;
+		this.salePrice = salePrice;
+		this.endurance = endurance;
+		this.empNum = empNum;
 	}
 	public String getLicenseManage() {
 		return licenseManage;
@@ -64,12 +80,38 @@ public class OsManage {
 	public void setLicenseUpdate(Date licenseUpdate) {
 		this.licenseUpdate = licenseUpdate;
 	}
+	public int getSaleCount() {
+		return saleCount;
+	}
+	public void setSaleCount(int saleCount) {
+		this.saleCount = saleCount;
+	}
+	public int getSalePrice() {
+		return salePrice;
+	}
+	public void setSalePrice(int salePrice) {
+		this.salePrice = salePrice;
+	}
+	public int getEndurance() {
+		return endurance;
+	}
+	public void setEndurance(int endurance) {
+		this.endurance = endurance;
+	}
+	public String getEmpNum() {
+		return empNum;
+	}
+	public void setEmpNum(String empNum) {
+		this.empNum = empNum;
+	}
 	@Override
 	public String toString() {
-		return "osManage [licenseManage=" + licenseManage + ", productName=" + productName + ", licenseNum="
+		return "OsManage [licenseManage=" + licenseManage + ", productName=" + productName + ", licenseNum="
 				+ licenseNum + ", payNum=" + payNum + ", licenseStart=" + licenseStart + ", licenseEnd=" + licenseEnd
-				+ ", licenseUpdate=" + licenseUpdate + "]";
+				+ ", licenseUpdate=" + licenseUpdate + ", saleCount=" + saleCount + ", salePrice=" + salePrice
+				+ ", endurance=" + endurance + ", empNum=" + empNum + ", partnerNum=" + partnerNum + "]";
 	}
+	
 	
 	
 }

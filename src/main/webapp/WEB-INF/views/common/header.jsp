@@ -36,7 +36,7 @@
         ***********************************-->
 	<div class="nav-header" style="background: white;">
 		<div class="brand-logo">
-			<a href="home.wo"> <b class="logo-abbr"><img
+			<a href="home1.wo"> <b class="logo-abbr"><img
 					src="resources/icons/logo1.png" alt=""> </b> <span
 				class="logo-compact"><img src="resources/icons/logo1.png"
 					alt=""></span> <span class="brand-title"> <img

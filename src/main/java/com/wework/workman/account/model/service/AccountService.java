@@ -94,6 +94,12 @@ public interface AccountService {
 	ForGraph getGraph(ForGraph grap);
 	
 	Partner selectPartner(String partnerNum);
+	//부서 리스트가져오기
+	ArrayList<Fixture> deptFixInfo();
+	//사번 및 사원명 가져오기
+	ArrayList<AcNotice> deptEmpInfo(int deptNum);
+	int insertFixture(Fixture f);
+	int insertOs(OsManage o);
 
 	
 }

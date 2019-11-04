@@ -3,14 +3,13 @@ package com.wework.workman.account.model.vo;
 public class AccountStatus {
 	
 	private String deptside; //차변
-	private int account1;//차변금액
+	private long account1;//차변금액
 	private String credit;//대변
-	private int account2;//대변 금액
+	private long account2;//대변 금액
 	public AccountStatus() {
 		super();
 	}
-	public AccountStatus(String deptside, int account1, String credit, int account2) {
-		super();
+	public AccountStatus(String deptside, long account1, String credit, long account2) {
 		this.deptside = deptside;
 		this.account1 = account1;
 		this.credit = credit;
@@ -22,10 +21,10 @@ public class AccountStatus {
 	public void setDeptside(String deptside) {
 		this.deptside = deptside;
 	}
-	public int getAccount1() {
+	public long getAccount1() {
 		return account1;
 	}
-	public void setAccount1(int account1) {
+	public void setAccount1(long account1) {
 		this.account1 = account1;
 	}
 	public String getCredit() {
@@ -34,10 +33,10 @@ public class AccountStatus {
 	public void setCredit(String credit) {
 		this.credit = credit;
 	}
-	public int getAccount2() {
+	public long getAccount2() {
 		return account2;
 	}
-	public void setAccount2(int account2) {
+	public void setAccount2(long account2) {
 		this.account2 = account2;
 	}
 	@Override
@@ -45,6 +44,7 @@ public class AccountStatus {
 		return "AccountStatus [deptside=" + deptside + ", account1=" + account1 + ", credit=" + credit + ", account2="
 				+ account2 + "]";
 	}
+	
 	
 	
 }

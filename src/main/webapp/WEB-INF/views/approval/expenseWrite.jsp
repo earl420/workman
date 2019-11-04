@@ -229,22 +229,28 @@
 										</tr>
 										<tr>
 											<td align="center" width="10%">거래처명 </td>
-											<td align="center" width="20%"><input id="partnerName" class="alert-info" type="text" style="height:30px; width:140px; text-align:center;" readonly></td>
+											<td align="center" width="20%"><input id="partnerName" class="alert-info" type="text" style="height:30px; width:150px; text-align:center;" readonly></td>
 											<td align="center" width="20%">거래처대표번호</td>
-											<td align="center" width="20%"><input id="partnerPhone" class="alert-info" type="text" style="height:30px; width:140px; text-align:center;" readonly></td>
+											<td align="center" width="20%"><input id="partnerPhone" class="alert-info" type="text" style="height:30px; width:150px; text-align:center;" readonly></td>
 											<td align="center"></td>
 										</tr>
 										<tr>
 											<td align="center" width="10%">거래처담당자</td>
-											<td align="center" width="20%"><input id="partnerEmp" class="alert-info" type="text" style="height:30px; width:140px; text-align:center;" readonly></td>
+											<td align="center" width="20%"><input id="partnerEmp" class="alert-info" type="text" style="height:30px; width:150px; text-align:center;" readonly></td>
 											<td align="center" width="20%">사업자등록번호</td>
-											<td align="center" width="20%"><input id="bussinessNum" class="alert-info" type="text" style="height:30px; width:140px; text-align:center;" readonly></td>
+											<td align="center" width="20%"><input id="bussinessNum" class="alert-info" type="text" style="height:30px; width:150px; text-align:center;" readonly></td>
 										</tr>
 										<tr>
 											<td align="center" width="10%">금액</td>
-											<td align="center" width="20%"><input type="text" name=" expensePrice" style="height:30px; width:140px;  text-align:center;"></td>
+											<td align="center" width="20%"><input type="text" name=" expensePrice" style="height:30px; width:150px;  text-align:center;"></td>
 											<td align="center" width="20%">지출용도</td>
-											<td align="center" width="20%"><input type="text" name="expenseType" style="height:30px; width:140px; text-align:center;" ></td>
+											<td align="center" width="20%">
+												<select name="expenseType" style="width:150px; height:30px;">
+															<option >선택</option>
+															<option value="비품구매">비품구매</option>
+															<option value="소프트웨어구매">소프트웨어구매</option>
+												</select>
+											</td>
 										</tr>
 										<tr>
                                         	<td align="center">내용</td>
@@ -438,7 +444,13 @@
 			}
 		});
 	})
-	
+	$(function(){
+			console.log("${empName}");
+			if("${msg}" !=null|| "${msg}"!=""){
+				$('#ir1').val("${msg}");
+			}
+			
+		})
 	$(function(){
 		
 		$("#select").on('click', function() {
