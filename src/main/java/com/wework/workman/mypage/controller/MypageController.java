@@ -157,8 +157,8 @@ public class MypageController {
 		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
 			  model.addAttribute("loginMan", loginMan);
-			  model.addAttribute("login", "로그인 되었습니다.");
-			  return "home";
+			  
+			  return "redirect:home.wo";
 		  
 		  }else {
 			  model.addAttribute("error", "사번 또는 비밀번호를 확인해주세요.");

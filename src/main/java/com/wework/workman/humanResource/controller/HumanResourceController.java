@@ -29,6 +29,8 @@ import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
 import com.wework.workman.humanResource.model.vo.Grade;
+import com.wework.workman.humanResource.model.vo.HoliCount;
+import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
 import com.wework.workman.mypage.model.vo.Mypage;
 
@@ -302,9 +304,16 @@ public class HumanResourceController {
 
 	// 인사/휴가근태/휴가현황
 	@RequestMapping("showHoliday.wo")
-	public String showHoliday() {
-
-		return "humanResource/showHoliday";
+	public ModelAndView showMyHoliday(HttpSession session, ModelAndView mv) {
+		
+		HoliCount holiCount = hService.myHoliCount(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		ArrayList<MyHoli> hlist = hService.showMyHoliday(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		mv.addObject("hlist", hlist).addObject("holiCount", holiCount).setViewName("humanResource/showHoliday");
+		
+		return mv;
+		
 	}
 
 	// 인사/휴가근태/근태현황
@@ -314,6 +323,7 @@ public class HumanResourceController {
 		Mypage m = ((Mypage)session.getAttribute("loginMan"));
 		// 이번 달 지각 횟수 가져오기
 		int late = hService.getThisLate(((Mypage)session.getAttribute("loginMan")).getNum());
+		
 		
 		// 이번 달 비정상 출근 가져오기
 		int noOn = hService.getnoOn(((Mypage)session.getAttribute("loginMan")).getNum());

@@ -44,6 +44,7 @@ public class HomeController {
 		}
 		
 		int check = aService.checkSal();
+		System.out.println(check);
 		if(check<1) {
 			int insertSal = aService.insertSal();
 		}
@@ -59,10 +60,13 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-	
+		model.addAttribute("login", "로그인 되었습니다.");
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
 	}
-	
+	@RequestMapping("home1.wo")
+	public String home1() {
+		return "home";
+	}
 }

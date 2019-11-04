@@ -390,7 +390,7 @@ public class AccountController {
 			sum+= list.get(i).getAccount();
 		}
 		System.out.println(sum);
-		int EBIT=list.get(0).getAccount()-sum;
+		long EBIT=list.get(0).getAccount()-sum;
 		IncomeStatement is1 = new IncomeStatement();
 		is1.setAccountSubject("매출");
 		is1.setAccount(list.get(0).getAccount());
@@ -489,7 +489,7 @@ public class AccountController {
 			for (int i = 1; i < list.size(); i++) {
 				sum+= list.get(i).getAccount();
 			}
-			int EBIT=list.get(0).getAccount()-sum;
+			long EBIT=list.get(0).getAccount()-sum;
 			IncomeStatement is1 = new IncomeStatement();
 			is1.setAccountSubject("매출");
 			is1.setAccount(list.get(0).getAccount());
@@ -603,7 +603,7 @@ public class AccountController {
 		Attendance2 a = new Attendance2(empId, sdf2.format(d), sdf.format(d));
 		int result = aService.goWork(a);
 		
-		return "redirect:home.wo";
+		return "home";
 	}
 	@RequestMapping("outwork.wo")
 	public String outWork(HttpSession session) {
@@ -614,8 +614,95 @@ public class AccountController {
 		Attendance2 a = new Attendance2(empId, sdf2.format(d), sdf.format(d));
 		int result = aService.outWork(a);
 		
-		return "redirect:home.wo";
+		return "home";
 	}
+	@ResponseBody
+	@RequestMapping("deptFixInfo.wo")
+	public void deptFixInfo(HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Fixture> list = aService.deptFixInfo();
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(list,response.getWriter());
+	}
+	@ResponseBody
+	@RequestMapping("deptEmpInfo.wo")
+	public void deptEmpInfo(@RequestParam(value = "deptNum", required = false) int deptNum,
+			HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<AcNotice> list = aService.deptEmpInfo(deptNum);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
+		gson.toJson(list,response.getWriter());
+	}
+	
+	@RequestMapping("insertFixture.wo")
+	public String insertFixture(
+			@RequestParam(value = "product", required=false) String product,
+			@RequestParam(value = "productType", required=false) String productType,
+			@RequestParam(value = "partner", required=false) String partner,
+			@RequestParam(value = "deptNum", required=false) int deptNum,
+			@RequestParam(value = "saleCount", required=false) int saleCount,
+			@RequestParam(value = "salePrice", required=false) int salePrice,
+			@RequestParam(value = "endurance", required=false) int endurance,
+			@RequestParam(value = "empNum", required=false) String empNum,
+			Model model) {
+			
+		Fixture f = new Fixture();
+		f.setFixtureType(productType);
+		f.setFixtureName(product);
+		f.setDeptNum(deptNum);
+		f.setSaleCount(saleCount);
+		f.setFixturePrice(salePrice);
+		f.setEndurance(endurance);
+		f.setEmpNum(empNum);
+		//거래처 번호 deptName에 받아넘김
+		f.setDeptName(partner);
+		int result = aService.insertFixture(f);
+		if (result>0) {
+			
+			String msg = product+"를 " +salePrice +"에 구매하였음";
+			model.addAttribute("msg", msg);
+			model.addAttribute("partnerNum", partner);
+			return "redirect:expenseWrite.wo";
+		}else {
+			return "common/500error";
+		}
+	}
+	
+	
+	@RequestMapping("insertOs.wo")
+	public String insertOs(
+			@RequestParam(value = "product", required = false) String product,
+			@RequestParam(value = "productCode", required = false) String productCode,
+			@RequestParam(value = "partner", required = false) String partner,
+			@RequestParam(value = "saleCount", required = false) int saleCount,
+			@RequestParam(value = "salePrice", required = false) int salePrice,
+			@RequestParam(value = "endurance", required = false) int endurance,
+			@RequestParam(value = "empNum", required = false) String empNum,
+			Model model) {
+		
+		OsManage o = new OsManage();
+		o.setProductName(product);
+		o.setLicenseNum(productCode);
+		o.setPartnerNum(partner);
+		o.setSaleCount(saleCount);
+		o.setSalePrice(salePrice);
+		o.setEndurance(endurance);
+		o.setEmpNum(empNum);
+		
+		int result = aService.insertOs(o);
+		
+		if (result>0) {
+			String msg = product+"를 " +salePrice +"에 구매하였음";
+			model.addAttribute("msg", msg);
+			model.addAttribute("partnerNum", partner);
+			return "redirect:expenseWrite.wo";
+		}else {
+			return "common/500error";
+		}
+		
+	}
+	
+	
 }
 
 
