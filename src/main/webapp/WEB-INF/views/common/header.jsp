@@ -56,7 +56,7 @@
 	<!--**********************************
             Header start
         ***********************************-->
-	<div class="header">
+	<div class="header"> 
  
 		<div class="header-content clearfix" style="border-bottom: 1px solid gray;">
 
