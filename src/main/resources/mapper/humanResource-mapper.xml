@@ -91,10 +91,19 @@
 	</resultMap>
 	
 	<resultMap type="AllHoli" id="allHoliResultSet">
-		<id property="empNum" column="empNum"/>
+		<id property="empNum" column="emp_Num"/>
 		<result property="empName" column="emp_name"/>
 		<result property="holiCount" column="holiday_count"/>
 		<result property="holiLeft" column="holiday_left"/>
+	</resultMap>
+	
+	<resultMap type="UseHoli" id="useHoliResultSet">
+		<id property="empNum" column="emp_num"/>
+		<result property="holiNum" column="holi_num"/>
+		<result property="holiType" column="holi_type"/>
+		<result property="holiStart" column="holiday_start"/>
+		<result property="holiEnd" column="holiday_end"/>
+		<result property="holiStatus" column="holiday_status"/>
 	</resultMap>
 	
 	<select id="getnListCount" resultType="_int">
@@ -288,6 +297,12 @@
 	</select>
 	
 	<select id="allHoliday" parameterType="string" resultMap="allHoliResultSet">
-		select * from holiday_count join employee using(emp_num) join dept using(dept_num) where dept_name='인사팀'
+		select * from holiday_count join employee using(emp_num) join dept using(dept_num) where dept_name=#{deptName}
+	</select>
+	
+	<select id="useHilidayList" parameterType="string" resultMap="useHoliResultSet">
+		select emp_num, holi_num, holi_type, to_number(holiday_end-holiday_start+1) as due, holiday_start, holiday_end, holiday_status
+		from doc_holiday
+		where emp_num=#{empNum}
 	</select>
 </mapper>

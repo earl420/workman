@@ -33,6 +33,7 @@ import com.wework.workman.humanResource.model.vo.Grade;
 import com.wework.workman.humanResource.model.vo.HoliCount;
 import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
+import com.wework.workman.humanResource.model.vo.UseHoli;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 @Controller
@@ -652,6 +653,8 @@ public class HumanResourceController {
 		String deptName = request.getParameter("deptName");
 		
 		ArrayList<AllHoli> allHoli = hService.allHoliday(deptName);
+		
+		ArrayList<UseHoli> useHoli = hService.useHolidayList(deptName);
 		
 		if(!allHoli.isEmpty()) {
 			mv.addObject("allHoli", allHoli).addObject("deptName", deptName).setViewName("humanResource/mngHolidayDetail");

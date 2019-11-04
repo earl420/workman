@@ -186,9 +186,8 @@
 											$tbody.html("");
 
 											if (data.length > 0) {
-
-												$
-														.each(
+												var i =0;
+												$.each(
 																data,
 																function(index,
 																		value) {
@@ -199,10 +198,10 @@
 																			+ value.holiCount
 																			+ '</td><td>'
 																			+ value.holiLeft
-																			+ '</td><td><button type="button" class="btn btn-primary goBtn" style="padding-top: 0; height: 20px;">상세</button></td></tr>');
-
+																			+ '</td><td><button type="button" class="btn btn-primary goBtn" data-toggle="modal" data-target="#basicModal" onclick="showModal();" style="padding-top: 0; height: 20px;">상세</button></td></tr>');
+									$td =$('<td>').attr('data-target','#basicModal'+i);
 																	$tbody
-																			.append($tr);
+															i++;				.append($tr);
 																});
 											}
 										},
@@ -220,6 +219,10 @@
 			
 			location.href="mngHoliDetail.wo?deptName="+deptName;
 		});
+		
+		function showModal(){
+			
+		}
 	</script>
 
 </body>
