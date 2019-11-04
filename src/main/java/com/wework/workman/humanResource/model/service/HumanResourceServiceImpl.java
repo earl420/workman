@@ -11,6 +11,7 @@ import com.wework.workman.account.model.dao.AccountDao;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.dao.HumanResourceDao;
+import com.wework.workman.humanResource.model.vo.AllHoli;
 import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
@@ -20,6 +21,7 @@ import com.wework.workman.humanResource.model.vo.HoliCount;
 import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
+import com.wework.workman.humanResource.model.vo.UseHoli;
 
 @Service("humanResourceService")
 public class HumanResourceServiceImpl implements HumanResourceService{
@@ -217,6 +219,18 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	public HoliCount myHoliCount(String empNum) {
 
 		return hDao.myHoliCount(empNum);
+	}
+
+	@Override
+	public ArrayList<AllHoli> allHoliday(String deptName) {
+		
+		return hDao.allHoliday(deptName);
+	}
+
+	@Override
+	public ArrayList<UseHoli> useHolidayList(String empNum) {
+		
+		return hDao.useHolidayList(empNum);
 	}
 
 	

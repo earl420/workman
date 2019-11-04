@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
+import com.wework.workman.humanResource.model.vo.AllHoli;
 import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
@@ -18,6 +19,7 @@ import com.wework.workman.humanResource.model.vo.HoliCount;
 import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
+import com.wework.workman.humanResource.model.vo.UseHoli;
 
 @Repository("humanResourceDao")
 public class HumanResourceDao {
@@ -189,5 +191,16 @@ public class HumanResourceDao {
 	public HoliCount myHoliCount(String empNum) {
 		
 		return sqlSession.selectOne("humanMapper.myHoliCount", empNum);
+	}
+	
+	public ArrayList<AllHoli> allHoliday(String deptName){
+	
+		return (ArrayList)sqlSession.selectList("humanMapper.allHoliday", deptName);
+	}
+	
+	public ArrayList<UseHoli> useHolidayList(String empNum){
+		
+		return (ArrayList)sqlSession.selectList("humanMapper.useHilidayList", empNum);
+		
 	}
 }

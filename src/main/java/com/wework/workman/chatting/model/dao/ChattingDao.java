@@ -28,7 +28,7 @@ public class ChattingDao {
 		ArrayList<Room> setList = new ArrayList<>();
 		for(int i=0;i<list.size();i++) {
 			String rList = (String) list.get(i);
-			setList.add(sqlSession.selectOne("chattingMapper.initialLastChat",rList));
+			setList.add((Room) sqlSession.selectOne("chattingMapper.initialLastChat",rList));
 		}
 		return setList; 
 	}
@@ -62,12 +62,14 @@ public class ChattingDao {
 		HashMap<String, String> m1 = new HashMap<>();
 		m1.put("roomId",roomId);
 		m1.put("userId", userId);
+		System.out.println("daoInsertUser user - "+userId+"  room - "+roomId);
 		int result = sqlSession.insert("chattingMapper.insertUser",m1);
+		System.out.println("완료");
 		return result;
 	}
 	public String getName(String userId) {
 		String userName=sqlSession.selectOne("chattingMapper.getName",userId);
-		System.out.println(userName);
+//		System.out.println("daoGetName - "+userName);
 		return userName;
 	}
 	public void roomExit(String roomId, String userId) {

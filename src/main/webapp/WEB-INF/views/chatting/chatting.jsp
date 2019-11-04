@@ -83,6 +83,16 @@
 	margin-left: 10px;
 	margin-right: 10px;
 }
+ .msgName {
+ 	background-color: #ecf0f1; 
+ 	max-width: 40%; 
+ 	height: auto; 
+	clear: both;
+ 	float: left; 
+ 	margin-left: 0px; 
+ 	margin-right: 0px; 
+ 	font-size: x-small; 
+ }
 
 .msgMe {
 	background-color: #C1E4EC;
@@ -175,7 +185,7 @@ img {
 </style>
 </head>
 
-<body>
+<body style="overflow:hidden">
 	<!-- style="overflow:hidden" -->
 
 	<!-- 	<!--******************* -->
@@ -357,14 +367,14 @@ img {
 		var actiRoomId = $("#actiRoomId").val();//!!!!!!!!!!!!!확인
 		var writer;
 		var empList = new Array();//모달
-		
+		var writerV="";
 		$(function() {
 			connect();
 		});
 
 		//webSocket 초기설정
 		function connect() {
-			wbSocket = new WebSocket("ws://localhost:8888/workman/chatting.ch");
+			wbSocket = new WebSocket("ws://192.168.30.19:8888/workman/chatting.ch");
 			wbSocket.onopen = onOpen;
 			wbSocket.onclose = onClose;
 			wbSocket.onmessage = onMessage;
@@ -401,8 +411,20 @@ img {
 
 
 		function newChat(){
-			wbSocket.send("newChat:"+empList);
+			console.log(empList);
+// 			var c = 0;
 			
+// 			for(var i=0;i<empList.length;i++){
+// 				if(empList[i]==userId){
+// 					alert("자기자신은 추가할 수 없습니다.");
+// 					break;
+// 				}else{
+// 					c++;
+// 				}
+// 			}
+// 			if(c!=0){
+				wbSocket.send("newChat:"+userId+":"+empList);
+// 			}
 			var $ul = $(".applicantMember ul");
             $ul.html("");
             $(".tab-pane ul li button").attr("disabled",false);
@@ -426,7 +448,7 @@ img {
 			actiRoomId = rCng;
 			$('#actiRoomId').val(rCng);
 			$('#' + actiRoomId).addClass('active_chat');
-			wbSocket.send("rCng:" + actiRoomId);
+			wbSocket.send("rCng:" +userId+":"+ actiRoomId);
 			$('#chatBox').empty();
 		});
 		function exitRoom(){
@@ -446,10 +468,10 @@ img {
 			var preMsg = spData[0];
 			//onOpen:userId
 			//	<= roomSetList:rId:rName:lastWord:lastMan:lastComm;
-			//	<=msgHistory:sender:content:time:status
-			//msg:userId:msgContent
+			//  <=msgHistory:sender:sendName:content:time
+			//msg:sender:sendName:content:time
 			//rCng:roomId;
-			//	<=msgHistory:sender:content:time:status
+			// 	<=msgHistory:sender:sendName:content:time
 			//newRoom:[userid..]
 			//exitRoom:roomId
 			//addUser:roomId:[userId]
@@ -459,25 +481,34 @@ img {
 			if (preMsg == "roomSetList") {
 				roomSetList(spData);
 			} else if (preMsg == "msgHistory") {
-				writer = spData[1];
-				msgHistory(spData[2]);
+				msgHistory(data);
 			} else if (preMsg == "msg") {
-				writer = spData[1];
-				var mCont = data.split(":",3);
-				appendMessage(mCont[2]);
+					appendMessage(data);
 			} else {
-				console.log(data);
+				console.log("뭐지 : "+data);
 			}
 		}
 
-		function appendMessage(msg) {
+		function appendMessage(data) {
+			//  <=msgHistory:sender:sendName:content
+			var dataArr = data.split(":",4);
+			var sendName = dataArr[2];
+			var msgCont = dataArr[3];
+			writer = dataArr[1];
+			
 			if (userId == writer) {
-				$("#chatBox").append("<li class='msgMe'>" + msg + "</li>");
+				$("#chatBox").append("<li class='msgMe'>" + msgCont + "</li>");
+				writerV="";
 			} else if (writer == "20190003") {
-				$("#chatBox").append("<li class='msgNotice'>" + msg + "</li>");
+				$("#chatBox").append("<li class='msgNotice'>" + msgCont + "</li>");
+				writerV="";
 			} else {
-				console.log("otherTest");
-				$("#chatBox").append("<li class='msgOther'>" + msg + "</li>");
+				if(writer!=writerV){
+					$("#chatBox").append("<li class='msgName'>" + sendName + " : </li>");
+// 					$("#chatBox").append(sendName);
+				}
+				$("#chatBox").append("<li class='msgOther'>" + msgCont + "</li>");
+				writerV = writer;
 			}
 			$("#msgContent").scrollTop($("#msgContent")[0].scrollHeight);
 			// 		$("#testTa").append(msg);
@@ -487,7 +518,7 @@ img {
 
 		//onOpen:userId
 		//	<= roomSetList:rId:rName:lastWord:lastMan:lastComm;
-		//	<=msgHistory:sender:content:time:status
+		// 	<=msgHistory:sender:sendName:content:time
 	
 		function roomSetList(spData) {
 			var setRoomId = spData[1];
@@ -522,8 +553,6 @@ img {
 			var $p = $("<p>" + setLastWord + "<p>");
 
 			var $div_down =$('<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">');
-			var $a1 = $('<a class="dropdown-item" onclick="rNameChange();">채팅방이름변경</a>')
-			var $a2 = $('<a class="dropdown-item" onclick="addUser();">대화상대 초대</a>')
 			var $a3 = $('<a class="dropdown-item" onclick="exitRoom();">채팅방 나가기</a>')
 			
 			$divSc.append($div_chatList);
@@ -531,8 +560,6 @@ img {
 			$div_chatList.append($h5);
 			$h5.append($iSpan);
 			
-			$div_down.append($a1);
-			$div_down.append($a2);
 			$div_down.append($a3);
 
 			$h5.append($div_down);

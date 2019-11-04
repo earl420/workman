@@ -24,6 +24,7 @@ import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.common.Pagination;
 import com.wework.workman.humanResource.model.service.HumanResourceService;
+import com.wework.workman.humanResource.model.vo.AllHoli;
 import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
@@ -32,6 +33,7 @@ import com.wework.workman.humanResource.model.vo.Grade;
 import com.wework.workman.humanResource.model.vo.HoliCount;
 import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
+import com.wework.workman.humanResource.model.vo.UseHoli;
 import com.wework.workman.mypage.model.vo.Mypage;
 
 @Controller
@@ -628,6 +630,39 @@ public class HumanResourceController {
 			mv.setViewName("common/500error");
 		}
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("allHoliday.wo")
+	public void allHoliday(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		String deptName = request.getParameter("deptName");
+				
+		ArrayList<AllHoli> allHoli = hService.allHoliday(deptName);
+		
+		response.setContentType("application/json; charset=utf-8");
+
+		Gson gson = new Gson();
+		gson.toJson(allHoli, response.getWriter());
+		
+	}
+	
+	@RequestMapping("mngHoliDetail.wo")
+	public ModelAndView mngHoliDetail(HttpServletRequest request, ModelAndView mv) {
+		
+		String deptName = request.getParameter("deptName");
+		
+		ArrayList<AllHoli> allHoli = hService.allHoliday(deptName);
+		
+		ArrayList<UseHoli> useHoli = hService.useHolidayList(deptName);
+		System.out.println(useHoli);
+		if(!allHoli.isEmpty()) {
+			mv.addObject("allHoli", allHoli).addObject("useHoli",useHoli).addObject("deptName", deptName).setViewName("humanResource/mngHolidayDetail");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
+		
 	}
 
 	// 인사/휴가근태 관리/근태관리

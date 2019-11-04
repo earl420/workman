@@ -56,7 +56,7 @@
 	<!--**********************************
             Header start
         ***********************************-->
-	<div class="header">
+	<div class="header"> 
  
 		<div class="header-content clearfix" style="border-bottom: 1px solid gray;">
 
@@ -252,7 +252,7 @@
 						<li><a href="salarylist.wo">-&nbsp;월급 관리</a></li>
 					</ul></li>
 				</c:if>
-				<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 301 }">
+				
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-users"></i><span
 						class="nav-text">인사</span>
@@ -280,6 +280,7 @@
 								<li><a href="showHoliday.wo">-&nbsp;휴가현황</a>
 								<li><a href="showAtt.wo">-&nbsp;근태현황</a>
 							</ul></li>
+						<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 301 }">
 						<li><a class="has-arrow" href="javascript:void()"
 							aria-expanded="false"> <i class=""></i><span class="">인사
 									관리</span>
@@ -298,8 +299,8 @@
 								<li><a href="mngHoliday.wo">-&nbsp;직원 휴가 조회</a>
 								<li><a href="mngAtt.wo">-&nbsp;직원 근태 조회</a>
 							</ul></li>
+						</c:if>	
 					</ul></li>
-				</c:if>	
 				<li><a class="has-arrow" href="javascript:void()"
 					aria-expanded="false"> <i class="fas fa-calendar-alt"></i><span
 						class="nav-text">일정</span>
