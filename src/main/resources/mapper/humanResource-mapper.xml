@@ -301,7 +301,7 @@
 	</select>
 	
 	<select id="myHoliCount" parameterType="string" resultMap="holiCountResultSet">
-		select * from holiday_count where emp_num = '20190004' and holiday_year='2018'
+		select * from holiday_count where emp_num = #{empNum} and holiday_year=extract(year from sysdate)
 	</select>
 	
 	<select id="allHoliday" parameterType="string" resultMap="allHoliResultSet">

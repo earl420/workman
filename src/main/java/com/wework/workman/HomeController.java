@@ -48,11 +48,11 @@ public class HomeController {
 		if(check<1) {
 			int insertSal = aService.insertSal();
 		}
-		int check2 = hService.checkHolidayCount();
-		if(check2<1) {
-			int updateHoliday = hService.updateHolidayCount();
-		}
-		
+//		int check2 = hService.checkHolidayCount();
+//		if(check2<1) {
+//			int updateHoliday = hService.updateHolidayCount();
+//		}
+//		
 		session.setAttribute("loginUser", "22");
 		model.addAttribute("flag","출");
 		Date date = new Date();
