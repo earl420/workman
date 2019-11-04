@@ -28,7 +28,7 @@ public class ChattingDao {
 		ArrayList<Room> setList = new ArrayList<>();
 		for(int i=0;i<list.size();i++) {
 			String rList = (String) list.get(i);
-			setList.add(sqlSession.selectOne("chattingMapper.initialLastChat",rList));
+			setList.add((Room) sqlSession.selectOne("chattingMapper.initialLastChat",rList));
 		}
 		return setList; 
 	}

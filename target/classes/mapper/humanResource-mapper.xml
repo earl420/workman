@@ -90,6 +90,13 @@
 		<result property="holiYear" column="holiday_year"/>
 	</resultMap>
 	
+	<resultMap type="AllHoli" id="allHoliResultSet">
+		<id property="empNum" column="empNum"/>
+		<result property="empName" column="emp_name"/>
+		<result property="holiCount" column="holiday_count"/>
+		<result property="holiLeft" column="holiday_left"/>
+	</resultMap>
+	
 	<select id="getnListCount" resultType="_int">
 		select count(*)
 		from notice
@@ -232,7 +239,7 @@
 		from employee
 		join dept using(dept_num)
 		join grade using(grade_num)
-		where dept_name=#{deptName}
+		where dept_name=#{deptName} and emp_status='Y'
 	</select>
 	
 	<update id="updateEmp" parameterType="Employee">
@@ -244,7 +251,7 @@
 	<select id="getThisLate" parameterType="string" resultType="_int">
 		select count(att_date)
 		from attendance
-		where emp_num='20190004' and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
+		where emp_num=#{empNum} and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
 	</select>
 	
 	<select id="getnoOn" parameterType="string" resultType="_int">
@@ -278,5 +285,9 @@
 	
 	<select id="myHoliCount" parameterType="string" resultMap="holiCountResultSet">
 		select * from holiday_count where emp_num = '20190004' and holiday_year='2018'
+	</select>
+	
+	<select id="allHoliday" parameterType="string" resultMap="allHoliResultSet">
+		select * from holiday_count join employee using(emp_num) join dept using(dept_num) where dept_name='인사팀'
 	</select>
 </mapper>
