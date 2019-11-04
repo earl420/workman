@@ -67,8 +67,8 @@
 								<button type="button" class="btn mb-1 btn-rounded btn-warning"
 									onclick="location.href='addDeptForm.wo';">부서 추가</button>
 								&nbsp;
-								<button type="button" class="btn mb-1 btn-rounded btn-warning"
-									onclick="location.href='updateDeptForm.wo';">부서 수정</button>
+								<!-- <button type="button" class="btn mb-1 btn-rounded btn-warning"
+									onclick="location.href='updateDeptForm.wo';">부서 수정</button> -->
 								&nbsp;
 								<button type="button" class="btn mb-1 btn-rounded btn-warning"
 									onclick="location.href='deleteDeptForm.wo';">부서 삭제</button>
@@ -132,7 +132,7 @@
 																			<div class="modal-footer">
 																				<button type="button" class="btn btn-secondary"
 																					data-dismiss="modal">Close</button>
-																				<button type="button" class="btn btn-primary">Send
+																				<button type="button" class="btn btn-primary" onclick="location.href='chatting.wo';">Send
 																					Message</button>
 																			</div>
 																		</div>

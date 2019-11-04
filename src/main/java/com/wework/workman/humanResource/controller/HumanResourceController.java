@@ -1,5 +1,6 @@
 package com.wework.workman.humanResource.controller;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -309,6 +310,8 @@ public class HumanResourceController {
 	public ModelAndView showMyHoliday(HttpSession session, ModelAndView mv) {
 		
 		HoliCount holiCount = hService.myHoliCount(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		System.out.println(holiCount);
 		
 		ArrayList<MyHoli> hlist = hService.showMyHoliday(((Mypage)session.getAttribute("loginMan")).getNum());
 		

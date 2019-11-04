@@ -173,7 +173,7 @@
 	
 	<insert id="insertNotice" parameterType="Notice">
 		insert into notice
-		values(notice_num_seq.nextval, #{noticeDept}, #{noticeTitle}, #{noticeContent}, 20190001, sysdate, sysdate, default, null)
+		values(notice_num_seq.nextval, #{noticeDept}, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, default, null)
 	</insert>
 	
 	<insert id="insertAtt" parameterType="Attachment">
@@ -231,7 +231,7 @@
 		where grade_name=#{gradeName}
 	</select>
 	
-	<insert id="inesrtEmp" parameterType="Employee">
+	<insert id="insertEmp" parameterType="Employee">
 		insert into employee
 		values(emp_num_seq.nextval, #{empPwd}, #{empName}, #{email}, #{gender}, #{birth}, #{empPhone}, #{empAddress}, #{gradeNum}, #{deptNum}, #{empSalary}, sysdate, default, default, #{empAccount}, #{empBank})
 	</insert>
@@ -286,7 +286,7 @@
 	<select id="getMonthAtt" parameterType="string" resultMap="monthAttResultSet">
 		select *
 		from attendance
-		where emp_num='20190004' and extract(month from att_date) =10 
+		where emp_num=#{empNum} and extract(month from att_date) = extract(month from sysdate)
 	</select>
 	
 	<select id="showMyHoliday" parameterType="string" resultMap="showMyHoliResultSet">
@@ -301,7 +301,7 @@
 	</select>
 	
 	<select id="myHoliCount" parameterType="string" resultMap="holiCountResultSet">
-		select * from holiday_count where emp_num = '20190004' and holiday_year='2018'
+		select * from holiday_count where emp_num = #{empNum} and holiday_year=extract(year from sysdate)
 	</select>
 	
 	<select id="allHoliday" parameterType="string" resultMap="allHoliResultSet">

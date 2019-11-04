@@ -38,13 +38,14 @@
 									제목 : <input type="text" name="noticeTitle"
 										style="width: 600px;"><br> <br> 부서: <select
 										name="noticeDept">
-										<option value="" selected>전체부서</option>
+										<option value="전체부서" selected>전체부서</option>
 										<c:forEach items="${ dlist }" var="d">
 
 											<option value="${ d.deptNum }">${ d.deptName }</option>
 										</c:forEach>
 									</select><br> 작성자 :
-									<%-- ${ loginUser.empName } --%>
+									${ loginMan.name }
+									<input type="hidden" name="empNum" value="${ loginMan.num }">
 									<br> 내용 :
 									<textarea name="ir1" id="ir1" rows="15" cols="148">
 	                            		
@@ -61,7 +62,6 @@
 										</ul>
 									</div>
 									<div class="col-sm-12 col-md-12" align="right">
-
 										<button type="submit" class="btn mb-1 btn-rounded btn-warning">등록하기</button>
 										<button type="button" class="btn mb-1 btn-rounded btn-dark"
 											onclick="location.href='hrNotice.wo';">목록</button>
@@ -101,7 +101,8 @@
 				$ul.append($li);
     		
     		
-  }); /* 파일 추가  */
+  		}); /* 파일 추가  */
+  		
 	</script>
 </body>
 </html>

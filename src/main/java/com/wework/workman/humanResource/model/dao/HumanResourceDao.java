@@ -190,6 +190,7 @@ public class HumanResourceDao {
 	
 	public HoliCount myHoliCount(String empNum) {
 		
+		System.out.println(empNum);
 		return sqlSession.selectOne("humanMapper.myHoliCount", empNum);
 	}
 	

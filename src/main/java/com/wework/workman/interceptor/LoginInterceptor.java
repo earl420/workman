@@ -11,36 +11,21 @@ import com.wework.workman.mypage.model.vo.Mypage;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
+	/**
+	 * 로그인 인터셉터
+	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
 		 HttpSession session = request.getSession(); 
 		 Mypage loginMan = (Mypage)session.getAttribute("loginMan");
-		 
 		 if(loginMan == null){
-			 //session.setAttribute("error", "로그인 후 이용하세요.");
 			 request.setAttribute("error", "로그인 후 이용하세요.");
 			 request.getRequestDispatcher("/index.jsp").include(request, response);
 			 return false;
 		 }
-		 
 		return true;
 		
-//		if(session == null) {
-//			session.setAttribute("error", "로그인 후 이용하세요.");
-//			response.sendRedirect("loginPage.wo"); 
-//			return false;
-//		}else {
-//			Mypage loginMan = (Mypage)session.getAttribute("loginMan");
-//			if(loginMan == null) {
-//				session.setAttribute("error", "로그인 후 이용하세요.");
-//				response.sendRedirect("loginPage.wo"); 
-//				return false;
-//			}
-//		}
-//		 
-//		 return true;
-
 	}
 
 	@Override
