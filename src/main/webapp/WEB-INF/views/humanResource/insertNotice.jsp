@@ -38,13 +38,14 @@
 									제목 : <input type="text" name="noticeTitle"
 										style="width: 600px;"><br> <br> 부서: <select
 										name="noticeDept">
-										<option value="" selected>전체부서</option>
+										<option value="전체부서" selected>전체부서</option>
 										<c:forEach items="${ dlist }" var="d">
 
 											<option value="${ d.deptNum }">${ d.deptName }</option>
 										</c:forEach>
 									</select><br> 작성자 :
-									<%-- ${ loginUser.empName } --%>
+									${ loginMan.name }
+									<input type="hidden" name="empNum" value="${ loginMan.num }">
 									<br> 내용 :
 									<textarea name="ir1" id="ir1" rows="15" cols="148">
 	                            		

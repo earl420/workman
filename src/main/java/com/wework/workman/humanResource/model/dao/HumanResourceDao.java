@@ -190,6 +190,7 @@ public class HumanResourceDao {
 	
 	public HoliCount myHoliCount(String empNum) {
 		
+		System.out.println(empNum);
 		return sqlSession.selectOne("humanMapper.myHoliCount", empNum);
 	}
 	
@@ -200,7 +201,7 @@ public class HumanResourceDao {
 	
 	public ArrayList<UseHoli> useHolidayList(String empNum){
 		
-		return (ArrayList)sqlSession.selectList("humanMapper.useHilidayList", empNum);
+		return (ArrayList)sqlSession.selectList("humanMapper.useHolidayList", empNum);
 		
 	}
 }

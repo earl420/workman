@@ -69,7 +69,7 @@ public class MypageController {
 			list.get(i).setNum(eNum);
 		}
 		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/myPageView");
 		
 		
 		return mv;
@@ -99,7 +99,7 @@ public class MypageController {
 			list.get(i).setNum(eNum);
 		}
 		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/myPageView");
 		
 		
 		return mv;

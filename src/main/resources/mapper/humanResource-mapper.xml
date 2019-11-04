@@ -98,12 +98,13 @@
 	</resultMap>
 	
 	<resultMap type="UseHoli" id="useHoliResultSet">
-		<id property="empNum" column="emp_num"/>
-		<result property="holiNum" column="holi_num"/>
+		<id property="holiNum" column="holi_num"/>
+		<result property="empNum" column="emp_num"/>
 		<result property="holiType" column="holi_type"/>
 		<result property="holiStart" column="holiday_start"/>
 		<result property="holiEnd" column="holiday_end"/>
 		<result property="holiStatus" column="holiday_status"/>
+		<result property="due" column="due"/>
 	</resultMap>
 	
 	<select id="getnListCount" resultType="_int">
@@ -172,7 +173,7 @@
 	
 	<insert id="insertNotice" parameterType="Notice">
 		insert into notice
-		values(notice_num_seq.nextval, #{noticeDept}, #{noticeTitle}, #{noticeContent}, 20190001, sysdate, sysdate, default, null)
+		values(notice_num_seq.nextval, #{noticeDept}, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, default, null)
 	</insert>
 	
 	<insert id="insertAtt" parameterType="Attachment">
@@ -235,13 +236,20 @@
 		values(emp_num_seq.nextval, #{empPwd}, #{empName}, #{email}, #{gender}, #{birth}, #{empPhone}, #{empAddress}, #{gradeNum}, #{deptNum}, #{empSalary}, sysdate, default, default, #{empAccount}, #{empBank})
 	</insert>
 	
-	<insert id="setHoliday">
-		insert into holiday_count
-		values ((select max(emp_num) from employee),
-        12-extract(month from sysdate), 
-        12-extract(month from sysdate), 
-        extract(year from sysdate))
+	<insert id="insertHoliday" parameterType="Holiday">
+		insert into Holiday
+		values ( #{approvalNum}, #{empNum}, #{holidayStart}, #{holidayEnd})
 	</insert>
+	
+		<insert id="updatetHolidayCount" parameterType="Holiday">
+		update Holiday_count
+		set	 HOLIDAY_LEFT = HOLIDAY_LEFT-(select h.HOLIDAY_END-h.HOLIDAY_START+1
+											from Holiday h 
+											join DOC_Holiday USING(APPROVAL_NUM)
+                                            where EMP_NUMNT=#{empNum} and HOLI_TYPE='개인사유' and APPROVAL_NUM =#{approvalNum})
+		where EMP_NUM = #{empNum}
+	</insert>
+	
 	
 	<select id="elistByName" parameterType="string" resultMap="selectEmp">
 		select *
@@ -278,7 +286,7 @@
 	<select id="getMonthAtt" parameterType="string" resultMap="monthAttResultSet">
 		select *
 		from attendance
-		where emp_num='20190004' and extract(month from att_date) = '10' 
+		where emp_num='20190004' and extract(month from att_date) =10 
 	</select>
 	
 	<select id="showMyHoliday" parameterType="string" resultMap="showMyHoliResultSet">
@@ -293,16 +301,25 @@
 	</select>
 	
 	<select id="myHoliCount" parameterType="string" resultMap="holiCountResultSet">
-		select * from holiday_count where emp_num = '20190004' and holiday_year='2018'
+		select * from holiday_count where emp_num = #{empNum} and holiday_year=extract(year from sysdate)
 	</select>
 	
 	<select id="allHoliday" parameterType="string" resultMap="allHoliResultSet">
 		select * from holiday_count join employee using(emp_num) join dept using(dept_num) where dept_name=#{deptName}
 	</select>
 	
-	<select id="useHilidayList" parameterType="string" resultMap="useHoliResultSet">
+	<select id="useHolidayList" parameterType="string" resultMap="useHoliResultSet">
 		select emp_num, holi_num, holi_type, to_number(holiday_end-holiday_start+1) as due, holiday_start, holiday_end, holiday_status
 		from doc_holiday
-		where emp_num=#{empNum}
+		join dept using(dept_num)
+		where dept_name=#{empNum}
 	</select>
+	
+		<insert id="setHoliday">
+		insert into holiday_count
+		values ((select max(emp_num) from employee),
+        12-extract(month from sysdate), 
+        12-extract(month from sysdate), 
+        extract(year from sysdate))
+        </insert>
 </mapper>
