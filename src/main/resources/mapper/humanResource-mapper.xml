@@ -123,6 +123,7 @@
 	<select id="selectModalEmpList" resultMap="modalResultSet">
 	 	select *
 	 	from modal
+	 	where emp_name !='SYSTEM'
 	</select>
 	
 	<select id="selectModalList"  parameterType="string"  resultMap="modalResultSet">
