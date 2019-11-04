@@ -22,8 +22,6 @@ public class Mypage {
 	private String bank;
 	private String gradeName;
 	private String deptName;
-	private String profileOriginName;
-	private String profilePath;
 	private int holidayCount;
 	private int holidayLeft;
 	private int holidayYear;
@@ -31,8 +29,8 @@ public class Mypage {
 	}
 	public Mypage(String num, String pwd, String name, String email, String gender, Date birth, String phone,
 			String address, int gradeNum, int deftNum, int salary, Date enrollDate, Date resignDate, String status,
-			String account, String bank, String gradeName, String deptName, String profileOriginName,
-			String profilePath, int holidayCount, int holidayLeft, int holidayYear) {
+			String account, String bank, String gradeName, String deptName, 
+			int holidayCount, int holidayLeft, int holidayYear) {
 		super();
 		this.num = num;
 		this.pwd = pwd;
@@ -52,8 +50,6 @@ public class Mypage {
 		this.bank = bank;
 		this.gradeName = gradeName;
 		this.deptName = deptName;
-		this.profileOriginName = profileOriginName;
-		this.profilePath = profilePath;
 		this.holidayCount = holidayCount;
 		this.holidayLeft = holidayLeft;
 		this.holidayYear = holidayYear;
@@ -166,18 +162,7 @@ public class Mypage {
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
 	}
-	public String getProfileOriginName() {
-		return profileOriginName;
-	}
-	public void setProfileOriginName(String profileOriginName) {
-		this.profileOriginName = profileOriginName;
-	}
-	public String getProfilePath() {
-		return profilePath;
-	}
-	public void setProfilePath(String profilePath) {
-		this.profilePath = profilePath;
-	}
+	
 	public int getHolidayCount() {
 		return holidayCount;
 	}
@@ -202,9 +187,8 @@ public class Mypage {
 				+ ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", gradeNum=" + gradeNum
 				+ ", deftNum=" + deftNum + ", salary=" + salary + ", enrollDate=" + enrollDate + ", resignDate="
 				+ resignDate + ", status=" + status + ", account=" + account + ", bank=" + bank + ", gradeName="
-				+ gradeName + ", deptName=" + deptName + ", profileOriginName=" + profileOriginName + ", profilePath="
-				+ profilePath + ", holidayCount=" + holidayCount + ", holidayLeft=" + holidayLeft + ", holidayYear="
-				+ holidayYear + "]";
+				+ gradeName + ", deptName=" + deptName + ", holidayCount=" + holidayCount + ", holidayLeft="
+				+ holidayLeft + ", holidayYear=" + holidayYear + "]";
 	}
 	
 	
