@@ -64,18 +64,17 @@
 									<div class="tab-content">
 										<div class="tab-pane fade active show" id="home1"
 											role="tabpanel">
-											<div class="p-t-15">
+											<div class="p-t-15" >
 												<h4>휴가 현황</h4>
-												<br>
-												<h5 align="center">올해 휴가 현황 : 총 휴가 ${ holiCount.holiCount }일
+												<div align="center">
+												<h5>올해 휴가 현황 : 총 휴가 ${ holiCount.holiCount }일
 													/ 사용 ${ holiCount.holiCount-holiCount.holiLeft }일 / 잔여 ${ holiCount.holiLeft }일</h5>
-												<br>
-												<p align="right">
-													상태 : <span class="text-warning"> Y : 대기</span>&nbsp;&nbsp;
-													<span class="text-danger"> N : 반려</span>&nbsp;&nbsp; <span
-														class="text-info"> P : 진행</span>&nbsp;&nbsp; <span
-														class="text-success"> C : 완료</span>&nbsp;&nbsp;
-												</p>
+												</div>
+												
+												<div align="center">
+												<span>승인이 완료된 휴가사항</span>
+												</div>
+												
 											</div>
 										</div>
 										<table class="table header-border">
@@ -85,7 +84,6 @@
 													<th scope="col">휴가 종류</th>
 													<th scope="col">일수</th>
 													<th scope="col">기간</th>
-													<th scope="col">상태</th>
 													<th scope="col">상세보기</th>
 												</tr>
 											</thead>
@@ -96,7 +94,6 @@
 														<td>${ h.holiType }</td>
 														<td>${ h.due }</td>
 														<td>${ h.holiStart }~ ${ h.holiEnd }</td>
-														<td>${ h.holiStatus }</td>
 														<td><button type="button" class="btn btn-primary"
 																style="padding-top: 0; height: 20px;">상세</button></td>
 													</tr>
