@@ -573,7 +573,6 @@ img {
 		function msgHistory(data) {
 			appendMessage(data);
 			$('#msgInput').removeAttr('disabled');
-			writerV="";
 		}
 
 		//		------------초기설정 끝

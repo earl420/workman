@@ -82,11 +82,19 @@ public class HolidayDao {
 		
 		int result2 = sqlSession.update("approvalMapper.completeHoliday",select); // 승인번호를 가져와서 문서 업데이트 (문서 상태 상태 C로 변경)
 		
+		Holiday h = sqlSession.selectOne("approvalMapper.selectHoliday", holiNum);
+		
+		int result3 = sqlSession.insert("humanMapper.insertHoliday",h);
+		
+		int result4= sqlSession.update("humanMapper.updatetHolidayCount", h);
 		
 		
 		
 		
-		return result2;
+		
+		
+		
+		return result4;
 	}
 	
 }

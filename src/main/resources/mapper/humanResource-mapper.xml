@@ -236,13 +236,20 @@
 		values(emp_num_seq.nextval, #{empPwd}, #{empName}, #{email}, #{gender}, #{birth}, #{empPhone}, #{empAddress}, #{gradeNum}, #{deptNum}, #{empSalary}, sysdate, default, default, #{empAccount}, #{empBank})
 	</insert>
 	
-	<insert id="setHoliday">
-		insert into holiday_count
-		values ((select max(emp_num) from employee),
-        12-extract(month from sysdate), 
-        12-extract(month from sysdate), 
-        extract(year from sysdate))
+	<insert id="insertHoliday" parameterType="Holiday">
+		insert into Holiday
+		values ( #{approvalNum}, #{empNum}, #{holidayStart}, #{holidayEnd})
 	</insert>
+	
+		<insert id="updatetHolidayCount" parameterType="Holiday">
+		update Holiday_count
+		set	 HOLIDAY_LEFT = HOLIDAY_LEFT-(select h.HOLIDAY_END-h.HOLIDAY_START+1
+											from Holiday h 
+											join DOC_Holiday USING(APPROVAL_NUM)
+                                            where EMP_NUMNT=#{empNum} and HOLI_TYPE='개인사유' and APPROVAL_NUM =#{approvalNum})
+		where EMP_NUM = #{empNum}
+	</insert>
+	
 	
 	<select id="elistByName" parameterType="string" resultMap="selectEmp">
 		select *
@@ -307,4 +314,12 @@
 		join dept using(dept_num)
 		where dept_name=#{empNum}
 	</select>
+	
+		<insert id="setHoliday">
+		insert into holiday_count
+		values ((select max(emp_num) from employee),
+        12-extract(month from sysdate), 
+        12-extract(month from sysdate), 
+        extract(year from sysdate))
+        </insert>
 </mapper>
