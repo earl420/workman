@@ -203,6 +203,18 @@
 																											style="border: 1px solid lightgray;">상태</th>
 																									</tr>
 																								</thead>
+																								
+																								<tbody>
+																									<c:forEach var="i" items="${ useHoli }">
+																										<tr>
+																											<td>${i.holiNum }</td>
+																											<td>${i.holiType }</td>
+																											<td>${i.holiEnd - i.holiStart +1}</td>
+																											<td>${i.holiStart }~${i.holiEnd }</td>
+																											<td>${i.holiday_status }</td>
+																										</tr>
+																									</c:forEach>
+																								</tbody>
 
 																							</table>
 																						</div>

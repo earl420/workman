@@ -655,9 +655,9 @@ public class HumanResourceController {
 		ArrayList<AllHoli> allHoli = hService.allHoliday(deptName);
 		
 		ArrayList<UseHoli> useHoli = hService.useHolidayList(deptName);
-		
+		System.out.println(useHoli);
 		if(!allHoli.isEmpty()) {
-			mv.addObject("allHoli", allHoli).addObject("deptName", deptName).setViewName("humanResource/mngHolidayDetail");
+			mv.addObject("allHoli", allHoli).addObject("useHoli",useHoli).addObject("deptName", deptName).setViewName("humanResource/mngHolidayDetail");
 		}else {
 			mv.setViewName("common/500error");
 		}
