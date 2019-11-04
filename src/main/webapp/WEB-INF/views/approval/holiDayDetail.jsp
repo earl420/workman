@@ -199,7 +199,7 @@
 										</tr>
 										<tr>
                                         	<td colspan="10" align="center">
-                                        		<c:if test="${ h.holidayStart eq 'Y'  }">
+                                        		<c:if test="${ h.holidayStatus eq 'Y' and loginMan.num eq h.empNum }">
                                         		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;수정 &nbsp;</button> &nbsp;&nbsp;
                                         		</c:if>
                                         		<c:choose>

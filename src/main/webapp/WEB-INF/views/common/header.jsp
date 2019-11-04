@@ -26,7 +26,11 @@
 </head>
 
 <body onload="printClock()">
-
+	
+	<c:if test="${empty loginMan }">
+		<jsp:forward page="loginPage.wo"></jsp:forward>
+	</c:if>	
+	
 
 	<c:set var="contextPath"></c:set>
 
@@ -200,8 +204,10 @@
 								<li><a href="waitingList.wo">-&nbsp;대기</a></li>
 								<li><a href="proceedingList.wo">-&nbsp;진행</a></li>
 								<li><a href="approvalList.wo">-&nbsp;승인</a></li>
+								<li><a href="referenceList.wo">-&nbsp;참조</a></li>
 								<li><a href="completeList.wo">-&nbsp;완료</a></li>
-							</ul></li>
+							</ul>
+						</li>
 						<li><a class="has-arrow" href="javascript:void()"
 							aria-expanded="false"> <i class=""></i><span class="">결제요청문서</span>
 						</a>
@@ -211,34 +217,27 @@
 								<li><a href="requestRequestList.wo">-&nbsp;품의서</a></li>
 								<li><a href="expenseRequestList.wo">-&nbsp;지출결의서</a></li>
 								<li><a href="holiDayRequestList.wo">-&nbsp;휴가</a></li>
-							</ul></li>
+							</ul>
+						</li>
 						<li><a class="has-arrow" href="javascript:void()"
 							aria-expanded="false"> <i class=""></i><span class="">결제문서등록</span>
 						</a>
 							<ul>
 								<li><a href="draftWrite.wo">-&nbsp;기안서작성</a></li>
-								<li><a href="draftDetail.wo">-&nbsp;기안서상세</a></li>
 								<li><a href="requestWrite.wo">-&nbsp;품의서작성</a></li>
-								<li><a href="requestDetail.wo">-&nbsp;품의서상세</a></li>
 								<li><a href="expenseWrite.wo">-&nbsp;지출결의서작성</a></li>
-								<li><a href="expenseDetail.wo">-&nbsp;지출결의서상세</a></li>
 								<li><a href="holiDayWrite.wo">-&nbsp;휴가작성</a></li>
-								<li><a href="holiDayDetail.wo">-&nbsp;휴가상세</a></li>
-							</ul></li>
-						<li><a class="has-arrow" href="javascript:void()"
-							aria-expanded="false"> <i class=""></i><span class="">문서보관</span>
-						</a>
-							<ul>
-								<li><a href="companionList.wo">-&nbsp;반려</a></li>
-								<li><a href="temporaryList.wo">-&nbsp;임시저장</a></li>
-							</ul></li>
+							</ul>
+						</li>
 						<li><a class="has-arrow" href="javascript:void()"
 							aria-expanded="false"> <i class=""></i><span class="">문서보관</span>
 						</a>
 							<ul>
 								<li><a href="test.wo">-&nbsp;테스트</a></li>
-							</ul></li>
-					</ul></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
 				<c:if test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 302 || loginMan.deftNum eq 304 || loginMan.deftNum eq 305 }">
 				
 				<li><a class="has-arrow" href="javascript:void()"
