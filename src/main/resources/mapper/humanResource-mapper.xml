@@ -173,7 +173,7 @@
 	
 	<insert id="insertNotice" parameterType="Notice">
 		insert into notice
-		values(notice_num_seq.nextval, #{noticeDept}, #{noticeTitle}, #{noticeContent}, 20190001, sysdate, sysdate, default, null)
+		values(notice_num_seq.nextval, #{noticeDept}, #{noticeTitle}, #{noticeContent}, #{empNum}, sysdate, sysdate, default, null)
 	</insert>
 	
 	<insert id="insertAtt" parameterType="Attachment">

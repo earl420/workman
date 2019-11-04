@@ -143,23 +143,11 @@ p {
 
 						<div class="indiv" id="div2" style="background: rgb(255, 153, 0)">
 							<div class="paddiv">
-								<c:choose>
-									<c:when
-										test="${loginMan.deftNum eq 100 || loginMan.deftNum eq 200 || loginMan.deftNum eq 301 }">
-										<a href="hrNotice.wo">
-											<h2 id="h2">인사</h2>
-											<p>인사부 바로가기</p>
-										</a>
-									</c:when>
-									<c:otherwise>
-										<a href="#" onclick="alert('인사부서에 접근할 수 없습니다.');"
-											style="pointer-events: none; cursor: default;">
-											<h2 id="h2">인사</h2>
-											<p>인사부 바로가기</p>
-										</a>
-									</c:otherwise>
-								</c:choose>
 
+								<a href="hrNotice.wo">
+									<h2 id="h2">인사</h2>
+									<p>인사부 바로가기</p>
+								</a>
 
 
 							</div>
