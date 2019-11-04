@@ -185,7 +185,7 @@ img {
 </style>
 </head>
 
-<body>
+<body style="overflow:hidden">
 	<!-- style="overflow:hidden" -->
 
 	<!-- 	<!--******************* -->
@@ -374,7 +374,7 @@ img {
 
 		//webSocket 초기설정
 		function connect() {
-			wbSocket = new WebSocket("ws://localhost:9999/workman/chatting.ch");
+			wbSocket = new WebSocket("ws://192.168.30.19:8888/workman/chatting.ch");
 			wbSocket.onopen = onOpen;
 			wbSocket.onclose = onClose;
 			wbSocket.onmessage = onMessage;
