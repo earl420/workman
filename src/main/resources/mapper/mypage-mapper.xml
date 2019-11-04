@@ -23,9 +23,6 @@
 		<result property="bank" column="EMP_BANK"/>
 		<result property="gradeName" column="GRADE_NAME"/>
 		<result property="deptName" column="DEPT_NAME"/>
-		<result property="holidayCount" column="HOLIDAY_COUNT"/>
-		<result property="holidayLeft" column="HOLIDAY_LEFT"/>
-		<result property="holidayYear" column="HOLIDAY_YEAR"/>
 	</resultMap>
 	
 	<resultMap type="EmpList" id="listResultSet">

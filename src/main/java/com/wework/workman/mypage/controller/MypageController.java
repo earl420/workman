@@ -55,7 +55,7 @@ public class MypageController {
 	}
 
 	/**
-	 * 마이 페이지
+	 * 직원 정보
 	 * @return
 	 */
 	@RequestMapping("mypageView.wo")
@@ -69,7 +69,7 @@ public class MypageController {
 			list.get(i).setNum(eNum);
 		}
 		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/myPageView");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
 		
 		
 		return mv;
@@ -86,7 +86,7 @@ public class MypageController {
 	public ModelAndView empSearch(ModelAndView mv, String emp,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		
-		EmpList searchEmp = new EmpList();
+//		EmpList searchEmp = new EmpList();
 		int empCount = mService.empCount();
 		
 		
@@ -99,7 +99,7 @@ public class MypageController {
 			list.get(i).setNum(eNum);
 		}
 		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/myPageView");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
 		
 		
 		return mv;

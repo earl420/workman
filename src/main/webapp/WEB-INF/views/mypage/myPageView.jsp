@@ -74,12 +74,7 @@
 											<c:out value="${ loginMan.email }"></c:out>
 										</div>
 									</div>
-									<div class="form-group row">
-										<div class="col-lg-6">
-											남은휴가 : <br>
-											<c:out value="${ loginMan.holidayLeft }일"></c:out>
-										</div>
-									</div>
+
 										
 								</div>
 							</div>
@@ -106,7 +101,7 @@
 													<form action="empSearch.wo" method="post">
 														<label>직원 검색:
 															<input type="search" name="emp"
-															class="form-control form-control-sm" placeholder="직원명"
+															class="form-control form-control-sm"
 															aria-controls="DataTables_Table_0">
 															<button type="submit" class="btn mb-1">검색</button>
 														</label>

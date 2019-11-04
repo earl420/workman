@@ -1686,8 +1686,8 @@ INSERT INTO EMPLOYEE VALUES(NULL, '0901', '이지영', DEFAULT, '여', DEFAULT, DEFA
                             , DEFAULT, DEFAULT);  
 
 -- 총무팀(상무, 부장, 차장, 과장, 대리, 사원)                            
-INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강정학', DEFAULT, '남', DEFAULT, DEFAULT, 
-                            DEFAULT, 8, 302, 80000000, '20131001', DEFAULT, DEFAULT
+INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강정학', '20190910@wework.com', '남', '1989/11/10', '010-888-4414', 
+                            '전라남도 영광군 염산면 칠산로5길 112,(봉남리)', 8, 302, 80000000, '20131001', DEFAULT, DEFAULT
                             , DEFAULT, DEFAULT);
                             
 INSERT INTO EMPLOYEE VALUES(NULL, '0901', '강진환', DEFAULT, '남', DEFAULT, DEFAULT, 
