@@ -14,7 +14,9 @@ import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
 import com.wework.workman.humanResource.model.vo.Grade;
+import com.wework.workman.humanResource.model.vo.HoliCount;
 import com.wework.workman.humanResource.model.vo.Modal;
+import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
 
 @Repository("humanResourceDao")
@@ -159,7 +161,7 @@ public class HumanResourceDao {
 	}
 
 	public int getThisLate(String empNum) {
-
+		
 		return sqlSession.selectOne("humanMapper.getThisLate", empNum);
 	}
 
@@ -175,6 +177,17 @@ public class HumanResourceDao {
 	
 	public ArrayList<Att> getMonthAtt(String empNum){
 		
+		
 		return (ArrayList)sqlSession.selectList("humanMapper.getMonthAtt", empNum);
+	}
+	
+	public ArrayList<MyHoli> showMyHoliday(String empNum){
+		
+		return (ArrayList)sqlSession.selectList("humanMapper.showMyHoliday", empNum);
+	}
+	
+	public HoliCount myHoliCount(String empNum) {
+		
+		return sqlSession.selectOne("humanMapper.myHoliCount", empNum);
 	}
 }

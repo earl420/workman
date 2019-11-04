@@ -74,6 +74,22 @@
 		<result property="timeOff" column="time_off"/>
 	</resultMap>
 	
+	<resultMap type="MyHoli" id="showMyHoliResultSet">
+		<id property="docNum" column="doc_num"/>
+		<result property="holiType" column="holi_type"/>
+		<result property="due" column="due"/>
+		<result property="holiStart" column="holiday_start"/>
+		<result property="holiEnd" column="holiday_end"/>
+		<result property="holiStatus" column="holiday_status"/>
+	</resultMap>
+	
+	<resultMap type="HoliCount" id="holiCountResultSet">
+		<id property="empNum" column="emp_num"/>
+		<result property="holiCount" column="holiday_count"/>
+		<result property="holiLeft" column="holiday_left"/>
+		<result property="holiYear" column="holiday_year"/>
+	</resultMap>
+	
 	<select id="getnListCount" resultType="_int">
 		select count(*)
 		from notice
@@ -248,5 +264,18 @@
 		where emp_num='20190004' and extract(month from att_date) = '10' 
 	</select>
 	
+	<select id="showMyHoliday" parameterType="string" resultMap="showMyHoliResultSet">
+		select approval.doc_num, doc_holiday.holi_type, 
+                    to_number(holiday.holiday_end-holiday.holiday_start+1) as due, 
+                    holiday.holiday_start, holiday.holiday_end,
+                    doc_holiday.holiday_status
+		from holiday
+		join approval using(approval_num)
+		join doc_holiday on(approval.doc_num=holi_num)
+		where emp_num=#{empNum}
+	</select>
 	
+	<select id="myHoliCount" parameterType="string" resultMap="holiCountResultSet">
+		select * from holiday_count where emp_num = '20190004' and holiday_year='2018'
+	</select>
 </mapper>

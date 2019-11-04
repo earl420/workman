@@ -60,8 +60,8 @@
 									<ul class="nav nav-tabs mb-3">
 										<li class="nav-item"><a class="nav-link active show"
 											data-toggle="tab" href="#home1">근태 현황</a></li>
-										<li class="nav-item"><a class="nav-link"
-											data-toggle="tab" href="#profile1">근태 수정 내역</a></li>
+									<!-- 	<li class="nav-item"><a class="nav-link"
+											data-toggle="tab" href="#profile1">근태 수정 내역</a></li> -->
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane fade active show" id="home1"
