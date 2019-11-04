@@ -57,12 +57,14 @@ public class ExpenseController {
 		ArrayList<Dept> dlist = hService.selectModaDeptlList();
 		ArrayList<Modal> mlist = hService.selectModalEmpList();
 		ArrayList<Partner> plist = aService.partnerList();
+		Partner ps = aService.selectPartner(partnerNum);
 		mv.addObject("mlist",mlist);
 		mv.addObject("dlist",dlist);
 		mv.addObject("plist",plist);
 		mv.addObject("empNum", empNum);
 		mv.addObject("empName", empName);
 		mv.addObject("msg", msg);
+		mv.addObject("ps", ps);
 		mv.setViewName("approval/expenseWrite");
 		return mv;
 		
