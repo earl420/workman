@@ -159,7 +159,7 @@
 																	<div class="row">
 																		<ul class="nav nav-pills mb-3">
 																			<c:forEach items="${ glist }" var="g">
-																				<li class="nav-item"><a class="nav-link"
+																				<li class="nav-item"><a class="ab nav-link"
 																					data-toggle="tab" aria-expanded="true" href="">${g.gradeName}</a></li>
 																			</c:forEach>
 																		</ul>
@@ -295,7 +295,7 @@
 		
 		function modalSubmit2() {
 
-			$("#gradeName").val($(".active").text());
+			$("#gradeName").val($("a.ab.nav-link.active").text());
 		}
 	</script>
 

@@ -231,7 +231,7 @@
 		where grade_name=#{gradeName}
 	</select>
 	
-	<insert id="inesrtEmp" parameterType="Employee">
+	<insert id="insertEmp" parameterType="Employee">
 		insert into employee
 		values(emp_num_seq.nextval, #{empPwd}, #{empName}, #{email}, #{gender}, #{birth}, #{empPhone}, #{empAddress}, #{gradeNum}, #{deptNum}, #{empSalary}, sysdate, default, default, #{empAccount}, #{empBank})
 	</insert>
@@ -286,7 +286,7 @@
 	<select id="getMonthAtt" parameterType="string" resultMap="monthAttResultSet">
 		select *
 		from attendance
-		where emp_num='20190004' and extract(month from att_date) =10 
+		where emp_num=#{empNum} and extract(month from att_date) = extract(month from sysdate)
 	</select>
 	
 	<select id="showMyHoliday" parameterType="string" resultMap="showMyHoliResultSet">

@@ -460,8 +460,8 @@
 																					<option value="7">7월</option>
 																					<option value="8">8월</option>
 																					<option value="9">9월</option>
-																					<option value="10" selected>10월</option>
-																					<option value="11">11월</option>
+																					<option value="10">10월</option>
+																					<option value="11" selected>11월</option>
 																					<option value="12">12월</option>
 																				</select> <br> <br>
 																				<div class="table-responsive">

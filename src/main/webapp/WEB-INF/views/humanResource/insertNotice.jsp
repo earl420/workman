@@ -62,7 +62,6 @@
 										</ul>
 									</div>
 									<div class="col-sm-12 col-md-12" align="right">
-
 										<button type="submit" class="btn mb-1 btn-rounded btn-warning">등록하기</button>
 										<button type="button" class="btn mb-1 btn-rounded btn-dark"
 											onclick="location.href='hrNotice.wo';">목록</button>
@@ -102,7 +101,8 @@
 				$ul.append($li);
     		
     		
-  }); /* 파일 추가  */
+  		}); /* 파일 추가  */
+  		
 	</script>
 </body>
 </html>

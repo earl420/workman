@@ -93,7 +93,6 @@
 														<td>${ h.holiType }</td>
 														<td>${ h.due }</td>
 														<td>${ h.holiStart } ~ ${ h.holiEnd }</td>
-														<td>${ h.holiStatus }</td>
 													</tr>
 												</c:forEach>
 

@@ -133,7 +133,7 @@
 																			<div class="modal-footer">
 																				<button type="button" class="btn btn-secondary"
 																					data-dismiss="modal">Close</button>
-																				<button type="button" class="btn btn-primary" onclick="loaction.href='chatting.wo';">Send
+																				<button type="button" class="btn btn-primary" onclick="location.href='chatting.wo';">Send
 																				
 																					Message</button>
 																			</div>
