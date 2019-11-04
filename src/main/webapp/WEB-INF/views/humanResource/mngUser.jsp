@@ -220,17 +220,21 @@
 							
 							var $tr = $('<tr>');
 							var $td = $('<td>' + value.empName + '</td><td id="empNum">' + value.empNum + '</td><td>' + value.empPhone + '</td>');
-							var $td1 = $('<td>');
-							var $select = $('<select id="select" name="deptName">');
+							var $td1 = $('<td>').text(value.deptName);
+							var $td2 = $('<td>').text(value.gradeName);
+							var $td3 = $('<td>').text(value.enrollDate);
+							var $td4 = $('<td>');
+							var $btn1 = $('<button>').attr('class','btn btn-primary outEmp').text('퇴사').attr('onclick','outEmp('+value.empNum+');');
+							$td4.append($btn1);
+							$tr.append($td);
+							$tr.append($td1);
+							$tr.append($td2);
+							$tr.append($td3);
+							$tr.append($td4);
+							$tbody.append($tr);
 							
+	
 							
-							$.each(dlist, function(index, v){
-								
-								var $td2 = $('<option value="'+ v.deptName +'">'+ v.deptName +'</option></select></td>');
-	/* 							var $td3 = $('</select></td>"<td><input type="text" id="gradeName" value="' + value.gradeName + '"></td><td>' + value.enrollDate + '</td><td><input type="button" value="수정하기" class="btn mb-1 btn-warning updateBtn" style="height: 20px; padding-top: 0"></td></tr>');
-	 */							
-								$tbody.append($tr).append($td).append($select.append($td2));
-							});
 						});
 					}else{
 						
@@ -244,8 +248,23 @@
 			});
 			
 		}
+		
+		
+		
 	</script>
-
+	<script type="text/javascript">
+	
+	function outEmp(eNum){
+		
+		console.log("1234");
+		var check1= confirm('정말로 퇴사 처리하시겠습니까?');
+		if(check1){
+			var empNum= $(this).parent().children().eq(1).val();
+			
+			location.href="deleteemp.wo?empNum="+eNum;
+		}
+	}
+	</script>
 </body>
 <iframe id="google_esf" name="google_esf"
 	src="https://googleads.g.doubleclick.net/pagead/html/r20191003/r20190131/zrt_lookup.html#"

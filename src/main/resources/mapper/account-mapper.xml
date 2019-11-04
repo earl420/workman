@@ -535,4 +535,12 @@ insert into fixture values (null, #{fixtureType},#{fixtureName},sysdate,
 ('소프트웨어'),#{salePrice},
 ('현금'),#{salePrice},null )
 </insert>
+
+<update id="deleteEmp" parameterType="string">
+	update employee set emp_status='N',
+	RESIGN_DATE=sysdate
+	where emp_num=#{empNum}
+</update>
+
+
 </mapper>
