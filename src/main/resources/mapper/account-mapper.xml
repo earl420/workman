@@ -206,13 +206,16 @@ order by account_ali desc, account_num
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},'소모품비',
 	(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) from fixture 
-join payment on(fixture_payment=pay_num)
-WHERE EXTRACT(MONTH FROM fixture_buy)
-BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)),
-	'소모품',(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) from fixture 
+	join payment on(fixture_payment=pay_num)
+	WHERE EXTRACT(MONTH FROM fixture_buy)
+	BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) 
+	AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)),
+	'소모품',(select decode(sum(pay_price/fixture_endurance), null, 0, sum(pay_price/fixture_endurance)) 
+	from fixture 
 	join payment on(fixture_payment=pay_num)
 	WHERE EXTRACT(MONTH FROM fixture_buy) 
-	BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)), null)
+	BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) 
+	and sysdate < add_months(FIXTURE_BUY,12*fixture_endurance+3)), null)
 	
 	]]>
 	</insert>
@@ -221,11 +224,18 @@ BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)
 	insert into journalizing
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},('무형자산상각비'),
-	(select decode(sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START)))) 
-    from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< add_months(license_end,3)),
-('소프트웨어'),
-(select decode( sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-extract(year from LICENSE_START)))) 
-from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< add_months(license_end,3)), null)
+	(select decode(sum(pay_price/(extract(year from license_end)-
+	extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-
+	extract(year from LICENSE_START)))) 
+    from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START) 
+    BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) AND TO_NUMBER(SUBSTR(#{endDate},4,2)) 
+    and sysdate< add_months(license_end,3)),('소프트웨어'),
+	(select decode( sum(pay_price/(extract(year from license_end)-
+	extract(year from LICENSE_START))), null, 0, sum(pay_price/(extract(year from license_end)-
+	extract(year from LICENSE_START)))) 
+	from license join payment using(pay_num) 
+	WHERE EXTRACT(MONTH FROM LICENSE_START) BETWEEN TO_NUMBER(SUBSTR(#{startDate},4,2)) 
+	AND TO_NUMBER(SUBSTR(#{endDate},4,2)) and sysdate< add_months(license_end,3)), null)
 	
 	]]>
 	</insert>
@@ -237,10 +247,10 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 	where debt='급여' 
 	and journ_date between #{startDate} and #{endDate}),
 	'급여',
-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
 	where debt='급여' 
 	and journ_date between #{startDate} and #{endDate})
-, null)
+	, null)
 </insert>
 <insert id="insertIncome4" parameterType="IsState">
 	insert into journalizing
@@ -250,10 +260,10 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 	where debt='소모품비' 
 	and journ_date between #{startDate} and #{endDate}),
 	'소모품비',
-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
 	where debt='소모품비' 
 	and journ_date between #{startDate} and #{endDate})
-, null)
+	, null)
 </insert>
 <insert id="insertIncome5" parameterType="IsState">
 	insert into journalizing
@@ -263,45 +273,55 @@ from license join payment using(pay_num) WHERE EXTRACT(MONTH FROM LICENSE_START)
 	where debt='무형자산상각비' 
 	and journ_date between #{startDate} and #{endDate}),
 	'무형자산상각비',
-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing
 	where debt='무형자산상각비' 
 	and journ_date between #{startDate} and #{endDate})
-, null)
+	, null)
 </insert>
 <insert id="insertIncome6" parameterType="IsState">
 	insert into journalizing
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},'세금',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),
-	'현금',
-(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual)
-, null)
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) 
+	from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) 
+	where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate}))*0.15 from dual),'현금',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) 
+	from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})
+	-(select decode(sum(debt_price),null,0,sum(debt_price)) 
+	from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' 
+	and journ_date between #{startDate} and #{endDate}))*0.15 from dual), null)
 </insert>
 <insert id="insertIncome7" parameterType="IsState">
 	insert into journalizing
 	values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
-	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' and journ_date between #{startDate} and #{endDate})
-	,'세금',
-	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' and journ_date between #{startDate} and #{endDate})
-	, null)
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' 
+	and journ_date between #{startDate} and #{endDate}),'세금',
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing where debt='세금' 
+	and journ_date between #{startDate} and #{endDate}), null)
 </insert>
 
 <insert id="insertIncome8" parameterType="IsState">
-	   insert into journalizing values(JOURN_NUM_SEQ.nextval,#{endDate},
-('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))),
-('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금' and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))), null )
+	insert into journalizing values(JOURN_NUM_SEQ.nextval,#{endDate},
+	('이익잉여금'),((select sum(credit_price) from journalizing where credit='이익잉여금' 
+	and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))),
+	('자본금'),((select sum(credit_price) from journalizing where credit='이익잉여금' 
+	and journ_date between add_months(#{startDate},-3) and add_months(#{endDate},-3))), null )
   
 </insert>
 
 <insert id="insertIncome9" parameterType="IsState">
-	insert into journalizing
-	values 
+	insert into journalizing values 
 	(JOURN_NUM_SEQ.nextval,#{endDate},'매출',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate})) from dual),
-	'이익잉여금',
-	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate})) from dual)
-	, null)
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) 
+	from journalizing where credit='매출' and journ_date between #{startDate} and #{endDate})
+	-(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) 
+	where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate})) from dual),'이익잉여금',
+	(select ((select decode(sum(credit_price),null,0,sum(credit_price)) from journalizing 
+	where credit='매출' and journ_date between #{startDate} and #{endDate})-
+	(select decode(sum(debt_price),null,0,sum(debt_price)) from journalizing join account on(debt=account_name) 
+	where ACCOUNT_ALI like '2%' and journ_date between #{startDate} and #{endDate})) from dual), null)
 </insert>
 
 <insert id="aNoticeInsert" parameterType="AcNotice">

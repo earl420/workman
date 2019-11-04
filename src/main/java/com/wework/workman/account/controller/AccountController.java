@@ -189,7 +189,6 @@ public class AccountController {
 			}
 		}
 		
-		
 		if(result<1) {
 			return "common/errorPage";
 		}
@@ -262,7 +261,8 @@ public class AccountController {
 		for (int i = 0; i < list.size(); i++) {
 			String listDay = sdf.format(list.get(i).getFixtureBuy());
 			Date listDayParse = sdf.parse(listDay);
-			int diff = (int)(todayParse.getTime()-listDayParse.getTime())/(24*60*60*1000*365);
+			int diff = Math.abs((int)(todayParse.getTime()-listDayParse.getTime())/(24*60*60*1000*365));
+			System.out.println(diff);
 			int val = (list.get(i).getFixturePrice()/list.get(i).getEndurance())*(list.get(i).getEndurance()-diff);
 			list.get(i).setResidualValue(val);
 		}
