@@ -80,7 +80,7 @@
 															<div class="row">
 																<ul class="nav nav-pills mb-3">
 																	<c:forEach items="${ dlist }" var="d">
-																		<li class="nav-item"><a class="nav-link"
+																		<li class="nav-item a"><a class="nav-link"
 																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
 																		<input type="hidden" id="dd" name="dd"
 																			value="${ d.deptName }">
@@ -123,180 +123,30 @@
 										<tr style="background: #f9f9f9; border: 1px solid lightgray;">
 											<th scope="col"
 												style="width: 100px; border: 1px solid lightgray;"
-												rowspan="2">이름</th>
-											<th scope="col"
+												rowspan="">이름</th>
+											<!-- 	<th scope="col"
 												style="width: 130px; border: 1px solid lightgray;"
-												rowspan="2">입사일</th>
+												rowspan="2">입사일</th> -->
 											<th scope="col" style="border: 1px solid lightgray;"
-												rowspan="2">올해생성</th>
-											<th scope="col" style="border: 1px solid lightgray;">생성내역</th>
-											<th scope="col" style="border: 1px solid lightgray;"
-												colspan="3">사용현황</th>
+												rowspan="">올해생성</th>
+											<!-- <th scope="col" style="border: 1px solid lightgray;">생성내역</th> -->
+											<!-- <th scope="col" style="border: 1px solid lightgray;"
+												colspan="3">사용현황</th> -->
 											<th scope="col" style="border: 1px solid lightgray;"
 												rowspan="2">잔여</th>
 											<th scope="col" style="border: 1px solid lightgray;"
-												rowspan="2">상세</th>
+												rowspan="">상세</th>
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td style="background: #f9f9f9; border: 1px solid lightgray;">정기연차</td>
 											<td style="background: #f9f9f9; border: 1px solid lightgray;">개인사유</td>
 											<td style="background: #f9f9f9; border: 1px solid lightgray;">훈련</td>
 											<td style="background: #f9f9f9; border: 1px solid lightgray;">경조사</td>
-										</tr>
+										</tr> -->
 									</thead>
-									<tbody>
-										<tr>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>
-												<div class="bootstrap-modal">
-													<!-- Button trigger modal -->
-													<button type="button" class="btn btn-primary"
-														data-toggle="modal" data-target="#basicModal"
-														style="padding-top: 0; height: 20px;">상세</button>
-													<!-- Modal -->
-													<div class="modal fade" id="basicModal"
-														style="display: none;" aria-hidden="true">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">휴가 상세</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																	<div class="default-tab">
-																		<ul class="nav nav-tabs mb-3" role="tablist">
-																			<li class="nav-item"><a class="nav-link active"
-																				data-toggle="tab" href="#home">생성 내역</a></li>
-																			<li class="nav-item"><a class="nav-link"
-																				data-toggle="tab" href="#profile">사용 내역</a></li>
-																		</ul>
-																		<div class="tab-content">
-																			<div class="tab-pane fade show active" id="home"
-																				role="tabpanel">
-																				<div class="p-t-15" style="text-align: left;">
-																					민병현(사번) 님의 휴가 생성 내역 [2019.01~2019.12] / 입사일 : <br>
-																					<br>
-																					<table class="table header-border"
-																						style="text-align: center;">
-																						<thead>
-																							<tr
-																								style="background: #f9f9f9; border: 1px solid lightgray;">
-																								<th scope="col"
-																									style="width: 100px; border: 1px solid lightgray;"
-																									rowspan="2">이름</th>
-																								<th scope="col"
-																									style="border: 1px solid lightgray;"
-																									colspan="2">사용현황</th>
-																								<th scope="col"
-																									style="border: 1px solid lightgray;"
-																									rowspan="2">내용</th>
-																								<th scope="col"
-																									style="border: 1px solid lightgray;"
-																									rowspan="2">비고</th>
-																							</tr>
-																							<tr>
-																								<td
-																									style="background: #f9f9f9; border: 1px solid lightgray;">발생</td>
-																								<td
-																									style="background: #f9f9f9; border: 1px solid lightgray;">최종</td>
-																							</tr>
-																						</thead>
+									<tbody id="tbody">
+										
 
-																					</table>
-																				</div>
-																			</div>
-																			<div class="tab-pane fade" id="profile">
-																				<div class="p-t-15">
-																					<div class="p-t-15" style="text-align: left;">
-																						민병현(사번) 님의 휴가 생성 내역 [2019.01~2019.12] / 입사일 : <br>
-																						<br>
-																						<table class="table header-border"
-																							style="text-align: center;">
-																							<thead>
-																								<tr
-																									style="background: #f9f9f9; border: 1px solid lightgray;">
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">번호</th>
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">휴가
-																										종류</th>
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">일수</th>
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">기간</th>
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">상태</th>
-																								</tr>
-																							</thead>
-
-																						</table>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>
-												<div class="bootstrap-modal">
-													<!-- Button trigger modal -->
-													<button type="button" class="btn btn-primary"
-														data-toggle="modal" data-target="#basicModal"
-														style="padding-top: 0; height: 20px;">상세</button>
-													<!-- Modal -->
-													<div class="modal fade" id="basicModal"
-														style="display: none;" aria-hidden="true">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">Modalㅇ맂,ㅣ</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">Modal body text goes
-																	here.ㅇㅇ</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save
-																		changes</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -312,9 +162,64 @@
 	<!-- /main-wrapper -->
 	<script type="text/javascript">
 		function modalSubmit1() {
-			
-			$("#a").val($(".nav-item>.active").text());
+
+			$("#a").val($(".a>.active").text());
 		}
+
+		$("#btn")
+				.on(
+						"click",
+						function() {
+
+							var deptName = $("#a").val();
+
+							$
+									.ajax({
+										url : "allHoliday.wo",
+										data:{deptName:deptName},
+										type : "post",
+										dataType : "json",
+										success : function(data) {
+
+											console.log(data);
+											var $tbody = $("#tbody");
+											$tbody.html("");
+
+											if (data.length > 0) {
+
+												$
+														.each(
+																data,
+																function(index,
+																		value) {
+
+																	var $tr = $('<tr><td><a data-toggle="modal" data-target="#basicModal1">'
+																			+ value.empName
+																			+ '</a></td><td>'
+																			+ value.holiCount
+																			+ '</td><td>'
+																			+ value.holiLeft
+																			+ '</td><td><button type="button" class="btn btn-primary goBtn" style="padding-top: 0; height: 20px;">상세</button></td></tr>');
+
+																	$tbody
+																			.append($tr);
+																});
+											}
+										},
+										error : function() {
+											alert("ajax 통신실패");
+										}
+									});
+						});
+		$("#tbody").on("click", ".goBtn", function(){
+		//$("#goBtn").on("click", function(){
+			
+			var deptName = $("#a").val();
+			
+			console.log(deptName);
+			
+			location.href="mngHoliDetail.wo?deptName="+deptName;
+		});
 	</script>
 
 </body>
