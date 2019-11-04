@@ -701,8 +701,16 @@ public class AccountController {
 		}
 		
 	}
-	
-	
+	@RequestMapping("deleteemp.wo")
+	public String deleteEmp(@RequestParam(value = "empNum") String empNum) {
+		System.out.println(1);
+		int result = aService.deleteEmp(empNum);
+		if(result>0) {
+			
+			return "redirect:mngUser.wo";
+		}
+		return "redirect:mngUser.wo";
+	}
 }
 
 

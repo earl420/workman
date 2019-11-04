@@ -409,8 +409,8 @@ from salary
 </select>
 <insert id="insertSal">
 	insert into journalizing values (JOURN_NUM_SEQ.nextval, sysdate, '급여', 
-	(select round(sum(SALARY)/12) from salary where sal_year=extract(year from sysdate)),
-	 '현금',(select round(sum(SALARY)/12) from salary where sal_year=extract(year from sysdate)),null)
+	(select round(sum(SALARY)/12) from salary join employee using(emp_num) where sal_year=extract(year from sysdate) and emp_status='Y'),
+	 '현금',(select round(sum(SALARY)/12) from salary join employee using(emp_num) where sal_year=extract(year from sysdate) and emp_status='Y'),null)
 </insert>
 <select id="checkYearSal" resultType="_int">
 	select count(*) from salary where sal_year = extract(year from sysdate)
@@ -535,4 +535,12 @@ insert into fixture values (null, #{fixtureType},#{fixtureName},sysdate,
 ('소프트웨어'),#{salePrice},
 ('현금'),#{salePrice},null )
 </insert>
+
+<update id="deleteEmp" parameterType="string">
+	update employee set emp_status='N',
+	RESIGN_DATE=sysdate
+	where emp_num=#{empNum}
+</update>
+
+
 </mapper>

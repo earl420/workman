@@ -289,7 +289,7 @@
 	<select id="getallListCount"  parameterType="string" resultType="_int">
 		select COUNT(*) from doc
 			join CONFIRM  USING (CONFIRM_NUM)
-			join REFERENCE USING(DOC_NUM)
+			left join REFERENCE USING(DOC_NUM)
 			where DOC_EMPNUM = #{string} or CONFIRM_emp1 = #{string}
        		 or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
        		 or EMP_NUM1 = #{string} or EMP_NUM2 = #{string} or EMP_NUM3 = #{string}  or EMP_NUM4 = #{string}
@@ -298,7 +298,7 @@
 	<select id="docList"  parameterType="string" resultMap="docResultSet">
 		select * from doc
 			join CONFIRM  USING (CONFIRM_NUM)
-			join REFERENCE USING(DOC_NUM)
+			left join REFERENCE USING(DOC_NUM)
 			join modal on (DOC_EMPNUM = EMP_NUM)
 			where DOC_EMPNUM = #{string} or CONFIRM_emp1 = #{string}
        		 or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}

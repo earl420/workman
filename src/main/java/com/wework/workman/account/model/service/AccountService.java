@@ -100,6 +100,9 @@ public interface AccountService {
 	ArrayList<AcNotice> deptEmpInfo(int deptNum);
 	int insertFixture(Fixture f);
 	int insertOs(OsManage o);
+	
+	//회원 탈퇴
+	int deleteEmp(String empNum);
 
 	
 }

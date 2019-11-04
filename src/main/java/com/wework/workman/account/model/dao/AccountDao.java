@@ -310,6 +310,10 @@ public class AccountDao {
 	public int insertOs3(OsManage o) {
 		return sqlSession.insert("accountMapper.insertOs3", o);
 	}
+
+	public int deleteEmp(String empNum) {
+		return sqlSession.update("accountMapper.deleteEmp", empNum);
+	}
 	
 	
 

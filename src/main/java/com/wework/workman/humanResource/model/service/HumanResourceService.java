@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
+import com.wework.workman.humanResource.model.vo.AllHoli;
 import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
@@ -106,6 +107,8 @@ public interface HumanResourceService {
 	
 	// 나의 올해 휴가 수 보기
 	HoliCount myHoliCount(String empNum);
+	
+	ArrayList<AllHoli> allHoliday(String deptName);
 	
 
 	

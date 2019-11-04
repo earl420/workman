@@ -331,5 +331,10 @@ public class AccountServiceImpl implements AccountService{
 		return result;
 	}
 
+	@Override
+	public int deleteEmp(String empNum) {
+		return aDao.deleteEmp(empNum);
+	}
+
 	
 }

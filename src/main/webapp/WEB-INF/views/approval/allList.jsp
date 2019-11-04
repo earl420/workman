@@ -66,7 +66,7 @@
 												
 												<td align="left">${ d.docTitle }</td>
 													<c:choose>
-														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null  and d.docStatus eq 'C'}">
+														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null and d.docStatus eq 'C'}">
 															<td align="center"><span class="label label-danger">승인완료</span></td>
 														</c:when>
 														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 eq null}">
@@ -76,7 +76,7 @@
 															<td align="center"><span class="label label-danger">승인진행</span></td>
 														</c:when>
 														
-														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 ne null  and d.docStatus eq 'C'}">
+														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 ne null and d.docStatus eq 'C'}">
 															<td align="center"><span class="label label-danger">승인완료</span></td>
 														</c:when>
 														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 eq null}">
@@ -95,8 +95,7 @@
 														<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 ne null}">
 															<td align="center"><span class="label label-danger">승인진행</span></td>
 														</c:when>
-														
-														<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 ne null and d.docStatus eq 'C'}">
+														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null and d.docStatus eq 'C'}">
 															<td align="center"><span class="label label-danger">승인완료</span></td>
 														</c:when>
 														<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 eq null}">
@@ -105,8 +104,6 @@
 														<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 ne null}">
 															<td align="center"><span class="label label-danger">승인진행</span></td>
 														</c:when>
-														
-														
 														<c:when test="${loginMan.num  eq d.empNum1 and d.docStatus ne 'C'}">
 															<td align="center"><span class="label label-dark">참조진행</span></td>
 														</c:when>
@@ -134,8 +131,6 @@
 														<c:when test="${loginMan.num  eq d.empNum4 and d.docStatus eq 'C'}">
 															<td align="center"><span class="label label-dark">참조완료</span></td>
 														</c:when>
-														
-														
 														<c:when test="${d.docStatus eq 'Y'}">
 															<td align="center"><span class="label label-warning">대기</span></td>
 														</c:when>
@@ -145,7 +140,6 @@
 														<c:when test="${d.docStatus eq 'C'}">
 															<td align="center"><span class="label label-success">완료</span></td>
 														</c:when>
-													
 													</c:choose>
 												<td align="center">${ d.docDate }</td>
 												

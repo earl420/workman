@@ -26,7 +26,11 @@
 </head>
 
 <body onload="printClock()">
-
+	
+	<c:if test="${empty loginMan }">
+		<jsp:forward page="loginPage.wo"></jsp:forward>
+	</c:if>	
+	
 
 	<c:set var="contextPath"></c:set>
 
@@ -52,7 +56,7 @@
 	<!--**********************************
             Header start
         ***********************************-->
-	<div class="header">
+	<div class="header"> 
  
 		<div class="header-content clearfix" style="border-bottom: 1px solid gray;">
 
