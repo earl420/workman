@@ -62,6 +62,7 @@ function check(){
 		alert("값을 모두 입력해주세요");
 		return false;
 	}else{
+		var check;
 		if($('#noticeType').val()!=1){
 			var content = $('#noticeTitle').val();
 			$.ajax({
@@ -69,12 +70,17 @@ function check(){
 			data:{
 				content:content,
 			},
+			 async: false,
 			dataType:"json",
 			type:"post",
 			success:function(data){
 				if(data>0){
 					alert('이미 등록 된 공지 입니다.');
+					check=false;
+				}else{
+					check=true;
 				}
+				return check;
 			}
 			,
 			error:function(){
@@ -82,6 +88,7 @@ function check(){
 				
 			}
 			})
+			return check;
 		}
 		
 	}
