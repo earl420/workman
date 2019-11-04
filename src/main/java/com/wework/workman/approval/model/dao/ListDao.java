@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.wework.workman.approval.model.vo.Doc;
 import com.wework.workman.common.Conflrm;
 import com.wework.workman.common.PageInfo;
+import com.wework.workman.common.Reference;
 
 @Repository("listDao")
 public class ListDao {
@@ -67,6 +68,21 @@ public class ListDao {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("approvalMapper.docsselectRequestList",select,rowBounds);
+	}
+
+	public ArrayList<Reference> rflist() {
+		return (ArrayList)sqlSession.selectList("approvalMapper.rflist");
+	}
+
+	public int selectReferenceList(String userNum) {
+		return sqlSession.selectOne("approvalMapper.selectReferenceList", userNum);
+	}
+
+	public ArrayList<Doc> docReferenceList(PageInfo pi, String userNum) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approvalMapper.docReferenceList",userNum,rowBounds);
+		
 	}
 
 

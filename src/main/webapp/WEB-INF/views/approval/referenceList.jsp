@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +18,7 @@
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="javascript:void(0)">문서목록</a></li>
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">승인문서목록</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">참조문서목록</a></li>
 					</ol>
 				</div>
 			</div>
@@ -32,7 +31,7 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="card-title">
-									<h4>승인문서리스트</h4>
+									<h4>참조문서리스트</h4>
 								</div>
 								<div class="col-sm-12 col-md-6">총 문서 갯수 : ${ pi.listCount }
 								</div>
@@ -67,50 +66,35 @@
 												</c:if>
 												
 												<td align="left">${ d.docTitle }</td>
-												<c:choose>
-														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null and d.docStatus eq 'C'}">
-															<td align="center"><span class="label label-danger">승인완료</span></td>
+													<c:choose>
+														<c:when test="${loginMan.num  eq d.empNum1 and d.docStatus ne 'C'}">
+															<td align="center"><span class="label label-dark">참조문서</span></td>
 														</c:when>
-														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 eq null}">
-															<td align="center"><span class="label label-danger">승인대기</span></td>
-														</c:when>
-														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null}">
-															<td align="center"><span class="label label-danger">승인진행</span></td>
+														<c:when test="${loginMan.num  eq d.empNum1 and d.docStatus eq 'C'}">
+															<td align="center"><span class="label label-dark">참조완료문서</span></td>
 														</c:when>
 														
-														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 ne null and d.docStatus eq 'C'}">
-															<td align="center"><span class="label label-danger">승인완료</span></td>
+														<c:when test="${loginMan.num  eq d.empNum2 and d.docStatus ne 'C'}">
+															<td align="center"><span class="label label-dark">참조문서</span></td>
 														</c:when>
-														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 eq null}">
-															<td align="center"><span class="label label-danger">승인대기</span></td>
-														</c:when>
-														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 ne null}">
-															<td align="center"><span class="label label-danger">승인진행</span></td>
+														<c:when test="${loginMan.num  eq d.empNum2 and d.docStatus eq 'C'}">
+															<td align="center"><span class="label label-dark">참조완료문서</span></td>
 														</c:when>
 														
-														<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 ne null and d.docStatus eq 'C'}">
-															<td align="center"><span class="label label-danger">승인완료</span></td>
+														<c:when test="${loginMan.num  eq d.empNum3 and d.docStatus ne 'C'}">
+															<td align="center"><span class="label label-dark">참조문서</span></td>
 														</c:when>
-														<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 eq null}">
-															<td align="center"><span class="label label-danger">승인대기</span></td>
-														</c:when>
-														<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 ne null}">
-															<td align="center"><span class="label label-danger">승인진행</span></td>
-														</c:when>
-													
-													
-														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null and d.docStatus eq 'C'}">
-															<td align="center"><span class="label label-danger">승인완료</span></td>
-														</c:when>
-														<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 eq null}">
-															<td align="center"><span class="label label-danger">승인대기</span></td>
-														</c:when>
-														<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 ne null}">
-															<td align="center"><span class="label label-danger">승인진행</span></td>
+														<c:when test="${loginMan.num  eq d.empNum3 and d.docStatus eq 'C'}">
+															<td align="center"><span class="label label-dark">참조완료문서</span></td>
 														</c:when>
 														
-													
-												</c:choose>
+														<c:when test="${loginMan.num  eq d.empNum4 and d.docStatus ne 'C'}">
+															<td align="center"><span class="label label-dark">참조문서</span></td>
+														</c:when>
+														<c:when test="${loginMan.num  eq d.empNum4 and d.docStatus eq 'C'}">
+															<td align="center"><span class="label label-dark">참조완료문서</span></td>
+														</c:when>
+													</c:choose>
 												<td align="center">${ d.docDate }</td>
 												<td align="center">${ d.docEmpName }${ d.docGradeName }</td>
 											</tr>
@@ -127,7 +111,7 @@
 																	<li class="page-item disabled"><a class="page-link"	>이전</a></li>
 																</c:if>
 																<c:if test="${ pi.currentPage ne 1 }">
-																	<c:url value="approvalList.wo" var="page">
+																	<c:url value="referenceList.wo" var="page">
 																		<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
 																	</c:url>
 																	<li class="page-item" data-dt-idx="${ page }" tabindex="0" ><a class="page-link" href="${ page }">이전</a></li>
@@ -140,7 +124,7 @@
 																	</c:if>
 																	
 																	<c:if test="${p ne pi.currentPage }">
-																		<c:url value="approvalList.wo" var="page">
+																		<c:url value="referenceList.wo" var="page">
 																			<c:param name="currentPage" value="${ p }"/>
 																		</c:url>
 																		<li class="page-item" data-dt-idx="${ page }" tabindex="0" ><a class="page-link" href="${ page }">${ p }</a></li>
@@ -152,7 +136,7 @@
 																	<li class="page-item disabled"><a class="page-link">다음</a></li>
 																</c:if>
 																<c:if test="${ pi.currentPage ne pi.maxPage }">
-																	<c:url value="approvalList.wo" var="next">
+																	<c:url value="referenceList.wo" var="next">
 																		<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 																	</c:url>
 																	<li class="page-item" data-dt-idx="${ page }" tabindex="0" ><a class="page-link" href="${ next }">다음</a></li>

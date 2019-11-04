@@ -80,7 +80,12 @@ public class HolidayDao {
 		select.put("holiNum", holiNum);
 		select.put("approvalNum", as.getApprovalNum());
 		
-		int result2 = sqlSession.update("approvalMapper.completeHoliday",select); // 승인번호를 가져와서 문서 업데이트 (문서 상태 상태 C로 변경) 
+		int result2 = sqlSession.update("approvalMapper.completeHoliday",select); // 승인번호를 가져와서 문서 업데이트 (문서 상태 상태 C로 변경)
+		
+		
+		
+		
+		
 		return result2;
 	}
 	

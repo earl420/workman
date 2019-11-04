@@ -197,7 +197,7 @@
 										</tr>
 										<tr>
                                         	<td colspan="10" align="center">
-                                        		<c:if test="${ d.draftStatus eq 'Y'  }">
+                                        		<c:if test="${ d.draftStatus eq 'Y' and loginMan.num eq d.empNum }">
                                         			<c:url value="draftUpdate.wo" var="draftUpdate">
                                         				<c:param name="draftNum" value="${ d.draftNum}"/>
 													</c:url>
