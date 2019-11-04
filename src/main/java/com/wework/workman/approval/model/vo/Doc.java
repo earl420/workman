@@ -20,15 +20,19 @@ public class Doc{
 	public Date confirmDate2;		//결제2일시
 	public Date confirmDate3;		//결제3일시
 	public Date confirmDate4;		//결제4일시
+	public String empNum1;			//참조자1
+	public String empNum2;			//참조자2
+	public String empNum3;			//참조자3
+	public String empNum4;			//참조자3
 	
 	public Doc() {
 		
 	}
 
-	public Doc(String docNum, String docEmpName, String docGradeName, String docTitle, String docContent,
-			Date docDate, String docStatus, String confirmNum, String confirmEmp1, String confirmEmp2,
-			String confirmEmp3, String confirmEmp4, Date confirmDate1, Date confirmDate2, Date confirmDate3,
-			Date confirmDate4) {
+	public Doc(String docNum, String docEmpName, String docGradeName, String docTitle, String docContent, Date docDate,
+			String docStatus, String confirmNum, String confirmEmp1, String confirmEmp2, String confirmEmp3,
+			String confirmEmp4, Date confirmDate1, Date confirmDate2, Date confirmDate3, Date confirmDate4,
+			String empNum1, String empNum2, String empNum3, String empNum4) {
 		super();
 		this.docNum = docNum;
 		this.docEmpName = docEmpName;
@@ -46,6 +50,10 @@ public class Doc{
 		this.confirmDate2 = confirmDate2;
 		this.confirmDate3 = confirmDate3;
 		this.confirmDate4 = confirmDate4;
+		this.empNum1 = empNum1;
+		this.empNum2 = empNum2;
+		this.empNum3 = empNum3;
+		this.empNum4 = empNum4;
 	}
 
 	public String getDocNum() {
@@ -176,15 +184,50 @@ public class Doc{
 		this.confirmDate4 = confirmDate4;
 	}
 
+	public String getEmpNum1() {
+		return empNum1;
+	}
+
+	public void setEmpNum1(String empNum1) {
+		this.empNum1 = empNum1;
+	}
+
+	public String getEmpNum2() {
+		return empNum2;
+	}
+
+	public void setEmpNum2(String empNum2) {
+		this.empNum2 = empNum2;
+	}
+
+	public String getEmpNum3() {
+		return empNum3;
+	}
+
+	public void setEmpNum3(String empNum3) {
+		this.empNum3 = empNum3;
+	}
+
+	public String getEmpNum4() {
+		return empNum4;
+	}
+
+	public void setEmpNum4(String empNum4) {
+		this.empNum4 = empNum4;
+	}
+
 	@Override
 	public String toString() {
-		return "DocConflrm [docNum=" + docNum + ", docEmpName=" + docEmpName + ", docGradeName=" + docGradeName
-				+ ", docTitle=" + docTitle + ", docContent=" + docContent + ", docDate=" + docDate + ", docStatus="
-				+ docStatus + ", confirmNum=" + confirmNum + ", confirmEmp1=" + confirmEmp1 + ", confirmEmp2="
-				+ confirmEmp2 + ", confirmEmp3=" + confirmEmp3 + ", confirmEmp4=" + confirmEmp4 + ", confirmDate1="
-				+ confirmDate1 + ", confirmDate2=" + confirmDate2 + ", confirmDate3=" + confirmDate3 + ", confirmDate4="
-				+ confirmDate4 + "]";
+		return "Doc [docNum=" + docNum + ", docEmpName=" + docEmpName + ", docGradeName=" + docGradeName + ", docTitle="
+				+ docTitle + ", docContent=" + docContent + ", docDate=" + docDate + ", docStatus=" + docStatus
+				+ ", confirmNum=" + confirmNum + ", confirmEmp1=" + confirmEmp1 + ", confirmEmp2=" + confirmEmp2
+				+ ", confirmEmp3=" + confirmEmp3 + ", confirmEmp4=" + confirmEmp4 + ", confirmDate1=" + confirmDate1
+				+ ", confirmDate2=" + confirmDate2 + ", confirmDate3=" + confirmDate3 + ", confirmDate4=" + confirmDate4
+				+ ", empNum1=" + empNum1 + ", empNum2=" + empNum2 + ", empNum3=" + empNum3 + ", empNum4=" + empNum4
+				+ "]";
 	}
+
+	
 	
 	
 	

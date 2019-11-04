@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.wework.workman.approval.model.vo.Doc;
-import com.wework.workman.common.Conflrm;
 import com.wework.workman.common.PageInfo;
+import com.wework.workman.common.Reference;
 
 public interface ListService {
 
@@ -28,6 +28,10 @@ public interface ListService {
 	int selectRequestListCount(HashMap select);
 	
 	ArrayList<Doc> docsselectRequestList(PageInfo pi, HashMap select);
+	
+	int selectReferenceList(String userNum);
+	
+	ArrayList<Doc> docReferenceList(PageInfo pi, String userNum);
 	
 
 	

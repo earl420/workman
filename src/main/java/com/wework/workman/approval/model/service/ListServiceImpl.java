@@ -10,6 +10,7 @@ import com.wework.workman.approval.model.dao.ListDao;
 import com.wework.workman.approval.model.vo.Doc;
 import com.wework.workman.common.Conflrm;
 import com.wework.workman.common.PageInfo;
+import com.wework.workman.common.Reference;
 
 @Service("listService")
 public class ListServiceImpl implements ListService{
@@ -69,6 +70,14 @@ public class ListServiceImpl implements ListService{
 	}
 
 
-	
+	@Override
+	public int selectReferenceList(String userNum) {
+		return lDao.selectReferenceList(userNum);
+	}
+
+	@Override
+	public ArrayList<Doc> docReferenceList(PageInfo pi, String userNum) {
+		return lDao.docReferenceList(pi,userNum);
+	}
 
 }
