@@ -310,6 +310,8 @@ public class HumanResourceController {
 		
 		HoliCount holiCount = hService.myHoliCount(((Mypage)session.getAttribute("loginMan")).getNum());
 		
+		System.out.println(holiCount);
+		
 		ArrayList<MyHoli> hlist = hService.showMyHoliday(((Mypage)session.getAttribute("loginMan")).getNum());
 		
 		mv.addObject("hlist", hlist).addObject("holiCount", holiCount).setViewName("humanResource/showHoliday");

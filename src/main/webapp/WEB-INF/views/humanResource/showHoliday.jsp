@@ -86,7 +86,6 @@
 													<th scope="col">일수</th>
 													<th scope="col">기간</th>
 													<th scope="col">상태</th>
-													<th scope="col">상세보기</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -95,10 +94,8 @@
 														<th>${ h.docNum }</th>
 														<td>${ h.holiType }</td>
 														<td>${ h.due }</td>
-														<td>${ h.holiStart }~ ${ h.holiEnd }</td>
+														<td>${ h.holiStart } ~ ${ h.holiEnd }</td>
 														<td>${ h.holiStatus }</td>
-														<td><button type="button" class="btn btn-primary"
-																style="padding-top: 0; height: 20px;">상세</button></td>
 													</tr>
 												</c:forEach>
 
@@ -123,7 +120,7 @@
 	<!-- script -->
 	<script src="resources/plugins/sweetalert/js/sweetalert.min.js"></script>
 	<script>
-		$(function() {
+		/* $(function() {
 			document.querySelector(".sweet-confirm").onclick = function() {
 				swal({
 					title : "Are you sure to delete ?",
@@ -137,10 +134,10 @@
 					swal("Deleted !!", "휴가 신청이 취소되었습니다.", "success")
 				})
 			};
-		});
+		}); */
 	</script>
 
-	<div class="sweet-overlay" tabindex="-1"
+	<!-- <div class="sweet-overlay" tabindex="-1"
 		style="opacity: -0.03; display: none;"></div>
 	<div class="sweet-alert hideSweetAlert" data-custom-class=""
 		data-has-cancel-button="true" data-has-confirm-button="true"
@@ -188,7 +185,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- /script -->
 
 </body>
