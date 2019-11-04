@@ -4,13 +4,14 @@ $(function(){
 		dataType:"json",
 		type:"post",
 		success:function(data){
-			console.log(data.result);
 			if(data.result>0){
 				$('#hi').css('display','none');
-				$('#bye').removeProperty('display');
+				$('#bye').removeAttr('style');
+				$('#bye').css('color','white').css('width', '100px').css('margin-top','20px');
 			}else{
 				$('#bye').css('display','none');
-				$('#hi').removeProperty('display');
+				$('#hi').removeAttr('style');
+				$('hi').css('color','white').css('width', '100px').css('margin-top','20px');
 			}
 		},
 		error:function(){
