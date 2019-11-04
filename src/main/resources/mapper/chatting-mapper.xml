@@ -16,6 +16,7 @@
 	<resultMap id="MessageHistoryRS" type="Message">
 		<id property ="msgNum" column="CHAT_MSG"/>
 		<result property="sender" column="CHAT_USER"/>
+		<result property="sendName" column="EMP_NAME"/>
 		<result property="msgCont" column="MSG_CONT"/>
 		<result property="msgTime" column="MSG_DATE"/>
 		<result property="status" column="MSG_STAT"/>
@@ -57,8 +58,9 @@
 		where rnum=1
 	</select>
 	<select id="msgHistory" parameterType="string" resultMap="MessageHistoryRS">
-		SELECT CHAT_MSG,CHAT_USER,MSG_CONT,MSG_DATE,MSG_STAT 
+		SELECT CHAT_MSG,CHAT_USER,EMP_NAME,MSG_CONT,MSG_DATE,MSG_STAT 
 		FROM CHAT_MSG 
+		JOIN EMPLOYEE ON(EMP_NUM = CHAT_USER)
 		WHERE CHAT_ROOM=#{roomId} 
 		ORDER BY MSG_DATE ASC
 	</select>
