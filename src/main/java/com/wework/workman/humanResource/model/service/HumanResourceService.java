@@ -14,6 +14,7 @@ import com.wework.workman.humanResource.model.vo.HoliCount;
 import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
+import com.wework.workman.humanResource.model.vo.UseHoli;
 
 public interface HumanResourceService {
 	
@@ -109,6 +110,8 @@ public interface HumanResourceService {
 	HoliCount myHoliCount(String empNum);
 	
 	ArrayList<AllHoli> allHoliday(String deptName);
+	
+	ArrayList<UseHoli> useHolidayList(String empNum);
 	
 
 	
