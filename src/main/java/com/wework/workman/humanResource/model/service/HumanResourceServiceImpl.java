@@ -21,6 +21,7 @@ import com.wework.workman.humanResource.model.vo.HoliCount;
 import com.wework.workman.humanResource.model.vo.Modal;
 import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
+import com.wework.workman.humanResource.model.vo.UseHoli;
 
 @Service("humanResourceService")
 public class HumanResourceServiceImpl implements HumanResourceService{
@@ -224,6 +225,12 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	public ArrayList<AllHoli> allHoliday(String deptName) {
 		
 		return hDao.allHoliday(deptName);
+	}
+
+	@Override
+	public ArrayList<UseHoli> useHolidayList(String empNum) {
+		
+		return hDao.useHolidayList(empNum);
 	}
 
 	

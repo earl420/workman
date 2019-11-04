@@ -159,6 +159,14 @@
 		<!-- /content-body -->
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- /main-wrapper -->
 	<script type="text/javascript">
 		function modalSubmit1() {
@@ -166,15 +174,11 @@
 			$("#a").val($(".a>.active").text());
 		}
 
-		$("#btn")
-				.on(
-						"click",
-						function() {
+		$("#btn").on("click",function() {
 
 							var deptName = $("#a").val();
 
-							$
-									.ajax({
+							$.ajax({
 										url : "allHoliday.wo",
 										data:{deptName:deptName},
 										type : "post",
@@ -186,9 +190,8 @@
 											$tbody.html("");
 
 											if (data.length > 0) {
-
-												$
-														.each(
+												
+												$.each(
 																data,
 																function(index,
 																		value) {
@@ -200,7 +203,6 @@
 																			+ '</td><td>'
 																			+ value.holiLeft
 																			+ '</td><td><button type="button" class="btn btn-primary goBtn" style="padding-top: 0; height: 20px;">상세</button></td></tr>');
-
 																	$tbody
 																			.append($tr);
 																});
@@ -220,6 +222,10 @@
 			
 			location.href="mngHoliDetail.wo?deptName="+deptName;
 		});
+		
+		function showModal(){
+			
+		}
 	</script>
 
 </body>

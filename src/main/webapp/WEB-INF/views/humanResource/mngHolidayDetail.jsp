@@ -106,9 +106,13 @@
 									<tbody id="tbody">
 										<c:forEach items="${ allHoli }" var="a" varStatus="status">
 											<tr>
-												<td>${ a.empName }</td>
+												<td class="name">
+												<input type="hidden" name="empName" value="${a.empNum }">
+												${ a.empName }</td>
 												<td>${ a.holiCount }</td>
 												<td>${ a.holiLeft }</td>
+												
+												
 												<td><div class="bootstrap-modal">
 														<!-- Button trigger modal -->
 														<button type="button" class="btn btn-primary"
@@ -130,12 +134,12 @@
 																		<div class="default-tab">
 																			<ul class="nav nav-tabs mb-3" role="tablist">
 																				<li class="nav-item"><a class="nav-link active"
-																					data-toggle="tab" href="#home">생성 내역</a></li>
+																					data-toggle="tab" href="#home${ status.index }">생성 내역</a></li>
 																				<li class="nav-item"><a class="nav-link"
-																					data-toggle="tab" href="#profile">사용 내역</a></li>
+																					data-toggle="tab" href="#profile${ status.index }">사용 내역</a></li>
 																			</ul>
 																			<div class="tab-content">
-																				<div class="tab-pane fade show active" id="home"
+																				<div class="tab-pane fade show active" id="home${ status.index }"
 																					role="tabpanel">
 																					<div class="p-t-15" style="text-align: left;">
 																						${ a.empName }(${ a.empNum }) 님의 휴가 생성 내역 [2019.01~2019.12]<br>
@@ -176,7 +180,7 @@
 																						</table>
 																					</div>
 																				</div>
-																				<div class="tab-pane fade" id="profile">
+																				<div class="tab-pane fade" id="profile${ status.index }">
 																					<div class="p-t-15">
 																						<div class="p-t-15" style="text-align: left;">
 																							<br>
@@ -199,6 +203,18 @@
 																											style="border: 1px solid lightgray;">상태</th>
 																									</tr>
 																								</thead>
+																								
+																								<tbody>
+																									<c:forEach var="i" items="${ useHoli }">
+																										<tr>
+																											<td>${i.holiNum }</td>
+																											<td>${i.holiType }</td>
+																											<td>${i.holiEnd - i.holiStart +1}</td>
+																											<td>${i.holiStart }~${i.holiEnd }</td>
+																											<td>${i.holiday_status }</td>
+																										</tr>
+																									</c:forEach>
+																								</tbody>
 
 																							</table>
 																						</div>
