@@ -144,7 +144,7 @@ public class MypageController {
 	}
 	
 	/**
-	 * 암호화 전 로그인
+	 * 로그인
 	 * @param m
 	 * @param model
 	 * @return
@@ -157,8 +157,8 @@ public class MypageController {
 		  
 		  if(loginMan != null && loginMan.getPwd().equals(m.getPwd())) { 
 			  model.addAttribute("loginMan", loginMan);
-			  model.addAttribute("login", "로그인 되었습니다.");
-			  return "home";
+			  
+			  return "redirect:home.wo";
 		  
 		  }else {
 			  model.addAttribute("error", "사번 또는 비밀번호를 확인해주세요.");
@@ -168,32 +168,6 @@ public class MypageController {
 		  }
 	  
 	  }
-	
-	
-	/**
-	 * 로그인
-	 * 
-	 * @param h
-	 * @param model
-	 * @return
-	 */
-	/*
-	  @RequestMapping(value = "login.wo", method = RequestMethod.POST) 
-	  public String loginEmp(Mypage m, Model model) {
-		  
-	  
-		  Mypage loginMan = mService.loginMan(m);
-		  
-		  if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) { 
-			  model.addAttribute("loginMan", loginMan); 
-			  return "redirect:home.wo";
-		  
-		  }else {
-			  return "redirect:loginPage.wo"; 
-		  }
-	  
-	  }
-	 */
 
 	/**
 	 * 로그아웃

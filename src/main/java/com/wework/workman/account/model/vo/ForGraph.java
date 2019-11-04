@@ -1,31 +1,31 @@
 package com.wework.workman.account.model.vo;
 
 public class ForGraph {
-	private int year; //연도 와 비용 가져올것
-	private int quarter; //분기와 매출 가져올것
+	private long year; //연도 와 비용 가져올것
+	private long quarter; //분기와 매출 가져올것
 	public ForGraph() {
 	}
-	public ForGraph(int year, int quarter) {
-		super();
+	public ForGraph(long year, long quarter) {
 		this.year = year;
 		this.quarter = quarter;
 	}
-	public int getYear() {
+	public long getYear() {
 		return year;
 	}
-	public void setYear(int year) {
+	public void setYear(long year) {
 		this.year = year;
 	}
-	public int getQuarter() {
+	public long getQuarter() {
 		return quarter;
 	}
-	public void setQuarter(int quarter) {
+	public void setQuarter(long quarter) {
 		this.quarter = quarter;
 	}
 	@Override
 	public String toString() {
-		return  year + "," + quarter;
+		return "ForGraph [year=" + year + ", quarter=" + quarter + "]";
 	}
+	
 	
 	
 	

@@ -48,23 +48,27 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			String uName =cService.getName(userId);
 			userName.put(userId,uName);//userId로 이름받아와서 넣기
 		}else if(preMsg.equals("rCng")){//룸 변경
-			//rCng:roomId;
+			//rCng:userId:roomId;
 			//룸변경 등 상관없이 보낸메세지는 무조건 jsp단에서 active class 에append
-			String roomId=spMsg[1];
+			userId = spMsg[1];
+			String roomId=spMsg[2];
+			userRoom.put(userId,roomId);
 			msgHistory(session,roomId,userId);
 			
 		}else if(preMsg.equals("newChat")){//룸생성
-			//newChat:empList
-			String newRoomId= newChat(userId,spMsg[1]);
+			//newChat:userId:empList
+			userId = spMsg[1];
+			String newRoomId= newChat(userId,spMsg[2]);
 			Room r = cService.getRoom(newRoomId);
 			String roomSetList = "roomSetList:"+r.getRoomId()+":"+r.getRoomName()+":"+ r.getLastWord()+":"+r.getLastMan()+":"+r.getLastComm();
 			TextMessage tx = new TextMessage(roomSetList);
-			msgSend(session,tx,userId);
+			msgSendRoom(tx,newRoomId);
 		}else if(preMsg.equals("exitRoom")) {//룸나가기
 			//exitRoom:roomId:userId
 			String eRoomId = spMsg[1];
 			String eUserId = spMsg[2];
 			cService.roomExit(eRoomId, eUserId);
+			userRoom.remove(eUserId);
 			
 		}else if(preMsg.equals("addUsers")) {//유저 추가
 //			addUser(roomId);
@@ -115,25 +119,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 //		msg:userId:RoomId:msgCont
 		String[] spData = message.getPayload().split(":",4);
 		String rId= spData[2];
-		
-		
-		TextMessage tx = new TextMessage("msg:"+spData[1]+":"+spData[3]);
+		String uName = userName.get(spData[1]);
+
+		TextMessage tx = new TextMessage("msg:"+spData[1]+":"+uName+":"+spData[3]);
+//		msg:sender:sendName:content:time
 		msgSendRoom(tx,rId);
-		
-		
-//		for(String key : userRoom.keySet()) {
-//			String value = userRoom.get(key);
-//			if(value.equals(rId)) {
-//				System.out.println("key+"+key+", value+"+value);
-//				WebSocketSession session =allUsers.get(userSessionId.get(key));
-//			}
-//			else {
-//				//모든사용자에게 알람을 보내고 jsp단에서 처리
-//				String al = "alam:"+rId;
-//				TextMessage tx = new TextMessage(al);
-//				msgSendAll(session,tx);
-//			}
-//		}
 	}
 	//user 1명에게 메세지전송(값세팅)
 	public void msgSend(WebSocketSession session, TextMessage message,String uId) throws IOException {
@@ -148,6 +138,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			if(roomId.equals(userRoom.get(i))) {
 				WebSocketSession s=allUsers.get(userSessionId.get(i));
 				s.sendMessage(message);
+				System.out.println("msgSendRoom_i : "+i);
+				System.out.println("msgSendRoom_i.room : "+userRoom.get(i));
 			}
 		}
 	}
@@ -188,15 +180,12 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		userRoom.put(uId, roomId);
 		for(Message i:msg) {
 			String sender = i.getSender();
+			String sendName = i.getSendName();
 			String content= i.getMsgCont();
-			String time = i.getMsgTime().toString();
-			String status;
-			if(i.getStatus().equals("Y")) {
-				status=i.getStatus();
-			}else {
+			if(i.getStatus().equals("N")) {
 				content="삭제된메세지입니다.";
 			}
-			String msgHistory = "msgHistory:"+sender+":"+content+":"+time;
+			String msgHistory = "msgHistory:"+sender+":"+sendName+":"+content;
 			TextMessage tx = new TextMessage(msgHistory);
 			msgSend(session,tx,uId);
 		}
@@ -204,10 +193,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
 	public String newChat(String uId,String users) {
 		String[] usersArr =users.split(",");
-		
+		System.out.println("handler newChat - "+users);
 		String usersName="";
 		for(String i:usersArr) {
-			
 			String temp=cService.getName(i);
 			usersName+=temp+",";
 		}
@@ -215,9 +203,21 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String newRoomId = cService.newChat(uId,usersName);
 		addUsers(newRoomId,usersArr);
 		String cont = userName.get(uId)+"님이 "+usersName+"님을 초대하였습니다.";
-		System.out.println(cont);
 		TextMessage tx = new TextMessage("msg:"+systemId+":"+newRoomId+":"+cont);
+		userRoom.put(uId,newRoomId);
+		for(String i:userSessionId.keySet()) {
+			String key = i;
+			System.out.println("newChat_userSessionId_key : "+key);
+			for(String j:usersArr) {
+				System.out.println("newChat_usersArr_j : "+j);
+				if(i.equals(j)) {
+					userRoom.put(key,newRoomId);
+					System.out.println("userRoom에 넣음"+key+" , "+newRoomId);
+				}
+			}
+		}
 		msgDb(tx);
+		
 		
 		
 		

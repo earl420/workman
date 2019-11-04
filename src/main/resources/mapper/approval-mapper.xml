@@ -188,6 +188,10 @@
 		<result property="confirmDate2" column="CONFIRM_DATE2"/>
 		<result property="confirmDate3" column="CONFIRM_DATE3"/>
 		<result property="confirmDate4" column="CONFIRM_DATE4"/>
+		<result property="empNum1" column="EMP_NUM1"/>
+		<result property="empNum2" column="EMP_NUM2"/>
+		<result property="empNum3" column="EMP_NUM3"/>
+		<result property="empNum4" column="EMP_NUM4"/>
 	</resultMap>
 	
 	
@@ -285,17 +289,25 @@
 	<select id="getallListCount"  parameterType="string" resultType="_int">
 		select COUNT(*) from doc
 			join CONFIRM  USING (CONFIRM_NUM)
+			left join REFERENCE USING(DOC_NUM)
 			where DOC_EMPNUM = #{string} or CONFIRM_emp1 = #{string}
        		 or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
+       		 or EMP_NUM1 = #{string} or EMP_NUM2 = #{string} or EMP_NUM3 = #{string}  or EMP_NUM4 = #{string}
 	</select>	
 	
 	<select id="docList"  parameterType="string" resultMap="docResultSet">
 		select * from doc
 			join CONFIRM  USING (CONFIRM_NUM)
-			join MODAL on(DOC_EMPNUM = EMP_NUM)
+			left join REFERENCE USING(DOC_NUM)
+			join modal on (DOC_EMPNUM = EMP_NUM)
 			where DOC_EMPNUM = #{string} or CONFIRM_emp1 = #{string}
-       		 					or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
+       		 or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
+       		 or EMP_NUM1 = #{string} or EMP_NUM2 = #{string} or EMP_NUM3 = #{string}  or EMP_NUM4 = #{string}
        		ORDER BY DOC_DATE DESC
+	</select>
+	
+	<select id="rflist" resultMap="referenceResultSet">
+		select * from Reference
 	</select>
 	
 	<!-- 대기/진행/완료리스트 -->	
@@ -330,6 +342,21 @@
        		 					or CONFIRM_emp2 = #{string} or CONFIRM_emp3 = #{string} or CONFIRM_emp4 = #{string}
        		ORDER BY DOC_DATE DESC
 	</select>
+	
+	<!-- 참조리스트 -->
+		<select id="selectReferenceList"  parameterType="string" resultType="_int">
+		select COUNT(*) from doc
+			join REFERENCE USING(DOC_NUM)
+			where EMP_NUM1 = #{string} or EMP_NUM2 = #{string} or EMP_NUM3 = #{string}  or EMP_NUM4 = #{string}
+	</select>
+	<select id="docReferenceList"  parameterType="string" resultMap="docResultSet">
+		select * from doc
+			join REFERENCE USING(DOC_NUM)
+			join modal on (DOC_EMPNUM = EMP_NUM)
+			where EMP_NUM1 = #{string} or EMP_NUM2 = #{string} or EMP_NUM3 = #{string}  or EMP_NUM4 = #{string}
+       		ORDER BY DOC_DATE DESC
+	</select>
+	
 	
 	<!-- 결재대기 전체 리스트 -->
 	

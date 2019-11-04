@@ -348,7 +348,7 @@
 	
 		    <!-- Login Form -->
 		    <form  action="returnPwd.wo" method="post">
-		    	<input type="number" class="fadeIn first" name="num" value="${ returnPwd.num }" readonly>
+		    	<input type="hidden" class="fadeIn first" name="num" value="${ returnPwd.num }" readonly>
 	        	<input type="password" class="fadeIn second" id="pwd" name="pwd" placeholder="새로운 비밀번호" required>
 	        	<input type="password" class="fadeIn third" id="pwd2" placeholder="비밀번호 확인" required><br>
 	        	<input type="submit" class="fadeIn forth" value="비밀번호 변경">
@@ -394,13 +394,13 @@
 			    var clock = document.getElementById("clock");            // 출력할 장소 선택
 			    var currentDate = new Date();                                     // 현재시간
 			    var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
-			    var amPm = 'AM'; // 초기값 AM
+			    var amPm = '오전'; // 초기값 AM
 			    var currentHours = addZeros(currentDate.getHours(),2);
 			    var currentMinute = addZeros(currentDate.getMinutes() ,2);
 			    var currentSeconds =  addZeros(currentDate.getSeconds(),2);
 
 			    if(currentHours >= 12){ // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
-			        amPm = 'PM';
+			        amPm = '오후';
 			        currentHours = addZeros(currentHours - 12,2);
 			    }
 
@@ -408,7 +408,7 @@
 			        currentSeconds = '<span style="color:#de1951;">'+currentSeconds+'</span>'
 			    }
 
-			    clock.innerHTML = currentHours+":"+currentMinute+":"+currentSeconds +" <span style='font-size:50px;'>"+ amPm+"</span>"; //날짜를 출력해 줌
+			    clock.innerHTML = amPm+"</span>" + currentHours+":"+currentMinute+":"+currentSeconds +" <span style='font-size:50px;'>"; //날짜를 출력해 줌
 			    setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
 			}
 

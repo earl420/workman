@@ -157,7 +157,9 @@
 						$("#count").text(data.length);
 						$.each(data, function(index, value){
 							
-							var $tr = $('<tr><td>'+value.empName+'</td><td>'+value.deptName+'')
+							var $tr = $('<tr><td>'+value.empName+'</td><td>'+value.deptName+'</td></tr>');
+							
+							$tbody.append($tr);
 						});
 					}
 				},

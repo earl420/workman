@@ -24,11 +24,14 @@ import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.common.Pagination;
 import com.wework.workman.humanResource.model.service.HumanResourceService;
+import com.wework.workman.humanResource.model.vo.AllHoli;
 import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
 import com.wework.workman.humanResource.model.vo.Grade;
+import com.wework.workman.humanResource.model.vo.HoliCount;
+import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
 import com.wework.workman.mypage.model.vo.Mypage;
 
@@ -302,9 +305,16 @@ public class HumanResourceController {
 
 	// 인사/휴가근태/휴가현황
 	@RequestMapping("showHoliday.wo")
-	public String showHoliday() {
-
-		return "humanResource/showHoliday";
+	public ModelAndView showMyHoliday(HttpSession session, ModelAndView mv) {
+		
+		HoliCount holiCount = hService.myHoliCount(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		ArrayList<MyHoli> hlist = hService.showMyHoliday(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		mv.addObject("hlist", hlist).addObject("holiCount", holiCount).setViewName("humanResource/showHoliday");
+		
+		return mv;
+		
 	}
 
 	// 인사/휴가근태/근태현황
@@ -315,25 +325,29 @@ public class HumanResourceController {
 		// 이번 달 지각 횟수 가져오기
 		int late = hService.getThisLate(((Mypage)session.getAttribute("loginMan")).getNum());
 		
+		
 		// 이번 달 비정상 출근 가져오기
 		int noOn = hService.getnoOn(((Mypage)session.getAttribute("loginMan")).getNum());
 		
 		int noOff = hService.getnoOff(((Mypage)session.getAttribute("loginMan")).getNum());
 		
-		mv.addObject("m", m).addObject("late", late ).addObject("noOn", noOn).addObject("noOff", noOff).setViewName("humanResource/showAtt");
+		// 해당 달 클릭해서 일별로 출/퇴근 보기
+		ArrayList<Att> att = hService.getMonthAtt(((Mypage)session.getAttribute("loginMan")).getNum());
+		
+		mv.addObject("m", m).addObject("late", late).addObject("noOn", noOn).addObject("noOff", noOff).addObject("att", att).setViewName("humanResource/showAtt");
 		return mv;
 		
 	}
 	
-	@RequestMapping("monthAtt.wo")
-	public ModelAndView monthAtt(HttpSession session, ModelAndView mv) {
-		
-		ArrayList<Att> att = hService.getMonthAtt(((Mypage)session.getAttribute("loginMan")).getNum());
-		
-		mv.addObject("att", att).setViewName("humanResource/showAtt");
-		
-		return mv;
-	}
+//	@RequestMapping("monthAtt.wo")
+//	public ModelAndView monthAtt(HttpSession session, ModelAndView mv) {
+//		
+//		ArrayList<Att> att = hService.getMonthAtt(((Mypage)session.getAttribute("loginMan")).getNum());
+//		
+//		mv.addObject("att", att).setViewName("humanResource/showAtt");
+//		
+//		return mv;
+//	}
 	
 
 	// 인사/인사 관리/조직도 관리
@@ -604,9 +618,48 @@ public class HumanResourceController {
 
 	// 인사/휴가근태 관리/휴가관리
 	@RequestMapping("mngHoliday.wo")
-	public String mngHoliday() {
+	public ModelAndView mngHoliday(ModelAndView mv) {
 
-		return "humanResource/mngHoliday";
+		ArrayList<Dept> dlist = hService.selectModaDeptlList();
+		
+
+		if(!dlist.isEmpty()) {
+			mv.addObject("dlist", dlist).setViewName("humanResource/mngHoliday");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("allHoliday.wo")
+	public void allHoliday(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		String deptName = request.getParameter("deptName");
+				
+		ArrayList<AllHoli> allHoli = hService.allHoliday(deptName);
+		
+		response.setContentType("application/json; charset=utf-8");
+
+		Gson gson = new Gson();
+		gson.toJson(allHoli, response.getWriter());
+		
+	}
+	
+	@RequestMapping("mngHoliDetail.wo")
+	public ModelAndView mngHoliDetail(HttpServletRequest request, ModelAndView mv) {
+		
+		String deptName = request.getParameter("deptName");
+		
+		ArrayList<AllHoli> allHoli = hService.allHoliday(deptName);
+		
+		if(!allHoli.isEmpty()) {
+			mv.addObject("allHoli", allHoli).addObject("deptName", deptName).setViewName("humanResource/mngHolidayDetail");
+		}else {
+			mv.setViewName("common/500error");
+		}
+		return mv;
+		
 	}
 
 	// 인사/휴가근태 관리/근태관리

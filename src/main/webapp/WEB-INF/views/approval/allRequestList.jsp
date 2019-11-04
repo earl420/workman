@@ -68,31 +68,48 @@
 												
 												<td align="left">${ d.docTitle }</td>
 												
-												<c:choose>
-													<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 eq null}">
-														<td align="center"><span class="label label-danger">승인대기</span></td>
-													</c:when>
-													<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null}">
-														<td align="center"><span class="label label-danger">승인완료</span></td>
-													</c:when>
-													<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 eq null}">
-														<td align="center"><span class="label label-danger">승인대기</span></td>
-													</c:when>
-													<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 eq null}">
-														<td align="center"><span class="label label-danger">승인완료</span></td>
-													</c:when>
-													<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 ne null}">
-														<td align="center"><span class="label label-danger">승인대기</span></td>
-													</c:when>
-													<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 eq null}">
-														<td align="center"><span class="label label-danger">승인완료</span></td>
-													</c:when>
-													<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 ne null}">
-														<td align="center"><span class="label label-danger">승인대기</span></td>
-													</c:when>
-													<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 eq null}">
-														<td align="center"><span class="label label-danger">승인완료</span></td>
-													</c:when>
+													<c:choose>
+														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null and d.docStatus eq 'C'}">
+															<td align="center"><span class="label label-danger">승인완료</span></td>
+														</c:when>
+														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 eq null}">
+															<td align="center"><span class="label label-danger">승인대기</span></td>
+														</c:when>
+														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null}">
+															<td align="center"><span class="label label-danger">승인진행</span></td>
+														</c:when>
+														
+														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 ne null and d.docStatus eq 'C'}">
+															<td align="center"><span class="label label-danger">승인완료</span></td>
+														</c:when>
+														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 eq null}">
+															<td align="center"><span class="label label-danger">승인대기</span></td>
+														</c:when>
+														<c:when test="${loginMan.num eq d.confirmEmp2 and d.confirmDate2 ne null}">
+															<td align="center"><span class="label label-danger">승인진행</span></td>
+														</c:when>
+														
+														<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 ne null and d.docStatus eq 'C'}">
+															<td align="center"><span class="label label-danger">승인완료</span></td>
+														</c:when>
+														<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 eq null}">
+															<td align="center"><span class="label label-danger">승인대기</span></td>
+														</c:when>
+														<c:when test="${loginMan.num eq d.confirmEmp3 and d.confirmDate3 ne null}">
+															<td align="center"><span class="label label-danger">승인진행</span></td>
+														</c:when>
+													
+													
+														<c:when test="${loginMan.num eq d.confirmEmp1 and d.confirmDate1 ne null and d.docStatus eq 'C'}">
+															<td align="center"><span class="label label-danger">승인완료</span></td>
+														</c:when>
+														<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 eq null}">
+															<td align="center"><span class="label label-danger">승인대기</span></td>
+														</c:when>
+														<c:when test="${loginMan.num eq d.confirmEmp4 and d.confirmDate4 ne null}">
+															<td align="center"><span class="label label-danger">승인진행</span></td>
+														</c:when>
+														
 													
 												</c:choose>
 												

@@ -13,6 +13,9 @@
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Grade" alias="Grade"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Notice" alias="Notice"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Department" alias="Department"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.MyHoli" alias="MyHoli"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.HoliCount" alias="HoliCount"/>
+	<typeAlias type="com.wework.workman.humanResource.model.vo.AllHoli" alias="AllHoli"/>
 	<typeAlias type="com.wework.workman.humanResource.model.vo.Att" alias="Att"/>
 	<typeAlias type="com.wework.workman.calendar.model.vo.Calendar" alias="Calendar"/>
 	<typeAlias type="com.wework.workman.calendar.model.vo.FullCalendar" alias="FullCalendar"/>

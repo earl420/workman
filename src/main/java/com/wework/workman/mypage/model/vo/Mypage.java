@@ -22,22 +22,15 @@ public class Mypage {
 	private String bank;
 	private String gradeName;
 	private String deptName;
-	private String profileOriginName;
-	private String profilePath;
 	private int holidayCount;
 	private int holidayLeft;
-	private Date holidayYear;
-	
-	
-	
+	private int holidayYear;
 	public Mypage() {
-		super();
 	}
-
 	public Mypage(String num, String pwd, String name, String email, String gender, Date birth, String phone,
 			String address, int gradeNum, int deftNum, int salary, Date enrollDate, Date resignDate, String status,
-			String account, String bank, String gradeName, String deptName, int holidayCount, int holidayLeft, 
-			Date holidayYear) {
+			String account, String bank, String gradeName, String deptName, 
+			int holidayCount, int holidayLeft, int holidayYear) {
 		super();
 		this.num = num;
 		this.pwd = pwd;
@@ -61,185 +54,144 @@ public class Mypage {
 		this.holidayLeft = holidayLeft;
 		this.holidayYear = holidayYear;
 	}
-
 	public String getNum() {
 		return num;
 	}
-
 	public void setNum(String num) {
 		this.num = num;
 	}
-
 	public String getPwd() {
 		return pwd;
 	}
-
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getGender() {
 		return gender;
 	}
-
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
 	public Date getBirth() {
 		return birth;
 	}
-
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-
 	public String getPhone() {
 		return phone;
 	}
-
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 	public int getGradeNum() {
 		return gradeNum;
 	}
-
 	public void setGradeNum(int gradeNum) {
 		this.gradeNum = gradeNum;
 	}
-
 	public int getDeftNum() {
 		return deftNum;
 	}
-
 	public void setDeftNum(int deftNum) {
 		this.deftNum = deftNum;
 	}
-
 	public int getSalary() {
 		return salary;
 	}
-
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
-
 	public Date getEnrollDate() {
 		return enrollDate;
 	}
-
 	public void setEnrollDate(Date enrollDate) {
 		this.enrollDate = enrollDate;
 	}
-
 	public Date getResignDate() {
 		return resignDate;
 	}
-
 	public void setResignDate(Date resignDate) {
 		this.resignDate = resignDate;
 	}
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	public String getAccount() {
 		return account;
 	}
-
 	public void setAccount(String account) {
 		this.account = account;
 	}
-
 	public String getBank() {
 		return bank;
 	}
-
 	public void setBank(String bank) {
 		this.bank = bank;
 	}
-
 	public String getGradeName() {
 		return gradeName;
 	}
-
 	public void setGradeName(String gradeName) {
 		this.gradeName = gradeName;
 	}
-
 	public String getDeptName() {
 		return deptName;
 	}
-
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
 	}
-
+	
 	public int getHolidayCount() {
 		return holidayCount;
 	}
-
 	public void setHolidayCount(int holidayCount) {
 		this.holidayCount = holidayCount;
 	}
-
 	public int getHolidayLeft() {
 		return holidayLeft;
 	}
-
 	public void setHolidayLeft(int holidayLeft) {
 		this.holidayLeft = holidayLeft;
 	}
-
-	public Date getHolidayYear() {
+	public int getHolidayYear() {
 		return holidayYear;
 	}
-
-	public void setHolidayYear(Date holidayYear) {
+	public void setHolidayYear(int holidayYear) {
 		this.holidayYear = holidayYear;
 	}
-
 	@Override
 	public String toString() {
 		return "Mypage [num=" + num + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", gender=" + gender
 				+ ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", gradeNum=" + gradeNum
 				+ ", deftNum=" + deftNum + ", salary=" + salary + ", enrollDate=" + enrollDate + ", resignDate="
 				+ resignDate + ", status=" + status + ", account=" + account + ", bank=" + bank + ", gradeName="
-				+ gradeName + ", deptName=" + deptName + ", profileOriginName=" + profileOriginName + ", profilePath="
-				+ profilePath + ", holidayCount=" + holidayCount + ", holidayLeft=" + holidayLeft + ", holidayYear="
-				+ holidayYear + "]";
+				+ gradeName + ", deptName=" + deptName + ", holidayCount=" + holidayCount + ", holidayLeft="
+				+ holidayLeft + ", holidayYear=" + holidayYear + "]";
 	}
+	
+	
 
 	
 

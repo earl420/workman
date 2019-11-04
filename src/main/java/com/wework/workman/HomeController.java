@@ -37,8 +37,14 @@ public class HomeController {
 	public String home(Locale locale, Model model, HttpSession session) {
 		
 		logger.info("Welcome home! The client locale is {}.", locale);
+		int check3 = aService.checkYearSal();
+		if(check3<1) {
+			int insertYearSal = aService.insertYearSalary();
+			
+		}
 		
 		int check = aService.checkSal();
+		System.out.println(check);
 		if(check<1) {
 			int insertSal = aService.insertSal();
 		}
@@ -54,10 +60,13 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-	
+		model.addAttribute("login", "로그인 되었습니다.");
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
 	}
-	
+	@RequestMapping("home1.wo")
+	public String home1() {
+		return "home";
+	}
 }

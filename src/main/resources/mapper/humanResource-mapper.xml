@@ -74,6 +74,29 @@
 		<result property="timeOff" column="time_off"/>
 	</resultMap>
 	
+	<resultMap type="MyHoli" id="showMyHoliResultSet">
+		<id property="docNum" column="doc_num"/>
+		<result property="holiType" column="holi_type"/>
+		<result property="due" column="due"/>
+		<result property="holiStart" column="holiday_start"/>
+		<result property="holiEnd" column="holiday_end"/>
+		<result property="holiStatus" column="holiday_status"/>
+	</resultMap>
+	
+	<resultMap type="HoliCount" id="holiCountResultSet">
+		<id property="empNum" column="emp_num"/>
+		<result property="holiCount" column="holiday_count"/>
+		<result property="holiLeft" column="holiday_left"/>
+		<result property="holiYear" column="holiday_year"/>
+	</resultMap>
+	
+	<resultMap type="AllHoli" id="allHoliResultSet">
+		<id property="empNum" column="empNum"/>
+		<result property="empName" column="emp_name"/>
+		<result property="holiCount" column="holiday_count"/>
+		<result property="holiLeft" column="holiday_left"/>
+	</resultMap>
+	
 	<select id="getnListCount" resultType="_int">
 		select count(*)
 		from notice
@@ -107,6 +130,7 @@
 	<select id="selectModalEmpList" resultMap="modalResultSet">
 	 	select *
 	 	from modal
+	 	where emp_name !='SYSTEM'
 	</select>
 	
 	<select id="selectModalList"  parameterType="string"  resultMap="modalResultSet">
@@ -215,7 +239,7 @@
 		from employee
 		join dept using(dept_num)
 		join grade using(grade_num)
-		where dept_name=#{deptName}
+		where dept_name=#{deptName} and emp_status='Y'
 	</select>
 	
 	<update id="updateEmp" parameterType="Employee">
@@ -227,7 +251,7 @@
 	<select id="getThisLate" parameterType="string" resultType="_int">
 		select count(att_date)
 		from attendance
-		where emp_num='20190004' and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
+		where emp_num=#{empNum} and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
 	</select>
 	
 	<select id="getnoOn" parameterType="string" resultType="_int">
@@ -248,5 +272,22 @@
 		where emp_num='20190004' and extract(month from att_date) = '10' 
 	</select>
 	
+	<select id="showMyHoliday" parameterType="string" resultMap="showMyHoliResultSet">
+		select approval.doc_num, doc_holiday.holi_type, 
+                    to_number(holiday.holiday_end-holiday.holiday_start+1) as due, 
+                    holiday.holiday_start, holiday.holiday_end,
+                    doc_holiday.holiday_status
+		from holiday
+		join approval using(approval_num)
+		join doc_holiday on(approval.doc_num=holi_num)
+		where emp_num=#{empNum}
+	</select>
 	
+	<select id="myHoliCount" parameterType="string" resultMap="holiCountResultSet">
+		select * from holiday_count where emp_num = '20190004' and holiday_year='2018'
+	</select>
+	
+	<select id="allHoliday" parameterType="string" resultMap="allHoliResultSet">
+		select * from holiday_count join employee using(emp_num) join dept using(dept_num) where dept_name='인사팀'
+	</select>
 </mapper>

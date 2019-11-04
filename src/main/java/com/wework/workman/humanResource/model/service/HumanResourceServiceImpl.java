@@ -11,12 +11,15 @@ import com.wework.workman.account.model.dao.AccountDao;
 import com.wework.workman.common.Attachment;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.humanResource.model.dao.HumanResourceDao;
+import com.wework.workman.humanResource.model.vo.AllHoli;
 import com.wework.workman.humanResource.model.vo.Att;
 import com.wework.workman.humanResource.model.vo.Department;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Employee;
 import com.wework.workman.humanResource.model.vo.Grade;
+import com.wework.workman.humanResource.model.vo.HoliCount;
 import com.wework.workman.humanResource.model.vo.Modal;
+import com.wework.workman.humanResource.model.vo.MyHoli;
 import com.wework.workman.humanResource.model.vo.Notice;
 
 @Service("humanResourceService")
@@ -203,6 +206,24 @@ public class HumanResourceServiceImpl implements HumanResourceService{
 	public ArrayList<Att> getMonthAtt(String empNum) {
 			
 		return hDao.getMonthAtt(empNum);
+	}
+
+	@Override
+	public ArrayList<MyHoli> showMyHoliday(String empNum) {
+		
+		return hDao.showMyHoliday(empNum);
+	}
+
+	@Override
+	public HoliCount myHoliCount(String empNum) {
+
+		return hDao.myHoliCount(empNum);
+	}
+
+	@Override
+	public ArrayList<AllHoli> allHoliday(String deptName) {
+		
+		return hDao.allHoliday(deptName);
 	}
 
 	

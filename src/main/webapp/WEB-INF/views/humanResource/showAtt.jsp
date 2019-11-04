@@ -60,8 +60,8 @@
 									<ul class="nav nav-tabs mb-3">
 										<li class="nav-item"><a class="nav-link active show"
 											data-toggle="tab" href="#home1">근태 현황</a></li>
-										<li class="nav-item"><a class="nav-link"
-											data-toggle="tab" href="#profile1">근태 수정 내역</a></li>
+									<!-- 	<li class="nav-item"><a class="nav-link"
+											data-toggle="tab" href="#profile1">근태 수정 내역</a></li> -->
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane fade active show" id="home1"
@@ -69,12 +69,13 @@
 											<div class="p-t-15">
 												<h4>근태 현황</h4>
 												<br>
-												<h5 align="center">이번 달 근태 현황</h5><br>
+												<h5 align="center">이번 달 근태 현황</h5>
+												<br>
 												<table
 													class="table table-bordered zero-configuration dataTable"
 													id="DataTables_Table_0" role="grid"
 													aria-describedby="DataTables_Table_0_info">
-							
+
 													<tbody>
 														<tr>
 															<td
@@ -86,10 +87,12 @@
 															<td colspan="3">${ late }</td>
 														</tr>
 														<tr>
-															<td style="background: #f9f9f9; text-align: center;">비정상 출근</td>
+															<td style="background: #f9f9f9; text-align: center;">비정상
+																출근</td>
 															<td>${ noOn }</td>
 															<td
-																style="background: #f9f9f9; text-align: center; width: 200px">비정상 퇴근</td>
+																style="background: #f9f9f9; text-align: center; width: 200px">비정상
+																퇴근</td>
 															<td style="width: 300px;">${ noOff }</td>
 														</tr>
 
@@ -121,7 +124,7 @@
 																				<div class="modal-header">
 																					<h5 class="modal-title" style="float: left;">일별
 																						근태 상세</h5>
-																						
+
 																					<button type="button" class="close"
 																						data-dismiss="modal">
 																						<span>×</span>
@@ -130,7 +133,8 @@
 																				<div class="modal-body" style="text-align: left;">
 
 																					<p>
-																						${ m.name }(${ m.num })<br> 근무시간 : 09:00 ~ 18:00 / 퇴근 체크 대상
+																						${ m.name }(${ m.num })<br> 근무시간 : 09:00 ~
+																						18:00 / 퇴근 체크 대상
 																					</p>
 
 																					<select name="year">
@@ -151,8 +155,7 @@
 																						<option value="10" selected>10월</option>
 																						<option value="11">11월</option>
 																						<option value="12">12월</option>
-																					</select> <br>
-																					<br>
+																					</select> <br> <br>
 																					<div class="table-responsive">
 																						<table class="table">
 																							<thead>
@@ -325,7 +328,7 @@
 																						</table>
 																					</div>
 																				</div>
-																				
+
 																				<div class="modal-footer">
 																					<button type="button" class="btn btn-secondary"
 																						data-dismiss="modal">Close</button>
@@ -343,8 +346,80 @@
 															<td>8월</td>
 															<td>9월</td>
 															<td><button type="button" data-toggle="modal"
-																		data-target="#exampleModalLong"
-																		style="border: none; cursor: pointer;" onclick="location.href='monthAtt.wo';">10월</button></td>
+																	data-target="#exampleModalLong1"
+																	style="border: none; cursor: pointer;"
+																	>10월</button>
+																 <!-- Modal -->
+																<div class="modal fade" id="exampleModalLong1"
+																	aria-hidden="true" style="display: none;">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<h5 class="modal-title" style="float: left;">일별
+																					근태 상세</h5>
+
+																				<button type="button" class="close"
+																					data-dismiss="modal">
+																					<span>×</span>
+																				</button>
+																			</div>
+																			<div class="modal-body" style="text-align: left;">
+
+																				<p>
+																					${ m.name }(${ m.num })<br> 근무시간 : 09:00 ~
+																					18:00 / 퇴근 체크 대상
+																				</p>
+
+																				<select name="year">
+																					<option value="2019" selected>2019년</option>
+																					<option value="2018">2018년</option>
+																					<option value="2017">2017년</option>
+																					<option value="2016">2016년</option>
+																				</select>&nbsp; <select name="month">
+																					<option value="1">1월</option>
+																					<option value="2">2월</option>
+																					<option value="3">3월</option>
+																					<option value="4">4월</option>
+																					<option value="5">5월</option>
+																					<option value="6">6월</option>
+																					<option value="7">7월</option>
+																					<option value="8">8월</option>
+																					<option value="9">9월</option>
+																					<option value="10" selected>10월</option>
+																					<option value="11">11월</option>
+																					<option value="12">12월</option>
+																				</select> <br> <br>
+																				<div class="table-responsive">
+																					<table class="table">
+																						<thead>
+																							<tr>
+																								<th>날짜</th>
+																								<th>출근(시간 / 결과)</th>
+																								<th>퇴근(시간 / 결과)</th>
+																							</tr>
+																						</thead>
+																						<tbody>
+																							<c:forEach items="${ att }" var="a">
+																								<tr>
+																									<td>${ a.attDate }</td>
+																									<td>${ a.timeOn }</td>
+																									<td>${ a.timeOff }</td>
+																								</tr>
+																							</c:forEach>
+
+																						</tbody>
+																					</table>
+																				</div>
+																			</div>
+
+																			<div class="modal-footer">
+																				<button type="button" class="btn btn-secondary"
+																					data-dismiss="modal">Close</button>
+																			</div>
+																		</div>
+																	</div>
+																</div></td>
+
 															<td>11월</td>
 															<td>12월</td>
 															<td>합계</td>
@@ -363,7 +438,7 @@
 															<td></td>
 															<td></td>
 															<td></td>
-															<td></td>
+															<td>${ late }</td>
 															<td></td>
 															<td></td>
 														</tr>
@@ -379,7 +454,7 @@
 															<td></td>
 															<td></td>
 															<td></td>
-															<td></td>
+															<td>${ noOn }</td>
 															<td></td>
 															<td></td>
 														</tr>
@@ -395,11 +470,11 @@
 															<td></td>
 															<td></td>
 															<td></td>
-															<td></td>
+															<td>${ noOff }</td>
 															<td></td>
 															<td></td>
 														</tr>
-														
+
 
 													</tbody>
 												</table>
@@ -539,7 +614,7 @@
 																</div>
 															</td>
 														</tr>
-														
+
 													</tbody>
 												</table>
 

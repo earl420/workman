@@ -56,24 +56,58 @@
 							<div class="card-body">
 								<h5>직원 휴가 조회</h5>
 								<br>
+
+								<div class="form-group row">
+									<div class="col-lg-1">
+										<div class="bootstrap-modal">
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#exampleModalCenter1">부서
+												검색</button>
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModalCenter1"
+												aria-hidden="true" style="display: none;">
+												<div class="modal-dialog modal-dialog-centered"
+													role="document">
+													<div class="modal-content" style="width: 500px;">
+														<div class="modal-header">
+															<h5 class="modal-title">부서 검색</h5>
+															<button type="button" class="close" data-dismiss="modal">
+																<span>×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<div class="row">
+																<ul class="nav nav-pills mb-3">
+																	<c:forEach items="${ dlist }" var="d">
+																		<li class="nav-item a"><a class="nav-link"
+																			data-toggle="tab" aria-expanded="true" href="">${d.deptName}</a></li>
+																		<input type="hidden" id="dd" name="dd"
+																			value="${ d.deptName }">
+																	</c:forEach>
+																</ul>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">취소</button>
+															<button type="button" class="btn btn-primary" id="btn"
+																onclick="modalSubmit1();" data-dismiss="modal">완료</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<input type="text" class="form-control" id="a">
+									</div>
+								</div>
+
 								<div class="dropdown custom-dropdown">
 									<div data-toggle="dropdown" aria-expanded="false"
 										style="color: #F36F30;">
 										보기 <i class="fa fa-angle-down m-l-5"></i>
-									</div>
-									<div class="dropdown-menu dropdown-menu-right"
-										x-placement="bottom-end"
-										style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(83px, 21px, 0px);">
-										<a class="dropdown-item" href="#">Last 1 Month</a> <a
-											class="dropdown-item" href="#">Last 6 Month</a> <a
-											class="dropdown-item" href="#">Last 10 Month</a>
-									</div>
-								</div>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<div class="dropdown custom-dropdown">
-									<div data-toggle="dropdown" aria-expanded="false"
-										style="color: #F36F30;">
-										조직 <i class="fa fa-angle-down m-l-5"></i>
 									</div>
 									<div class="dropdown-menu dropdown-menu-right"
 										x-placement="bottom-end"
@@ -89,191 +123,30 @@
 										<tr style="background: #f9f9f9; border: 1px solid lightgray;">
 											<th scope="col"
 												style="width: 100px; border: 1px solid lightgray;"
-												rowspan="2">이름</th>
-											<th scope="col"
+												rowspan="">이름</th>
+											<!-- 	<th scope="col"
 												style="width: 130px; border: 1px solid lightgray;"
-												rowspan="2">입사일</th>
+												rowspan="2">입사일</th> -->
 											<th scope="col" style="border: 1px solid lightgray;"
-												rowspan="2">올해생성</th>
-											<th scope="col" style="border: 1px solid lightgray;">생성내역</th>
-											<th scope="col" style="border: 1px solid lightgray;"
-												colspan="7">사용현황</th>
+												rowspan="">올해생성</th>
+											<!-- <th scope="col" style="border: 1px solid lightgray;">생성내역</th> -->
+											<!-- <th scope="col" style="border: 1px solid lightgray;"
+												colspan="3">사용현황</th> -->
 											<th scope="col" style="border: 1px solid lightgray;"
 												rowspan="2">잔여</th>
 											<th scope="col" style="border: 1px solid lightgray;"
-												rowspan="2">상세</th>
+												rowspan="">상세</th>
 										</tr>
-										<tr>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">정기</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">연차</td>
+										<!-- <tr>
+											<td style="background: #f9f9f9; border: 1px solid lightgray;">정기연차</td>
+											<td style="background: #f9f9f9; border: 1px solid lightgray;">개인사유</td>
 											<td style="background: #f9f9f9; border: 1px solid lightgray;">훈련</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">교육</td>
 											<td style="background: #f9f9f9; border: 1px solid lightgray;">경조사</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">병가</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">출산</td>
-											<td style="background: #f9f9f9; border: 1px solid lightgray;">무급</td>
-										</tr>
+										</tr> -->
 									</thead>
-									<tbody>
-										<tr>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>
-												<div class="bootstrap-modal">
-													<!-- Button trigger modal -->
-													<button type="button" class="btn btn-primary"
-														data-toggle="modal" data-target="#basicModal"
-														style="padding-top: 0; height: 20px;">상세</button>
-													<!-- Modal -->
-													<div class="modal fade" id="basicModal"
-														style="display: none;" aria-hidden="true">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">휴가 상세</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																	<div class="default-tab">
-																		<ul class="nav nav-tabs mb-3" role="tablist">
-																			<li class="nav-item"><a class="nav-link active"
-																				data-toggle="tab" href="#home">생성 내역</a></li>
-																			<li class="nav-item"><a class="nav-link"
-																				data-toggle="tab" href="#profile">사용 내역</a></li>
-																		</ul>
-																		<div class="tab-content">
-																			<div class="tab-pane fade show active" id="home"
-																				role="tabpanel">
-																				<div class="p-t-15" style="text-align: left;">
-																					민병현(사번) 님의 휴가 생성 내역 [2019.01~2019.12] / 입사일 : <br>
-																					<br>
-																					<table class="table header-border"
-																						style="text-align: center;">
-																						<thead>
-																							<tr
-																								style="background: #f9f9f9; border: 1px solid lightgray;">
-																								<th scope="col"
-																									style="width: 100px; border: 1px solid lightgray;"
-																									rowspan="2">이름</th>
-																								<th scope="col"
-																									style="border: 1px solid lightgray;"
-																									colspan="2">사용현황</th>
-																								<th scope="col"
-																									style="border: 1px solid lightgray;"
-																									rowspan="2">내용</th>
-																								<th scope="col"
-																									style="border: 1px solid lightgray;"
-																									rowspan="2">비고</th>
-																							</tr>
-																							<tr>
-																								<td
-																									style="background: #f9f9f9; border: 1px solid lightgray;">발생</td>
-																								<td
-																									style="background: #f9f9f9; border: 1px solid lightgray;">최종</td>
-																							</tr>
-																						</thead>
+									<tbody id="tbody">
+										
 
-																					</table>
-																				</div>
-																			</div>
-																			<div class="tab-pane fade" id="profile">
-																				<div class="p-t-15">
-																					<div class="p-t-15" style="text-align: left;">
-																						민병현(사번) 님의 휴가 생성 내역 [2019.01~2019.12] / 입사일 : <br>
-																						<br>
-																						<table class="table header-border"
-																							style="text-align: center;">
-																							<thead>
-																								<tr
-																									style="background: #f9f9f9; border: 1px solid lightgray;">
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">번호</th>
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">휴가 종류	</th>
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">일수</th>
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">기간</th>
-																									<th scope="col"
-																										style="border: 1px solid lightgray;">상태</th>
-																								</tr>
-																							</thead>
-
-																						</table>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>d</td>
-											<td>
-												<div class="bootstrap-modal">
-													<!-- Button trigger modal -->
-													<button type="button" class="btn btn-primary"
-														data-toggle="modal" data-target="#basicModal"
-														style="padding-top: 0; height: 20px;">상세</button>
-													<!-- Modal -->
-													<div class="modal fade" id="basicModal"
-														style="display: none;" aria-hidden="true">
-														<div class="modal-dialog" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title">Modalㅇ맂,ㅣ</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal">
-																		<span>×</span>
-																	</button>
-																</div>
-																<div class="modal-body">Modal body text goes
-																	here.ㅇㅇ</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary">Save
-																		changes</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -287,6 +160,67 @@
 		<c:import url="../common/footer.jsp"></c:import>
 	</div>
 	<!-- /main-wrapper -->
+	<script type="text/javascript">
+		function modalSubmit1() {
+
+			$("#a").val($(".a>.active").text());
+		}
+
+		$("#btn")
+				.on(
+						"click",
+						function() {
+
+							var deptName = $("#a").val();
+
+							$
+									.ajax({
+										url : "allHoliday.wo",
+										data:{deptName:deptName},
+										type : "post",
+										dataType : "json",
+										success : function(data) {
+
+											console.log(data);
+											var $tbody = $("#tbody");
+											$tbody.html("");
+
+											if (data.length > 0) {
+
+												$
+														.each(
+																data,
+																function(index,
+																		value) {
+
+																	var $tr = $('<tr><td><a data-toggle="modal" data-target="#basicModal1">'
+																			+ value.empName
+																			+ '</a></td><td>'
+																			+ value.holiCount
+																			+ '</td><td>'
+																			+ value.holiLeft
+																			+ '</td><td><button type="button" class="btn btn-primary goBtn" style="padding-top: 0; height: 20px;">상세</button></td></tr>');
+
+																	$tbody
+																			.append($tr);
+																});
+											}
+										},
+										error : function() {
+											alert("ajax 통신실패");
+										}
+									});
+						});
+		$("#tbody").on("click", ".goBtn", function(){
+		//$("#goBtn").on("click", function(){
+			
+			var deptName = $("#a").val();
+			
+			console.log(deptName);
+			
+			location.href="mngHoliDetail.wo?deptName="+deptName;
+		});
+	</script>
 
 </body>
 <iframe id="google_esf" name="google_esf"

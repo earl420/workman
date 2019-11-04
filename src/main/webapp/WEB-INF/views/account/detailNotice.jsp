@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="resources/account/css/detailNotice.css" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/icons/logo1.png">
 <script type="text/javascript" src="resources/se2/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
 <script

@@ -60,18 +60,22 @@
 									<ul class="nav nav-tabs mb-3">
 										<li class="nav-item"><a class="nav-link active show"
 											data-toggle="tab" href="#home1">내 휴가</a></li>
-										<li class="nav-item"><a class="nav-link"
-											data-toggle="tab" href="#profile1">휴가신청 관리</a></li>
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane fade active show" id="home1"
 											role="tabpanel">
 											<div class="p-t-15">
-												<h4>휴가 신청 내역</h4>
+												<h4>휴가 현황</h4>
 												<br>
-												<h5 align="center">올해 휴가 현황 : 총 휴가 00일 / 사용 00일 / 잔여
-													00일</h5>
+												<h5 align="center">올해 휴가 현황 : 총 휴가 ${ holiCount.holiCount }일
+													/ 사용 ${ holiCount.holiCount-holiCount.holiLeft }일 / 잔여 ${ holiCount.holiLeft }일</h5>
 												<br>
+												<p align="right">
+													상태 : <span class="text-warning"> Y : 대기</span>&nbsp;&nbsp;
+													<span class="text-danger"> N : 반려</span>&nbsp;&nbsp; <span
+														class="text-info"> P : 진행</span>&nbsp;&nbsp; <span
+														class="text-success"> C : 완료</span>&nbsp;&nbsp;
+												</p>
 											</div>
 										</div>
 										<table class="table header-border">
@@ -86,339 +90,20 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<th>1</th>
-													<td>G.Bearden</td>
-													<td>@jacklyn</td>
-													<td>@jacklyn</td>
-													<td>@jacklyn</td>
-													<td>@jacklyn</td>
-												</tr>
-												<tr>
-													<th>2</th>
-													<td>Nancy</td>
-													<td>@daniels</td>
-													<td>@daniels</td>
-													<td>@daniels</td>
-													<td>@daniels</td>
-												</tr>
-												<tr>
-													<th>3</th>
-													<td>Betty</td>
-													<td>@betty</td>
-													<td>@betty</td>
-													<td>@betty</td>
-													<td>@betty</td>
-												</tr>
-												<tr>
-													<th>4</th>
-													<td>D. Sears</td>
-													<td>@lucinda</td>
-													<td>@lucinda</td>
-													<td>@lucinda</td>
-													<td>@lucinda</td>
-												</tr>
-												<tr>
-													<th>5</th>
-													<td>William</td>
-													<td>T. Marks</td>
-													<td>@william.marks</td>
-													<td>@william.marks</td>
-													<td>@william.marks</td>
-												</tr>
+												<c:forEach items="${ hlist }" var="h">
+													<tr>
+														<th>${ h.docNum }</th>
+														<td>${ h.holiType }</td>
+														<td>${ h.due }</td>
+														<td>${ h.holiStart }~ ${ h.holiEnd }</td>
+														<td>${ h.holiStatus }</td>
+														<td><button type="button" class="btn btn-primary"
+																style="padding-top: 0; height: 20px;">상세</button></td>
+													</tr>
+												</c:forEach>
+
 											</tbody>
 										</table>
-									</div>
-								</div>
-								<div class="tab-pane fade" id="profile1">
-									<div class="p-t-15">
-										<h4>휴가 신청 관리</h4>
-										<br>
-										<button class="label label-pill label-warning"
-											style="cursor: pointer; border: none; float: left;">&lt;</button>
-										&nbsp;&nbsp;
-										<div class="date" style="float: left; font-size: 20px;">&nbsp;&nbsp;&nbsp;2019-09</div>
-										<button class="label label-pill label-warning"
-											style="cursor: pointer; border: none;">&gt;</button>
-
-										<br> <br>
-
-										<div class="dropdown custom-dropdown">
-											<div data-toggle="dropdown" aria-expanded="false"
-												style="color: #F36F30;">
-												Last 7 days <i class="fa fa-angle-down m-l-5"></i>
-											</div>
-											<div class="dropdown-menu dropdown-menu-right"
-												x-placement="bottom-end"
-												style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(83px, 21px, 0px);">
-												<a class="dropdown-item" href="#">Last 1 Month</a> <a
-													class="dropdown-item" href="#">Last 6 Month</a> <a
-													class="dropdown-item" href="#">Last 10 Month</a>
-											</div>
-										</div>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<div class="dropdown custom-dropdown">
-											<div data-toggle="dropdown" aria-expanded="false"
-												style="color: #F36F30;">
-												Last 7 days <i class="fa fa-angle-down m-l-5"></i>
-											</div>
-											<div class="dropdown-menu dropdown-menu-right"
-												x-placement="bottom-end"
-												style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(83px, 21px, 0px);">
-												<a class="dropdown-item" href="#">Last 1 Month</a> <a
-													class="dropdown-item" href="#">Last 6 Month</a> <a
-													class="dropdown-item" href="#">Last 10 Month</a>
-											</div>
-										</div>
-
-										<div class="input-group icons"
-											style="width: 200px; float: right;">
-											<div class="input-group-prepend">
-												<span
-													class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
-													id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-											</div>
-											<input type="search" class="form-control" placeholder="이름 검색"
-												aria-label="Search Dashboard">
-										</div>
-										<br> <br>
-
-										<table class="table header-border">
-											<thead>
-												<tr style="background: #f9f9f9;">
-													<th scope="col">신청자</th>
-													<th scope="col">소속</th>
-													<th scope="col">휴가 종류</th>
-													<th scope="col">일수</th>
-													<th scope="col">기간</th>
-													<th scope="col">상태</th>
-													<th scope="col">상세보기</th>
-													<th scope="col">휴가신청취소</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<th>1</th>
-													<td>Jacklyn</td>
-													<td>G.Bearden</td>
-													<td>@jacklyn</td>
-													<td>@jacklyn</td>
-													<td>@jacklyn</td>
-													<td>
-														<div class="bootstrap-modal">
-															<!-- Button trigger modal -->
-															<button type="button" class="btn btn-warning"
-																data-toggle="modal" data-target="#basicModal"
-																style="height: 30px; padding-top: 4px;">상세</button>
-															<!-- Modal -->
-															<div class="modal fade" id="basicModal"
-																style="display: none;" aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<h5 class="modal-title">Modal title</h5>
-																			<button type="button" class="close"
-																				data-dismiss="modal">
-																				<span>×</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">Modal body text goes
-																			here.</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-secondary"
-																				data-dismiss="modal">Close</button>
-																			<button type="button" class="btn btn-primary">Save
-																				changes</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</td>
-													<td>
-														<div class="card-content">
-															<div class="sweetalert m-t-30">
-																<button class="btn btn-warning btn sweet-confirm"
-																	style="height: 30px; padding-top: 4px;">신청 취소</button>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<th>2</th>
-													<td>Nancy</td>
-													<td>J. Daniels</td>
-													<td>@daniels</td>
-													<td>@daniels</td>
-													<td>@daniels</td>
-													<td><div class="bootstrap-modal">
-															<!-- Button trigger modal -->
-															<button type="button" class="btn btn-warning"
-																data-toggle="modal" data-target="#basicModal"
-																style="height: 30px; padding-top: 4px;">상세</button>
-															<!-- Modal -->
-															<div class="modal fade" id="basicModal"
-																style="display: none;" aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<h5 class="modal-title">Modal title</h5>
-																			<button type="button" class="close"
-																				data-dismiss="modal">
-																				<span>×</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">Modal body text goes
-																			here.</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-secondary"
-																				data-dismiss="modal">Close</button>
-																			<button type="button" class="btn btn-primary">Save
-																				changes</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div></td>
-													<td>
-														<div class="sweetalert m-t-30">
-															<button class="btn btn-warning btn sweet-confirm"
-																style="height: 30px; padding-top: 4px;">신청취소</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<th>3</th>
-													<td>Betty</td>
-													<td>R. Christensen</td>
-													<td>@betty</td>
-													<td>@betty</td>
-													<td>@betty</td>
-													<td><div class="bootstrap-modal">
-															<!-- Button trigger modal -->
-															<button type="button" class="btn btn-warning"
-																data-toggle="modal" data-target="#basicModal"
-																style="height: 30px; padding-top: 4px;">상세</button>
-															<!-- Modal -->
-															<div class="modal fade" id="basicModal"
-																style="display: none;" aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<h5 class="modal-title">Modal title</h5>
-																			<button type="button" class="close"
-																				data-dismiss="modal">
-																				<span>×</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">Modal body text goes
-																			here.</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-secondary"
-																				data-dismiss="modal">Close</button>
-																			<button type="button" class="btn btn-primary">Save
-																				changes</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div></td>
-													<td>
-														<div class="sweetalert m-t-30">
-															<button class="btn btn-warning btn sweet-confirm"
-																style="height: 30px; padding-top: 4px;">신청취소</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<th>4</th>
-													<td>Lucinda</td>
-													<td>D. Sears</td>
-													<td>@lucinda</td>
-													<td>@lucinda</td>
-													<td>@lucinda</td>
-													<td><div class="bootstrap-modal">
-															<!-- Button trigger modal -->
-															<button type="button" class="btn btn-warning"
-																data-toggle="modal" data-target="#basicModal"
-																style="height: 30px; padding-top: 4px;">상세</button>
-															<!-- Modal -->
-															<div class="modal fade" id="basicModal"
-																style="display: none;" aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<h5 class="modal-title">Modal title</h5>
-																			<button type="button" class="close"
-																				data-dismiss="modal">
-																				<span>×</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">Modal body text goes
-																			here.</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-secondary"
-																				data-dismiss="modal">Close</button>
-																			<button type="button" class="btn btn-primary">Save
-																				changes</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div></td>
-													<td>
-														<div class="sweetalert m-t-30">
-															<button class="btn btn-warning btn sweet-confirm"
-																style="height: 30px; padding-top: 4px;">신청취소</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<th>5</th>
-													<td>William</td>
-													<td>T. Marks</td>
-													<td>@william.marks</td>
-													<td>@william.marks</td>
-													<td>@william.marks</td>
-													<td><div class="bootstrap-modal">
-															<!-- Button trigger modal -->
-															<button type="button" class="btn btn-warning"
-																data-toggle="modal" data-target="#basicModal"
-																style="height: 30px; padding-top: 4px;">상세</button>
-															<!-- Modal -->
-															<div class="modal fade" id="basicModal"
-																style="display: none;" aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<h5 class="modal-title">Modal title</h5>
-																			<button type="button" class="close"
-																				data-dismiss="modal">
-																				<span>×</span>
-																			</button>
-																		</div>
-																		<div class="modal-body">Modal body text goes
-																			here.</div>
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-secondary"
-																				data-dismiss="modal">Close</button>
-																			<button type="button" class="btn btn-primary">Save
-																				changes</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div></td>
-													<td>
-														<div class="sweetalert m-t-30">
-															<button class="btn btn-warning btn sweet-confirm"
-																style="height: 30px; padding-top: 4px;">신청취소</button>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-
 									</div>
 								</div>
 							</div>

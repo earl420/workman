@@ -49,16 +49,22 @@ public class ExpenseController {
 	 */
 	@RequestMapping("expenseWrite.wo")
 	public ModelAndView expenseWrite(@RequestParam(value = "empNum", required = false) String empNum,
-			@RequestParam(value = "empName", required = false)String empName, ModelAndView mv) {
+			@RequestParam(value = "empName", required = false)String empName,
+			@RequestParam(value = "msg", required = false) String msg,
+			@RequestParam(value = "partnerNum", required = false) String partnerNum,
+			ModelAndView mv) {
 		
 		ArrayList<Dept> dlist = hService.selectModaDeptlList();
 		ArrayList<Modal> mlist = hService.selectModalEmpList();
 		ArrayList<Partner> plist = aService.partnerList();
+		Partner ps = aService.selectPartner(partnerNum);
 		mv.addObject("mlist",mlist);
 		mv.addObject("dlist",dlist);
 		mv.addObject("plist",plist);
 		mv.addObject("empNum", empNum);
 		mv.addObject("empName", empName);
+		mv.addObject("msg", msg);
+		mv.addObject("ps", ps);
 		mv.setViewName("approval/expenseWrite");
 		return mv;
 		

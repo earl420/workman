@@ -85,7 +85,6 @@ public class ExpenseDao {
 		
 		int result2 = sqlSession.update("approvalMapper.completeExpense",select);
 		
-		
 		return result2;
 	}
 }
