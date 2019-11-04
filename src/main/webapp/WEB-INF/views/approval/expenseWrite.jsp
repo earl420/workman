@@ -219,10 +219,17 @@
 											<td align="center" width="10%">거래처</td>
 											<td align="center">
 												<select id="select" aria-controls="DataTables_Table_0" style=" height:30px; width: 140px;" class="form-control form-control-sm">
+													
+													<c:if test="${  !empty ps  }">
+													 <option value=${  ps.partnerNum} >${ ps.partnerName }</option>
+													</c:if>
+													
+													<c:if test="${  empty ps  }">
 													<option value="선택" >선택</option>
 													<c:forEach items="${ plist }" var="p">
 														<option value="${ p.partnerNum }" >${ p.partnerName }</option>
 													</c:forEach>
+													</c:if>
 												</select>
 												<input type="hidden" id="partnerNum" name="partnerNum">
 											</td>

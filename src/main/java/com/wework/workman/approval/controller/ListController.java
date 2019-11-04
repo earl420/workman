@@ -14,9 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.wework.workman.approval.model.service.ListService;
 import com.wework.workman.approval.model.vo.Doc;
-import com.wework.workman.common.Conflrm;
 import com.wework.workman.common.PageInfo;
 import com.wework.workman.common.Pagination;
+import com.wework.workman.common.Reference;
 import com.wework.workman.humanResource.model.service.HumanResourceService;
 import com.wework.workman.humanResource.model.vo.Dept;
 import com.wework.workman.humanResource.model.vo.Modal;
@@ -38,14 +38,12 @@ public class ListController {
 	public ModelAndView allList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, HttpSession session, ModelAndView mv) {
 		
 		String userNum = ((Mypage)session.getAttribute("loginMan")).getNum();
-		
+		System.out.println(userNum);
 		int listCount = lService.getallListCount(userNum);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<Doc> doclist = lService.docList(pi,userNum);
-		System.out.println(doclist);
 		mv.addObject("pi", pi);
 		mv.addObject("doclist", doclist);
-		
 		mv.setViewName("approval/allList");
 		return mv;
 	}
@@ -253,6 +251,23 @@ public class ListController {
 		mv.addObject("mlist",mlist);
 		System.out.println(mlist);
 		mv.setViewName("approval/test");
+		return mv;
+	}
+	
+	@RequestMapping("referenceList.wo")
+	public ModelAndView referenceList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, HttpSession session, ModelAndView mv) {
+		
+
+		String userNum = ((Mypage)session.getAttribute("loginMan")).getNum();
+		
+		
+		int listCount = lService.selectReferenceList(userNum);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Doc> doclist = lService.docReferenceList(pi,userNum);
+		mv.addObject("pi", pi);
+		mv.addObject("doclist", doclist);
+		
+		mv.setViewName("approval/referenceList");
 		return mv;
 	}
 	

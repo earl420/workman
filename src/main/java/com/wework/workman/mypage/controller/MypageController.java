@@ -144,7 +144,7 @@ public class MypageController {
 	}
 	
 	/**
-	 * 암호화 전 로그인
+	 * 로그인
 	 * @param m
 	 * @param model
 	 * @return
@@ -168,32 +168,6 @@ public class MypageController {
 		  }
 	  
 	  }
-	
-	
-	/**
-	 * 로그인
-	 * 
-	 * @param h
-	 * @param model
-	 * @return
-	 */
-	/*
-	  @RequestMapping(value = "login.wo", method = RequestMethod.POST) 
-	  public String loginEmp(Mypage m, Model model) {
-		  
-	  
-		  Mypage loginMan = mService.loginMan(m);
-		  
-		  if(loginMan != null && bcryptPasswordEncoder.matches(m.getPwd(), loginMan.getPwd())) { 
-			  model.addAttribute("loginMan", loginMan); 
-			  return "redirect:home.wo";
-		  
-		  }else {
-			  return "redirect:loginPage.wo"; 
-		  }
-	  
-	  }
-	 */
 
 	/**
 	 * 로그아웃

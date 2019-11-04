@@ -197,7 +197,7 @@
 										</tr>
 										<tr>
                                         	<td colspan="10" align="center">
-                                        		<c:if test="${ r.requestStatus eq 'Y'  }">
+                                        		<c:if test="${ r.requestStatus eq 'Y' and loginMan.num eq r.empNum }">
                                         		<button type="button" class="btn mb-1 btn-outline-primary btn-lg">&nbsp;수정 &nbsp;</button> &nbsp;&nbsp;
                                         		</c:if>
                                         		<c:choose>
