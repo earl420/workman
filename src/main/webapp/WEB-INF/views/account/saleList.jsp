@@ -40,7 +40,7 @@
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="salelist.wo">총무회계</a></li>
-						<li class="breadcrumb-item active"><a href="salelist.wo">인사관리</a></li>
+						<li class="breadcrumb-item active"><a href="salelist.wo">매출관리</a></li>
 					</ol>
 				</div>
 			</div>
