@@ -23,9 +23,6 @@
 		<result property="bank" column="EMP_BANK"/>
 		<result property="gradeName" column="GRADE_NAME"/>
 		<result property="deptName" column="DEPT_NAME"/>
-		<result property="holidayCount" column="HOLIDAY_COUNT"/>
-		<result property="holidayLeft" column="HOLIDAY_LEFT"/>
-		<result property="holidayYear" column="HOLIDAY_YEAR"/>
 	</resultMap>
 	
 	<resultMap type="EmpList" id="listResultSet">
@@ -93,13 +90,7 @@
 		order by emp_name
 	</select>
 	
-	<!-- 검색한 직원 수 -->
-	<select id="searchCount" resultType="_int">
-		select count(*)
-		from employee
-		where emp_name != 'SYSTEM' and emp_name like '%'||#{emp}||'%' and emp_status='Y'
-	</select>
-	
+	<!-- 검색한 직원 목록 -->
 	<select id="empSearch" resultMap="listResultSet">
 		select *
 		from employee

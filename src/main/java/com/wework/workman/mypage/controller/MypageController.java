@@ -55,7 +55,7 @@ public class MypageController {
 	}
 
 	/**
-	 * 마이 페이지
+	 * 직원 정보
 	 * @return
 	 */
 	@RequestMapping("mypageView.wo")
@@ -69,7 +69,7 @@ public class MypageController {
 			list.get(i).setNum(eNum);
 		}
 		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/myPageView");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
 		
 		
 		return mv;
@@ -86,8 +86,8 @@ public class MypageController {
 	public ModelAndView empSearch(ModelAndView mv, String emp,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		
-		EmpList searchEmp = new EmpList();
-		int empCount = mService.searchCount(emp);
+//		EmpList searchEmp = new EmpList();
+		int empCount = mService.empCount();
 		
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, empCount);
@@ -99,7 +99,7 @@ public class MypageController {
 			list.get(i).setNum(eNum);
 		}
 		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/myPageView");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("myPage/mypageView");
 		
 		
 		return mv;
@@ -197,6 +197,7 @@ public class MypageController {
 							@RequestParam("address1") String address1,
 							@RequestParam("address2") String address2) {
 		
+		m.setAddress(address1 + "," + address2);
 		
 		int result = mService.empUpdate(m);
 		Mypage mp = (Mypage)model.getAttribute("loginMan");
@@ -245,16 +246,21 @@ public class MypageController {
 	public String changePwd(Model model, @RequestParam("pwd") String pwd) {
 		
 		Mypage m = (Mypage)model.getAttribute("loginMan");
-		m.setPwd(pwd);
-		int result = mService.pwdUpdate(m);		
-		if(result > 0) {
-			model.addAttribute("success", "비밀번호가 변경 되었습니다.");
-			return "myPage/login";
-		}else {
-			
-			return "myPage/changePwd";
-		}
 		
+		if(m.getPwd().equals(pwd)) {
+			model.addAttribute("error", "이전의 비밀번호와 같습니다.");
+			return "myPage/changePwd";
+		}else {
+			m.setPwd(pwd);
+			int result = mService.pwdUpdate(m);
+			if(result > 0) {
+				model.addAttribute("success", "비밀번호가 변경 되었습니다.");
+				return "myPage/login";
+			}else {
+				
+				return "myPage/changePwd";
+			}
+		}
 	}
 	
 	
@@ -289,7 +295,6 @@ public class MypageController {
 	@RequestMapping("returnPwd.wo")
 	public String returnPwd(Mypage m, Model model) {
 		
-		System.out.println(m);
 		int result = mService.returnPwd(m);
 		if(result > 0) {
 			model.addAttribute("success", "비밀번호가 변경 되었습니다.");

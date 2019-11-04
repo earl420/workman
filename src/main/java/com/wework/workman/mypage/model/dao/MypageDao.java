@@ -89,15 +89,6 @@ public class MypageDao {
 
 	
 	/**
-	 * 검색한 직원 수
-	 * @param emp
-	 * @return
-	 */
-	public int searchCount(String emp) {
-		return sqlSession.selectOne("mypageMapper.searchCount", emp);
-	}
-
-	/**
 	 * 검색한 직원
 	 * @param emp
 	 * @param pi

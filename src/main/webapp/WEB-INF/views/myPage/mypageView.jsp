@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<title>마이페이지</title>
+<title>직원정보</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="resources/icons/logo1.png">
@@ -46,7 +46,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="card">
-							<div class="card-body" style="height: 700px;">
+							<div class="card-body" style="height: 700px; width:500px;">
 								<h5>내 정보</h5>
 								<br>
 								<div class="form-validation">
@@ -74,12 +74,7 @@
 											<c:out value="${ loginMan.email }"></c:out>
 										</div>
 									</div>
-									<div class="form-group row">
-										<div class="col-lg-6">
-											남은휴가 : <br>
-											<c:out value="${ loginMan.holidayLeft }일"></c:out>
-										</div>
-									</div>
+
 										
 								</div>
 							</div>
@@ -106,7 +101,7 @@
 													<form action="empSearch.wo" method="post">
 														<label>직원 검색:
 															<input type="search" name="emp"
-															class="form-control form-control-sm" placeholder="직원명"
+															class="form-control form-control-sm"
 															aria-controls="DataTables_Table_0">
 															<button type="submit" class="btn mb-1">검색</button>
 														</label>
@@ -214,28 +209,6 @@
 									</div>
 								</div>
 						</div>
-					
-						<div class="card">
-							<div class="card-body">
-								<h5></h5>
-								<br>
-								<div class="form-validation">
-									
-									<div class="form-group row">
-										
-										<div class="col-lg-6">
-											
-										</div>
-									</div>
-									<div class="form-group row">
-										<div class="col-lg-8 ml-auto">
-											
-										</div>
-									</div>
-										
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -246,44 +219,6 @@
 	</div>
 	<!-- /main-wrapper -->
 	
-	<script type="text/javascript">
-			
-	
-	
-	
-		/* $(function(){
-			$('#emp').on('keyup', function(){
-				
-				var emp = $(this).val();
-				
-				$.ajax({
-					url:"empSearch.wo",
-					data:{id:emp},
-					type:"post",
-					data:params,
-					success: function(data){
-						
-					},
-					error: function(){
-						swal.fire({
-							type: 'error',
-							title: '없는 직원 입니다.',
-							confirmButtonText: '확인'
-						});
-					}
-				});
-				
-				
-			});
-			
-			
-		}); */
-		
-	
-	
-	</script>
-	
-
 </body>
 <iframe id="google_esf" name="google_esf"
 	src="https://googleads.g.doubleclick.net/pagead/html/r20191003/r20190131/zrt_lookup.html#"
