@@ -90,6 +90,22 @@
 		<result property="holiYear" column="holiday_year"/>
 	</resultMap>
 	
+	<resultMap type="AllHoli" id="allHoliResultSet">
+		<id property="empNum" column="emp_Num"/>
+		<result property="empName" column="emp_name"/>
+		<result property="holiCount" column="holiday_count"/>
+		<result property="holiLeft" column="holiday_left"/>
+	</resultMap>
+	
+	<resultMap type="UseHoli" id="useHoliResultSet">
+		<id property="empNum" column="emp_num"/>
+		<result property="holiNum" column="holi_num"/>
+		<result property="holiType" column="holi_type"/>
+		<result property="holiStart" column="holiday_start"/>
+		<result property="holiEnd" column="holiday_end"/>
+		<result property="holiStatus" column="holiday_status"/>
+	</resultMap>
+	
 	<select id="getnListCount" resultType="_int">
 		select count(*)
 		from notice
@@ -232,7 +248,7 @@
 		from employee
 		join dept using(dept_num)
 		join grade using(grade_num)
-		where dept_name=#{deptName}
+		where dept_name=#{deptName} and emp_status='Y'
 	</select>
 	
 	<update id="updateEmp" parameterType="Employee">
@@ -244,7 +260,7 @@
 	<select id="getThisLate" parameterType="string" resultType="_int">
 		select count(att_date)
 		from attendance
-		where emp_num='20190004' and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
+		where emp_num=#{empNum} and extract(month from att_date)=extract(month from sysdate) and to_number(substr(time_on, 1, 2)) >= 9
 	</select>
 	
 	<select id="getnoOn" parameterType="string" resultType="_int">
@@ -278,5 +294,15 @@
 	
 	<select id="myHoliCount" parameterType="string" resultMap="holiCountResultSet">
 		select * from holiday_count where emp_num = '20190004' and holiday_year='2018'
+	</select>
+	
+	<select id="allHoliday" parameterType="string" resultMap="allHoliResultSet">
+		select * from holiday_count join employee using(emp_num) join dept using(dept_num) where dept_name=#{deptName}
+	</select>
+	
+	<select id="useHilidayList" parameterType="string" resultMap="useHoliResultSet">
+		select emp_num, holi_num, holi_type, to_number(holiday_end-holiday_start+1) as due, holiday_start, holiday_end, holiday_status
+		from doc_holiday
+		where emp_num=#{empNum}
 	</select>
 </mapper>
