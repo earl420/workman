@@ -26,7 +26,11 @@
 </head>
 
 <body onload="printClock()">
-
+	
+	<c:if test="${empty loginMan }">
+		<jsp:forward page="loginPage.wo"></jsp:forward>
+	</c:if>	
+	
 
 	<c:set var="contextPath"></c:set>
 
