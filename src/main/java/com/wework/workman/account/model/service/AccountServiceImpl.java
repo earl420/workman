@@ -70,17 +70,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public ArrayList<IncomeStatement> incomeStatus(IsState iss) {
-		//notice insert 할때 처리하자
-//		//연단위 소모품 감가상각할 총비용
-//		int sumFixtureDiscount = aDao.sumFixtureDiscount(iss);
-//		//감가상각한 거 비용처리해서 update
-//		int result1= aDao.updateFixture(sumFixtureDiscount);
-//		//연단위 소프트웨어 감가상각할 총비용
-//		int sumOsDiscount = aDao.sumOsDiscount(iss);
-//		//감가상각한거 비용처리해서 update
-//		int result2= aDao.updateOs(sumOsDiscount);
-		
+	public ArrayList<IncomeStatement> incomeStatus(IsState iss) {		
 		return aDao.incomeStatus(iss);
 	}
 
@@ -97,11 +87,24 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public int insertSale(SaleManage sm) {
+		
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			sqlSession.getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		int result1 =aDao.insertSaleAccount(sm);
 		int result2=aDao.insertSale(sm);
 		if (result1>0&&result2>0) {
+			transactionManager.commit(status);
 			result1=1;
 		}else {
+			transactionManager.rollback(status);
 			result1=0;
 		}
 		return result1;
@@ -179,21 +182,17 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public int insertIncome(IsState iss) {
 		// 트랜잭션 에 대한 기본 세팅을 위한 객체
-//		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-//		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-////		TransactionDefinition.PROPAGATION_REQUIRED;
-//		//이미 하나의 트랜잭션이 존재한다면 같이 하나의 트랜잭션으로 묶고
-//		//없다면 새로운 트랜잭션을 시작한다.
-//		TransactionStatus status = transactionManager.getTransaction(def);
-//		try {
-//			sqlSession.getConnection().setAutoCommit(false);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			sqlSession.getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		//트랜잭션 상태 관리하는 객체
 		
-		//회원가입되면서 바로 게시판 테이블에 회원이 가입되었다는 게시글 추가
 		int r1 = aDao.insertIncome1(iss);
 		int r2= aDao.insertIncome2(iss);
 		int r3= aDao.insertIncome3(iss);
@@ -206,11 +205,11 @@ public class AccountServiceImpl implements AccountService{
 		int result=0;
 		if (r1>0&&r2>0&&r3>0&&r4>0&&r5>0&&r6>0&&r7>0&&r8>0&&r9>0) {
 			result=1;
-//			transactionManager.commit(status);
+			transactionManager.commit(status);
 		}
-//		else {
-//			transactionManager.rollback(status);
-//		}
+		else {
+			transactionManager.rollback(status);
+		}
 		return result;
 		
 		
@@ -263,12 +262,24 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public int updateYearSalary(SalaryManage sm) {
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			sqlSession.getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		int r1=aDao.updateEmpSalary(sm);
 		int r2=aDao.updateYearSalary(sm);
 		
 		int result=0;
 		if(r1>0&& r2>0) {
+			transactionManager.commit(status);
 			result=1;
+		}else {
+			transactionManager.rollback(status);
 		}
 		return result;
 	}
@@ -309,24 +320,49 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public int insertFixture(Fixture f) {
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			sqlSession.getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		int result =0;
 		int r1= aDao.insertFixture1(f);
 		int r2= aDao.insertFixture2(f);
 		int r3= aDao.insertFixture3(f);
 		if(r1>0&&r2>0&&r3>0) {
+			transactionManager.commit(status);
 			result=1;
+		}else {
+			transactionManager.rollback(status);
 		}
 		return result;
 	}
 
 	@Override
 	public int insertOs(OsManage o) {
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			sqlSession.getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		int result =0;
 		int r1 = aDao.insertOs1(o);
 		int r2 = aDao.insertOs2(o);
 		int r3 = aDao.insertOs3(o);
 		if (r1>0&&r2>0&&r3>0) {
+			transactionManager.commit(status);
 			result=1;
+		}else {
+			transactionManager.rollback(status);
 		}
 		return result;
 	}

@@ -47,6 +47,12 @@ public class AccountController {
 	@Resource(name="accountService")
 	private AccountService aService;
 	
+	/**
+	 * 회계공지 사항으로 가는 페이지
+	 * 회계공지 리스트와 분기별 매출/비용을 배열에 담아 화면에 보내줌
+	 * @param currentPage
+	 * @return 공지사항목록
+	 */
 	@RequestMapping("acnoticeList.wo")
 	public String accountList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,  Model model) {
 		
@@ -109,10 +115,28 @@ public class AccountController {
 		model.addAttribute("list",list);
 		return "account/aNotice";
 	}
+	/**
+	 * @return 공지작성페이지로 이동
+	 */
 	@RequestMapping("aninsertpage.wo")
 	public String anInsertPage() {
 		return "account/insertNotice";
 	}
+	/**
+	 * 공지작성 컨트롤러
+	 * 공지 타입이 3일 때 손익계산서 입력
+	 * 그때 분기인 경우 회계처리를 해서 입력해야하기 떄문에 회계처리하는 insert추가
+	 * 
+	 * @param noticeTitle
+	 * @param noticeContent
+	 * @param noticeAccType
+	 * @param insertDate
+	 * @param ir1
+	 * @param file
+	 * @param session
+	 * @param request
+	 * @return 공지작성
+	 */
 	@RequestMapping("aninsert.wo")
 	public String aNoticeInsert(@RequestParam("noticeTitle") String noticeTitle,
 			@RequestParam(value="noticeContent", required = false) String noticeContent,
@@ -177,11 +201,9 @@ public class AccountController {
 		}
 		String renameFileName = null;
 		NoticeFile nf = new NoticeFile();
-		if (!file.getOriginalFilename().equals("")) {//첨부파일이 넘어온경우
-			//서버에 파일등록(폴더에 저장)
-			//내가 저장하고자하는 파일, request 전달하고 실제로 저장된 파일명 돌려주는 saveFile
+		if (!file.getOriginalFilename().equals("")) {
 			renameFileName=saveFile(file,request);
-			if(renameFileName !=null) {//파일이 잘저장된경우				
+			if(renameFileName !=null) {				
 				nf.setOriginalName(file.getOriginalFilename());
 				nf.setRename(renameFileName);
 				nf.setPath("nupload");
@@ -194,6 +216,13 @@ public class AccountController {
 		}
 		return "redirect:acnoticeList.wo";
 	}
+	/**
+	 * 
+	 * 공지사항 상세보기 페이지
+	 * @param acDetail
+	 * @param model
+	 * @return 상세보기페이지
+	 */
 	@RequestMapping("acDetail.wo")
 	public String aNoticeDetail(@RequestParam(name = "noticeNum", required = false, defaultValue = "") String acDetail, Model model) {
 		AcNotice notice = aService.noticeDetail(acDetail);
@@ -203,11 +232,15 @@ public class AccountController {
 		//파일도 넣는처리할것 
 		return "account/detailNotice";
 	}
+	/**
+	 * 판매목록으로 이동
+	 * @param currentPage
+	 * @param model
+	 * @return 판매목록
+	 */
 	@RequestMapping("salelist.wo")
 	public String saleList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
-			Model model) {
-		
-//		
+			Model model) {		
 		int listCount = aService.getSaleListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<SaleManage> list = aService.saleList(pi);
@@ -216,6 +249,14 @@ public class AccountController {
 		
 		return "account/saleList";
 	}
+	/**
+	 * 판매정보들을 받아 판매 등록하는 페이지
+	 * @param productCode
+	 * @param partnerNum
+	 * @param salesAmount
+	 * @param empNum
+	 * @return 판매등록 페이지
+	 */
 	@RequestMapping("insertsale.wo")
 	public String insertSale(@RequestParam("product") String productCode,
 			@RequestParam("partner") String partnerNum,
@@ -235,6 +276,12 @@ public class AccountController {
 		}
 		
 	}
+	/**
+	 * os 목록으로 이동하는 페이지
+	 * @param currentPage
+	 * @param model
+	 * @return os목록으로이동
+	 */
 	@RequestMapping("oslist.wo")
 	public String osList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
 			Model model) {
@@ -248,6 +295,14 @@ public class AccountController {
 		
 		return "account/osList";
 	}
+	/**
+	 * 비품리슽트로 가는 페이지
+	 * 비품의 잔존가치계산까지 해서 객체에 담아서 보내줌
+	 * @param currentPage
+	 * @param model
+	 * @return 비품리스트
+	 * @throws ParseException
+	 */
 	@RequestMapping("fixturelist.wo")
 	public String fixtureList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
 			Model model) throws ParseException {
@@ -262,7 +317,6 @@ public class AccountController {
 			String listDay = sdf.format(list.get(i).getFixtureBuy());
 			Date listDayParse = sdf.parse(listDay);
 			int diff = Math.abs((int)(todayParse.getTime()-listDayParse.getTime())/(24*60*60*1000*365));
-			System.out.println(diff);
 			int val = (list.get(i).getFixturePrice()/list.get(i).getEndurance())*(list.get(i).getEndurance()-diff);
 			list.get(i).setResidualValue(val);
 		}
@@ -270,6 +324,12 @@ public class AccountController {
 		model.addAttribute("pi", pi);
 		return "account/fixtureList";
 	}
+	/**
+	 * 월급 관리페이지로이동
+	 * @param currentPage
+	 * @param model
+	 * @return 월급 관리 페이지
+	 */
 	@RequestMapping("salarylist.wo")
 	public String salaryList(@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage,
 			Model model) {
@@ -285,6 +345,13 @@ public class AccountController {
 		model.addAttribute("list", list);
 		return "account/salaryList";
 	}
+	/**
+	 * 월급 상세보기페이지
+	 * 지정한 사원의 연별 연봉을 받아가고 전체,부서별,직급별 평균연봉값을 받아 같이 넘겨줌
+	 * @param empNum
+	 * @param model
+	 * @return 월급 상세보기페이지
+	 */
 	@RequestMapping("salarydetail.wo")
 	public String salaryDetail(@RequestParam(value = "empNum", required = false) String empNum,
 			Model model) {
@@ -298,38 +365,15 @@ public class AccountController {
 		return "account/salaryDetail";
 	}
 	
-	//intercepter로 못뺴네?
-	public void accountSalary() {
-		//이번달에 월급지급이 처리되었나 확인
-//		int checkSalary=aService.checkSalary();
-//		if(checkSalary<0) {
-//			//연봉 총합에 12나누고 그값으로 분개 처리
-//			int result = aService.insertSalary();
-//		}
-	}
 	
-	//거래처 불러오기
-	@ResponseBody
-	@RequestMapping(value="getpartner.wo", produces="application/json; charset=utf-8")
-	public void getPartner(@RequestParam("bId") String partnerNum, HttpServletResponse response) throws JsonIOException, IOException {
-//		ArrayList<Partner> list = aService.getPartner(partnerNum);
-//		response.setContentType("application/json;charset=utf-8");
-//		
-//		Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
-//		gson.toJson(list,response.getWriter());
-		
-	}
-	//제품 가져오기
-	@ResponseBody
-	@RequestMapping(value="getproduct.wo", produces="application/json; charset=utf-8")
-	public void getProduct(@RequestParam("bId") String productCode, HttpServletResponse response) throws JsonIOException, IOException {
-//		ArrayList<Product> list = aService.getProduct(productCode);
-//		response.setContentType("application/json;charset=utf-8");
-//		
-//		Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
-//		gson.toJson(list,response.getWriter());
-		
-	}
+	/**
+	 * 재무상태표 불러오는 곳
+	 * 차변,대변 합계 처리를해서 붙여줌
+	 * @param content
+	 * @param response
+	 * @throws JsonIOException
+	 * @throws IOException
+	 */
 	@ResponseBody
 	@RequestMapping(value="accountlist.wo", produces="application/json; charset=utf-8")
 	public void accountList(@RequestParam("content") String content, HttpServletResponse response) throws JsonIOException, IOException {
@@ -346,6 +390,13 @@ public class AccountController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(list,response.getWriter());
 	}
+	/**
+	 * 손익계산서 데이터를 받아서 반환
+	 * @param content
+	 * @param response
+	 * @throws JsonIOException
+	 * @throws IOException
+	 */
 	@ResponseBody
 	@RequestMapping(value="incomelist.wo", produces="application/json; charset=utf-8")
 	public void incomeList(@RequestParam(value = "content", required = false) String content,
@@ -389,7 +440,6 @@ public class AccountController {
 		for (int i = 1; i < list.size(); i++) {
 			sum+= list.get(i).getAccount();
 		}
-		System.out.println(sum);
 		long EBIT=list.get(0).getAccount()-sum;
 		IncomeStatement is1 = new IncomeStatement();
 		is1.setAccountSubject("매출");
@@ -411,6 +461,14 @@ public class AccountController {
 		
 	}
 	
+	/**
+	 * 분기별 손익계산서로 공지사항 작성시 회계처리가 됨으로 
+	 * 공지사항 제목이 중복되는 가 체크
+	 * @param noticeTitle
+	 * @param response
+	 * @throws JsonIOException
+	 * @throws IOException
+	 */
 	@ResponseBody
 	@RequestMapping("check.wo")
 	public void checkTitle(@RequestParam("content") String noticeTitle, HttpServletResponse response) throws JsonIOException, IOException {
@@ -418,6 +476,12 @@ public class AccountController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(check,response.getWriter());
 	}
+	/**
+	 * 제품 정보를 받아옴
+	 * @param response
+	 * @throws JsonIOException
+	 * @throws IOException
+	 */
 	@ResponseBody
 	@RequestMapping("productinfo.wo")
 	public void productInfo( HttpServletResponse response) throws JsonIOException, IOException {
@@ -426,6 +490,13 @@ public class AccountController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(list,response.getWriter());
 	}
+	/**
+	 * 
+	 * 거래처 정보받아옴
+	 * @param response
+	 * @throws JsonIOException
+	 * @throws IOException
+	 */
 	@ResponseBody
 	@RequestMapping("partnerInfo.wo")
 	public void partnerInfo( HttpServletResponse response) throws JsonIOException, IOException {
@@ -434,6 +505,14 @@ public class AccountController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/mm/dd").create();
 		gson.toJson(list,response.getWriter());
 	}
+	/**
+	 * 손익계산서나 재무상태표를 엑셀로 다운로드 시키는 컨트롤러
+	 * @param noticeContent
+	 * @param noticeAccType
+	 * @param title
+	 * @param model
+	 * @return 회계다운로드 페이지
+	 */
 	@RequestMapping("downexcel.wo")
 	public String downExcel(@RequestParam("noticeContent") String noticeContent,
 			@RequestParam("noticeAccType") int noticeAccType,
@@ -515,25 +594,18 @@ public class AccountController {
 	
 	
 	
-	public void deleteFile(String renameFileName, HttpServletRequest request) {
-		String root =request.getSession().getServletContext().getRealPath("resources")+"\\nupload\\"+renameFileName;
-		File file = new File(root);
-		if(file.exists()) {
-			file.delete();
-		}
-	}
+
 	
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		//파일이 저장될 경로 설정
 		String root= request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root+"\\nupload";
 		
-		File folder = new File(savePath);// 저장될 폴더
+		File folder = new File(savePath);
 		if (!folder.exists()) {
-			folder.mkdir();// 폴더가 없으면 폴더 생성해라
+			folder.mkdir();
 		}
 		String originalFileName= file.getOriginalFilename();//원본명
-		//파일명 수정작업 --> 년월일 시분초.확장자
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))
 				+ originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -552,6 +624,14 @@ public class AccountController {
 	}
 	
 	
+	/**
+	 * 연봉 정보업데이트
+	 * @param empNum
+	 * @param salary
+	 * @param empName
+	 * @param model
+	 * @return 기안서작성페이지
+	 */
 	@RequestMapping("updateyearsalary.wo")
 	public String updateYearSalary(@RequestParam("empNum") String empNum,
 			@RequestParam(value = "salary", required = false) int salary,
@@ -577,6 +657,13 @@ public class AccountController {
 	}
 	
 	
+	/**
+	 * 오늘 출근했는지 유무롤 확인
+	 * @param session
+	 * @param response
+	 * @throws JsonIOException
+	 * @throws IOException
+	 */
 	@ResponseBody
 	@RequestMapping("checkAttendance.wo")
 	public void checkAttendance(HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
@@ -593,6 +680,11 @@ public class AccountController {
 		gson.toJson(obj, response.getWriter());
 		
 	}
+	/**
+	 * 출근
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("gowork.wo")
 	public String goWork(HttpSession session) {
 		
@@ -605,6 +697,10 @@ public class AccountController {
 		
 		return "home";
 	}
+	/**
+	 * @param session
+	 * @return 퇴근
+	 */
 	@RequestMapping("outwork.wo")
 	public String outWork(HttpSession session) {
 		Date d = new Date();
@@ -703,7 +799,6 @@ public class AccountController {
 	}
 	@RequestMapping("deleteemp.wo")
 	public String deleteEmp(@RequestParam(value = "empNum") String empNum) {
-		System.out.println(1);
 		int result = aService.deleteEmp(empNum);
 		if(result>0) {
 			
